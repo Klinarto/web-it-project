@@ -1,20 +1,20 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
-app.use(bodyParser.json())  
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express();
+app.use(bodyParser.json());
 
-// set up author routes
-const authorRouter = require('./routes/authorRouter')
+// set up customers routes
+const router = require("./routes/router");
 
 // handler for GET home page
-app.get('/', (req, res) => {
-    res.send('<h1>Library System</h1>')
-})
+app.get("/", (req, res) => {
+  res.send("<h1>System</h1>");
+});
 
-// handler for author-management requests
-// author routes are added onto the end of '/author-management'
-app.use('/author-management', authorRouter)
+// handler for customers-management requests
+// customers routes are added onto the end of '/customers-management'
+app.use("/management", Router);
 
 app.listen(3000, () => {
-    console.log('The library app is listening on port 3000!')
-})
+  console.log("The app is listening on port 3000!");
+});
