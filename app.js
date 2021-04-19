@@ -10,23 +10,23 @@ const customer = require("./routes/customer");
 // const menu = require("./routes/menu");
 // const order = require("./routes/order");
 
-// let connectionURL = "mongodb://localhost/BR3";
-// if ("PORT" in process.env) {
-//   connectionURL =
-//     "mongodb+srv://admin:admin@cluster0.jdd2m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// }
-// mongoose.connect(connectionURL, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true,
-//   dbName: "admin",
-// });
+let connectionURL = "mongodb://localhost/br3";
+if ("PORT" in process.env) {
+  connectionURL =
+    "mongodb+srv://admin:admin@cluster0.jdd2m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+}
+mongoose.connect(connectionURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  dbName: "admin",
+});
 
-// const db = mongoose.connection;
-// db.on("error", console / console.error.bind(console, "connection error:"));
-// db.once("open", () => {
-//   console.log("connected to Mongo");
-// });
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+  console.log("connected to Mongo");
+});
 
 // handler for GET home page
 app.get("/", (req, res) => {
