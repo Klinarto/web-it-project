@@ -1,5 +1,6 @@
 //link to author model
-const vendors = require("../models/vendors");
+const vendors = require("../models/vendor");
+const orders = require("../models/order");
 
 // handle request to get all vendors
 const getAllvendors = (req, res) => {
@@ -12,7 +13,16 @@ const setVanStatus = (req, res) => {};
 // handle request to get one particular author
 const getOrder = (req, res) => {
   // search for author by ID
-  const author = vendors.find((author) => author.id === req.params.id);
+  var orderList = [];
+
+  vendorId = req.body.vendor_Id;
+  for (order in orders) {
+    if (order.id == vendorId) {
+      orderList.append(order);
+    }
+  }
+
+  res.send(orderList);
 };
 
 // handle requests to add an author

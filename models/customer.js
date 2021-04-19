@@ -1,3 +1,5 @@
+const { mongoose } = require("mongoose");
+
 module.exports = [
   {
     id: "10001",
