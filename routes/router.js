@@ -3,25 +3,53 @@ const vendor = require("./vendor");
 const customer = require("./customer");
 
 const controller = require("../controllers/controller.js");
-
 const app = express();
 const router = app.router();
 
-// app.use("/vendor", vendor);
-// app.use("/customer", customer);
+router.get("/", controller.something);
+router.get("/:id", controller.something);
+router.get("/vendor/:id", controller.something);
+router.get("/vendor/", controller.something);
+router.get("/customer/", controller.something);
+router.get("/customer/:id", controller.something);
+router.get("/food/:id", controller.something);
+router.get("/food/", controller.something);
+router.get("/order/:id", controller.something);
+router.get("/order/", controller.something);
 
-// handle the GET request to get all s
-router.get("/vendor/:id", controller.getAlls);
+router.post("/", controller.something);
+router.post("/:id", controller.something);
+router.post("/vendor/:id", controller.something);
+router.post("/vendor/", controller.something);
+router.post("/customer/:id", controller.something);
+router.post("/customer/", controller.something);
+router.post("/food/:id", controller.something);
+router.post("/food/", controller.something);
+router.post("/order/:id", controller.something);
+router.post("/order/", controller.something);
 
-router.get("menu", controller.getAlls);
+router.put("/", controller.something);
+router.put("/:id", controller.something);
+router.put("/vendor/:id", controller.something);
+router.put("/vendor/", controller.something);
+router.put("/customer/:id", controller.something);
+router.put("/customer/", controller.something);
+router.put("/food/:id", controller.something);
+router.put("/food/", controller.something);
+router.put("/order/:id", controller.something);
+router.put("/order/", controller.something);
 
-// handle the GET request to get one
-router.get("/:id", controller.getByID);
+router.delete("/", controller.something);
+router.delete("/:id", controller.something);
+router.delete("/vendor/:id", controller.something);
+router.delete("/vendor/", controller.something);
+router.delete("/customer/:id", controller.something);
+router.delete("/customer/", controller.something);
+router.delete("/food/:id", controller.something);
+router.delete("/food/", controller.something);
+router.delete("/order/:id", controller.something);
+router.delete("/order/", controller.something);
 
-// handle POST requests to add one
-// router.get("/customers",
-
-// export the router
 module.exports = router;
 
 // Your group needs to implement routes to support the following customer features:

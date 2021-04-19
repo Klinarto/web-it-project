@@ -6,22 +6,17 @@ const getAllvendors = (req, res) => {
   res.send(vendors); // send list to browser
 };
 
+// Send van location to set the status
+const setVanStatus = (req, res) => {};
+
 // handle request to get one particular author
-const getAuthorByID = (req, res) => {
+const getOrder = (req, res) => {
   // search for author by ID
   const author = vendors.find((author) => author.id === req.params.id);
-
-  if (author) {
-    res.send(author); // send back the author details
-  } else {
-    // you can decide what to return if author is not found
-    // currently, an empty list will be return.
-    res.send([]);
-  }
 };
 
 // handle requests to add an author
-const addAuthor = (req, res) => {
+const markOrder = (req, res) => {
   // assemble a new author
   newAuthor = req.body;
   // add to database
@@ -31,7 +26,7 @@ const addAuthor = (req, res) => {
 };
 
 module.exports = {
-  getAllvendors,
-  getAuthorByID,
-  addAuthor,
+  setVanStatus,
+  getOrder,
+  markOrder,
 };
