@@ -1,5 +1,5 @@
 {
-  "name": "Web IT Project",
+  "name": "webit_project",
   "version": "1.0.0",
   "description": "Mockup app server",
   "main": "server.js",
