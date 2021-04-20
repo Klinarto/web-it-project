@@ -18,7 +18,7 @@ const createOrder = async (req, res) => {
 			orderID: "1",
 			customerID,
 			food: foodName,
-			status: "Pending",
+			status: "pending",
 		});
 
 		await newOrder.save();

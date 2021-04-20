@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-CONNECTION_STRING =
-	"mongodb+srv://admin:<password>@cluster0.jdd2m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-MONGO_URL = CONNECTION_STRING.replace(
+MONGO_URL = process.env.MONGO_URI.replace(
 	"<username>",
 	process.env.MONGO_USERNAME
 ).replace("<password>", process.env.MONGO_PASSWORD);
