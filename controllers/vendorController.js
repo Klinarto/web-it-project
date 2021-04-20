@@ -1,42 +1,24 @@
-//link to author model
-const vendors = require("../models/vendor");
-const orders = require("../models/order");
+const Vendor = require("../models/vendor");
 
-// handle request to get all vendors
-const getAllvendors = (req, res) => {
-  res.send(vendors); // send list to browser
-};
-
-// Send van location to set the status
-const setVanStatus = (req, res) => {};
-
-// handle request to get one particular author
-const getOrder = (req, res) => {
-  // search for author by ID
-  var orderList = [];
-
-  vendorId = req.body.vendor_Id;
-  for (order in orders) {
-    if (order.id == vendorId) {
-      orderList.append(order);
-    }
-  }
-
-  res.send(orderList);
-};
-
-// handle requests to add an author
-const markOrder = (req, res) => {
-  // assemble a new author
-  newAuthor = req.body;
-  // add to database
-  vendors.push(newAuthor);
-  // return entire vendors list to browser as a check that it worked
-  res.send(vendors);
+// Set van status by sending location
+const setVanStatus = async (req, res) => {
+	try {
+		const van = await Vendor.findOneAndUpdate(
+			{
+				name: req.params.vanName,
+			},
+			req.body
+		);
+		if (!van) {
+			return res.status(404).send("Van not found");
+		}
+		return res.send("Van status updated");
+	} catch (error) {
+		console.error(error);
+		return res.status(400).send("Database query failed");
+	}
 };
 
 module.exports = {
-  setVanStatus,
-  getOrder,
-  markOrder,
+	setVanStatus,
 };

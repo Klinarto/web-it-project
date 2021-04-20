@@ -1,52 +1,34 @@
 //link to food model
-const Menu = require("../models/menu");
-const Order = require("../models/orders");
-
-// handle request to get all menus
-const getMenu = (req, res) => {
-  res.send(Menu); // send list to browser
-};
-
-// handle request to get one particular food's detail
-const getItem = (req, res) => {
-  // search for food by ID
-  const food = Menu.find((food) => food.food_id === req.params.food_id);
-
-  if (food) {
-    res.send(food); // send back the food details
-  } else {
-    // you can decide what to return if food is not found
-    // currently, an empty list will be return.
-    res.send([]);
-  }
-};
+const Order = require("../models/order");
+const MenuItem = require("../models/menuItem");
 
 // handle requests to add an food
-const makeOrder = (req, res) => {
-  // assemble a new food
-  const food = Menu.find((order) => food.food_id === req.params.food_id);
+const createOrder = async (req, res) => {
+	const { foodName, customerID } = req.body;
+	console.log(foodName);
+	try {
+		const menuItem = await MenuItem.findOne({
+			name: foodName,
+		});
 
-  if (food) {
-    var order = {};
+		if (!menuItem) {
+			return res.status(404).send("Menu item not found");
+		}
+		let newOrder = new Order({
+			orderID: "1",
+			customerID,
+			food: foodName,
+			status: "Pending",
+		});
 
-    order["customer_ID"] = req.body.customer_ID;
-    order["food_ID"] = food;
-    order["status"] = "incomplete";
-
-    Order.push(order);
-    res.send(order);
-  } else {
-    res.send([]);
-  }
-  // newfood = req.body;
-  // // add to database
-
-  // return entire menus list to browser as a check that it worked
-  res.send(order);
+		await newOrder.save();
+		return res.send("Order created");
+	} catch (error) {
+		console.error(error.message);
+		return res.status(400).send("Database query failed");
+	}
 };
 
 module.exports = {
-  getMenu,
-  getItem,
-  makeOrder,
+	createOrder,
 };

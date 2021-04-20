@@ -1,19 +1,8 @@
 const express = require("express");
-const controller = require("../controllers/controller.js");
+const vendorController = require("../controllers/vendorController.js");
 const router = express.Router();
 
-router
-  .route("/")
-  .get(controller.something)
-  .post(controller.something)
-  .put(controller.something)
-  .delete(controller.something);
-
-router
-  .route("/:id")
-  .get(controller.something)
-  .post(controller.something)
-  .put(controller.something)
-  .delete(controller.something);
+// Set van status
+router.post("/:vanName", vendorController.setVanStatus);
 
 module.exports = router;

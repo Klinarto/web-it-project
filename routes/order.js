@@ -1,19 +1,11 @@
 const express = require("express");
-const controller = require("../controllers/controller.js");
+const orderController = require("../controllers/orderController");
 const router = express.Router();
 
-router
-  .route("/")
-  .get(controller.something)
-  .post(controller.something)
-  .put(controller.something)
-  .delete(controller.something);
+// Get all outstanding orders
+router.get("/", orderController.getOrders);
 
-router
-  .route("/:id")
-  .get(controller.something)
-  .post(controller.something)
-  .put(controller.something)
-  .delete(controller.something);
+// Mark specific order
+router.post("/:orderId", orderController.markOrder);
 
 module.exports = router;
