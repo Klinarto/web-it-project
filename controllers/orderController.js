@@ -17,7 +17,7 @@ const markOrder = async (req, res) => {
 	try {
 		const order = await Order.findOneAndUpdate(
 			{
-				orderID: req.params.orderId,
+				orderId: req.params.orderId,
 			},
 			req.body
 		);
