@@ -19,6 +19,24 @@ const setVanStatus = async (req, res) => {
 	}
 };
 
+const registerVan = async (req, res) => {
+	const { name, location } = req.body;
+	try {
+		let newVan = new Vendor({
+			name,
+			location,
+			status: "closed",
+		});
+
+		await newVan.save();
+		return res.send("Van registered");
+	} catch (error) {
+		console.error(error);
+		res.status(500).send("Server error");
+	}
+};
+
 module.exports = {
 	setVanStatus,
+	registerVan,
 };
