@@ -13,8 +13,26 @@ const getOrders = async (req, res) => {
 	}
 };
 
-// mark specific order
-const markOrder = async (req, res) => {
+// get specific order
+const getOrder = async (req, res) => {
+	try {
+		const order = await Order.findOne({
+			orderId: req.params.orderId,
+		});
+
+		if (!order) {
+			return res.status(404).send("Order not found");
+		}
+
+		return res.send(order);
+	} catch (error) {
+		console.error(error);
+		return res.status(400).send("Database query failed");
+	}
+};
+
+// update specific order
+const updateOrder = async (req, res) => {
 	try {
 		const order = await Order.findOneAndUpdate(
 			{
@@ -26,7 +44,12 @@ const markOrder = async (req, res) => {
 		if (!order) {
 			return res.status(404).send("Order not found");
 		}
-		return res.send("Order updated");
+
+		if (req.body.status) {
+			return res.send("Order status updated");
+		} else {
+			return res.send("Order changed");
+		}
 	} catch (error) {
 		console.error(error);
 		return res.status(400).send("Database query failed");
@@ -36,9 +59,9 @@ const markOrder = async (req, res) => {
 // handle requests to add an food
 const createOrder = async (req, res) => {
 	const { foodItems, customerID } = req.body;
-	console.log(foodItems);
+	let totalCost = 0;
 	try {
-		for (const [foodName, count] of Object.entries(foodItems)) {
+		for (const [foodName, quantity] of Object.entries(foodItems)) {
 			const menuItem = await MenuItem.findOne({
 				name: foodName,
 			});
@@ -46,6 +69,7 @@ const createOrder = async (req, res) => {
 			if (!menuItem) {
 				return res.status(404).send("Menu item not found");
 			}
+			totalCost += menuItem.price * quantity;
 		}
 
 		Order.countDocuments({}, async (err, count) => {
@@ -57,6 +81,8 @@ const createOrder = async (req, res) => {
 				customerID,
 				foodItems,
 				status: "pending",
+				orderCost: totalCost,
+				totalCost: totalCost,
 			});
 			await newOrder.save();
 		});
@@ -67,8 +93,4 @@ const createOrder = async (req, res) => {
 	}
 };
 
-module.exports = {
-	createOrder,
-};
-
-module.exports = { getOrders, markOrder, createOrder };
+module.exports = { getOrders, getOrder, updateOrder, createOrder };

@@ -11,4 +11,7 @@ router.get("/:name", menuController.getMenuItem);
 // Create new menu item
 router.post("/", menuController.createMenuItem);
 
+// Update menu item
+router.put("/:name", menuController.updateMenuItem);
+
 module.exports = router;

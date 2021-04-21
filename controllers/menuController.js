@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const MenuItem = require("../models/menuItem");
 
 // Get all menu items, i.e. get menu items
@@ -50,12 +49,11 @@ const updateMenuItem = async (req, res) => {
 		);
 
 		if (!menuItem) {
-			res.status(404).send("Menu item not found");
+			return res.status(404).send("Menu item not found");
 		}
-		res.send(menuItem);
 
-		await newMenuItem.save();
-		return res.send("Menu item added");
+		await menuItem.save();
+		return res.send("Menu item updated");
 	} catch (error) {
 		console.error(error.message);
 		return res.status(500).send("Server error");
