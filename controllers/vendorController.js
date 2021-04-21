@@ -37,7 +37,21 @@ const registerVan = async (req, res) => {
 	}
 };
 
+
+const getVendorLocationDetails = async (req, res) => {
+	try {
+		
+		const vendor = await Vendor.find()
+		return res.send(vendor);
+	} catch (error) {
+		console.error(error);
+		return res.status(400).send("Database query failed");
+	}
+};
+
 module.exports = {
+	getVendorLocationDetails,
 	setVanStatus,
 	registerVan,
 };
+
