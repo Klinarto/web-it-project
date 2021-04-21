@@ -25,7 +25,46 @@ const getMenuItem = async (req, res) => {
 	}
 };
 
+// Create menu item
+const createMenuItem = async (req, res) => {
+	const { name, price, image, detail } = req.body;
+	try {
+		let newMenuItem = new MenuItem({ name, price, image, detail });
+
+		await newMenuItem.save();
+		return res.send("Menu item added");
+	} catch (error) {
+		console.error(error.message);
+		return res.status(500).send("Server error");
+	}
+};
+
+// Create menu item
+const updateMenuItem = async (req, res) => {
+	try {
+		const menuItem = await MenuItem.findOneAndUpdate(
+			{
+				name: req.params.name,
+			},
+			req.body
+		);
+
+		if (!menuItem) {
+			res.status(404).send("Menu item not found");
+		}
+		res.send(menuItem);
+
+		await newMenuItem.save();
+		return res.send("Menu item added");
+	} catch (error) {
+		console.error(error.message);
+		return res.status(500).send("Server error");
+	}
+};
+
 module.exports = {
 	getMenu,
 	getMenuItem,
+	createMenuItem,
+	updateMenuItem,
 };

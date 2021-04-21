@@ -20,10 +20,11 @@ const setVanStatus = async (req, res) => {
 };
 
 const registerVan = async (req, res) => {
-	const { name, location } = req.body;
+	const { name, password, location } = req.body;
 	try {
 		let newVan = new Vendor({
 			name,
+			password,
 			location,
 			status: "closed",
 		});
@@ -32,7 +33,7 @@ const registerVan = async (req, res) => {
 		return res.send("Van registered");
 	} catch (error) {
 		console.error(error);
-		res.status(500).send("Server error");
+		return res.status(500).send("Server error");
 	}
 };
 

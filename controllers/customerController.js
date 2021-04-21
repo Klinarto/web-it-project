@@ -1,34 +1,29 @@
-//link to food model
-const Order = require("../models/order");
-const MenuItem = require("../models/menuItem");
+const Customer = require("../models/customer");
 
 // handle requests to add an food
-const createOrder = async (req, res) => {
-	const { foodName, customerID } = req.body;
-	console.log(foodName);
+const registerCustomer = async (req, res) => {
+	const { name, email, password } = req.body;
 	try {
-		const menuItem = await MenuItem.findOne({
-			name: foodName,
+		const customer = await Customer.findOne({
+			email: email,
 		});
 
-		if (!menuItem) {
-			return res.status(404).send("Menu item not found");
+		if (customer) {
+			return res.status(400).send("Email already exists");
 		}
-		let newOrder = new Order({
-			orderID: "1",
-			customerID,
-			foodItems: foodName,
-			status: "pending",
-		});
 
-		await newOrder.save();
-		return res.send("Order created");
+		let newCustomer = new Customer({
+			name,
+			email,
+			password,
+		});
+		await newCustomer.save();
+
+		return res.send("Customer registered");
 	} catch (error) {
 		console.error(error.message);
-		return res.status(400).send("Database query failed");
+		return res.status(500).send("Server error");
 	}
 };
 
-module.exports = {
-	createOrder,
-};
+module.exports = { registerCustomer };
