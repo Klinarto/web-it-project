@@ -61,7 +61,7 @@ const updateOrder = async (req, res) => {
 
 // create new order
 const createOrder = async (req, res) => {
-	const { foodItems, customerID } = req.body;
+	const { foodItems, customerId, vendorId } = req.body;
 	let totalCost = 0;
 	try {
 		for (const [foodName, quantity] of Object.entries(foodItems)) {
@@ -83,7 +83,8 @@ const createOrder = async (req, res) => {
 
 			let newOrder = new Order({
 				orderId: orderId,
-				customerID,
+				customerId,
+				vendorId,
 				foodItems,
 				status: "pending",
 				orderCost: totalCost,
