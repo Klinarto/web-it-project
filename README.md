@@ -7,6 +7,8 @@
   - [MongoDB Access details](#mongodb-access-details)
   - [Postman Routes](#postman-routes)
 
+## Background
+
 **Summary**  
 For this project, we are hosting our live server hosted on Heroku with a valid URL with the features listed below.  
 The backend of the app is connected with mongoDB using Mongoose. This will allow us to fetch data that we want from the database.  
