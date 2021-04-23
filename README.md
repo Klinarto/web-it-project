@@ -12,13 +12,22 @@
 **Summary**  
 For this project, we are hosting our live server hosted on Heroku with a valid URL with the features listed below.  
 The backend of the app is connected with mongoDB using Mongoose. This will allow us to fetch data that we want from the database.  
-Due to privacy and security, we have implemented such features to not disclose vendors/customer's detail from a simple get.
+Due to privacy and security, we have implemented such features to not disclose vendors/customer's details from a simple GET route.
 
 **Design**  
 Our backend design solution is based on Model-View-Controller pattern.  
 In our model, we have defined our data structure so that we can distinguish how we update the data.
 We have not specifically designed our view because we do not have our front end design at the moment,
 but the controller for manipulating the data is implemented and the description to that can be viewed from [this](#postman-routes)
+
+We have intentionally designed our routes pathname as below because for future implementation, we want the vendor and customer to share menu and order and be separate
+
+```
+{host}/menu
+{host}/order
+{host}/vendor
+{host}/customer
+```
 
 ## Running this Project Locally
 
