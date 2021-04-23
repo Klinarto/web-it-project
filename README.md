@@ -20,15 +20,6 @@ In our model, we have defined our data structure so that we can distinguish how 
 We have not specifically designed our view because we do not have our front end design at the moment,
 but the controller for manipulating the data is implemented and the description to that can be viewed from [this](#postman-routes)
 
-We have intentionally designed our routes pathname as below because for future implementation, we want the vendor and customer to share menu and order and be separate.
-
-```
-{host}/menu
-{host}/order
-{host}/vendor
-{host}/customer
-```
-
 ## Running this Project Locally
 
 - **Clone this repo:**  
