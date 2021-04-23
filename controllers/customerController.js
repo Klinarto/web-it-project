@@ -1,6 +1,6 @@
 const Customer = require("../models/customer");
 
-// handle requests to add an food
+// register a new customer
 const registerCustomer = async (req, res) => {
 	const { name, email, password } = req.body;
 	try {

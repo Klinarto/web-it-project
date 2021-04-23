@@ -1,6 +1,6 @@
 const MenuItem = require("../models/menuItem");
 
-// Get all menu items, i.e. get menu items
+// get all menu items, i.e. get menu
 const getMenu = async (req, res) => {
 	try {
 		const menu = await MenuItem.find();
@@ -10,7 +10,7 @@ const getMenu = async (req, res) => {
 	}
 };
 
-// Get specific menu item
+// get specific menu item
 const getMenuItem = async (req, res) => {
 	try {
 		const menuItem = await MenuItem.findOne({ name: req.params.name });
@@ -24,7 +24,7 @@ const getMenuItem = async (req, res) => {
 	}
 };
 
-// Create menu item
+// create menu item
 const createMenuItem = async (req, res) => {
 	const { name, price, image, detail } = req.body;
 	try {
@@ -38,7 +38,7 @@ const createMenuItem = async (req, res) => {
 	}
 };
 
-// Create menu item
+// update menu item
 const updateMenuItem = async (req, res) => {
 	try {
 		const menuItem = await MenuItem.findOneAndUpdate(

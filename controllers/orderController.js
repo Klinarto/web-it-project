@@ -32,6 +32,7 @@ const getOrder = async (req, res) => {
 };
 
 // update specific order
+// can be used to update order status or change the order
 const updateOrder = async (req, res) => {
 	try {
 		const order = await Order.findOneAndUpdate(
@@ -45,6 +46,8 @@ const updateOrder = async (req, res) => {
 			return res.status(404).send("Order not found");
 		}
 
+		// check if only the order status has been changed
+		// or if the order has been modified
 		if (req.body.status) {
 			return res.send("Order status updated");
 		} else {
@@ -56,7 +59,7 @@ const updateOrder = async (req, res) => {
 	}
 };
 
-// handle requests to add an food
+// create new order
 const createOrder = async (req, res) => {
 	const { foodItems, customerID } = req.body;
 	let totalCost = 0;
@@ -73,7 +76,9 @@ const createOrder = async (req, res) => {
 		}
 
 		Order.countDocuments({}, async (err, count) => {
-			// Get orderId
+			// count how many orders are in the database
+			// and make the orderId the total number of
+			// order + 1
 			let orderId = count + 1;
 
 			let newOrder = new Order({
