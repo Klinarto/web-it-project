@@ -1,5 +1,6 @@
 const Order = require("../models/order");
 const MenuItem = require("../models/menuItem");
+const customer = require("../models/customer");
 
 // get all outstanding orders
 const getOrders = async (req, res) => {
@@ -24,7 +25,12 @@ const getOrder = async (req, res) => {
 			return res.status(404).send("Order not found");
 		}
 
-		return res.send(order);
+		// checks if this order belongs to the customer
+		if (req.customer.id != order.customerId) {
+			return res.status(401).send("Unauthorized access to order");
+		}
+
+		return res.status(200).send(order);
 	} catch (error) {
 		console.error(error);
 		return res.status(400).send("Database query failed");
@@ -46,6 +52,12 @@ const updateOrder = async (req, res) => {
 			return res.status(404).send("Order not found");
 		}
 
+		// check if the order being updated belongs to the customer
+		// updating it
+		if (req.customer.id != order.customerId) {
+			return res.status(401).send("Unauthorized access to order");
+		}
+
 		// check if only the order status has been changed
 		// or if the order has been modified
 		if (req.body.status) {
@@ -61,7 +73,7 @@ const updateOrder = async (req, res) => {
 
 // create new order
 const createOrder = async (req, res) => {
-	const { foodItems, customerId, vendorId } = req.body;
+	const { foodItems, vendorId } = req.body;
 	let totalCost = 0;
 	try {
 		for (const [foodName, quantity] of Object.entries(foodItems)) {
@@ -83,7 +95,7 @@ const createOrder = async (req, res) => {
 
 			let newOrder = new Order({
 				orderId: orderId,
-				customerId,
+				customerId: req.customer.id,
 				vendorId,
 				foodItems,
 				status: "pending",
