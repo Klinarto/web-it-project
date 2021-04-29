@@ -1,4 +1,6 @@
 const Customer = require("../models/customer");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 // register a new customer
 const registerCustomer = async (req, res) => {
@@ -12,10 +14,14 @@ const registerCustomer = async (req, res) => {
 			return res.status(400).send("Email already exists");
 		}
 
+		const saltRounds = 10;
+
+		const hashPassword = await bcrypt.hash(password, saltRounds);
+
 		let newCustomer = new Customer({
 			name,
 			email,
-			password,
+			password: hashPassword,
 		});
 		await newCustomer.save();
 
@@ -26,4 +32,23 @@ const registerCustomer = async (req, res) => {
 	}
 };
 
-module.exports = { registerCustomer };
+const loginCustomer = async (req, res) => {
+	const { email, password } = req.body;
+	try {
+		const customer = await Customer.findOne({ email });
+
+		if (!customer) {
+			return res.status(400).send("Invalid email");
+		}
+
+		const passwordMatch = await bcrypt.compare(password, customer.password);
+
+		if (!passwordMatch) {
+			return res.status(400).send("Invalid password");
+		}
+
+		return res.status(200).send("User logged in");
+	} catch (error) {}
+};
+
+module.exports = { registerCustomer, loginCustomer };
