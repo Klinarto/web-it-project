@@ -1,4 +1,11 @@
-# Breakout Room 3 - Project
+# Breakout Room 3 - Project (Frontend)
+
+recommend to install plugins:
+- prettier
+- vscode-styled-components
+- material icon theme
+
+# Breakout Room 3 - Project (Backend)
 
 ## Table of Contents
 
