@@ -8,10 +8,12 @@ import {
 
 import CustomerSPA from "./customer-app/pages/CustomerSPA";
 import VendorSPA from "./vendor-app/pages/VendorSPA";
+import Header from "./shared/components/Header/Header";
 
-const App = () => {
+export function App() {
   return (
     <Router>
+      <Header />
       <Switch>
         <Route path="/customer">
           <CustomerSPA />
@@ -23,6 +25,6 @@ const App = () => {
       </Switch>
     </Router>
   );
-};
+}
 
 export default App;

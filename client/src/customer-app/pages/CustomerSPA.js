@@ -1,7 +1,7 @@
 import React from "react";
 
-const Customers = () => {
+export function CustomerSPA() {
   return <h1>Users works!</h1>;
-};
+}
 
-export default Customers;
+export default CustomerSPA;
