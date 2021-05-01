@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 export const HeaderWrapper = styled.div`
   background-color: black;
@@ -37,5 +38,14 @@ export const MyNavLink = styled(NavLink)`
 
   &:hover {
     color: grey;
+  }
+`;
+
+export const MyButton = styled(Button)`
+  background-color: #aaa;
+  color: #000;
+  padding: 7px 14px;
+  &:hover {
+    background-color: #5469d4;
   }
 `;
