@@ -4,16 +4,14 @@ import {
   HeaderWrapper,
   LogoText,
   ItemList,
-  MyNavLink,
-  MyButton,
+  MyNavLink
 } from "./Header.styles";
-import Button from "@material-ui/core/Button";
 
 export function Header() {
   return (
     <StylesProvider injectFirst>
       <HeaderWrapper>
-        <Button>Hello Sooyoung</Button>
+
         <LogoText>Snacks in a Van</LogoText>
         <ItemList>
           <li>

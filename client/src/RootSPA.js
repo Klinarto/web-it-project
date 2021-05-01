@@ -19,36 +19,46 @@ import Welcome from "./customer-app/pages/welcome";
 export function App() {
   return (
     <Router>
-      <Header />
+
       <Switch>
         <Route path="/customer" exact>
+          <Header />
           <CustomerSPA />
         </Route>
+        {/* no header for welcome page */}
         <Route path="/customer/welcome">
           <Welcome />
         </Route>
         <Route path="/customer/menu">
+          <Header />
           <Menu />
         </Route>
         <Route path="/customer/pickup">
+          <Header />
           <Pickup />
         </Route>
         <Route path="/customer/order">
+          <Header />
           <Order />
         </Route>
         <Route path="/customer/rate">
+          <Header />
           <Rate />
         </Route>
         <Route path="/vendor">
+          <Header />
           <VendorSPA />
         </Route>
         <Route path="/help">
+          <Header />
           <CustomerSPA />
         </Route>
         <Route path="/contactus">
+          <Header />
           <CustomerSPA />
         </Route>
         <Route path="/login">
+          <Header />
           <Login />
         </Route>
         <Redirect to="/customer/welcome" />
