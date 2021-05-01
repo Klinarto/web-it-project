@@ -4,10 +4,8 @@ const app = express();
 
 const connectDB = require("./config/db");
 
--(
-	// Connect to MongoDB
-	connectDB()
-);
+// Connect to MongoDB
+connectDB();
 
 // Use express' inbuilt body parser
 app.use(express.json());
