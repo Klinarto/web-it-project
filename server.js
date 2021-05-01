@@ -4,10 +4,8 @@ const app = express();
 
 const connectDB = require("./config/db");
 
--(
-	// Connect to MongoDB
-	connectDB()
-);
+// Connect to MongoDB
+connectDB();
 
 // Use express' inbuilt body parser
 app.use(express.json());
@@ -24,5 +22,5 @@ app.use("/vendor", require("./routes/vendor"));
 app.use("/order", require("./routes/order"));
 
 app.listen(port, () => {
-	console.log("The app is listening on port 3000!");
+	console.log(`The app is listening on port ${port}`);
 });
