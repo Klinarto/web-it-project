@@ -51,7 +51,7 @@ export function App() {
         <Route path="/login">
           <Login />
         </Route>
-        <Redirect to="/customer" />
+        <Redirect to="/customer/welcome" />
       </Switch>
     </Router>
   );

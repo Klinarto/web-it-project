@@ -1,11 +1,17 @@
+import { urlencoded } from "express";
 import React from "react";
-import { HeaderWrapper } from "./welcome.style";
+import { Container, LeftWrapper, RightWrapper } from "./welcome.style";
+
+var imageSrc = url("clientpubliclogo512.png");
 
 export function Welcome() {
   return (
-    <div>
-      <HeaderWrapper>asdfasdfasdfasdf</HeaderWrapper>
-    </div>
+    <Container>
+      <LeftWrapper>asdfasdf</LeftWrapper>
+      <RightWrapper>
+        <img src={imageSrc} />
+      </RightWrapper>
+    </Container>
   );
 }
 

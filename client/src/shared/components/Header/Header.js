@@ -7,12 +7,13 @@ import {
   MyNavLink,
   MyButton,
 } from "./Header.styles";
+import Button from "@material-ui/core/Button";
 
 export function Header() {
   return (
     <StylesProvider injectFirst>
       <HeaderWrapper>
-        <MyButton>asdfasdfasdfasdf</MyButton>
+        <Button>Hello Sooyoung</Button>
         <LogoText>Snacks in a Van</LogoText>
         <ItemList>
           <li>
