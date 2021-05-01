@@ -4,7 +4,7 @@ import { Container, LeftWrapper, RightWrapper } from "./welcome.style";
 export function Welcome() {
   return (
     <Container>
-      <LeftWrapper>asdfasdf</LeftWrapper>
+      <LeftWrapper>asdfasdfasdf</LeftWrapper>
       <RightWrapper>asfdasdf</RightWrapper>
     </Container>
   );
