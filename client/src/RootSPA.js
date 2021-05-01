@@ -14,6 +14,7 @@ import Menu from "./customer-app/pages/Menu";
 import Order from "./customer-app/pages/Order";
 import Pickup from "./customer-app/pages/Pickup";
 import Rate from "./customer-app/pages/Rate";
+import Welcome from "./customer-app/pages/welcome";
 
 export function App() {
   return (
@@ -22,6 +23,9 @@ export function App() {
       <Switch>
         <Route path="/customer" exact>
           <CustomerSPA />
+        </Route>
+        <Route path="/customer/welcome">
+          <Welcome />
         </Route>
         <Route path="/customer/menu">
           <Menu />
