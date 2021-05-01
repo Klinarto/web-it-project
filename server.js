@@ -24,5 +24,5 @@ app.use("/vendor", require("./routes/vendor"));
 app.use("/order", require("./routes/order"));
 
 app.listen(port, () => {
-	console.log("The app is listening on port 3000!");
+	console.log(`The app is listening on port ${port}`);
 });
