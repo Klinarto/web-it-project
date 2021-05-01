@@ -13,10 +13,10 @@ export function Header() {
           <MyNavLink to="/customer/orders">Orders</MyNavLink>
         </li>
         <li>
-          <MyNavLink to="/customer/help">Help</MyNavLink>
+          <MyNavLink to="/help">Help</MyNavLink>
         </li>
         <li>
-          <MyNavLink to="/customer/contactus">Contact Us</MyNavLink>
+          <MyNavLink to="/contactus">Contact Us</MyNavLink>
         </li>
         <li>
           <MyNavLink to="/customer/myaccount">My Accout</MyNavLink>
