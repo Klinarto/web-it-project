@@ -8,6 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 
 export default function SignIn() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,6 +21,30 @@ export default function SignIn() {
     <Container component="main" maxWidth="xs">
       <div>
         <form noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <TextField
             variant="outlined"
             margin="normal"
