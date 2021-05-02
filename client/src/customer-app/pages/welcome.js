@@ -9,7 +9,7 @@ export function Welcome() {
 
         <LeftImage alt="" src={cookieLogo} />
         <Title>Snacks in a Van</Title>
-        <MyButton>Find cloest van</MyButton>
+        <MyButton>Find closest van</MyButton>
 
       </LeftWrapper>
 
