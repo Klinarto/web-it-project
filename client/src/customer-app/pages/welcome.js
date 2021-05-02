@@ -1,23 +1,23 @@
 import React from "react";
-import { Container, LeftWrapper, RightWrapper, LeftImage, RightImage, Title, MyButton } from "./welcome.style";
+import {
+  Container,
+  LeftWrapper,
+  LeftImage,
+  RightImage,
+  Title,
+  MyButton,
+} from "./welcome.style";
 import coffeeBackground from "../../coffeeBackground.png";
 import cookieLogo from "../../cookieLogo.png";
 export function Welcome() {
   return (
     <Container>
       <LeftWrapper>
-
-        <LeftImage alt="" src={cookieLogo} />
+        <LeftImage alt="cookie-logo" src={cookieLogo} />
         <Title>Snacks in a Van</Title>
         <MyButton>Find closest van</MyButton>
-
       </LeftWrapper>
-
-
-      <RightWrapper>
-        <RightImage alt="" src={coffeeBackground} />
-      </RightWrapper>
-
+      <RightImage alt="coffee-image" src={coffeeBackground} />
     </Container>
   );
 }

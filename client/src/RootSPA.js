@@ -19,7 +19,6 @@ import Welcome from "./customer-app/pages/welcome";
 export function App() {
   return (
     <Router>
-
       <Switch>
         <Route path="/customer" exact>
           <Header />
@@ -57,7 +56,7 @@ export function App() {
           <Header />
           <CustomerSPA />
         </Route>
-        <Route path="/login">
+        <Route path="/customer/login">
           <Header />
           <Login />
         </Route>

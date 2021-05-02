@@ -14,6 +14,16 @@ export const Container = styled.div`
   padding: 0;
 `;
 
+export const Title = styled.h1`
+  text-align: center;
+`;
+
+export const LeftImage = styled.img`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
 export const LeftWrapper = styled.div`
   flex: 0 0 100%;
   max-width: 100%;
