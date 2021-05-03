@@ -9,6 +9,7 @@ import {
 } from "./welcome.style";
 import coffeeBackground from "../../coffeeBackground.png";
 import cookieLogo from "../../cookieLogo.png";
+
 export function Welcome() {
   return (
     <Container>
