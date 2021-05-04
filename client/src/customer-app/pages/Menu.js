@@ -1,6 +1,42 @@
 import { render } from "@testing-library/react";
 import React,{Component} from "react";
 //import React from "react";
+import styled from 'styled-components'
+
+export const Image = styled.img`
+  right: 0;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+`;
+
+
+export const DIV = styled.div`
+  padding:10px;
+  /* width: 80%; */
+  align-self: center;
+  align-items:center;
+  justify-content: center;
+`;
+
+export const Table = styled.table`
+  align-self:center;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+export const TD = styled.td`
+  padding-top :5px;
+  padding-left :5px;
+  padding-right :5px;
+  padding-bottom:5px;
+
+`;
+
+export const Price = styled.span`
+  color: grey;
+`;
+
 
 class Menu extends Component{
   constructor(props){
@@ -28,32 +64,35 @@ class Menu extends Component{
     }
   }
 
+
+
   renderTable(){
     return this.state.dummy_dat.map((item,index) => {
       const{ name, price , image, detail} = item
       return(
         <tr key = {name}>
-          <td>{name}</td>
-          <td>{price}</td>
-          <td><img src ={image}/></td>
-          <td>{detail}</td>
+          <TD><p><b>{name} </b>
+          <Price>{price}</Price>
+          <br></br>
+          {detail}</p></TD>
+          <td><Image src ={image} /></td>
         </tr>
       )
-    })
-
+    }
+    )
   }
 
 
   render(){
     return (
-      <div>
+      <DIV>
         <h1>Menu </h1>
-        <table>
+        <Table>
           <tbody>
             {this.renderTable()}
           </tbody>
-        </table>
-      </div>
+        </Table>
+      </DIV>
     )
   }
 }

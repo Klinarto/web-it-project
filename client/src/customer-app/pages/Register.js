@@ -7,7 +7,7 @@ import {
   Title,
 } from "./welcome.style";
 import coffeeBackground from "../../coffeeBackground.png";
-import Register from "../components/Register";
+import CreateAccount from "../components/Register";
 import cookieLogo from "../../cookieLogo.png";
 
 export function Register() {
@@ -16,7 +16,7 @@ export function Register() {
       <LeftWrapper>
         <LeftImage alt="cookie-logo" src={cookieLogo} />
         <Title>Snacks in a Van</Title>
-        <Register />
+        <CreateAccount />
       </LeftWrapper>
       <RightImage alt="coffee-image" src={coffeeBackground} />
     </Container>
