@@ -11,7 +11,12 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
 
   const handleClick = () => {
-    console.log({ email: email, password: password });
+    console.log({
+      fname: firstName,
+      lname: lastName,
+      email: email,
+      password: password,
+    });
   };
 
   return (
@@ -83,6 +88,7 @@ export default function SignIn() {
             style={{
               backgroundColor: "#000",
               padding: "16px 0",
+              marginTop: "16px",
             }}
             onClick={handleClick}
           >

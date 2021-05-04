@@ -18,42 +18,30 @@ import Register from "./customer-app/pages/Register";
 export function App() {
   return (
     <Router>
+      <Header />
       <Switch>
         <Route path="/customer" exact>
-          <Header />
           <Welcome />
         </Route>
         <Route path="/customer/menu">
-          <Header />
           <Menu />
         </Route>
         <Route path="/customer/pickup">
-          <Header />
           <Pickup />
         </Route>
         <Route path="/customer/order">
-          <Header />
           <Order />
         </Route>
         <Route path="/customer/rate">
-          <Header />
           <Rate />
         </Route>
-        <Route path="/vendor">
-          <Header />
-        </Route>
-        <Route path="/help">
-          <Header />
-        </Route>
-        <Route path="/contactus">
-          <Header />
-        </Route>
+        <Route path="/vendor"></Route>
+        <Route path="/help"></Route>
+        <Route path="/contactus"></Route>
         <Route path="/customer/login">
-          <Header />
           <Login />
         </Route>
         <Route path="/customer/register">
-          <Header />
           <Register />
         </Route>
         <Redirect to="/customer" />
