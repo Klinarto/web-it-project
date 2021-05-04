@@ -13,8 +13,10 @@ object-fit: cover;
 
 export const ImageBig = styled.img`
 display: block;
-width: 300px;
+/* width: 300px; */
 height: 200px;
+width: 100%;
+max-height:50%; 
 object-fit: cover;
 align-self:center;
 `;
@@ -52,13 +54,13 @@ width: 100%;
 
 export const TDPC = styled.td`
 padding : 5px;
-height:25%vh;
-width: 25%vw;
+width: 25vw;
+overflow:hidden;
 `;
 
 export const InTR = styled.tr`
 padding : 5px;
-height:100%;
+height:20%;
 width: 100%;
 `;
 

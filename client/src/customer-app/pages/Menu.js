@@ -44,7 +44,7 @@ function getMenu(){
     {"name": "long black",
     "price": 4.0,
     "image": "https://images.unsplash.com/photo-1551030173-122aabc4489c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80",
-    "detail": "double expresso on hot water"
+    "detail": "double expresso on hot water at 90 degrees celcius "
     }
     
   ]
@@ -63,7 +63,7 @@ function renderItem(item){
   return(
     <TDPC>
       <InTR><ImageBig src ={image} /></InTR>
-      <InTR>
+      <tr>
         <p>
         <b>{name} </b>
         <Price>{price}</Price>
@@ -71,7 +71,7 @@ function renderItem(item){
         {detail}
         <br></br>
         <hr></hr>
-        </p></InTR>
+        </p></tr>
     </TDPC>
   )
 }
@@ -81,17 +81,17 @@ function renderItem(item){
 function renderPhoneMenu(menu){
   return menu.map(item => {const{name, price , image, detail} = item
     return(
-      <table>
-        <tr><td><Image src ={image} /></td></tr>
         <tr><TD><p>
             <b>{name} </b>
             <Price>{price}</Price>
             <br></br>
             {detail}
             <br></br>
-            <hr></hr>
-        </p></TD></tr>
-      </table>
+            {/* <hr></hr> */}
+        </p></TD>
+        <td><Image src ={image} /></td>
+        </tr>
+    
     )
     }
   )
