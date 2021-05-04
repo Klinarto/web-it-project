@@ -1,9 +1,10 @@
 body {
   margin: 0;
-  font-family: "SourceSansPro", Roboto, Arial, Helvetica, sans-serif;
+  font-family: "SourceSansPro", Roboto, Arial, Helvetica, sans-serif,
+    "Dawning of a New Day";
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "SourceSansPro", Roboto, Arial, Helvetica, sans-serif,
+    "Dawning of a New Day";
 }

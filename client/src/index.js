@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import RootSPA from "./RootSPA";
 import reportWebVitals from "./reportWebVitals";
+import "typeface-roboto";
+import "@fontsource/dawning-of-a-new-day";
 
 ReactDOM.render(
   <React.StrictMode>
