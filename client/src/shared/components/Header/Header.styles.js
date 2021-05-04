@@ -11,18 +11,19 @@ export const HeaderWrapper = styled.div`
 
 export const LogoText = styled.h1`
   color: white;
+  margin-left: 16px;
 `;
 
 export const ItemList = styled.ul`
   color: white;
-  margin: 0 32px 0 0;
+  margin: 0 16px 0 0;
   padding: 0;
   display: flex;
   list-style: none;
 
   & > li:after {
     content: "|";
-    margin: 0 16px;
+    margin: 0 8px;
   }
   & > li:last-child:after {
     content: "";
@@ -39,4 +40,3 @@ export const MyNavLink = styled(NavLink)`
     color: grey;
   }
 `;
-
