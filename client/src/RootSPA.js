@@ -6,8 +6,6 @@ import {
   Switch,
 } from "react-router-dom";
 
-import CustomerSPA from "./customer-app/pages/CustomerSPA";
-import VendorSPA from "./vendor-app/pages/VendorSPA";
 import Header from "./shared/components/Header/Header";
 import Login from "./customer-app/pages/Login";
 import Menu from "./customer-app/pages/Menu";
@@ -15,6 +13,7 @@ import Order from "./customer-app/pages/Order";
 import Pickup from "./customer-app/pages/Pickup";
 import Rate from "./customer-app/pages/Rate";
 import Welcome from "./customer-app/pages/welcome";
+import Register from "./customer-app/pages/Register";
 
 export function App() {
   return (
@@ -22,10 +21,6 @@ export function App() {
       <Switch>
         <Route path="/customer" exact>
           <Header />
-          <CustomerSPA />
-        </Route>
-        {/* no header for welcome page */}
-        <Route path="/customer/welcome">
           <Welcome />
         </Route>
         <Route path="/customer/menu">
@@ -46,21 +41,22 @@ export function App() {
         </Route>
         <Route path="/vendor">
           <Header />
-          <VendorSPA />
         </Route>
         <Route path="/help">
           <Header />
-          <CustomerSPA />
         </Route>
         <Route path="/contactus">
           <Header />
-          <CustomerSPA />
         </Route>
         <Route path="/customer/login">
           <Header />
           <Login />
         </Route>
-        <Redirect to="/customer/welcome" />
+        <Route path="/customer/register">
+          <Header />
+          <Register />
+        </Route>
+        <Redirect to="/customer" />
       </Switch>
     </Router>
   );
