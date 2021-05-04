@@ -1,6 +1,6 @@
 import React from "react";
 import Interval from "../components/Interval";
-import coffeeCup from "../../coffeeCup.png";
+import coffeeMachine from "../../coffeeMachine.png";
 import {
   Container,
   Status,
@@ -99,7 +99,7 @@ export function Order() {
             <TotalPrice>${totalPrice+"0"}</TotalPrice>
           </RightWrapper>
         </DivisionBottom>
-        <Logo alt = "coffee-logo" src = {coffeeCup} />
+        <Logo alt = "machine-logo" src = {coffeeMachine} />
         <Interval/>
         <MyButton>Change order</MyButton>
         <MyButton>Cancel order</MyButton>

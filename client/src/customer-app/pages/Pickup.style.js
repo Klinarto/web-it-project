@@ -3,43 +3,39 @@ import { device } from "../../shared/components/device";
 
 export const Container = styled.div`
     height: 100vh;
-    width: 100%;
+    width: 40%;
     position: relative;
     flex: 1;
+    flex-direction: column;
     overflow-y: auto;
     display: flex;
-    align-items: center;
 
     margin: 0;
     padding: 0;
+    margin-left: auto;
+    margin-right: auto;
 `;
 
-export const Centerwrapper = styled.div`
-    max-width: 100%;
-    margin-top: 10%;
-    margin-bottom: 20%;
-    margin-left: 33%;
-    margin-right: 33%;
-    
-    @media ${device.tablet} {
-        flex: 0 0 60%;
-        max-width: 60%;
-    }
-    
-    @media ${device.laptop} {
-        flex: 0 0 40%;
-        max-width: 40%;
-    }
+export const Division = styled.div`
+    max-height: 20%;
+    flex: 2;
+    overflow-y: auto;
+    display: flex;
+    justify-content: space-between;
 `;
 
 export const LeftWrapper = styled.div`
 `;
 
+export const RightWrapper = styled.div`
+`;
+
 export const Status = styled.h1`
-    text-aligned: center;
+    text-aligned: left;
     font-size: 26px;
     font: roboto (to be changed);
-    margin-bottom: 25px;
+    margin-top: 10%;
+    margin-bottom: 5%;
     
 `;
 
@@ -54,8 +50,6 @@ export const OrderList = styled.ul`
 export const OrderItem = styled.li`
     font-size: 18px;
     display: inline-block;
-    margin-right: 15px;
-    padding: 0;
 `;
 
 export const OrderPrice = styled.li`
@@ -64,14 +58,27 @@ export const OrderPrice = styled.li`
 `;
 
 export const BreakLine = styled.hr`
+    min-width: 100%;
     border: 0.8px solid #B9B9B9;
-    margin-top: 25px;
-    margin-bottom: 25px;
+
 `;
 
-export const DiscountMessage = styled.h2`
+export const DivisionBottom = styled.div`
+    max-height: 10%;
+    flex: 2;
+    overflow-y: auto;
+    display: flex;
+    justify-content: space-between;
+`;
+
+export const Total = styled.h2`
     font-size: 15px;
-    text-align: left;
+    text-align: right;
+`;
+
+export const TotalPrice = styled.h2`
+    font-size: 18px;
+    text-align: right;
 `;
 
 export const Logo = styled.img`
@@ -79,9 +86,12 @@ export const Logo = styled.img`
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
-    width: 60px;
+    margin-bottom: 40px;
+    width: 70px;
     height: 90px;
 `;
+
+
 
 export const MyButton = styled.button`
     display: block;

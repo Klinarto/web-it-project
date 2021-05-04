@@ -3,7 +3,7 @@ import {Time} from "../pages/Order.style";
 
 
 const Interval = () => {
-    const [seconds, setSeconds] = useState(10);
+    const [seconds, setSeconds] = useState(900);
     var min = 0;
     var sec = 0;
 
