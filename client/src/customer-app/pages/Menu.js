@@ -8,6 +8,11 @@ import {
 	InTR,
 	Price,
 	ImageBig,
+	MyButton,
+	LeftWrapper,
+	RightWrapper,
+	Title,
+	Buttons
 } from "./Menu.style";
 import styled from "styled-components";
 import { Grid } from "@material-ui/core";
@@ -37,31 +42,46 @@ export default function Menu() {
 			}
 		};
 		fetchMenu();
-
+		console.log(menu)
 		return () => {};
 	}, []);
 
 
-	const something = menu;
 	const mobileSize = useMediaQuery(`(min-width: ${"768px"})`);
 	return (
 		<Wrapper>
-			<h1>Menu</h1>
+			<DIV>
+				<LeftWrapper>
+					<Title>Menu</Title>
+				</LeftWrapper>
+				<rightWrapper>
+					<Buttons>
+						<MyButton>Place order</MyButton>
+						<MyButton>Go to cart</MyButton>
+					</Buttons>
+				</rightWrapper>
+			</DIV>
 			<hr/>
 			<br/>
 			<table>
-				{renderLaptopMenu(something['beverage'])}
+				{renderLaptopMenu(menu['beverage'])}
 			</table>
+			<br/>
 			<table>
-				{renderLaptopMenu(something['food'])}
+				{renderLaptopMenu(menu['food'])}
 			</table>
 		</Wrapper>
 	);
 }
 
 function renderLaptopMenu(array) {
-	const row = array.map((item) => renderItem(item));
-	return row;
+	try {
+		const row = array.map((item) => renderItem(item));
+		return row;
+	}
+	catch (error) {
+		console.log(error);
+	}
 }
 
 function renderItem(item) {

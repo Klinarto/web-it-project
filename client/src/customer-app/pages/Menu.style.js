@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 
+export const Title = styled.h1`
+font-size: 32px;
+`;
 
 export const Image = styled.img`
 right: 0;
@@ -16,26 +19,34 @@ height: 200px;
 width: 100%;
 max-height:50%; 
 object-fit: cover;
-align-self:center;
+align-self: center;
 `;
-
-
 
 export const Wrapper = styled.div`
-padding:5%;
+padding: 5%;
+padding-top: 3%;
 /* width: 80%; */
 align-self: center;
-align-items:center;
+align-items: center;
+`;
+
+export const DIV = styled.div`
+flex: 2;
+overflow-y: auto;
+display: flex;
+justify-content: space-between;
+`;
+
+export const LeftWrapper = styled.div`
 justify-content: center;
 `;
 
-
-export const DIV = styled.div`
-padding:10px;
-/* width: 80%; */
-align-self: center;
-align-items:center;
+export const RigttWrapper = styled.div`
 justify-content: center;
+`;
+
+export const Buttons = styled.ul`
+display: inline-block;
 `;
 
 export const Table = styled.table`
@@ -64,4 +75,40 @@ width: 100%;
 
 export const Price = styled.span`
 color: grey;
+`;
+
+export const MyButton = styled.button`
+margin-left: auto;
+margin-right: auto;
+margin-top: 10px;
+
+background-color: #AAD9CD;
+color: white;
+padding: 7px 14px;
+transition: background 0.5s ease-in-out;
+width: 100%;
+border-radius: 10px;
+border: none;
+&:hover {
+    color: black;
+    background: #fff;
+}
+`;
+
+export const AddItem = styled.button`
+border-radius: 50%;
+width: 15px;
+height: 15px;
+
+background-color: #AAD9CD;
+color: white;
+padding: 7px 14px;
+transition: background 0.5s ease-in-out;
+width: 100%;
+border-radius: 10px;
+border: none;
+&:hover {
+    color: black;
+    background: #fff;
+}
 `;
