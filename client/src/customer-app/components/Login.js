@@ -22,7 +22,6 @@ export default function SignIn() {
 
   // send username and password on form submission
   const sendData = async () => {
-    auth.login();
     const data = { email: email, password: password };
     console.log(data);
     try {
