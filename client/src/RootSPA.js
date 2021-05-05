@@ -98,7 +98,7 @@ export function App() {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
+        isLoggedIn: !!token,
         token: token,
         login: login,
         logout: logout,
