@@ -32,7 +32,31 @@ export function App() {
   }, []);
 
   let customerRoutes;
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
+    customerRoutes = (
+      <Switch>
+        <Route path="/customer" exact>
+          <Welcome />
+        </Route>
+        <Route path="/customer/vans">
+          <Vans />
+        </Route>
+        <Route path="/help">
+          <Help />
+        </Route>
+        <Route path="/contactus">
+          <Contactus />
+        </Route>
+        <Route path="/customer/login">
+          <Login />
+        </Route>
+        <Route path="/customer/register">
+          <Register />
+        </Route>
+        <Redirect to="/customer" />
+      </Switch>
+    );
+  } else {
     customerRoutes = (
       <Switch>
         <Route path="/customer" exact>
@@ -60,30 +84,6 @@ export function App() {
           <Contactus />
         </Route>
         <Redirect to="/customer/menu" />
-      </Switch>
-    );
-  } else {
-    customerRoutes = (
-      <Switch>
-        <Route path="/customer/vans">
-          <Vans />
-        </Route>
-        <Route path="/customer" exact>
-          <Welcome />
-        </Route>
-        <Route path="/help">
-          <Help />
-        </Route>
-        <Route path="/contactus">
-          <Contactus />
-        </Route>
-        <Route path="/customer/login">
-          <Login />
-        </Route>
-        <Route path="/customer/register">
-          <Register />
-        </Route>
-        <Redirect to="/customer" />
       </Switch>
     );
   }

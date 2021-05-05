@@ -30,7 +30,7 @@ export function Header() {
           <MyNavLink to="/customer/vans">Vans</MyNavLink>
         </li>
         <li>
-          <MyNavLink to="/customer/orders">Orders</MyNavLink>
+          <MyNavLink to="/customer/order">Order</MyNavLink>
         </li>
         <li>
           <MyNavLink to="/help">Help</MyNavLink>
@@ -50,19 +50,26 @@ export function Header() {
         )}
         {auth.isLoggedIn && (
           <li>
+            <MyNavLink to="/customer/pickup">Pick Up</MyNavLink>
+          </li>
+        )}
+        {auth.isLoggedIn && (
+          <li>
             <MyNavLink to="/customer/myaccount">My Account</MyNavLink>
           </li>
         )}
         {auth.isLoggedIn && (
           <li>
-            <button onClick={auth.logout}>LOGOUT</button>
+            <MyNavLink to="/customer">
+              <button onClick={auth.logout}>LOGOUT</button>
+            </MyNavLink>
           </li>
         )}
         {!auth.isLoggedIn && (
           <li>
-            <button>
-              <MyNavLink to="/customer/login">LOGIN</MyNavLink>
-            </button>
+            <MyNavLink to="/customer/login">
+              <button>LOGIN</button>
+            </MyNavLink>
           </li>
         )}
       </ItemList>

@@ -4,7 +4,7 @@ import { Container, Title } from "./Help.style";
 export function Help() {
   return (
     <Container>
-      <h1>Helpasdfasdfasdfs</h1>
+      <h1>Contact us Stuff written here</h1>
     </Container>
   );
 }
