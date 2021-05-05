@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../auth-context";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { StylesProvider } from "@material-ui/core/styles";
 import { HeaderWrapper, LogoText, ItemList, MyNavLink } from "./Header.styles";
@@ -7,6 +8,8 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
 export function Header() {
+  const auth = useContext(AuthContext);
+
   const tabletSize = useMediaQuery(device.tablet);
 
   const [open, setOpen] = React.useState(false);
@@ -35,12 +38,21 @@ export function Header() {
         <li>
           <MyNavLink to="/contactus">Contact Us</MyNavLink>
         </li>
-        <li>
-          <MyNavLink to="/customer/myaccount">My Accout</MyNavLink>
-        </li>
-        <li>
-          <MyNavLink to="/customer/signout">Sign out</MyNavLink>
-        </li>
+        {auth.isLoggedIn && (
+          <li>
+            <MyNavLink to="/customer/myaccount">My Account</MyNavLink>
+          </li>
+        )}
+        {auth.isLoggedIn && (
+          <li>
+            <MyNavLink to="/customer/signout">Sign out</MyNavLink>
+          </li>
+        )}
+        {!auth.isLoggedIn && (
+          <li>
+            <MyNavLink to="/customer/login">login</MyNavLink>
+          </li>
+        )}
       </ItemList>
     );
   }

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { device } from "../../shared/components/device";
 
 export const Container = styled.div`
-  height: 100vh;
+  height: 93vh;
   width: 100%;
   position: relative;
   flex: 1;
