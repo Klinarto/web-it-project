@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
+import { Link as RouterLink } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
+import { AuthContext } from "../../shared/auth-context";
 
 export default function SignIn() {
+  const auth = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleClick = () => {
+    auth.login();
     console.log({ email: email, password: password });
   };
 
@@ -68,9 +72,9 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <RouterLink to="/customer/register">
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </RouterLink>
             </Grid>
           </Grid>
         </form>

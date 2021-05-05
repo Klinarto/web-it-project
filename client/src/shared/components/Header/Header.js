@@ -40,12 +40,22 @@ export function Header() {
         </li>
         {auth.isLoggedIn && (
           <li>
+            <MyNavLink to="/customer/menu">Menu</MyNavLink>
+          </li>
+        )}
+        {auth.isLoggedIn && (
+          <li>
+            <MyNavLink to="/customer/rate">Rate</MyNavLink>
+          </li>
+        )}
+        {auth.isLoggedIn && (
+          <li>
             <MyNavLink to="/customer/myaccount">My Account</MyNavLink>
           </li>
         )}
         {auth.isLoggedIn && (
           <li>
-            <MyNavLink to="/customer/signout">Sign out</MyNavLink>
+            <button onClick={auth.logout}>LOGOUT</button>
           </li>
         )}
         {!auth.isLoggedIn && (
