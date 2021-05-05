@@ -38,6 +38,7 @@ export default function SignIn() {
 
       // store token
       localStorage.setItem("token", res.data.token);
+      auth.login(res.data.token);
     } catch (error) {
       console.log(error);
       setOpen(true);
