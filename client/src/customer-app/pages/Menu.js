@@ -22,6 +22,16 @@ export default function Menu() {
 			try {
 				const res = await axios.get("/menu");
 				console.log(res.data);
+				let sorted = {};
+				res.data.forEach((menuItem) => {
+					if (menuItem.type in sorted) {
+						sorted[menuItem.type].push(menuItem);
+					} else {
+						sorted[menuItem.type] = [menuItem];
+					}
+				});
+				console.log(sorted);
+				setMenu(sorted);
 			} catch (error) {
 				console.log(error);
 			}
@@ -30,6 +40,7 @@ export default function Menu() {
 
 		return () => {};
 	}, []);
+
 	return <h1>Test</h1>;
 	// const menu = getMenu();
 	// const mobileSize = useMediaQuery(`(min-width: ${"768px"})`);

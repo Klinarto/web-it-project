@@ -21,10 +21,10 @@ import axios from "axios";
 
 import { AuthContext } from "./shared/auth-context";
 
-// axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "http://localhost:5000";
 
 export function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 	const login = useCallback(() => {
 		setIsLoggedIn(true);

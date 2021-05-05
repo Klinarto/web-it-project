@@ -5,7 +5,7 @@ require("dotenv").config();
 
 // register a new customer
 const registerCustomer = async (req, res) => {
-	const { name, email, password } = req.body;
+	const { firstName, lastName, email, password } = req.body;
 	try {
 		let customer = await Customer.findOne({
 			email: email,
@@ -20,7 +20,8 @@ const registerCustomer = async (req, res) => {
 		const hashPassword = await bcrypt.hash(password, saltRounds);
 
 		customer = new Customer({
-			name,
+			firstName,
+			lastName,
 			email,
 			password: hashPassword,
 		});
