@@ -17,8 +17,11 @@ import Welcome from "./customer-app/pages/welcome";
 import Register from "./customer-app/pages/Register";
 import Help from "./customer-app/pages/Help";
 import Contactus from "./customer-app/pages/Contactus";
+import axios from "axios";
 
 import { AuthContext } from "./shared/auth-context";
+
+// axios.defaults.baseURL = "http://localhost:5000";
 
 export function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);

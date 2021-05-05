@@ -1,19 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
-import { Link as RouterLink } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import { AuthContext } from "../../shared/auth-context";
 import axios from "axios";
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
 export default function SignIn() {
-	const auth = useContext(AuthContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [open, setOpen] = useState(false);
@@ -39,6 +36,7 @@ export default function SignIn() {
 			// store token
 			localStorage.setItem("token", res.data.token);
 		} catch (error) {
+			console.log(error);
 			setOpen(true);
 			setSnackbar({
 				data: error.response.data,
