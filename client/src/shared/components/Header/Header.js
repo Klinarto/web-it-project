@@ -60,7 +60,9 @@ export function Header() {
         )}
         {!auth.isLoggedIn && (
           <li>
-            <MyNavLink to="/customer/login">login</MyNavLink>
+            <button>
+              <MyNavLink to="/customer/login">LOGIN</MyNavLink>
+            </button>
           </li>
         )}
       </ItemList>
