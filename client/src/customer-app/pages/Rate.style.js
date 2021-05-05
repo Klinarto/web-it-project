@@ -9,7 +9,7 @@ export const TopWrapper = styled.div`
 
 `;
 export const TopImage = styled.img`
-  
+
 `;
 
 export const Title = styled.h1`
@@ -17,6 +17,10 @@ export const Title = styled.h1`
 `;
 
 export const Star = styled.h1`
+
+`;
+
+export const Button = styled.button`
 
 `;
 
