@@ -41,12 +41,15 @@ export const LeftWrapper = styled.div`
 justify-content: center;
 `;
 
-export const RigttWrapper = styled.div`
+export const RightWrapper = styled.div`
 justify-content: center;
 `;
 
 export const Buttons = styled.ul`
-display: inline-block;
+min-width: 8vw;
+display: inline-flex;
+justify-content: space-between;
+padding: 0;
 `;
 
 export const Table = styled.table`
@@ -78,6 +81,7 @@ color: grey;
 `;
 
 export const MyButton = styled.button`
+display: block;
 margin-left: auto;
 margin-right: auto;
 margin-top: 10px;
@@ -96,13 +100,14 @@ border: none;
 `;
 
 export const AddItem = styled.button`
-border-radius: 50%;
-width: 15px;
-height: 15px;
+border-radius: 100%;
+width: 25px;
+height: 25px;
 
 background-color: #AAD9CD;
+font-size: 20px;
 color: white;
-padding: 7px 14px;
+padding: 0;
 transition: background 0.5s ease-in-out;
 width: 100%;
 border-radius: 10px;

@@ -12,7 +12,8 @@ import {
 	LeftWrapper,
 	RightWrapper,
 	Title,
-	Buttons
+	Buttons,
+	AddItem
 } from "./Menu.style";
 import styled from "styled-components";
 import { Grid } from "@material-ui/core";
@@ -54,12 +55,12 @@ export default function Menu() {
 				<LeftWrapper>
 					<Title>Menu</Title>
 				</LeftWrapper>
-				<rightWrapper>
+				<RightWrapper>
 					<Buttons>
 						<MyButton>Place order</MyButton>
 						<MyButton>Go to cart</MyButton>
 					</Buttons>
-				</rightWrapper>
+				</RightWrapper>
 			</DIV>
 			<hr/>
 			<br/>
@@ -94,12 +95,17 @@ function renderItem(item) {
 				<p>
 					<b>{item['name']} </b>
 					<Price>{item['price']}</Price>
-					<br></br>
+					<br/>
 					{item['detail']}
-					<br></br>
-					<hr></hr>
+					<br/>
+					<hr/>
 				</p>
 			</tr>
+			<Buttons>
+				<AddItem>-</AddItem>
+				1
+				<AddItem>+</AddItem>
+			</Buttons>
 		</TDPC>
 	);
 }
