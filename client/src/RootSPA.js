@@ -40,30 +40,7 @@ export function App() {
   }, []);
 
   let customerRoutes;
-  if (!token) {
-    customerRoutes = (
-      <>
-        <Route path="/customer" exact>
-          <Welcome />
-        </Route>
-        <Route path="/customer/vans">
-          <Vans />
-        </Route>
-        <Route path="/help">
-          <Help />
-        </Route>
-        <Route path="/contactus">
-          <Contactus />
-        </Route>
-        <Route path="/customer/login">
-          <Login />
-        </Route>
-        <Route path="/customer/register">
-          <Register />
-        </Route>
-      </>
-    );
-  } else {
+  if (token) {
     customerRoutes = (
       <>
         <Route path="/customer" exact>
@@ -93,7 +70,34 @@ export function App() {
         <Route path="/contactus">
           <Contactus />
         </Route>
-        <Redirect to="/customer/menu" />
+        <Route>{<div>Error 404</div>}</Route>
+      </>
+    );
+  } else {
+    customerRoutes = (
+      <>
+        <Route path="/customer" exact>
+          <Welcome />
+        </Route>
+        <Route path="/customer/vans">
+          <Vans />
+        </Route>
+        <Route path="/customer/menu">
+          <Menu />
+        </Route>
+        <Route path="/help">
+          <Help />
+        </Route>
+        <Route path="/contactus">
+          <Contactus />
+        </Route>
+        <Route path="/customer/login">
+          <Login />
+        </Route>
+        <Route path="/customer/register">
+          <Register />
+        </Route>
+        <Route>{<div>Error 404</div>}</Route>
       </>
     );
   }
