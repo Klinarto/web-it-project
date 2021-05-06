@@ -51,12 +51,16 @@ function renderOrder(item) {
     return (
 		<table>
             <tr>
-            Order {orderId}
+            <h3>Order {orderId} </h3>
+            <br/>
+            <b>Vendor: </b> {vendorId}
+            <br/>
+            <b>Items ordered: </b>
             <ul>
             {
                 Object.keys(foodItems).map((key, i) => (
                 <p key={i}>
-                    <span> {key}: </span>
+                    <span>{key}:</span>
                     <span>{foodItems[key]}</span>
                 </p>
                 ))}
@@ -64,11 +68,11 @@ function renderOrder(item) {
             </tr>
 			<tr>
 				<p>
-					status: {status}
+					<b>Status:</b> {status}
 					<br/>
-                    total cost: {totalCost}
+                    <b>Total Cost:</b> {totalCost}
                     <br/>
-					Created at: {createdAt}
+					<b>Created at:</b> {createdAt}
 					<br/>
 					<hr/>
 				</p>
