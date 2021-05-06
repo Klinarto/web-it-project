@@ -56,9 +56,12 @@ export default function Menu() {
 		};
 		fetchMenu();
 		return () => {};
-	}, [menu, order]);
+	}, [menu]);
 
-	// console.log(order);
+	useEffect(() => {
+		console.log(order);
+		return () => {};
+	}, [order]);
 
 	const mobileSize = useMediaQuery(`(min-width: ${"768px"})`);
 	return (
@@ -76,9 +79,9 @@ export default function Menu() {
 			</DIV>
 			<hr />
 			<br />
-			<table>{renderLaptopMenu(menu["beverage"], setOrder)}</table>
+			<table>{renderLaptopMenu(menu["beverage"])}</table>
 			<br />
-			<table>{renderLaptopMenu(menu["food"], setOrder)}</table>
+			<table>{renderLaptopMenu(menu["food"])}</table>
 		</Wrapper>
 	);
 }

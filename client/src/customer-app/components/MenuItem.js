@@ -20,15 +20,20 @@ import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutl
 import { useEffect, useState } from "react";
 
 export default function MenuItem(props) {
-	const item = props.item;
+	const { item, setOrder } = props;
+	const name = item.name;
 	const [quantity, setQuantity] = useState(0);
+
 	useEffect(() => {
-		props.setOrder((prevOrder) => ({
-			...prevOrder,
-			[item.name]: quantity,
-		}));
+		const updateOrder = () => {
+			setOrder((prevOrder) => ({
+				...prevOrder,
+				[name]: quantity,
+			}));
+		};
+		updateOrder();
 		return () => {};
-	}, [quantity, item.name, props]);
+	}, [quantity, setOrder, name]);
 	return (
 		<TDPC>
 			<InTR>
@@ -47,9 +52,9 @@ export default function MenuItem(props) {
 			<IconButton
 				aria-label="Remove"
 				onClick={() => {
-					// console.log(`${props.name}: ${quantity}`);
 					if (quantity > 0) {
 						setQuantity(quantity - 1);
+						// console.log(`${item.name}: ${quantity}`);
 					}
 				}}
 			>
@@ -59,8 +64,8 @@ export default function MenuItem(props) {
 			<IconButton
 				aria-label="Add"
 				onClick={() => {
-					// console.log(`${props.name}: ${quantity}`);
 					setQuantity(quantity + 1);
+					// console.log(`${item.name}: ${quantity}`);
 				}}
 			>
 				<AddCircleOutlineIcon />
