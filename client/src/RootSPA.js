@@ -10,6 +10,7 @@ import Header from "./shared/components/Header/Header";
 import Login from "./customer-app/pages/Login";
 import Vans from "./customer-app/pages/Vans";
 import Menu from "./customer-app/pages/Menu";
+import OrderHistory from "./customer-app/pages/OrderHistory";
 import Order from "./customer-app/pages/Order";
 import Pickup from "./customer-app/pages/Pickup";
 import Rate from "./customer-app/pages/Rate";
@@ -68,6 +69,9 @@ export function App() {
       <Switch>
         <Route path="/customer" exact>
           <Welcome />
+        </Route>
+        <Route path="/customer/orderhistory">
+          <OrderHistory />
         </Route>
         <Route path="/customer/vans">
           <Vans />
