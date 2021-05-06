@@ -52,7 +52,7 @@ export function App() {
   let customerRoutes;
   if (token) {
     customerRoutes = (
-      <>
+      <Switch>
         <Route path="/customer" exact>
           <Welcome />
         </Route>
@@ -80,12 +80,15 @@ export function App() {
         <Route path="/contactus">
           <Contactus />
         </Route>
+        <Route path="/customer/cart">
+          <Cart />
+        </Route>
         <Route>{<div>Error 404</div>}</Route>
-      </>
+      </Switch>
     );
   } else {
     customerRoutes = (
-      <>
+      <Switch>
         <Route path="/customer" exact>
           <Welcome />
         </Route>
@@ -111,7 +114,7 @@ export function App() {
           <Cart />
         </Route>
         <Route>{<div>Error 404</div>}</Route>
-      </>
+      </Switch>
     );
   }
 
