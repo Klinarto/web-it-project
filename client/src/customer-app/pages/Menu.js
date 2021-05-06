@@ -13,7 +13,7 @@ import {
 	RightWrapper,
 	Title,
 	Buttons,
-	AddItem
+	AddItem,
 } from "./Menu.style";
 import styled from "styled-components";
 import { Grid } from "@material-ui/core";
@@ -21,9 +21,10 @@ import axios from "axios";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import MenuItem from "../components/MenuItem";
 
-
 export default function Menu() {
 	const [menu, setMenu] = useState({});
+	const [order, setOrder] = useState({});
+	console.log(order);
 
 	useEffect(() => {
 		const fetchMenu = async () => {
@@ -45,10 +46,8 @@ export default function Menu() {
 			}
 		};
 		fetchMenu();
-		console.log(menu)
 		return () => {};
-	}, []);
-
+	}, [menu, order]);
 
 	const mobileSize = useMediaQuery(`(min-width: ${"768px"})`);
 	return (
@@ -64,25 +63,20 @@ export default function Menu() {
 					</Buttons>
 				</RightWrapper>
 			</DIV>
-			<hr/>
-			<br/>
-			<table>
-				{renderLaptopMenu(menu['beverage'])}
-			</table>
-			<br/>
-			<table>
-				{renderLaptopMenu(menu['food'])}
-			</table>
+			<hr />
+			<br />
+			<table>{renderLaptopMenu(menu["beverage"], setOrder)}</table>
+			<br />
+			<table>{renderLaptopMenu(menu["food"], setOrder)}</table>
 		</Wrapper>
 	);
 }
 
-function renderLaptopMenu(array) {
+function renderLaptopMenu(array, setOrder) {
 	try {
-		const row = array.map((item) => MenuItem(item));
+		const row = array.map((item) => <MenuItem item={item} />);
 		return row;
-	}
-	catch (error) {
+	} catch (error) {
 		console.log(error);
 	}
 }
@@ -92,16 +86,16 @@ function renderItem(item) {
 	return (
 		<TDPC>
 			<InTR>
-				<ImageBig src={item['image']} />
+				<ImageBig src={item["image"]} />
 			</InTR>
-			<tr>
+			<tr key={item._id}>
 				<p>
-					<b>{item['name']} </b>
-					<Price>{item['price']}</Price>
-					<br/>
-					{item['detail']}
-					<br/>
-					<hr/>
+					<b>{item["name"]} </b>
+					<Price>{item["price"]}</Price>
+					<br />
+					{item["detail"]}
+					<br />
+					<hr />
 				</p>
 			</tr>
 			<Buttons>

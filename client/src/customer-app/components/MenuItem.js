@@ -12,32 +12,56 @@ import {
 	RightWrapper,
 	Title,
 	Buttons,
-	AddItem
+	AddItem,
 } from "../pages/Menu.style";
+import IconButton from "@material-ui/core/IconButton";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
+import { useEffect, useState } from "react";
 
-export default function MenuItem(item) {
-    var quantity = 0;
-    console.log(item);
+export default function MenuItem(props) {
+	const item = props.item;
+	const [quantity, setQuantity] = useState(0);
+	useEffect(() => {
+		return () => {};
+	}, [quantity]);
+	// console.log(quantity);
 	return (
 		<TDPC>
 			<InTR>
-				<ImageBig src={item['image']} />
+				<ImageBig src={item["image"]} />
 			</InTR>
 			<tr>
 				<p>
-					<b>{item['name']} </b>
-					<Price>{item['price']}</Price>
-					<br/>
-					{item['detail']}
-					<br/>
-					<hr/>
+					<b>{item["name"]} </b>
+					<Price>{item["price"]}</Price>
+					<br />
+					{item["detail"]}
+					<br />
+					<hr />
 				</p>
 			</tr>
-			<Buttons>
-				<AddItem>-</AddItem>
-				{quantity}
-				<AddItem>+</AddItem>
-			</Buttons>
+			<IconButton
+				aria-label="Remove"
+				onClick={() => {
+					// console.log(`${props.name}: ${quantity}`);
+					if (quantity > 0) {
+						setQuantity(quantity - 1);
+					}
+				}}
+			>
+				<RemoveCircleOutlineOutlinedIcon />
+			</IconButton>
+			{quantity}
+			<IconButton
+				aria-label="Add"
+				onClick={() => {
+					// console.log(`${props.name}: ${quantity}`);
+					setQuantity(quantity + 1);
+				}}
+			>
+				<AddCircleOutlineIcon />
+			</IconButton>
 		</TDPC>
 	);
 }
