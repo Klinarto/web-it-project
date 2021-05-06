@@ -101,22 +101,17 @@ export function App() {
         <Route path="/contactus">
           <Contactus />
         </Route>
-<<<<<<< Updated upstream
         <Route path="/customer/login">
           <Login />
         </Route>
         <Route path="/customer/register">
           <Register />
         </Route>
+        <Route path="/customer/cart">
+          <Cart />
+        </Route>
         <Route>{<div>Error 404</div>}</Route>
       </>
-=======
-		<Route path = "/customer/cart">
-		  <Cart />
-		</Route>
-        <Redirect to="/customer/menu" />
-      </Switch>
->>>>>>> Stashed changes
     );
   }
 
