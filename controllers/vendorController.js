@@ -20,12 +20,13 @@ const setVanStatus = async (req, res) => {
 };
 
 const registerVan = async (req, res) => {
-	const { name, password, location } = req.body;
+	const { name, password, location, locationDetails } = req.body;
 	try {
 		let newVan = new Vendor({
 			name,
 			password,
 			location,
+			locationDetails,
 			status: "closed",
 		});
 
@@ -37,11 +38,9 @@ const registerVan = async (req, res) => {
 	}
 };
 
-
-const getVendorLocationDetails = async (req, res) => {
+const getVendors = async (req, res) => {
 	try {
-		
-		const vendor = await Vendor.find()
+		const vendor = await Vendor.find();
 		return res.send(vendor);
 	} catch (error) {
 		console.error(error);
@@ -50,8 +49,7 @@ const getVendorLocationDetails = async (req, res) => {
 };
 
 module.exports = {
-	getVendorLocationDetails,
+	getVendors,
 	setVanStatus,
 	registerVan,
 };
-
