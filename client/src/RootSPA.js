@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -38,6 +38,14 @@ export function App() {
   const logout = useCallback(() => {
     setToken(null);
     setIsLoggedIn(false);
+    localStorage.removeItem("userData");
+  }, []);
+
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("userData"));
+    if (storedData && storedData.token) {
+      login(storedData.token);
+    }
   }, []);
 
   let customerRoutes;
