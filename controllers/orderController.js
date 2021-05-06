@@ -1,6 +1,5 @@
 const Order = require("../models/order");
 const MenuItem = require("../models/menuItem");
-const customer = require("../models/customer");
 
 // get all outstanding orders
 const getOrders = async (req, res) => {

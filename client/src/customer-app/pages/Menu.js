@@ -13,7 +13,7 @@ import {
 	RightWrapper,
 	Title,
 	Buttons,
-	AddItem
+	AddItem,
 } from "./Menu.style";
 import styled from "styled-components";
 import { Grid } from "@material-ui/core";
@@ -21,15 +21,25 @@ import axios from "axios";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import MenuItem from "../components/MenuItem";
 
-
 export default function Menu() {
 	const [menu, setMenu] = useState({});
+	const [order, setOrder] = useState({});
+	function renderLaptopMenu(array) {
+		try {
+			const row = array.map((item) => (
+				<MenuItem item={item} setOrder={setOrder} />
+			));
+			return row;
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	useEffect(() => {
 		const fetchMenu = async () => {
 			try {
 				const res = await axios.get("/menu");
-				console.log(res.data);
+				// console.log(res.data);
 				let sorted = {};
 				res.data.forEach((menuItem) => {
 					if (menuItem.type in sorted) {
@@ -38,17 +48,20 @@ export default function Menu() {
 						sorted[menuItem.type] = [menuItem];
 					}
 				});
-				console.log(sorted);
+				// console.log(sorted);
 				setMenu(sorted);
 			} catch (error) {
 				console.log(error);
 			}
 		};
 		fetchMenu();
-		console.log(menu)
 		return () => {};
-	}, []);
+	}, [menu]);
 
+	useEffect(() => {
+		console.log(order);
+		return () => {};
+	}, [order]);
 
 	const mobileSize = useMediaQuery(`(min-width: ${"768px"})`);
 	return (
@@ -64,44 +77,29 @@ export default function Menu() {
 					</Buttons>
 				</RightWrapper>
 			</DIV>
-			<hr/>
-			<br/>
-			<table>
-				{renderLaptopMenu(menu['beverage'])}
-			</table>
-			<br/>
-			<table>
-				{renderLaptopMenu(menu['food'])}
-			</table>
+			<hr />
+			<br />
+			<table>{renderLaptopMenu(menu["beverage"])}</table>
+			<br />
+			<table>{renderLaptopMenu(menu["food"])}</table>
 		</Wrapper>
 	);
 }
-
-function renderLaptopMenu(array) {
-	try {
-		const row = array.map((item) => MenuItem(item));
-		return row;
-	}
-	catch (error) {
-		console.log(error);
-	}
-}
-
 function renderItem(item) {
 	var quantity = 0;
 	return (
 		<TDPC>
 			<InTR>
-				<ImageBig src={item['image']} />
+				<ImageBig src={item["image"]} />
 			</InTR>
-			<tr>
+			<tr key={item._id}>
 				<p>
-					<b>{item['name']} </b>
-					<Price>{item['price']}</Price>
-					<br/>
-					{item['detail']}
-					<br/>
-					<hr/>
+					<b>{item["name"]} </b>
+					<Price>{item["price"]}</Price>
+					<br />
+					{item["detail"]}
+					<br />
+					<hr />
 				</p>
 			</tr>
 			<Buttons>
