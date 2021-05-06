@@ -18,6 +18,7 @@ import Welcome from "./customer-app/pages/welcome";
 import Register from "./customer-app/pages/Register";
 import Help from "./customer-app/pages/Help";
 import Contactus from "./customer-app/pages/Contactus";
+import Cart from "./customer-app/pages/Cart";
 import axios from "axios";
 
 import { AuthContext } from "./shared/auth-context";
@@ -100,6 +101,7 @@ export function App() {
         <Route path="/contactus">
           <Contactus />
         </Route>
+<<<<<<< Updated upstream
         <Route path="/customer/login">
           <Login />
         </Route>
@@ -108,6 +110,13 @@ export function App() {
         </Route>
         <Route>{<div>Error 404</div>}</Route>
       </>
+=======
+		<Route path = "/customer/cart">
+		  <Cart />
+		</Route>
+        <Redirect to="/customer/menu" />
+      </Switch>
+>>>>>>> Stashed changes
     );
   }
 

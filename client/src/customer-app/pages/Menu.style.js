@@ -39,17 +39,18 @@ justify-content: space-between;
 
 export const LeftWrapper = styled.div`
 justify-content: center;
+min-width: 50%;
 `;
 
 export const RightWrapper = styled.div`
 justify-content: center;
+min-width: 10%;
 `;
 
-export const Buttons = styled.ul`
-min-width: 8vw;
-display: inline-flex;
-justify-content: space-between;
-padding: 0;
+export const Buttons = styled.div`
+justify-content: center;
+padding-left: 33%;
+padding-right: auto;
 `;
 
 export const Table = styled.table`
@@ -81,10 +82,10 @@ color: grey;
 `;
 
 export const MyButton = styled.button`
-display: block;
+display: inline-block;
 margin-left: auto;
 margin-right: auto;
-margin-top: 10px;
+margin-top: 25%;
 
 background-color: #AAD9CD;
 color: white;
