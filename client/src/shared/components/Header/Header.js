@@ -33,6 +33,9 @@ export function Header() {
           <MyNavLink to="/customer/order">Order</MyNavLink>
         </li>
         <li>
+          <MyNavLink to="/customer/orderhistory">History</MyNavLink>
+        </li>
+        <li>
           <MyNavLink to="/help">Help</MyNavLink>
         </li>
         <li>
