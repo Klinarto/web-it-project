@@ -13,9 +13,11 @@ export function Rate() {
       <TopWrapper>
         <TopImage alt="coffeeCup-image" src={coffeeCup} />
         <Title>Rate your experience</Title>
-        <Rating name="half-rating" defaultValue={0} precision={0.5} style={{ color: "black" }} />
-        <Button>Button</Button>
+        <Rating name="half-rating" defaultValue={0} precision={0.5} style={{ color: "black", padding: '0 0 0 94px' }} />
+        <br />
+        <Button>Submit</Button>
       </TopWrapper>
+
       <BottomImage alt="coffee-image" src={coffeeBackgroundHalf} />
     </Container>);
 } export default Rate;
