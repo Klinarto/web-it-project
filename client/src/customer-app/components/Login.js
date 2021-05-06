@@ -111,7 +111,9 @@ export default function SignIn() {
 							backgroundColor: "#000",
 							padding: "16px 0",
 						}}
-						onClick={sendData}
+						onClick={() => {
+							sendData();
+						}}
 					>
 						Sign In
 					</Button>
