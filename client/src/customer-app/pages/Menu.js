@@ -61,26 +61,32 @@ export default function Menu() {
 	// const handleClose = () => {setOpen(false)};
 
 	useEffect(() => {
+		let isMounted = true;
 		const fetchMenu = async () => {
 			try {
 				const res = await axios.get("/menu");
 				// console.log(res.data);
-				let sorted = {};
-				res.data.forEach((menuItem) => {
-					if (menuItem.type in sorted) {
-						sorted[menuItem.type].push(menuItem);
-					} else {
-						sorted[menuItem.type] = [menuItem];
-					}
-				});
-				// console.log(sorted);
-				setMenu(sorted);
+				if (isMounted) {
+					let sorted = {};
+					res.data.forEach((menuItem) => {
+						if (menuItem.type in sorted) {
+							sorted[menuItem.type].push(menuItem);
+						} else {
+							sorted[menuItem.type] = [menuItem];
+						}
+					});
+
+					// console.log(sorted);
+					setMenu(sorted);
+				}
 			} catch (error) {
 				console.log(error);
 			}
 		};
 		fetchMenu();
-		return () => {};
+		return () => {
+			isMounted = false;
+		};
 	}, [menu]);
 
 	useEffect(() => {
