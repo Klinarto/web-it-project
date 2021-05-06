@@ -61,7 +61,6 @@ export function App() {
         <Route path="/customer/register">
           <Register />
         </Route>
-        <Redirect to="/customer" />
       </>
     );
   } else {
