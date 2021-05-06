@@ -19,6 +19,8 @@ import styled from "styled-components";
 import { Grid } from "@material-ui/core";
 import axios from "axios";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import MenuItem from "../components/MenuItem";
+
 
 export default function Menu() {
 	const [menu, setMenu] = useState({});
@@ -77,7 +79,7 @@ export default function Menu() {
 
 function renderLaptopMenu(array) {
 	try {
-		const row = array.map((item) => renderItem(item));
+		const row = array.map((item) => MenuItem(item));
 		return row;
 	}
 	catch (error) {
@@ -86,6 +88,7 @@ function renderLaptopMenu(array) {
 }
 
 function renderItem(item) {
+	var quantity = 0;
 	return (
 		<TDPC>
 			<InTR>
@@ -103,7 +106,7 @@ function renderItem(item) {
 			</tr>
 			<Buttons>
 				<AddItem>-</AddItem>
-				1
+				{quantity}
 				<AddItem>+</AddItem>
 			</Buttons>
 		</TDPC>
