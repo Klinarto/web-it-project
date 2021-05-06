@@ -25,8 +25,8 @@ import { AuthContext } from "./shared/auth-context";
 axios.defaults.baseURL = "http://localhost:5000";
 
 export function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [token, setToken] = useState(true);
 
   const login = useCallback((token) => {
     setToken(token);
@@ -42,7 +42,7 @@ export function App() {
   let customerRoutes;
   if (!token) {
     customerRoutes = (
-      <Switch>
+      <>
         <Route path="/customer" exact>
           <Welcome />
         </Route>
@@ -62,11 +62,11 @@ export function App() {
           <Register />
         </Route>
         <Redirect to="/customer" />
-      </Switch>
+      </>
     );
   } else {
     customerRoutes = (
-      <Switch>
+      <>
         <Route path="/customer" exact>
           <Welcome />
         </Route>
@@ -95,7 +95,7 @@ export function App() {
           <Contactus />
         </Route>
         <Redirect to="/customer/menu" />
-      </Switch>
+      </>
     );
   }
 

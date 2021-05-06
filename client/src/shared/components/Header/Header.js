@@ -30,22 +30,24 @@ export function Header() {
           <MyNavLink to="/customer/vans">Vans</MyNavLink>
         </li>
         <li>
-          <MyNavLink to="/customer/order">Order</MyNavLink>
+          <MyNavLink to="/customer/menu">Menu</MyNavLink>
         </li>
-        <li>
-          <MyNavLink to="/customer/orderhistory">History</MyNavLink>
-        </li>
+        {auth.isLoggedIn && (
+          <li>
+            <MyNavLink to="/customer/order">Order</MyNavLink>
+          </li>
+        )}
+        {auth.isLoggedIn && (
+          <li>
+            <MyNavLink to="/customer/orderhistory">History</MyNavLink>
+          </li>
+        )}
         <li>
           <MyNavLink to="/help">Help</MyNavLink>
         </li>
         <li>
           <MyNavLink to="/contactus">Contact Us</MyNavLink>
         </li>
-        {auth.isLoggedIn && (
-          <li>
-            <MyNavLink to="/customer/menu">Menu</MyNavLink>
-          </li>
-        )}
         {auth.isLoggedIn && (
           <li>
             <MyNavLink to="/customer/rate">Rate</MyNavLink>
