@@ -21,10 +21,10 @@ import { Grid } from "@material-ui/core";
 import axios from "axios";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Modal from "@material-ui/core/Modal";
-import { makeStyles } from '@material-ui/core/styles';
-import Fade from '@material-ui/core/Fade';
+import { makeStyles } from "@material-ui/core/styles";
+import Fade from "@material-ui/core/Fade";
 import IconButton from "@material-ui/core/IconButton";
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MenuItem from "../components/MenuItem";
 
 export default function Menu() {
@@ -94,10 +94,9 @@ export default function Menu() {
 				orderList[key] = value;
 			}
 		}
-		
-		localStorage.setItem('order', JSON.stringify(orderList));
-	};
 
+		localStorage.setItem("order", JSON.stringify(orderList));
+	};
 
 	//const mobileSize = useMediaQuery(`(min-width: ${"768px"})`);
 	return (
@@ -107,11 +106,16 @@ export default function Menu() {
 					<Title>Menu</Title>
 				</LeftWrapper>
 				<RightWrapper>
-				<Link to="/customer/cart">
-					<MyButton aria-label="Go to cart" onClick={() => {finalOrder(order)}}>
-						<ShoppingCartIcon/>
-					</MyButton>
-				</Link>
+					<Link to="/customer/cart">
+						<MyButton
+							aria-label="Go to cart"
+							onClick={() => {
+								finalOrder(order);
+							}}
+						>
+							<ShoppingCartIcon />
+						</MyButton>
+					</Link>
 					{/* <MyButton 
 						aria-label="Go to cart" 
 						onClick={event =>  window.location.href='./cart'}
