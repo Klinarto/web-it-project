@@ -23,9 +23,12 @@ export default function MenuItem(props) {
 	const item = props.item;
 	const [quantity, setQuantity] = useState(0);
 	useEffect(() => {
+		props.setOrder((prevOrder) => ({
+			...prevOrder,
+			[item.name]: quantity,
+		}));
 		return () => {};
-	}, [quantity]);
-	// console.log(quantity);
+	}, [quantity, item.name, props]);
 	return (
 		<TDPC>
 			<InTR>

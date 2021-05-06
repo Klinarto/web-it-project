@@ -24,13 +24,22 @@ import MenuItem from "../components/MenuItem";
 export default function Menu() {
 	const [menu, setMenu] = useState({});
 	const [order, setOrder] = useState({});
-	console.log(order);
+	function renderLaptopMenu(array) {
+		try {
+			const row = array.map((item) => (
+				<MenuItem item={item} setOrder={setOrder} />
+			));
+			return row;
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	useEffect(() => {
 		const fetchMenu = async () => {
 			try {
 				const res = await axios.get("/menu");
-				console.log(res.data);
+				// console.log(res.data);
 				let sorted = {};
 				res.data.forEach((menuItem) => {
 					if (menuItem.type in sorted) {
@@ -39,7 +48,7 @@ export default function Menu() {
 						sorted[menuItem.type] = [menuItem];
 					}
 				});
-				console.log(sorted);
+				// console.log(sorted);
 				setMenu(sorted);
 			} catch (error) {
 				console.log(error);
@@ -48,6 +57,8 @@ export default function Menu() {
 		fetchMenu();
 		return () => {};
 	}, [menu, order]);
+
+	// console.log(order);
 
 	const mobileSize = useMediaQuery(`(min-width: ${"768px"})`);
 	return (
@@ -71,16 +82,6 @@ export default function Menu() {
 		</Wrapper>
 	);
 }
-
-function renderLaptopMenu(array, setOrder) {
-	try {
-		const row = array.map((item) => <MenuItem item={item} />);
-		return row;
-	} catch (error) {
-		console.log(error);
-	}
-}
-
 function renderItem(item) {
 	var quantity = 0;
 	return (
