@@ -27,9 +27,7 @@ export default function OrderHistory() {
 		<Container>
 			<hr/>
 			<br/>
-			<table>
-				{renderLaptopOrder(orderList)}
-			</table>
+            {renderLaptopOrder(orderList)}
 			<br/>
 		</Container>
 	);
@@ -46,17 +44,31 @@ function renderLaptopOrder(array) {
 }
 
 function renderOrder(item) {
-    const { orderId , customerID, vendorID, foodItems, status, orderCost, totalCost, createdAt, updatedAt } = item;
-	return (
+    const { orderId , customerId, vendorId, foodItems, status, orderCost, totalCost, createdAt, updatedAt } = item;
+	console.log(item)
+    console.log(foodItems)
+    
+    return (
 		<table>
+            <tr>
+            Order {orderId}
+            <ul>
+            {
+                Object.keys(foodItems).map((key, i) => (
+                <p key={i}>
+                    <span> {key}: </span>
+                    <span>{foodItems[key]}</span>
+                </p>
+                ))}
+            </ul>
+            </tr>
 			<tr>
 				<p>
-					<b>{foodItems} </b>
-					{status}
+					status: {status}
 					<br/>
-                    {totalCost}
+                    total cost: {totalCost}
                     <br/>
-					{createdAt}
+					Created at: {createdAt}
 					<br/>
 					<hr/>
 				</p>
