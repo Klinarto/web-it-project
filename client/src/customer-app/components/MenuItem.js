@@ -46,30 +46,30 @@ export default function MenuItem(props) {
 					<br />
 					{item["detail"]}
 					<br />
-					<hr />
 				</p>
 			</tr>
-			<IconButton
-				aria-label="Remove"
-				onClick={() => {
-					if (quantity > 0) {
-						setQuantity(quantity - 1);
-						// console.log(`${item.name}: ${quantity}`);
-					}
-				}}
-			>
-				<RemoveCircleOutlineOutlinedIcon />
-			</IconButton>
-			{quantity}
-			<IconButton
-				aria-label="Add"
-				onClick={() => {
-					setQuantity(quantity + 1);
-					// console.log(`${item.name}: ${quantity}`);
-				}}
-			>
-				<AddCircleOutlineIcon />
-			</IconButton>
+            <Buttons>
+                <IconButton
+                    aria-label="Remove"
+                    onClick={() => {
+                        if (quantity > 0) {
+                            setQuantity(quantity - 1);
+                        }
+                    }}
+                >
+                    <RemoveCircleOutlineOutlinedIcon />
+                </IconButton>
+                {quantity}
+                <IconButton
+                    aria-label="Add"
+                    onClick={() => {
+                        setQuantity(quantity + 1);
+                    }}
+                >
+                    <AddCircleOutlineIcon />
+                </IconButton>
+            </Buttons>
+            <hr />
 		</TDPC>
 	);
 }

@@ -37,7 +37,7 @@ export default function SignIn() {
 			console.log(res.data);
 
 			// store token
-			// localStorage.setItem("token", res.data.token);
+			localStorage.setItem("token", res.data.token);
 			auth.login(res.data.token);
 		} catch (error) {
 			console.log(error);
