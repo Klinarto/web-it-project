@@ -32,6 +32,7 @@ export function App() {
     setToken(token);
     console.log(token + "asdfasdfasdfasdf");
     setIsLoggedIn(true);
+    localStorage.setItem("userData", JSON.stringify({ token: token }));
   }, []);
 
   const logout = useCallback(() => {
