@@ -1,9 +1,10 @@
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import {
-	Container,
+  Container,
   Status,
-	OrderList,
-	OrderItem,
+  OrderList,
+  OrderItem,
   LeftWrapper,
   RightWrapper,
   Division,
@@ -17,43 +18,42 @@ import {
 } from "./Cart.style";
 import coffeeMachine from "../../coffeeMachine.png";
 
-
 export default function Cart() {
-	const orderList = JSON.parse(localStorage.getItem("order"));
+  const history = useHistory();
+  const orderList = JSON.parse(localStorage.getItem("order"));
   const orderPrice = JSON.parse(localStorage.getItem("price"));
-	console.log(orderList);
+  console.log(orderList);
 
-	const makeOrder = async (order) => {
-		try {
-			console.log(order);
-			const userData = JSON.parse(localStorage.getItem("userData"));
-			console.log(userData);
-			const data = { vendorId: "60939f9aa6762b64b82547b3" };
+  const makeOrder = async (order) => {
+    try {
+      console.log(order);
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      console.log(userData);
+      const data = { vendorId: "60939f9aa6762b64b82547b3" };
 
-			if (Object.entries(order).length !== 0) {
-				data["foodItems"] = order;
-			}
-			const res = await axios.post("/order", data, {
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			console.log(res);
-		} catch (error) {
-			console.log(error.response.data);
-		}
-		return;
-	};
+      if (Object.entries(order).length !== 0) {
+        data["foodItems"] = order;
+      }
+      const res = await axios.post("/order", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+    return;
+  };
 
   var totalPrice = 0;
   Object.entries(orderPrice).map(function (item) {
     totalPrice += parseFloat(item[1]);
-  })
-
+  });
 
   console.log(Object.entries(orderList));
-	
-  return (    
+
+  return (
     <Container>
       <Status>Confirm your order</Status>
       <Division>
@@ -72,9 +72,7 @@ export default function Cart() {
           {Object.entries(orderPrice).map(function (item) {
             return (
               <OrderList>
-                <OrderItem>
-                  $ {item[1]}
-                </OrderItem>
+                <OrderItem>$ {item[1]}</OrderItem>
               </OrderList>
             );
           })}
@@ -96,10 +94,11 @@ export default function Cart() {
       <MyButton
         onClick={() => {
           makeOrder(orderList);
+          history.push("/customer/order");
         }}
       >
         make order
       </MyButton>
     </Container>
-	);
+  );
 }
