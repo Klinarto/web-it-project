@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const port = process.env.PORT || 5000;
 const app = express();
 
@@ -10,6 +11,9 @@ connectDB();
 
 // Use express' inbuilt body parser
 app.use(express.json(), cors());
+
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // App routes
 app.use("/customer", require("./routes/customer"));
