@@ -36,7 +36,7 @@ export default function MenuItem(props) {
 		return () => {};
 	}, [quantity, setOrder, name]);
 	return (
-		<DIV2 className="column">
+		<DIV2 >
 			<UL>
 				<ImageBig src={item["image"]} />
 			</UL>
@@ -63,7 +63,7 @@ export default function MenuItem(props) {
                     <AddCircleOutlineIcon />
                 </IconButton>
             </Buttons>
-            <hr />
+            
 		</DIV2>
 	);
 }

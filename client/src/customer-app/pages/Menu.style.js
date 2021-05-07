@@ -42,6 +42,7 @@ display: flex;
 justify-content: space-between;
 `;
 
+
 export const LeftWrapper = styled.div`
 justify-content: center;
 min-width: 50%;
@@ -66,8 +67,15 @@ margin-right: auto;
 
 export const DIV2 = styled.div`
 padding : 5px;
-width: 25vw;
+/* width: 25vw; */
 overflow:hidden;
+`;
+
+export const ROW = styled.div`
+display: "grid";
+grid-template-columns: repeat(4, 1fr);
+grid-gap:20;
+clear: both;
 `;
 
 
