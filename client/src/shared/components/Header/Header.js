@@ -124,7 +124,7 @@ export default function Header() {
             </ListItem>
           ))}
           {auth.isLoggedIn &&
-            ["order", "orderhistory", "pickup", "rate"].map((text, index) => (
+            ["orderhistory", "pickup", "rate"].map((text, index) => (
               <ListItem
                 button
                 key={text}
