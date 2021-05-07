@@ -13,7 +13,7 @@ app.use(express.json(), cors());
 
 // Home page
 app.get("/", (req, res) => {
-	res.send("<h1>Home Page</h1>");
+  res.send("<h1>Home aPage</h1>");
 });
 
 // App routes
@@ -23,5 +23,5 @@ app.use("/vendor", require("./routes/vendor"));
 app.use("/order", require("./routes/order"));
 
 app.listen(port, () => {
-	console.log(`The app is listening on port ${port}`);
+  console.log(`The app is listening on port ${port}`);
 });
