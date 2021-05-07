@@ -21,7 +21,11 @@ export function Rate() {
           name="half-rating"
           defaultValue={0}
           precision={0.5}
-          style={{ color: "black", margin: "0 0 0 94px" }}
+          style={{
+            color: "black",
+            margin: "0 0 0 94px",
+            transform: "scale(1.5)",
+          }}
         />
         <br />
         <Button>Submit</Button>
