@@ -23,7 +23,7 @@ import axios from "axios";
 
 import { AuthContext } from "./shared/auth-context";
 
-axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.baseURL = "http://localhost:5000";
 
 const setHeaderToken = () => {
 	console.log("Setting header");
