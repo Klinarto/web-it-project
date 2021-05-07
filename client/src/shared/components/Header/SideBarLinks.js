@@ -51,7 +51,7 @@ export default function SideBarLinks() {
           </ListItemIcon>
           <ListItemText primary={"Menu"} />
         </ListItem>
-        {auth.isLoggedIn && (
+        {/* {auth.isLoggedIn && (
           <ListItem
             button
             key={"order"}
@@ -64,19 +64,19 @@ export default function SideBarLinks() {
             </ListItemIcon>
             <ListItemText primary={"Order"} />
           </ListItem>
-        )}
+        )} */}
         {auth.isLoggedIn && (
           <ListItem
             button
-            key={"orderHistory"}
+            key={"order"}
             onClick={() => {
               history.push("/customer/orderHistory");
             }}
           >
             <ListItemIcon>
-              <ReceiptIcon />
+              <ListAltIcon />
             </ListItemIcon>
-            <ListItemText primary={"Order History"} />
+            <ListItemText primary={"Orders"} />
           </ListItem>
         )}
         {auth.isLoggedIn && (

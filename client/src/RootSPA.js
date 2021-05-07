@@ -25,11 +25,11 @@ import { AuthContext } from "./shared/auth-context";
 // });
 
 export function App() {
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState(null);
 
+  // Used for Context (callback used to avoid infinite loop), if user is logged in, it will store token to localStorage and give access to axios DB
   const login = useCallback((token) => {
     setToken(token);
-    console.log(token);
     axios.defaults.headers.common["x-access-token"] = token;
     localStorage.setItem("userData", JSON.stringify({ token: token }));
   }, []);
@@ -40,6 +40,7 @@ export function App() {
     localStorage.removeItem("userData");
   }, []);
 
+  // Authentication and if there is a token in localStorage, set the login status to be Logged in
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
     if (storedData && storedData.token) {
@@ -47,6 +48,7 @@ export function App() {
     }
   });
 
+  //  Allow certain routes when logged in, or not Logged in, if user tries to access it, it will block
   let customerRoutes;
   if (token) {
     customerRoutes = (
@@ -120,6 +122,7 @@ export function App() {
   }
 
   return (
+    //  Used context to make every page render the token, before rendering pages, it will bind the values in the context
     <AuthContext.Provider
       value={{
         isLoggedIn: !!token,
