@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   DIV,
   ROW,
-  TDPC,
   Wrapper,
   MyButton,
   LeftWrapper,
@@ -143,13 +142,7 @@ export default function Menu() {
       <h2>Beverage</h2>
       <hr />
       <br />
-      <ROW
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: 20,
-        }}
-      >
+      <ROW>
         {renderLaptopMenu(menu["beverage"])}
       </ROW>
 
@@ -157,13 +150,7 @@ export default function Menu() {
       <hr />
       <br />
 
-      <ROW
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: 20,
-        }}
-      >
+      <ROW>
         {renderLaptopMenu(menu["food"])}
       </ROW>
     </Wrapper>
@@ -192,3 +179,10 @@ export default function Menu() {
 // 		);
 // 	});
 // }
+
+
+        // style={{
+        //   display: "grid",
+        //   gridTemplateColumns: "repeat(4, 1fr)",
+        //   gridGap: 20,
+        // }}

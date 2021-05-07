@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { device } from "../../shared/components/device";
 
 export const Title = styled.h1`
 font-size: 32px;
@@ -72,17 +72,19 @@ overflow:hidden;
 `;
 
 export const ROW = styled.div`
-display: "grid";
-grid-template-columns: repeat(4, 1fr);
-grid-gap:20;
+display: grid;
 clear: both;
-`;
 
+@media ${device.mobileL} {
+    grid-template-columns: 1fr;
+    grid-gap:20px;
+  }
 
-export const TDPC = styled.td`
-padding : 5px;
-width: 25vw;
-overflow:hidden;
+@media ${device.laptop} {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap:20px;
+}
+
 `;
 
 export const InTR = styled.tr`
