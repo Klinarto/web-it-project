@@ -47,8 +47,10 @@ export default function Cart() {
   };
 
   var totalPrice = 0;
-  Object.entries(orderPrice).map(function (item) {
-    totalPrice += parseFloat(item[1]);
+  Object.entries(orderPrice).map({
+    function(item) {
+      totalPrice += parseFloat(item[1]);
+    },
   });
 
   console.log(Object.entries(orderList));

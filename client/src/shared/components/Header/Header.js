@@ -20,9 +20,16 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
+import ListAltIcon from "@material-ui/icons/ListAlt";
+import ReceiptIcon from "@material-ui/icons/Receipt";
+import CheckIcon from "@material-ui/icons/Check";
+import StarsIcon from "@material-ui/icons/Stars";
 
 // react.school/material-ui
-const drawerWidth = 180;
+const drawerWidth = 270;
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -112,31 +119,87 @@ export default function Header() {
       <>
         <Divider />
         <List>
-          {["vans", "menu"].map((text, index) => (
+          <ListItem
+            button
+            key={"vans"}
+            onClick={() => {
+              history.push("/customer/vans");
+            }}
+          >
+            <ListItemIcon>
+              <LocalShippingIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Vans"} />
+          </ListItem>
+          <ListItem
+            button
+            key={"menu"}
+            onClick={() => {
+              history.push("/customer/menu");
+            }}
+          >
+            <ListItemIcon>
+              <RestaurantMenuIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Menu"} />
+          </ListItem>
+          {auth.isLoggedIn && (
             <ListItem
               button
-              key={text}
+              key={"order"}
               onClick={() => {
-                history.push("/customer/" + text);
+                history.push("/customer/order");
               }}
             >
-              <ListItemText primary={text} />
+              <ListItemIcon>
+                <ListAltIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Order"} />
             </ListItem>
-          ))}
-          {auth.isLoggedIn &&
-            ["orderhistory", "pickup", "rate"].map((text, index) => (
-              <ListItem
-                button
-                key={text}
-                onClick={() => {
-                  history.push("/customer/" + text);
-                }}
-              >
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+          )}
+          {auth.isLoggedIn && (
+            <ListItem
+              button
+              key={"orderHistory"}
+              onClick={() => {
+                history.push("/customer/orderHistory");
+              }}
+            >
+              <ListItemIcon>
+                <ReceiptIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Order History"} />
+            </ListItem>
+          )}
+          {auth.isLoggedIn && (
+            <ListItem
+              button
+              key={"pickup"}
+              onClick={() => {
+                history.push("/customer/pickup");
+              }}
+            >
+              <ListItemIcon>
+                <CheckIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Pickup"} />
+            </ListItem>
+          )}
+          {auth.isLoggedIn && (
+            <ListItem
+              button
+              key={"rate"}
+              onClick={() => {
+                history.push("/customer/rate");
+              }}
+            >
+              <ListItemIcon>
+                <StarsIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Rate"} />
+            </ListItem>
+          )}
         </List>
-        <Divider />
       </>
     );
   }
@@ -214,6 +277,7 @@ export default function Header() {
         }}
       >
         <div className={classes.drawerHeader}>
+          <h3>Snacks in a Van</h3>
           <IconButton onClick={handleDrawerClose}>
             {classes.direction === "ltr" ? (
               <ChevronLeftIcon />
