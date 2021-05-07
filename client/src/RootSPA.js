@@ -56,6 +56,9 @@ export function App() {
         <Route path="/customer" exact>
           <Welcome />
         </Route>
+        <Route path="/" exact>
+          <Welcome />
+        </Route>
         <Route path="/customer/orderhistory">
           <OrderHistory />
         </Route>
