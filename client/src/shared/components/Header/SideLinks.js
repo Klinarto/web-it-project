@@ -5,6 +5,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { device } from "../device";
 import Button from "@material-ui/core/Button";
 
+// They are the top list of navigation bar, it will use router's Navlink to redirect, stylised using StyledComponents
 export default function SideLinks() {
   const auth = useContext(AuthContext);
   const tabletSize = useMediaQuery(device.tablet);

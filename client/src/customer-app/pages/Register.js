@@ -10,6 +10,8 @@ import coffeeBackground from "../../coffeeBackground.png";
 import CreateAccount from "../components/Register";
 import cookieLogo from "../../cookieLogo.png";
 
+// Register page, left has the component of register page, which is being imported,
+// Right side is a image in a flex-box to have 4:6 ratio
 export function Register() {
   return (
     <Container>
