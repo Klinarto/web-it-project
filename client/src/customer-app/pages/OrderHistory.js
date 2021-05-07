@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "./OrderHistory.style";
+import styled from "styled-components";
+import { Grid } from "@material-ui/core";
 import axios from "axios";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export default function OrderHistory() {
 	const [orderList, setOrderHistory] = useState([]);
