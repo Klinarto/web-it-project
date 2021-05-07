@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
 	Container,
 	OrderTitle,
@@ -6,35 +6,26 @@ import {
 	FoodItem,
 	Division,
 	OrderItem,
-	Title,
-	LeftWrapper,
-	MyButton,
 } from "../pages/OrderHistory.style";
 import { Link } from "react-router-dom";
 import { parseDate } from "../utilities/Utils";
-import axios from "axios";
 
 export default function LinkToOrder(props) {
 	const {
 		orderId,
-		customerId,
 		vendorId,
 		foodItems,
 		status,
-		orderCost,
 		totalCost,
 		createdAt,
-		updatedAt,
 	} = props.order;
-
-	console.log(props.order);
 
 	const parsedDate = parseDate(new Date(createdAt));
 
 	return (
 		<Container>
 			<Link
-				to={{ pathname: `/customer/order/${orderId}`, state: props.order }}
+				to="/customer/order"
 				style={{ textDecoration: "none", color: "black" }}
 			>
 				<div>

@@ -4,9 +4,9 @@ const router = express.Router();
 
 // Register van
 router
-	.route("/")
-	.post(vendorController.registerVan)
-	.get(vendorController.getVendors);
+  .route("/")
+  .post(vendorController.registerVan)
+  .get(vendorController.getVendors);
 
 // Set van status
 router.route("/:vanName").put(vendorController.setVanStatus);

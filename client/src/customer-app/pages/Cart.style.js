@@ -1,18 +1,18 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    height: 100vh;
-    width: 40%;
-    position: relative;
-    flex: 1;
-    flex-direction: column;
-    overflow-y: auto;
-    display: flex;
+  height: 100vh;
+  width: 40%;
+  position: relative;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: auto;
+  display: flex;
 
-    margin: 0;
-    padding: 0;
-    margin-left: auto;
-    margin-right: auto;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const Status = styled.h1`
@@ -23,31 +23,28 @@ export const Status = styled.h1`
 `;
 
 export const OrderList = styled.ul`
-    list-style: none;
-    margin: 0;
-    padding: 5px;
-    padding-left: 15px;
-    margin-bottom: 10px;
-
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  padding-left: 15px;
+  margin-bottom: 10px;
 `;
 export const OrderItem = styled.li`
-    font-size: 18px;
-    display: inline-block;
+  font-size: 18px;
+  display: inline-block;
 `;
 
 export const Division = styled.div`
-    max-height: 20%;
-    flex: 2;
-    overflow-y: auto;
-    display: flex;
-    justify-content: space-between;
+  max-height: 20%;
+  flex: 2;
+  overflow-y: auto;
+  display: flex;
+  justify-content: space-between;
 `;
 
-export const LeftWrapper = styled.div`
-`;
+export const LeftWrapper = styled.div``;
 
-export const RightWrapper = styled.div`
-`;
+export const RightWrapper = styled.div``;
 
 export const BreakLine = styled.hr`
   min-width: 100%;
