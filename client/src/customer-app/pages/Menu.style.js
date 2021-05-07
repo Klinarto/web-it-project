@@ -5,6 +5,11 @@ export const Title = styled.h1`
 font-size: 32px;
 `;
 
+export const UL = styled.li`
+    list-style-type : none;
+`;
+
+
 export const Image = styled.img`
 right: 0;
 width: 100px;
@@ -59,11 +64,12 @@ margin-left: auto;
 margin-right: auto;
 `;
 
-export const TD = styled.td`
+export const DIV2 = styled.div`
 padding : 5px;
-height:100%;
-width: 100%;
+width: 25vw;
+overflow:hidden;
 `;
+
 
 export const TDPC = styled.td`
 padding : 5px;

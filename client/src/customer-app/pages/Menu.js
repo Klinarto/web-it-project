@@ -149,9 +149,9 @@ export default function Menu() {
       </DIV>
       <hr />
       <br />
-      <table>{renderLaptopMenu(menu["beverage"])}</table>
+      {renderLaptopMenu(menu["beverage"])}
       <br />
-      <table>{renderLaptopMenu(menu["food"])}</table>
+      {renderLaptopMenu(menu["food"])}
     </Wrapper>
   );
 }

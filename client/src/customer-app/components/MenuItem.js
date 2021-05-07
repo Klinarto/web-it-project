@@ -1,6 +1,7 @@
 import {
+	UL,
 	Image,
-	DIV,
+	DIV2,
 	TDPC,
 	Wrapper,
 	TD,
@@ -35,19 +36,12 @@ export default function MenuItem(props) {
 		return () => {};
 	}, [quantity, setOrder, name]);
 	return (
-		<TDPC>
-			<InTR>
+		<DIV2 className="column">
+			<UL>
 				<ImageBig src={item["image"]} />
-			</InTR>
-			<tr>
-				<p>
-					<b>{item["name"]} </b>
-					<Price>{item["price"]}</Price>
-					<br />
-					{item["detail"]}
-					<br />
-				</p>
-			</tr>
+			</UL>
+				<UL><b>{item["name"]}</b> <Price>{item["price"]}</Price></UL>
+				<UL>{item["detail"]}</UL>
             <Buttons>
                 <IconButton
                     aria-label="Remove"
@@ -70,6 +64,6 @@ export default function MenuItem(props) {
                 </IconButton>
             </Buttons>
             <hr />
-		</TDPC>
+		</DIV2>
 	);
 }
