@@ -6,9 +6,14 @@ export default function Cart() {
 
 	const makeOrder = async (order) => {
 		try {
+			console.log(order);
 			const userData = JSON.parse(localStorage.getItem("userData"));
 			console.log(userData);
-			const data = { foodItems: order, vendorId: "6080184f1cb9346538047c22" };
+			const data = { vendorId: "6080184f1cb9346538047c22" };
+
+			if (Object.entries(order).length !== 0) {
+				data["foodItems"] = order;
+			}
 			const res = await axios.post("/order", data, {
 				headers: {
 					"Content-Type": "application/json",
