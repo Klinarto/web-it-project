@@ -26,6 +26,7 @@ export const Status = styled.h1`
   text-align: left;
   font-size: 26px;
   margin-bottom: 5%;
+  margin-top: 5%;
 `;
 
 export const OrderList = styled.ul`

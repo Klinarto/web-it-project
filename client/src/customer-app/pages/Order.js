@@ -102,7 +102,7 @@ export function Order() {
         </div>
         <div>
           <Total>Total</Total>
-          <TotalPrice>${totalPrice + "0"}</TotalPrice>
+          <TotalPrice>${totalPrice}</TotalPrice>
         </div>
       </DivisionBottom>
       <Logo alt="machine-logo" src={coffeeMachine} />
