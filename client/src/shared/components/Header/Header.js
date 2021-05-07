@@ -1,19 +1,37 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../auth-context";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { StylesProvider } from "@material-ui/core/styles";
-import { HeaderWrapper, LogoText, ItemList, MyNavLink } from "./Header.styles";
-import { device } from "../device";
+import React, { useState, useContext } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import Button from "@material-ui/core/Button";
+import grey from "@material-ui/core/colors/grey";
 
-export function Header() {
+import { ItemList, MyNavLink } from "./Header.styles";
+import { AuthContext } from "../../auth-context";
+
+// react.school/material-ui
+
+const useStyles = makeStyles((theme) => ({
+  menuButton: {
+    marginRight: theme.spacing(2),
+    color: grey[50],
+  },
+  title: {
+    flexGrow: 1,
+    color: grey[50],
+  },
+  customColor: {
+    backgroundColor: grey[900],
+  },
+  offset: theme.mixins.toolbar,
+}));
+
+export default function ButtonAppBar() {
+  const classes = useStyles();
   const auth = useContext(AuthContext);
-
-  const tabletSize = useMediaQuery(device.tablet);
-
   const [open, setOpen] = React.useState(false);
-
   const handleDrawerOpen = () => {
     setOpen(true);
     console.log(open);
@@ -22,7 +40,6 @@ export function Header() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   function sideLinks() {
     return (
       <ItemList>
@@ -42,6 +59,16 @@ export function Header() {
             <MyNavLink to="/customer/orderhistory">History</MyNavLink>
           </li>
         )}
+        {auth.isLoggedIn && (
+          <li>
+            <MyNavLink to="/customer/pickup">Pick Up</MyNavLink>
+          </li>
+        )}
+        {auth.isLoggedIn && (
+          <li>
+            <MyNavLink to="/customer/rate">Rate</MyNavLink>
+          </li>
+        )}
         <li>
           <MyNavLink to="/help">Help</MyNavLink>
         </li>
@@ -50,30 +77,28 @@ export function Header() {
         </li>
         {auth.isLoggedIn && (
           <li>
-            <MyNavLink to="/customer/rate">Rate</MyNavLink>
-          </li>
-        )}
-        {auth.isLoggedIn && (
-          <li>
-            <MyNavLink to="/customer/pickup">Pick Up</MyNavLink>
-          </li>
-        )}
-        {auth.isLoggedIn && (
-          <li>
             <MyNavLink to="/customer/myaccount">My Account</MyNavLink>
           </li>
         )}
         {auth.isLoggedIn && (
           <li>
             <MyNavLink to="/customer">
-              <button onClick={auth.logout}>LOGOUT</button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={auth.logout}
+              >
+                LOGOUT
+              </Button>
             </MyNavLink>
           </li>
         )}
         {!auth.isLoggedIn && (
           <li>
             <MyNavLink to="/customer/login">
-              <button>LOGIN</button>
+              <Button variant="contained" color="secondary">
+                LOGIN
+              </Button>
             </MyNavLink>
           </li>
         )}
@@ -81,28 +106,25 @@ export function Header() {
     );
   }
 
-  function sideButton() {
-    return (
-      <IconButton
-        color="primary"
-        aria-label="open drawer"
-        onClick={handleDrawerOpen}
-        edge="start"
-      >
-        <MenuIcon />
-      </IconButton>
-    );
-  }
-
   return (
-    <StylesProvider injectFirst>
-      <HeaderWrapper>
-        <LogoText>Snacks in a Van</LogoText>
-
-        {tabletSize ? sideLinks() : sideButton()}
-      </HeaderWrapper>
-    </StylesProvider>
+    <React.Fragment>
+      <AppBar color={"customColor"} className={classes.customColor}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            onClick={handleDrawerOpen}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Snacks in a Van
+          </Typography>
+          {sideLinks()}
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
   );
 }
-
-export default Header;
