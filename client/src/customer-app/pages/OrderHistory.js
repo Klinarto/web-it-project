@@ -71,6 +71,8 @@ function renderOrder(order) {
 		updatedAt,
 	} = order;
 
+	const parsedDate = parseDate(new Date(createdAt));
+
 	return (
 		<Container>
 			<Link
@@ -108,7 +110,7 @@ function renderOrder(order) {
 								<b>Total Cost:</b> $ {totalCost}
 							</OrderItem>
 							<OrderItem>
-								<b>Created at:</b> {createdAt}
+								<b>Created at:</b> {parsedDate}
 							</OrderItem>
 						</innerDiv>
 						<br />
