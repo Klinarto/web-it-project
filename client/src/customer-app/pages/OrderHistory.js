@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Container, OrderTitle,OrderList,FoodItem, Division, OrderItem, Title, LeftWrapper, MyButton } from "./OrderHistory.style";
+import {
+	Container,
+	OrderTitle,
+	OrderList,
+	FoodItem,
+	Division,
+	OrderItem,
+	Title,
+	LeftWrapper,
+	MyButton,
+} from "./OrderHistory.style";
 import styled from "styled-components";
 import { Grid } from "@material-ui/core";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { parseDate } from "../utilities/Utils";
 
 export default function OrderHistory() {
 	const [orderList, setOrderHistory] = useState([]);
@@ -25,10 +36,10 @@ export default function OrderHistory() {
 
 	return (
 		<Container>
-            <LeftWrapper>
-            <br/>
-                <Title>Orders</Title>
-            </LeftWrapper>
+			<LeftWrapper>
+				<br />
+				<Title>Orders</Title>
+			</LeftWrapper>
 			<hr />
 			<br />
 			{renderLaptopOrder(orderList)}
@@ -59,41 +70,52 @@ function renderOrder(order) {
 		createdAt,
 		updatedAt,
 	} = order;
-	console.log(vendorId);
 
-  return (
-    <Container>
-      <Link to="/customer/order" style={{textDecoration: 'none', color: "black"}}>
-        <div>
-          <OrderTitle>Order {orderId} </OrderTitle> 
-          <hr/>
-          <Division>
-            <innerDiv>
-              <OrderList>
-                <OrderItem><b>Vendor:</b> {vendorId.name}</OrderItem>
-                <OrderItem><b>Status:</b> {status}</OrderItem>
-              </OrderList>
-            </innerDiv>
+	return (
+		<Container>
+			<Link
+				to="/customer/order"
+				style={{ textDecoration: "none", color: "black" }}
+			>
+				<div>
+					<OrderTitle>Order {orderId} </OrderTitle>
+					<hr />
+					<Division>
+						<innerDiv>
+							<OrderList>
+								<OrderItem>
+									<b>Vendor:</b> {vendorId.name}
+								</OrderItem>
+								<OrderItem>
+									<b>Status:</b> {status}
+								</OrderItem>
+							</OrderList>
+						</innerDiv>
 
-            <innerDiv>
-              <OrderItem><b>Items ordered: </b></OrderItem>
-              {Object.keys(foodItems).map((key, i) => (
-                <FoodItem>
-                {foodItems[key]}  {key}
-                </FoodItem>
-              ))}
-            </innerDiv>
+						<innerDiv>
+							<OrderItem>
+								<b>Items ordered: </b>
+							</OrderItem>
+							{Object.keys(foodItems).map((key, i) => (
+								<FoodItem>
+									{foodItems[key]} {key}
+								</FoodItem>
+							))}
+						</innerDiv>
 
-            <innerDiv>
-              <OrderItem><b>Total Cost:</b> $ {totalCost}</OrderItem>
-              <OrderItem><b>Created at:</b> {createdAt}</OrderItem>
-            </innerDiv>
-            <br/>
-          </Division>
-          <hr/>
-        </div>
-      </Link>
-    </Container>
-
-  );
+						<innerDiv>
+							<OrderItem>
+								<b>Total Cost:</b> $ {totalCost}
+							</OrderItem>
+							<OrderItem>
+								<b>Created at:</b> {createdAt}
+							</OrderItem>
+						</innerDiv>
+						<br />
+					</Division>
+					<hr />
+				</div>
+			</Link>
+		</Container>
+	);
 }
