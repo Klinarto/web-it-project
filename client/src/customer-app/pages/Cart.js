@@ -1,12 +1,22 @@
 import axios from "axios";
 import {
 	Container,
+  Status,
 	OrderList,
 	OrderItem,
   LeftWrapper,
   RightWrapper,
-  Division
+  Division,
+  BreakLine,
+  DivisionBottom,
+  Logo,
+  Total,
+  TotalPrice,
+  DiscountMessage,
+  MyButton,
 } from "./Cart.style";
+import coffeeMachine from "../../coffeeMachine.png";
+
 
 export default function Cart() {
 	const orderList = JSON.parse(localStorage.getItem("order"));
@@ -34,43 +44,62 @@ export default function Cart() {
 		}
 		return;
 	};
+
+  var totalPrice = 0;
+  Object.entries(orderPrice).map(function (item) {
+    totalPrice += parseFloat(item[1]);
+  })
+
+
   console.log(Object.entries(orderList));
-	return (
-		<Container>
-      
-
-        <Division>
-          <LeftWrapper>
-            {Object.entries(orderList).map(function (item) {
-              return (
-                <OrderList>
-                  <OrderItem>
-                    {item[1]} x {item[0]}
-                  </OrderItem>
-                </OrderList>
-              );
-            })}
-          </LeftWrapper>
-          <RightWrapper>
-            {Object.entries(orderPrice).map(function (item) {
-              return (
-                <OrderList>
-                  <OrderItem>
-                    $ {item[1]}
-                  </OrderItem>
-                </OrderList>
-              );
-            })}
-          </RightWrapper>
-        </Division>
-
-			<button
-				onClick={() => {
-					makeOrder(orderList);
-				}}
-			>
-				make order
-			</button>
-		</Container>
+	
+  return (    
+    <Container>
+      <Status>Confirm your order</Status>
+      <Division>
+        <LeftWrapper>
+          {Object.entries(orderList).map(function (item) {
+            return (
+              <OrderList>
+                <OrderItem>
+                  {item[1]} x {item[0]}
+                </OrderItem>
+              </OrderList>
+            );
+          })}
+        </LeftWrapper>
+        <RightWrapper>
+          {Object.entries(orderPrice).map(function (item) {
+            return (
+              <OrderList>
+                <OrderItem>
+                  $ {item[1]}
+                </OrderItem>
+              </OrderList>
+            );
+          })}
+        </RightWrapper>
+      </Division>
+      <BreakLine />
+      <DivisionBottom>
+        <div>
+          <DiscountMessage>
+            20% discount applies if the order<br></br>takes more than 15 mins
+          </DiscountMessage>
+        </div>
+        <div>
+          <Total>Total</Total>
+          <TotalPrice>${totalPrice}</TotalPrice>
+        </div>
+      </DivisionBottom>
+      <Logo alt="machine-logo" src={coffeeMachine} />
+      <MyButton
+        onClick={() => {
+          makeOrder(orderList);
+        }}
+      >
+        make order
+      </MyButton>
+    </Container>
 	);
 }

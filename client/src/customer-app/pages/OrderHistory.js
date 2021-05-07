@@ -69,34 +69,34 @@ function renderOrder(order) {
 	} = order;
 	console.log(vendorId);
 
-	return (
-		<ul key={orderId}>
-			<ul>
-				<b>Order {orderId} </b>
-			</ul>
-			<ul>
-				<b>Vendor: {vendorId.name}</b>
-			</ul>
-			<ul>
-				<b>Items ordered: </b>
-			</ul>
-			<ul>
-				{Object.keys(foodItems).map((key, i) => (
-					<ul>
-						{key}: {foodItems[key]}
-					</ul>
-				))}
-			</ul>
-			<ul>
-				<b>Status:</b> {status}
-			</ul>
-			<ul>
-				<b>Total Cost:</b> {totalCost}
-			</ul>
-			<ul>
-				<b>Created at:</b> {createdAt}
-			</ul>
-			<hr />
-		</ul>
-	);
+  return (
+    <ul key={orderId}>
+      <ul>
+        <b>Order {orderId} </b>
+      </ul>
+      <ul>
+        <b>Vendor:</b> {vendorId.name}
+      </ul>
+      <ul>
+        <b>Items ordered: </b>
+      </ul>
+      <ul>
+        {Object.keys(foodItems).map((key, i) => (
+          <ul>
+            {key}: {foodItems[key]}
+          </ul>
+        ))}
+      </ul>
+      <ul>
+        <b>Status:</b> {status}
+      </ul>
+      <ul>
+        <b>Total Cost:</b> {totalCost}
+      </ul>
+      <ul>
+        <b>Created at:</b> {createdAt}
+      </ul>
+      <hr />
+    </ul>
+  );
 }
