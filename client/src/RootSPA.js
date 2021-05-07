@@ -26,19 +26,16 @@ import { AuthContext } from "./shared/auth-context";
 axios.defaults.baseURL = "http://localhost:5000";
 
 export function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [token, setToken] = useState(true);
 
   const login = useCallback((token) => {
     setToken(token);
     console.log(token + "asdfasdfasdfasdf");
-    setIsLoggedIn(true);
     localStorage.setItem("userData", JSON.stringify({ token: token }));
   }, []);
 
   const logout = useCallback(() => {
     setToken(null);
-    setIsLoggedIn(false);
     localStorage.removeItem("userData");
   }, []);
 
@@ -86,7 +83,9 @@ export function App() {
         <Route path="/customer/cart">
           <Cart />
         </Route>
-        <Route>{<div>Error 404</div>}</Route>
+        <Route>
+          {<div>Error 404 - The page you are looking for does not exist</div>}
+        </Route>
       </Switch>
     );
   } else {
@@ -116,7 +115,9 @@ export function App() {
         <Route path="/customer/cart">
           <Cart />
         </Route>
-        <Route>{<div>Error 404</div>}</Route>
+        <Route>
+          {<div>Error 404 - The page you are looking for does not exist</div>}
+        </Route>
       </Switch>
     );
   }

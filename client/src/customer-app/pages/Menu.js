@@ -1,29 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {
-  Image,
   DIV,
-  TDPC,
   Wrapper,
-  TD,
-  InTR,
-  Price,
-  ImageBig,
   MyButton,
   LeftWrapper,
   RightWrapper,
   Title,
-  Buttons,
-  AddItem,
 } from "./Menu.style";
 import Link from "react-router-dom/Link";
-import styled from "styled-components";
-import { Grid } from "@material-ui/core";
 import axios from "axios";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import Modal from "@material-ui/core/Modal";
-import { makeStyles } from "@material-ui/core/styles";
-import Fade from "@material-ui/core/Fade";
-import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MenuItem from "../components/MenuItem";
 

@@ -1,10 +1,10 @@
 import React from "react";
-import { Container, Title } from "./welcome.style";
+import { Container, Title } from "./Help.style";
 
 export function Help() {
   return (
     <Container>
-      <h1>Help is in progress</h1>
+      <Title>Help</Title>
     </Container>
   );
 }

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { device } from "../../shared/components/device";
 
 export const Container = styled.div`
   height: 93vh;
@@ -7,13 +6,13 @@ export const Container = styled.div`
   position: relative;
   flex: 1;
   overflow-y: auto;
-  display: flex;
+  justify-items: center;
   align-items: center;
 
   margin: 0;
   padding: 0;
 `;
 
-export const Title = styled.p`
+export const Title = styled.h1`
   text-align: center;
 `;
