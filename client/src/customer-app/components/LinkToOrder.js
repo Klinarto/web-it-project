@@ -25,7 +25,7 @@ export default function LinkToOrder(props) {
 	return (
 		<Container>
 			<Link
-				to="/customer/order"
+				to={{ pathname: `/customer/order/${orderId}`, state: props.order }}
 				style={{ textDecoration: "none", color: "black" }}
 			>
 				<div>
