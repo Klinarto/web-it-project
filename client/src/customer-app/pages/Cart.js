@@ -9,7 +9,7 @@ export default function Cart() {
 			console.log(order);
 			const userData = JSON.parse(localStorage.getItem("userData"));
 			console.log(userData);
-			const data = { vendorId: "6080184f1cb9346538047c22" };
+			const data = { vendorId: "60939f9aa6762b64b82547b3" };
 
 			if (Object.entries(order).length !== 0) {
 				data["foodItems"] = order;
