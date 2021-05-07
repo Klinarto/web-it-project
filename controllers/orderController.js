@@ -5,7 +5,11 @@ const MenuItem = require("../models/menuItem");
 const getOrders = async (req, res) => {
 	try {
 		// Find all documents where their status is not fulfilled
-		const orders = await Order.find({ status: { $ne: "fulfilled" } });
+		const orders = await Order.find({
+			status: { $ne: "fulfilled" },
+		}).populate("vendorId", ["name"]);
+
+		console.log(typeof orders[0].vendorId);
 		return res.send(orders);
 	} catch (error) {
 		console.error(error);
@@ -18,7 +22,7 @@ const getOrder = async (req, res) => {
 	try {
 		const order = await Order.findOne({
 			orderId: req.params.orderId,
-		});
+		}).populate("vendorId", ["name"]);
 
 		if (!order) {
 			return res.status(404).send("Order not found");
