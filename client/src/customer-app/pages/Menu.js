@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Image,
   DIV,
+  ROW,
   TDPC,
   Wrapper,
   TD,
@@ -146,40 +147,26 @@ export default function Menu() {
 						</Fade>
 					</Modal> */}
         </RightWrapper>
-      </DIV>
-      <hr />
-      <br />
-      <table>{renderLaptopMenu(menu["beverage"])}</table>
-      <br />
-      <table>{renderLaptopMenu(menu["food"])}</table>
+		</DIV>
+		<h2>Beverage</h2>
+		<hr />
+		<br />
+		<ROW style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gridGap: 20 }}>
+			{renderLaptopMenu(menu["beverage"])}
+		</ROW>
+		
+		<h2>Food</h2>
+		<hr/>
+		<br />
+	  
+      	<ROW style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gridGap: 20 }}>
+		  {renderLaptopMenu(menu["food"])}
+		</ROW>
+		
     </Wrapper>
   );
 }
-// function renderItem(item) {
-// 	var quantity = 0;
-// 	return (
-// 		<TDPC>
-// 			<InTR>
-// 				<ImageBig src={item["image"]} />
-// 			</InTR>
-// 			<tr key={item._id}>
-// 				<p>
-// 					<b>{item["name"]} </b>
-// 					<Price>{item["price"]}</Price>
-// 					<br />
-// 					{item["detail"]}
-// 					<br />
-// 					<hr />
-// 				</p>
-// 			</tr>
-// 			<Buttons>
-// 				<AddItem>-</AddItem>
-// 				{quantity}
-// 				<AddItem>+</AddItem>
-// 			</Buttons>
-// 		</TDPC>
-// 	);
-// }
+
 
 // function renderPhoneMenu(menu) {
 // 	return menu.map((item) => {
