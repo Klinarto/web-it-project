@@ -64,34 +64,21 @@ function renderOrder(order) {
     console.log(foodItems)
     
     return (
-		<table>
-            <tr>
-            <h3>Order {orderId} </h3>
-            <br/>
-            <b>Vendor: </b> {vendorId}
-            <br/>
-            <b>Items ordered: </b>
+		<ul key={orderId}>
+            <ul><b>Order {orderId} </b></ul>
+            <ul><b>Vendor:</b> {vendorId}</ul>
+            <ul><b>Items ordered: </b></ul>
             <ul>
             {
                 Object.keys(foodItems).map((key, i) => (
-                <p key={i}>
-                    <span>{key}:</span>
-                    <span>{foodItems[key]}</span>
-                </p>
+                    <ul>{key}: {foodItems[key]}</ul>
                 ))}
             </ul>
-            </tr>
-			<tr>
-				<p>
-					<b>Status:</b> {status}
-					<br/>
-                    <b>Total Cost:</b> {totalCost}
-                    <br/>
-					<b>Created at:</b> {createdAt}
-					<br/>
-					<hr/>
-				</p>
-			</tr>
-		</table>
+            <ul><b>Status:</b> {status}</ul>
+            <ul><b>Total Cost:</b> {totalCost}</ul>
+            <ul><b>Created at:</b> {createdAt}</ul>
+            <hr/>
+        </ul>
+ 
 	);
 }
