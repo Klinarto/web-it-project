@@ -11,9 +11,9 @@ import grey from "@material-ui/core/colors/grey";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-// react.school/material-ui
-const drawerWidth = 270;
 
+// styles for the side bar and the header
+const drawerWidth = 270;
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
@@ -80,13 +80,14 @@ const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
 }));
 
+// useState hook to check if the Drawer status is open or not,
+// Top bar is also stylised here, actual codes are written in SideBar codes and rendered here.
 export default function Header() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
-    console.log(open);
   };
 
   const handleDrawerClose = () => {
