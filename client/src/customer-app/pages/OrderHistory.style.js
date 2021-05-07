@@ -29,7 +29,7 @@ export const LeftWrapper = styled.div``;
 export const RightWrapper = styled.div``;
 
 export const Status = styled.h1`
-  text-aligned: left;
+  text-align: left;
   font-size: 26px;
   font: roboto (to be changed);
   margin-top: 10%;
@@ -39,7 +39,7 @@ export const Status = styled.h1`
 export const OrderList = styled.ul`
     list-style: none;
     margin: 0;
-    padding 5px;
+    padding: 5px;
     padding-left: 15px;
     margin-bottom: 10px;
 
@@ -93,7 +93,6 @@ export const Logo = styled.img`
 `;
 
 export const Time = styled.div`
-  align-item: center;
   margin-left: auto;
   margin-right: auto;
 `;

@@ -1,7 +1,16 @@
 import axios from "axios";
+import {
+	Container,
+	OrderList,
+	OrderItem,
+  LeftWrapper,
+  RightWrapper,
+  Division
+} from "./Cart.style";
 
 export default function Cart() {
 	const orderList = JSON.parse(localStorage.getItem("order"));
+  const orderPrice = JSON.parse(localStorage.getItem("price"));
 	console.log(orderList);
 
 	const makeOrder = async (order) => {
@@ -25,10 +34,36 @@ export default function Cart() {
 		}
 		return;
 	};
-
+  console.log(Object.entries(orderList));
 	return (
-		<p>
-			<ul></ul>
+		<Container>
+      
+
+        <Division>
+          <LeftWrapper>
+            {Object.entries(orderList).map(function (item) {
+              return (
+                <OrderList>
+                  <OrderItem>
+                    {item[1]} x {item[0]}
+                  </OrderItem>
+                </OrderList>
+              );
+            })}
+          </LeftWrapper>
+          <RightWrapper>
+            {Object.entries(orderPrice).map(function (item) {
+              return (
+                <OrderList>
+                  <OrderItem>
+                    $ {item[1]}
+                  </OrderItem>
+                </OrderList>
+              );
+            })}
+          </RightWrapper>
+        </Division>
+
 			<button
 				onClick={() => {
 					makeOrder(orderList);
@@ -36,6 +71,6 @@ export default function Cart() {
 			>
 				make order
 			</button>
-		</p>
+		</Container>
 	);
 }

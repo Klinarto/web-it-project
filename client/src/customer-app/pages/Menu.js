@@ -16,6 +16,7 @@ import MenuItem from "../components/MenuItem";
 
 export default function Menu() {
   var orderList = {};
+	var orderPrice = {};
   const [menu, setMenu] = useState({});
   const [order, setOrder] = useState({});
   function renderLaptopMenu(array) {
@@ -77,7 +78,6 @@ export default function Menu() {
   }, [menu]);
 
   useEffect(() => {
-    //console.log(order);
     return () => {};
   }, [order]);
 
@@ -85,9 +85,15 @@ export default function Menu() {
     for (const [key, value] of Object.entries(order)) {
       if (value > 0) {
         orderList[key] = value;
+				const allMenu = menu['beverage'].concat(menu["food"]);
+				allMenu.forEach(function (item) {
+					if (item['name'] == key) {
+						orderPrice[key] = parseFloat(item['price'])*parseInt(value);
+					}
+				});
       }
     }
-
+		localStorage.setItem('price', JSON.stringify(orderPrice));
     localStorage.setItem("order", JSON.stringify(orderList));
   };
 

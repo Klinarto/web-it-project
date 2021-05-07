@@ -24,7 +24,6 @@ export default function MenuItem(props) {
 	const { item, setOrder } = props;
 	const name = item.name;
 	const [quantity, setQuantity] = useState(0);
-
 	useEffect(() => {
 		const updateOrder = () => {
 			setOrder((prevOrder) => ({

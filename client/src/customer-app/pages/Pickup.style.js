@@ -37,12 +37,11 @@ export const Status = styled.h1`
 `;
 
 export const OrderList = styled.ul`
-    list-style: none;
-    margin: 0;
-    padding 5px;
-    padding-left: 15px;
-    margin-bottom: 10px;
-
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  padding-left: 15px;
+  margin-bottom: 10px;
 `;
 export const OrderItem = styled.li`
   font-size: 18px;
@@ -103,6 +102,5 @@ export const MyButton = styled.button`
   &:hover {
     color: black;
     background: #fff;
-    cursor: pointer;
   }
 `;
