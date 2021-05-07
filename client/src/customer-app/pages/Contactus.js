@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Title } from "./Contactus.style";
 
+// SImple Contact us page
 export function Help() {
   return (
     <Container>

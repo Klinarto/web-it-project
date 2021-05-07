@@ -11,13 +11,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 import ListAltIcon from "@material-ui/icons/ListAlt";
-import ReceiptIcon from "@material-ui/icons/Receipt";
 import CheckIcon from "@material-ui/icons/Check";
 import StarsIcon from "@material-ui/icons/Stars";
 import HelpIcon from "@material-ui/icons/Help";
 import CallIcon from "@material-ui/icons/Call";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
+// This is the side bar that pops up when hamburger icon is clicked, it is used material UI's design
 export default function SideBarLinks() {
   const history = useHistory();
   const auth = useContext(AuthContext);
@@ -27,6 +27,7 @@ export default function SideBarLinks() {
     <>
       <Divider />
       <List>
+        {/* */}
         <ListItem
           button
           key={"vans"}
