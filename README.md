@@ -108,3 +108,9 @@ but the controller for manipulating the data is implemented and the description 
        "status": "fulfilled"
    }
    ```
+   **Front End **
+   
+   Dummy Customer login:
+   
+   email address: john@gmail.com
+   password: 123456
