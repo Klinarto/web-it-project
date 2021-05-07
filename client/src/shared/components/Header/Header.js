@@ -94,6 +94,17 @@ export default function Header() {
     setOpen(false);
   };
 
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
     <React.Fragment>
       <AppBar
@@ -119,12 +130,12 @@ export default function Header() {
       </AppBar>
       <Drawer
         className={classes.drawer}
-        variant="persistent"
         anchor="left"
         open={open}
         classes={{
           paper: classes.drawerPaper,
         }}
+        onClose={toggleDrawer("left", false)}
       >
         <div className={classes.drawerHeader} onClick={handleDrawerClose}>
           <h3>Snacks in a Van</h3>
