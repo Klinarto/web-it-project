@@ -15,7 +15,9 @@ export const Container = styled.div`
 `;
 
 export const Division = styled.div`
-  max-height: 30vh;
+  max-height: 20vh;
+  flex: 2;
+  overflow-y: auto;
   display: flex;
   justify-content: space-between;
 `;
