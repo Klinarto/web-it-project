@@ -1,15 +1,18 @@
 import styled from "styled-components";
 import { device } from "../../shared/components/device";
 
+export const Title = styled.h1`
+  font-size: 32px;
+`;
+
 export const Container = styled.div`
   height: 100vh;
-  width: 40%;
+  width: 80%;
   position: relative;
   flex: 1;
   flex-direction: column;
   overflow-y: auto;
   display: flex;
-
   margin: 0;
   padding: 0;
   margin-left: auto;
@@ -17,23 +20,32 @@ export const Container = styled.div`
 `;
 
 export const Division = styled.div`
-  max-height: 20%;
-  flex: 2;
-  overflow-y: auto;
+  /* max-height: 20%; */
+  flex: 3;
+  /* overflow-y: auto; */
   display: flex;
   justify-content: space-between;
+  margin: 10px;
+  padding: 0;
 `;
+
+export const innerDiv = styled.div`
+  margin-left : auto;
+  margin-right : auto;
+`;
+
+
 
 export const LeftWrapper = styled.div``;
 
 export const RightWrapper = styled.div``;
 
-export const Status = styled.h1`
+export const OrderTitle = styled.h1`
   text-align: left;
-  font-size: 26px;
+  font-size: 22px;
   font: roboto (to be changed);
-  margin-top: 10%;
-  margin-bottom: 5%;
+  margin-top: 5%;
+  margin-bottom: 0.5%;
 `;
 
 export const OrderList = styled.ul`
@@ -41,12 +53,21 @@ export const OrderList = styled.ul`
     margin: 0;
     padding: 5px;
     padding-left: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 5%;
 
 `;
 export const OrderItem = styled.li`
   font-size: 18px;
-  display: inline-block;
+  list-style-type: none;
+  margin-bottom: 5%;
+`;
+
+export const FoodItem = styled.li`
+  font-size: 18px;
+  list-style-type: none;
+  color: grey;
+  margin-left: auto;
+  margin-right:auto;
 `;
 
 export const OrderPrice = styled.li`
@@ -58,6 +79,15 @@ export const BreakLine = styled.hr`
   min-width: 100%;
   border: 0.8px solid #b9b9b9;
 `;
+
+
+export const ListTitle = styled.li`
+  font-size: 20px;
+  margin: auto;
+  font-weight: bold;
+  list-style-type: none;
+`;
+
 
 export const DivisionBottom = styled.div`
   max-height: 10%;

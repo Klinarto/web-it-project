@@ -2,9 +2,6 @@ import {
 	UL,
 	Image,
 	DIV2,
-	TDPC,
-	Wrapper,
-	TD,
 	InTR,
 	Price,
 	ImageBig,
@@ -35,7 +32,7 @@ export default function MenuItem(props) {
 		return () => {};
 	}, [quantity, setOrder, name]);
 	return (
-		<DIV2 >
+		<DIV2>
 			<UL>
 				<ImageBig src={item["image"]} />
 			</UL>
