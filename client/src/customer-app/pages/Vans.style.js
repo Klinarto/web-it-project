@@ -16,3 +16,15 @@ export const Container = styled.div`
 export const Title = styled.p`
   text-align: center;
 `;
+
+export const Division = styled.div`
+
+`;
+
+export const LeftDetail = styled.div`
+
+`;
+
+export const MyButton = styled.button`
+
+`;

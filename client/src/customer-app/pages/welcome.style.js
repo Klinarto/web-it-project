@@ -79,7 +79,6 @@ export const RightImage = styled.img`
     max-width: 60%;
   }
 
-  // margin: auto;
 `;
 
 export const HeaderWrapper = styled.h1`
