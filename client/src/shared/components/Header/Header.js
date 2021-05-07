@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { ItemList, MyNavLink } from "./Header.styles";
+import SideBarLinks from "./SideBarLinks";
+import SideLinks from "./SideLinks";
 import { AuthContext } from "../../auth-context";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -10,26 +11,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import Button from "@material-ui/core/Button";
 import grey from "@material-ui/core/colors/grey";
 import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
-import ListAltIcon from "@material-ui/icons/ListAlt";
-import ReceiptIcon from "@material-ui/icons/Receipt";
-import CheckIcon from "@material-ui/icons/Check";
-import StarsIcon from "@material-ui/icons/Stars";
-import HelpIcon from "@material-ui/icons/Help";
-import CallIcon from "@material-ui/icons/Call";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-
 // react.school/material-ui
 const drawerWidth = 270;
 
@@ -100,11 +85,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header() {
-  const history = useHistory();
   const classes = useStyles();
-  const auth = useContext(AuthContext);
   const [open, setOpen] = React.useState(false);
-  const tabletSize = useMediaQuery(device.tablet);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -114,183 +96,6 @@ export default function Header() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  function sideBarLinks() {
-    return (
-      <>
-        <Divider />
-        <List>
-          <ListItem
-            button
-            key={"vans"}
-            onClick={() => {
-              history.push("/customer/vans");
-            }}
-          >
-            <ListItemIcon>
-              <LocalShippingIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Vans"} />
-          </ListItem>
-          <ListItem
-            button
-            key={"menu"}
-            onClick={() => {
-              history.push("/customer/menu");
-            }}
-          >
-            <ListItemIcon>
-              <RestaurantMenuIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Menu"} />
-          </ListItem>
-          {auth.isLoggedIn && (
-            <ListItem
-              button
-              key={"order"}
-              onClick={() => {
-                history.push("/customer/order");
-              }}
-            >
-              <ListItemIcon>
-                <ListAltIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Order"} />
-            </ListItem>
-          )}
-          {auth.isLoggedIn && (
-            <ListItem
-              button
-              key={"orderHistory"}
-              onClick={() => {
-                history.push("/customer/orderHistory");
-              }}
-            >
-              <ListItemIcon>
-                <ReceiptIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Order History"} />
-            </ListItem>
-          )}
-          {auth.isLoggedIn && (
-            <ListItem
-              button
-              key={"pickup"}
-              onClick={() => {
-                history.push("/customer/pickup");
-              }}
-            >
-              <ListItemIcon>
-                <CheckIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Pickup"} />
-            </ListItem>
-          )}
-          {auth.isLoggedIn && (
-            <ListItem
-              button
-              key={"rate"}
-              onClick={() => {
-                history.push("/customer/rate");
-              }}
-            >
-              <ListItemIcon>
-                <StarsIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Rate"} />
-            </ListItem>
-          )}
-          <Divider />
-          {!tabletSize && (
-            <ListItem
-              button
-              key={"help"}
-              onClick={() => {
-                history.push("/help");
-              }}
-            >
-              <ListItemIcon>
-                <HelpIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Help"} />
-            </ListItem>
-          )}
-          {!tabletSize && (
-            <ListItem
-              button
-              key={"contactus"}
-              onClick={() => {
-                history.push("/contactus");
-              }}
-            >
-              <ListItemIcon>
-                <CallIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Contact Us"} />
-            </ListItem>
-          )}
-          {!tabletSize && (
-            <ListItem
-              button
-              key={"myprofile"}
-              onClick={() => {
-                history.push("/customer/myprofile");
-              }}
-            >
-              <ListItemIcon>
-                <AccountCircleIcon />
-              </ListItemIcon>
-              <ListItemText primary={"My Profile"} />
-            </ListItem>
-          )}
-        </List>
-      </>
-    );
-  }
-
-  function sideLinks() {
-    return (
-      <ItemList>
-        {tabletSize && (
-          <li>
-            <MyNavLink to="/help">Help</MyNavLink>
-          </li>
-        )}
-        {tabletSize && (
-          <li>
-            <MyNavLink to="/contactus">Contact Us</MyNavLink>
-          </li>
-        )}
-        {tabletSize && auth.isLoggedIn && (
-          <li>
-            <MyNavLink to="/customer/myaccount">My Account</MyNavLink>
-          </li>
-        )}
-        {auth.isLoggedIn && (
-          <li>
-            <MyNavLink to="/customer">
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={auth.logout}
-              >
-                LOGOUT
-              </Button>
-            </MyNavLink>
-          </li>
-        )}
-        {!auth.isLoggedIn && (
-          <li>
-            <MyNavLink to="/customer/login">
-              <Button variant="contained" color="secondary">
-                LOGIN
-              </Button>
-            </MyNavLink>
-          </li>
-        )}
-      </ItemList>
-    );
-  }
 
   return (
     <React.Fragment>
@@ -312,7 +117,7 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Snacks in a Van
           </Typography>
-          {sideLinks()}
+          <SideLinks />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -334,7 +139,7 @@ export default function Header() {
             )}
           </IconButton>
         </div>
-        {sideBarLinks()}
+        <SideBarLinks />
       </Drawer>
     </React.Fragment>
   );
