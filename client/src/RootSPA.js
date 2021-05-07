@@ -24,10 +24,10 @@ import axios from "axios";
 import { AuthContext } from "./shared/auth-context";
 
 // axios.defaults.baseURL = "http://localhost:5000";
-axios.interceptors.request.use((request) => {
-	console.log("Starting Request", JSON.stringify(request, null, 2));
-	return request;
-});
+// axios.interceptors.request.use((request) => {
+// 	console.log("Starting Request", JSON.stringify(request, null, 2));
+// 	return request;
+// });
 
 export function App() {
 	const [token, setToken] = useState(true);
