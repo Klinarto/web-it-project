@@ -96,6 +96,8 @@ export default function Header() {
   const auth = useContext(AuthContext);
   const [open, setOpen] = React.useState(false);
 
+  const sideLink = [{ vans: "Vans" }, { menu: "Menu" }];
+
   const handleDrawerOpen = () => {
     setOpen(true);
     console.log(open);
@@ -110,8 +112,19 @@ export default function Header() {
       <>
         <Divider />
         <List>
-          {["vans", "menu", "order", "orderhistory", "pickup", "rate"].map(
-            (text) => (
+          {["vans", "menu"].map((text, index) => (
+            <ListItem
+              button
+              key={text}
+              onClick={() => {
+                history.push("/customer/" + text);
+              }}
+            >
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+          {auth.isLoggedIn &&
+            ["order", "orderhistory", "pickup", "rate"].map((text, index) => (
               <ListItem
                 button
                 key={text}
@@ -121,8 +134,7 @@ export default function Header() {
               >
                 <ListItemText primary={text} />
               </ListItem>
-            )
-          )}
+            ))}
         </List>
         <Divider />
       </>
@@ -132,32 +144,6 @@ export default function Header() {
   function sideLinks() {
     return (
       <ItemList>
-        <li>
-          <MyNavLink to="/customer/vans">Vans</MyNavLink>
-        </li>
-        <li>
-          <MyNavLink to="/customer/menu">Menu</MyNavLink>
-        </li>
-        {auth.isLoggedIn && (
-          <li>
-            <MyNavLink to="/customer/order">Order</MyNavLink>
-          </li>
-        )}
-        {auth.isLoggedIn && (
-          <li>
-            <MyNavLink to="/customer/orderhistory">History</MyNavLink>
-          </li>
-        )}
-        {auth.isLoggedIn && (
-          <li>
-            <MyNavLink to="/customer/pickup">Pick Up</MyNavLink>
-          </li>
-        )}
-        {auth.isLoggedIn && (
-          <li>
-            <MyNavLink to="/customer/rate">Rate</MyNavLink>
-          </li>
-        )}
         <li>
           <MyNavLink to="/help">Help</MyNavLink>
         </li>
