@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Container, OrderTitle,OrderList,FoodItem, Division, OrderItem, Title, LeftWrapper, MyButton } from "./OrderHistory.style";
+import {
+	Container,
+	Title,
+	LeftWrapper,
+} from "./OrderHistory.style";
 import axios from "axios";
 import LinkToOrder from "../components/LinkToOrder";
-import { Link } from "react-router-dom";
 
 export default function OrderHistory() {
 	const [orderList, setOrderHistory] = useState([]);
@@ -22,10 +25,10 @@ export default function OrderHistory() {
 
 	return (
 		<Container>
-      <LeftWrapper>
-      <br/>
-          <Title>Orders</Title>
-      </LeftWrapper>
+			<LeftWrapper>
+				<br />
+				<Title>Orders</Title>
+			</LeftWrapper>
 			<hr />
 			<br />
 			{renderLaptopOrder(orderList)}

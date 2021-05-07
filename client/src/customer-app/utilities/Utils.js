@@ -5,3 +5,7 @@ export const objectIsEmpty = (object) => {
 		return true;
 	}
 };
+
+export const parseDate = (date) => {
+	return `${date.getHours()}:${date.getMinutes()} on ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+};
