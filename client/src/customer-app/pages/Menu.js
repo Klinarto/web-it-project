@@ -18,6 +18,8 @@ export default function Menu() {
 	var orderPrice = {};
   const [menu, setMenu] = useState({});
   const [order, setOrder] = useState({});
+
+	// Render reach menu item.
   function renderLaptopMenu(array) {
     try {
       const row = array.map((item) => (
@@ -29,6 +31,8 @@ export default function Menu() {
     }
   }
 
+  // This chunk of code related to modal might be used for later implementation.
+	
   // Sets up the modal for cart
   // const useStyles = makeStyles((theme) => ({
   // 	modal: {
@@ -47,12 +51,12 @@ export default function Menu() {
   // const handleOpen = () => {finalOrder(order); setOpen(true)};
   // const handleClose = () => {setOpen(false)};
 
+	// Fetch the menu data from the DB and categorise into beverage and food.
   useEffect(() => {
     let isMounted = true;
     const fetchMenu = async () => {
       try {
         const res = await axios.get("/menu");
-        // console.log(res.data);
         if (isMounted) {
           let sorted = {};
           res.data.forEach((menuItem) => {
@@ -63,7 +67,6 @@ export default function Menu() {
             }
           });
 
-          // console.log(sorted);
           setMenu(sorted);
         }
       } catch (error) {
@@ -76,10 +79,12 @@ export default function Menu() {
     };
   }, [menu]);
 
+	// Update order when the quantity changes by + - buttons.
   useEffect(() => {
     return () => {};
   }, [order]);
 
+	// Take the current state of order when go to cart button is clicked.
   const finalOrder = (order) => {
     for (const [key, value] of Object.entries(order)) {
       if (value > 0) {
@@ -96,7 +101,7 @@ export default function Menu() {
     localStorage.setItem("order", JSON.stringify(orderList));
   };
 
-  //const mobileSize = useMediaQuery(`(min-width: ${"768px"})`);
+	// render
   return (
     <Wrapper>
       <DIV>
@@ -156,33 +161,3 @@ export default function Menu() {
     </Wrapper>
   );
 }
-
-// function renderPhoneMenu(menu) {
-// 	return menu.map((item) => {
-// 		const { name, price, image, detail } = item;
-// 		return (
-// 			<tr>
-// 				<TD>
-// 					<p>
-// 						<b>{name} </b>
-// 						<Price>{price}</Price>
-// 						<br></br>
-// 						{detail}
-// 						<br></br>
-// 						{/* <hr></hr> */}
-// 					</p>
-// 				</TD>
-// 				<td>
-// 					<Image src={image} />
-// 				</td>
-// 			</tr>
-// 		);
-// 	});
-// }
-
-
-        // style={{
-        //   display: "grid",
-        //   gridTemplateColumns: "repeat(4, 1fr)",
-        //   gridGap: 20,
-        // }}

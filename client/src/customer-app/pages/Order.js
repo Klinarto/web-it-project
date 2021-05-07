@@ -17,6 +17,7 @@ import {
   MyButton,
 } from "./Order.style";
 
+// Dummy data used for test. Actual data will be passed when each order is clicked in OrderHistory page.
 const props = [
   {
     id: "1",
@@ -62,12 +63,14 @@ const props = [
   },
 ];
 
+// Calculate total price of the order.
 var totalPrice = 0;
 for (var i = 0; i < props.length; i++) {
   totalPrice += parseFloat(props[i].price.slice(1));
 }
 
 export function Order() {
+	// render
   return (
     <Container>
       <Status>Preparing your order...</Status>
