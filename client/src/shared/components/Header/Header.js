@@ -7,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import grey from "@material-ui/core/colors/grey";
+import { useHistory } from "react-router-dom";
 
 import { ItemList, MyNavLink } from "./Header.styles";
 import { AuthContext } from "../../auth-context";
@@ -16,14 +17,12 @@ import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 
 // react.school/material-ui
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -91,10 +90,12 @@ const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
 }));
 
-export default function ButtonAppBar() {
+export default function Header() {
+  const history = useHistory();
   const classes = useStyles();
   const auth = useContext(AuthContext);
   const [open, setOpen] = React.useState(false);
+
   const handleDrawerOpen = () => {
     setOpen(true);
     console.log(open);
@@ -103,6 +104,31 @@ export default function ButtonAppBar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  function sideBarLinks() {
+    return (
+      <>
+        <Divider />
+        <List>
+          {["vans", "menu", "order", "orderhistory", "pickup", "rate"].map(
+            (text) => (
+              <ListItem
+                button
+                key={text}
+                onClick={() => {
+                  history.push("/customer/" + text);
+                }}
+              >
+                <ListItemText primary={text} />
+              </ListItem>
+            )
+          )}
+        </List>
+        <Divider />
+      </>
+    );
+  }
+
   function sideLinks() {
     return (
       <ItemList>
@@ -210,28 +236,7 @@ export default function ButtonAppBar() {
             )}
           </IconButton>
         </div>
-        <Divider />
-        {/* <List>
-          {["1", "2", "3", "4"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
-        <Divider />
-        {/* <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
+        {sideBarLinks()}
       </Drawer>
     </React.Fragment>
   );
