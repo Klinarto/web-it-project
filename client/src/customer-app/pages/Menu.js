@@ -101,7 +101,7 @@ export default function Menu() {
     localStorage.setItem("order", JSON.stringify(orderList));
   };
 
-	// render
+
   return (
     <Wrapper>
       <DIV>

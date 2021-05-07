@@ -5,25 +5,57 @@ export const Title = styled.h1`
   font-size: 32px;
 `;
 
-export const UL = styled.li`
-  list-style-type: none;
+
+
+export const Division = styled.div`
+  /* max-height: 20%; */
+  flex-direction: column;
+  flex: 3 ;
+  
+  /* overflow-y: auto; */
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 0;
 `;
 
-export const Image = styled.img`
-  right: 0;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
+// export const ImageDiv = styled.div`
+//   width:100%;
+//   height: auto;
+//   margin-left : auto;
+//   margin-right : auto;
+// `;
+
+
+export const UL = styled.li`
+  list-style-type: none;
+  margin-top:2%;;
+  margin-bottom:2%;
 `;
+
 
 export const ImageBig = styled.img`
   display: block;
   /* width: 300px; */
-  height: 200px;
   width: 100%;
-  max-height: 50%;
+
+  
   object-fit: cover;
   align-self: center;
+
+  @media ${device.mobileS} {
+    height: 300px;
+  }
+  @media ${device.mobileL} {
+    height: 300px;
+  }
+  @media ${device.mobileM} {
+    height: 300px;
+  }
+
+  @media ${device.laptop} {
+    height: 200px;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -74,22 +106,27 @@ export const ROW = styled.div`
   clear: both;
   align-self: center;
 
-  @media ${device.mobileL} {
+
+  @media ${device.mobileS} {
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+  @media ${device.mobileM} {
     grid-template-columns: 1fr;
     grid-gap: 20px;
   }
 
+  @media ${device.tablet} {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+  }
   @media ${device.laptop} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
   }
 `;
 
-export const InTR = styled.tr`
-  padding: 5px;
-  height: 20%;
-  width: 100%;
-`;
+
 
 export const Price = styled.span`
   color: grey;

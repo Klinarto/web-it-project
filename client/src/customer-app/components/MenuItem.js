@@ -1,6 +1,6 @@
 import {
 	UL,
-	Image,
+	Division,
 	DIV2,
 	InTR,
 	Price,
@@ -32,13 +32,19 @@ export default function MenuItem(props) {
 		return () => {};
 	}, [quantity, setOrder, name]);
 	return (
-		<DIV2>
-			<UL>
+
+		<Division>
+			<div>
 				<ImageBig src={item["image"]} />
-			</UL>
+			</div>
+
+			<div>
 				<UL><b>{item["name"]}</b> <Price>{item["price"]}</Price></UL>
 				<UL>{item["detail"]}</UL>
-            <Buttons>
+			</div>
+        
+			<div>
+			<Buttons>
                 <IconButton
                     aria-label="Remove"
                     onClick={() => {
@@ -59,7 +65,8 @@ export default function MenuItem(props) {
                     <AddCircleOutlineIcon />
                 </IconButton>
             </Buttons>
-            
-		</DIV2>
+            </div>
+		</Division>
+
 	);
 }
