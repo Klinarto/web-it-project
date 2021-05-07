@@ -13,22 +13,33 @@ import {
 } from "@react-google-maps/api";
 import axios from "axios";
 import mapStyle from "../utilities/Mapstyle";
-import haversine from "haversine-distance";
-import { objectIsEmpty } from "../utilities/Utils";
+import { objectIsEmpty, calculateDistance } from "../utilities/Utils";
 
 export default function Map() {
+	// used to center map, default center is Melbourne
 	const [center, setCenter] = useState({ lat: -37.8136, lng: 144.9631 });
+	// used to ste zoom level in maps
 	const [zoom, setZoom] = useState(15);
+
+	// array of vendors
 	const [vendors, setVendors] = useState([]);
+
+	// used for infowindow marker
 	const [selected, setSelected] = useState(null);
+
+	// stores current location in latlng object (e.g. {lat: number, lng: number})
 	const [currentLocation, setCurrentLocation] = useState({});
 
+	// from @react-google-maps/api
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GMAP_KEY,
 	});
 
 	useEffect(() => {
+		// used for cleanup
 		let isMounted = true;
+
+		// fetch list of vendors from db
 		const fetchVendors = async () => {
 			try {
 				const res = await axios.get("/vendor");
@@ -48,14 +59,17 @@ export default function Map() {
 		};
 	}, [vendors]);
 
+	// googleMap component options
 	const options = {
 		disableDefaultUI: true,
 		zoomControl: true,
+		// uses custom map style stored in mapStyle
 		styles: mapStyle,
 	};
 
 	const mapRef = useRef();
 
+	// when the map loads, create a ref to the map to avoid re-renders
 	const onMapLoad = useCallback((map) => {
 		mapRef.current = map;
 	}, []);
@@ -65,6 +79,7 @@ export default function Map() {
 		mapRef.current.setZoom(14);
 	}, []);
 
+	// display vendors as markers in the map
 	const displayVendors = () => {
 		if (vendors) {
 			return vendors.map((vendor) => {
@@ -103,18 +118,11 @@ export default function Map() {
 						>
 							{vendor.name}
 						</button>
-						<p>
-							Distance: {distanceToCurrentLocation(currentLocation, location)}
-						</p>
+						{/* Print distance from current location to vendor */}
+						<p>Distance: {calculateDistance(currentLocation, location)}</p>
 					</div>
 				);
 			});
-		}
-	};
-
-	const distanceToCurrentLocation = (to, from) => {
-		if (!objectIsEmpty(to) && !objectIsEmpty(from)) {
-			return calculateDistance(to, from);
 		}
 	};
 
@@ -134,14 +142,6 @@ export default function Map() {
 				/>
 			);
 		}
-	};
-
-	const from = { lat: -37.8136, lng: 144.9631 };
-	const to = { lat: -33.8688, lng: 151.2093 };
-
-	// calculate distance (in meters) between two latlng points
-	const calculateDistance = (to, from) => {
-		return haversine(to, from);
 	};
 
 	// get current location of user
@@ -202,6 +202,7 @@ export default function Map() {
 		return <h3>Unable to load map</h3>;
 	}
 
+	// temp loading div
 	const loadingDiv = (
 		<div>
 			<h1>Loading</h1>
@@ -220,14 +221,6 @@ export default function Map() {
 						Current Location
 					</button>
 					{displayVendorButtons()}
-					<button
-						onClick={() => {
-							const dist = calculateDistance(from, to);
-							console.log(dist);
-						}}
-					>
-						Calculate Distance
-					</button>
 				</div>
 			) : null}
 		</Fragment>

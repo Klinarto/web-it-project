@@ -12,23 +12,32 @@ export default function Register() {
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
+	// open state for materialUI snackbar
 	const [open, setOpen] = useState(false);
+
+	// details for materialUI snackbar
 	const [snackbar, setSnackbar] = useState({});
+
+	// duration for snackbar
 	const duration = 3000;
 
 	const sendData = async () => {
+		// create a data object to register new customer
 		const data = {
 			firstName,
 			lastName,
 			email,
 			password,
 		};
+
 		console.log(data);
 
 		const res = await axios.post("/customer/register", data, {
 			headers: { "Content-Type": "application/json" },
 		});
 		try {
+			// set snackbar details
 			setOpen(true);
 			setSnackbar({
 				data: "Successfully registered",
@@ -38,6 +47,8 @@ export default function Register() {
 			console.log(res.data);
 		} catch (error) {
 			console.log(error);
+
+			// set snackbar details
 			setOpen(true);
 			setSnackbar({
 				data: error.response.data,
@@ -46,6 +57,7 @@ export default function Register() {
 		}
 	};
 
+	// handleclose template from materialUI docs
 	const handleClose = (event, reason) => {
 		if (reason === "clickaway") {
 			return;
