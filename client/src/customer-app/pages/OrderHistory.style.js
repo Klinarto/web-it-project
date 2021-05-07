@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { device } from "../../shared/components/device";
 
 export const Title = styled.h1`
@@ -19,8 +18,9 @@ export const Container = styled.div`
   flex-direction: column;
 
   display: flex;
-  margin: 0;
   padding: 0;
+  margin-top: 0.5%;
+  margin-bottom: 5%;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -32,7 +32,7 @@ export const Division = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 10px;
-  padding: 0;
+  padding: 10px;
 `;
 
 export const innerDiv = styled.div`
@@ -46,7 +46,7 @@ export const OrderTitle = styled.h1`
   text-align: left;
   font-size: 22px;
   font: roboto (to be changed);
-  margin-top: 5%;
+  margin-top: 2%;
   margin-bottom: 0.5%;
 `;
 

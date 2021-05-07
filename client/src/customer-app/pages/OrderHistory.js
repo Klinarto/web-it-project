@@ -23,19 +23,6 @@ export default function OrderHistory() {
 		return () => {};
 	}, []);
 
-	const orderList_dummy = [
-		{
-			orderId: "1",
-			customerId: { $oid: "608a752474f5f76a4894472f" },
-			vendorId: { $oid: "6080184f1cb9346538047c22" },
-			foodItems: { "flat white": 3, cappuccino: 2 },
-			status: "pending",
-			orderCost: 22.5,
-			createdAt: { $date: "2021-04-29T10:50:31.549Z" },
-			updatedAt: { $date: "2021-04-29T11:18:23.331Z" },
-		},
-	];
-
 	return (
 		<Container>
             <LeftWrapper>
@@ -75,35 +62,38 @@ function renderOrder(order) {
 	console.log(vendorId);
 
   return (
-    <Link to="/customer/order" style={{textDecoration: 'none', color: "black"}}>
-      <div>
-        <OrderTitle>Order {orderId} </OrderTitle> 
-        <hr/>
-        <Division>
-          <innerDiv>
-            <OrderList>
-              <OrderItem><b>Vendor:</b> {vendorId.name}</OrderItem>
-              <OrderItem><b>Status:</b> {status}</OrderItem>
-            </OrderList>
-          </innerDiv>
+    <Container>
+      <Link to="/customer/order" style={{textDecoration: 'none', color: "black"}}>
+        <div>
+          <OrderTitle>Order {orderId} </OrderTitle> 
+          <hr/>
+          <Division>
+            <innerDiv>
+              <OrderList>
+                <OrderItem><b>Vendor:</b> {vendorId.name}</OrderItem>
+                <OrderItem><b>Status:</b> {status}</OrderItem>
+              </OrderList>
+            </innerDiv>
 
-          <innerDiv>
-            <OrderItem><b>Items ordered: </b></OrderItem>
-            {Object.keys(foodItems).map((key, i) => (
-              <FoodItem>
-              {foodItems[key]}  {key}
-              </FoodItem>
-            ))}
-          </innerDiv>
+            <innerDiv>
+              <OrderItem><b>Items ordered: </b></OrderItem>
+              {Object.keys(foodItems).map((key, i) => (
+                <FoodItem>
+                {foodItems[key]}  {key}
+                </FoodItem>
+              ))}
+            </innerDiv>
 
-          <innerDiv>
-            <OrderItem><b>Total Cost:</b> $ {totalCost}</OrderItem>
-            <OrderItem><b>Created at:</b> {createdAt}</OrderItem>
-          </innerDiv>
-          <br/>
-        </Division>
-        <hr/>
-      </div>
-    </Link>
+            <innerDiv>
+              <OrderItem><b>Total Cost:</b> $ {totalCost}</OrderItem>
+              <OrderItem><b>Created at:</b> {createdAt}</OrderItem>
+            </innerDiv>
+            <br/>
+          </Division>
+          <hr/>
+        </div>
+      </Link>
+    </Container>
+
   );
 }
