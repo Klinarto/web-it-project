@@ -1,32 +1,55 @@
-import React, { useState, Fragment, useEffect } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import React, {
+	useState,
+	Fragment,
+	useEffect,
+	useCallback,
+	useRef,
+} from "react";
+import {
+	GoogleMap,
+	InfoWindow,
+	Marker,
+	useLoadScript,
+} from "@react-google-maps/api";
 import axios from "axios";
-import { Grid } from "@material-ui/core";
+
+const libraries = ["geometry"];
 
 export default function Vans() {
 	const [center, setCenter] = useState({ lat: -37.8136, lng: 144.9631 });
 	const [zoom, setZoom] = useState(15);
 	const [vendors, setVendors] = useState([]);
-	const [markers, setMarkers] = useState([]);
+	const [selected, setSelected] = useState(null);
+
+	const { isLoaded, loadError } = useLoadScript({
+		googleMapsApiKey: process.env.REACT_APP_GMAP_KEY,
+		libraries,
+	});
 
 	const options = {
 		disableDefaultUI: true,
 		zoomControl: true,
 	};
 
+	const mapRef = useRef();
+	const onMapLoad = useCallback((map) => {
+		mapRef.current = map;
+	}, []);
+
+	const panTo = useCallback(({ lat, lng }) => {
+		mapRef.current.panTo({ lat, lng });
+		mapRef.current.setZoom(14);
+	}, []);
+
 	useEffect(() => {
+		let isMounted = true;
 		const fetchVendors = async () => {
-			// console.log("Fetching vendors");
 			try {
 				const res = await axios.get("/vendor");
+				if (isMounted) {
+					setVendors(res.data);
+				}
 
-				// for (const vendor of res.data) {
-				// 	console.log(vendor);
-				// 	if (vendor.status == "open") {
-				// 		setVendors((prevVendor) => [...prevVendor, vendor]);
-				// 	}
-				// }
-				setVendors(res.data);
 				// console.log(vendors);
 			} catch (error) {
 				console.log(error);
@@ -34,19 +57,24 @@ export default function Vans() {
 		};
 
 		fetchVendors();
-		return () => {};
+		return () => {
+			isMounted = false;
+		};
 	}, [vendors]);
 
 	const displayVendors = () => {
 		if (vendors) {
-			return vendors.map((van) => {
+			return vendors.map((vendor) => {
 				return (
 					<Marker
-						key={van._id}
-						title={van.name}
+						key={vendor._id}
+						title={vendor.name}
 						position={{
-							lat: van.location.lat,
-							lng: van.location.lng,
+							lat: vendor.location.lat,
+							lng: vendor.location.lng,
+						}}
+						onClick={() => {
+							setSelected(vendor);
 						}}
 						// icon={{
 						// 	url: "../../cookieLogo.png",
@@ -57,25 +85,33 @@ export default function Vans() {
 		}
 	};
 
-	const displayMarkers = () => {
-		if (markers) {
-			return markers.map((marker, key) => {
-				console.log(marker);
+	const displayVendorButtons = () => {
+		if (vendors) {
+			return vendors.map((vendor) => {
 				return (
-					<Marker
-						key={(marker, key)}
-						position={{
-							lat: marker.lat,
-							lng: marker.lng,
+					<button
+						key={vendor._id}
+						onClick={() => {
+							panTo({
+								lat: vendor.location.lat,
+								lng: vendor.location.lng,
+							});
 						}}
-					/>
+					>
+						{vendor.name}
+					</button>
 				);
 			});
 		}
 	};
 
-	// if (markers[0]) console.log("Markers" + typeof markers[0].lat);
-	// if (vendors[0]) console.log("Vendor" + typeof vendors[0].location.lat);
+	const calculateDistance = () => {
+		const from = { lat: -37.8136, lng: 144.9631 };
+		const to = { lat: -33.8688, lng: 151.2093 };
+		console.log(mapRef);
+		// const distance = mapRef.geometry.spherical.computeDistanceBetween(from, to);
+		// console.log(distance);
+	};
 
 	const getCurrentLocation = () => {
 		if ("geolocation" in navigator) {
@@ -89,35 +125,50 @@ export default function Vans() {
 			console.log("Geolocation is not available");
 		}
 	};
+	const renderMap = () => {
+		return (
+			<GoogleMap
+				mapContainerStyle={{
+					height: "80vh",
+					width: "100%",
+				}}
+				center={center}
+				zoom={zoom}
+				options={options}
+				onLoad={onMapLoad}
+			>
+				{displayVendors()}
+				{selected ? (
+					<InfoWindow
+						position={{
+							lat: selected.location.lat,
+							lng: selected.location.lng,
+						}}
+						onCloseClick={() => {
+							setSelected(null);
+						}}
+					>
+						<div>
+							<h2>{selected.name}</h2>
+							<p>{selected.locationDetails}</p>
+						</div>
+					</InfoWindow>
+				) : null}
+			</GoogleMap>
+		);
+	};
+
+	if (loadError) {
+		return <h3>Unable to load map</h3>;
+	}
+
 	return (
 		<Fragment>
-			<LoadScript googleMapsApiKey={process.env.REACT_APP_GMAP_KEY}>
-				<GoogleMap
-					mapContainerStyle={{
-						height: "100vh",
-						width: "100%",
-					}}
-					center={center}
-					zoom={zoom}
-					options={options}
-					// onClick={(e) => {
-					// 	setMarkers((current) => [
-					// 		...current,
-					// 		{
-					// 			lat: e.latLng.lat(),
-					// 			lng: e.latLng.lng(),
-					// 			time: new Date(),
-					// 		},
-					// 	]);
-					// 	console.log(markers);
-					// }}
-				>
-					{displayVendors()}
-					{/* {displayMarkers()} */}
-				</GoogleMap>
-			</LoadScript>
+			{isLoaded ? renderMap() : <h1>Loading</h1>}
 			<div>
 				<button onClick={getCurrentLocation}>Current Location</button>
+				{displayVendorButtons()}
+				<button onClick={calculateDistance}>Calculate Distance</button>
 			</div>
 		</Fragment>
 	);
