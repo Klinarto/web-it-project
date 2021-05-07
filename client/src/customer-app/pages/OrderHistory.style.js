@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { device } from "../../shared/components/device";
 
 export const Title = styled.h1`
   font-size: 32px;
@@ -36,11 +35,9 @@ export const Division = styled.div`
 `;
 
 export const innerDiv = styled.div`
-  margin-left : auto;
-  margin-right : auto;
+  margin-left: auto;
+  margin-right: auto;
 `;
-
-
 
 export const OrderTitle = styled.h1`
   text-align: left;
@@ -51,12 +48,11 @@ export const OrderTitle = styled.h1`
 `;
 
 export const OrderList = styled.ul`
-    list-style: none;
-    margin: 0;
-    padding: 5px;
-    padding-left: 15px;
-    margin-bottom: 5%;
-
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  padding-left: 15px;
+  margin-bottom: 5%;
 `;
 export const OrderItem = styled.li`
   font-size: 18px;
@@ -69,7 +65,7 @@ export const FoodItem = styled.li`
   list-style-type: none;
   color: grey;
   margin-left: auto;
-  margin-right:auto;
+  margin-right: auto;
 `;
 
 export const OrderPrice = styled.li`
@@ -82,14 +78,12 @@ export const BreakLine = styled.hr`
   border: 0.8px solid #b9b9b9;
 `;
 
-
 export const ListTitle = styled.li`
   font-size: 20px;
   margin: auto;
   font-weight: bold;
   list-style-type: none;
 `;
-
 
 export const DivisionBottom = styled.div`
   max-height: 10%;
@@ -128,8 +122,6 @@ export const Time = styled.div`
   margin-left: auto;
   margin-right: auto;
 `;
-
-
 
 export const MyButton = styled.button`
   display: block;

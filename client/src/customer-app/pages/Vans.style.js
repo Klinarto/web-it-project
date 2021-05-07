@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { device } from "../../shared/components/device";
 
 export const Container = styled.div`
   height: 93vh;

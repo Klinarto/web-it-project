@@ -40,16 +40,6 @@ export const LeftWrapper = styled.div`
   }
 `;
 
-export const LeftImage = styled.img`
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-export const Title = styled.h1`
-  text-align: center;
-`;
-
 export const MyButton = styled.button`
   display: block;
   margin-left: auto;

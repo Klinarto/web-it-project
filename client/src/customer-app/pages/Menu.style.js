@@ -5,13 +5,11 @@ export const Title = styled.h1`
   font-size: 32px;
 `;
 
-
-
 export const Division = styled.div`
   /* max-height: 20%; */
   flex-direction: column;
-  flex: 3 ;
-  
+  flex: 3;
+
   /* overflow-y: auto; */
   display: flex;
   justify-content: space-between;
@@ -26,20 +24,17 @@ export const Division = styled.div`
 //   margin-right : auto;
 // `;
 
-
 export const UL = styled.li`
   list-style-type: none;
-  margin-top:2%;;
-  margin-bottom:2%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 `;
-
 
 export const ImageBig = styled.img`
   display: block;
   /* width: 300px; */
   width: 100%;
 
-  
   object-fit: cover;
   align-self: center;
 
@@ -106,7 +101,6 @@ export const ROW = styled.div`
   clear: both;
   align-self: center;
 
-
   @media ${device.mobileS} {
     grid-template-columns: 1fr;
     grid-gap: 20px;
@@ -125,8 +119,6 @@ export const ROW = styled.div`
     grid-gap: 20px;
   }
 `;
-
-
 
 export const Price = styled.span`
   color: grey;

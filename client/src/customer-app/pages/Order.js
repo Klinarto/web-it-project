@@ -70,7 +70,7 @@ for (var i = 0; i < props.length; i++) {
 }
 
 export function Order() {
-	// render
+  // render
   return (
     <Container>
       <Status>Preparing your order...</Status>

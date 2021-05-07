@@ -15,11 +15,11 @@ import MenuItem from "../components/MenuItem";
 
 export default function Menu() {
   var orderList = {};
-	var orderPrice = {};
+  var orderPrice = {};
   const [menu, setMenu] = useState({});
   const [order, setOrder] = useState({});
 
-	// Render reach menu item.
+  // Render reach menu item.
   function renderLaptopMenu(array) {
     try {
       const row = array.map((item) => (
@@ -32,7 +32,7 @@ export default function Menu() {
   }
 
   // This chunk of code related to modal might be used for later implementation.
-	
+
   // Sets up the modal for cart
   // const useStyles = makeStyles((theme) => ({
   // 	modal: {
@@ -51,7 +51,7 @@ export default function Menu() {
   // const handleOpen = () => {finalOrder(order); setOpen(true)};
   // const handleClose = () => {setOpen(false)};
 
-	// Fetch the menu data from the DB and categorise into beverage and food.
+  // Fetch the menu data from the DB and categorise into beverage and food.
   useEffect(() => {
     let isMounted = true;
     const fetchMenu = async () => {
@@ -79,28 +79,27 @@ export default function Menu() {
     };
   }, [menu]);
 
-	// Update order when the quantity changes by + - buttons.
+  // Update order when the quantity changes by + - buttons.
   useEffect(() => {
     return () => {};
   }, [order]);
 
-	// Take the current state of order when go to cart button is clicked.
+  // Take the current state of order when go to cart button is clicked.
   const finalOrder = (order) => {
     for (const [key, value] of Object.entries(order)) {
       if (value > 0) {
         orderList[key] = value;
-				const allMenu = menu['beverage'].concat(menu["food"]);
-				allMenu.forEach(function (item) {
-					if (item['name'] == key) {
-						orderPrice[key] = parseFloat(item['price'])*parseInt(value);
-					}
-				});
+        const allMenu = menu["beverage"].concat(menu["food"]);
+        allMenu.forEach(function (item) {
+          if (item["name"] === key) {
+            orderPrice[key] = parseFloat(item["price"]) * parseInt(value);
+          }
+        });
       }
     }
-		localStorage.setItem('price', JSON.stringify(orderPrice));
+    localStorage.setItem("price", JSON.stringify(orderPrice));
     localStorage.setItem("order", JSON.stringify(orderList));
   };
-
 
   return (
     <Wrapper>
@@ -147,17 +146,13 @@ export default function Menu() {
       <h2>Beverage</h2>
       <hr />
       <br />
-      <ROW>
-        {renderLaptopMenu(menu["beverage"])}
-      </ROW>
+      <ROW>{renderLaptopMenu(menu["beverage"])}</ROW>
 
       <h2>Food</h2>
       <hr />
       <br />
 
-      <ROW>
-        {renderLaptopMenu(menu["food"])}
-      </ROW>
+      <ROW>{renderLaptopMenu(menu["food"])}</ROW>
     </Wrapper>
   );
 }
