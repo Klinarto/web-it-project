@@ -95,6 +95,9 @@ export function App() {
         <Route path="/customer" exact>
           <Welcome />
         </Route>
+        <Route path="/" exact>
+          <Welcome />
+        </Route>
         <Route path="/customer/vans">
           <Vans />
         </Route>
