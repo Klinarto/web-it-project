@@ -17,7 +17,6 @@ export default function Cart() {
 			const res = await axios.post("/order", data, {
 				headers: {
 					"Content-Type": "application/json",
-					"x-access-token": userData.token,
 				},
 			});
 			console.log(res);
