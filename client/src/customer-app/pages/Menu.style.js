@@ -72,6 +72,7 @@ export const DIV2 = styled.div`
 export const ROW = styled.div`
   display: grid;
   clear: both;
+  align-self: center;
 
   @media ${device.mobileL} {
     grid-template-columns: 1fr;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "./OrderHistory.style";
+import { Container, OrderTitle,OrderList,FoodItem, Division, OrderItem, Title, LeftWrapper } from "./OrderHistory.style";
 import styled from "styled-components";
 import { Grid } from "@material-ui/core";
 import axios from "axios";
@@ -37,6 +37,10 @@ export default function OrderHistory() {
 
 	return (
 		<Container>
+            <LeftWrapper>
+            <br/>
+                <Title>Orders</Title>
+            </LeftWrapper>
 			<hr />
 			<br />
 			{renderLaptopOrder(orderList)}
@@ -70,33 +74,40 @@ function renderOrder(order) {
 	console.log(vendorId);
 
   return (
-    <ul key={orderId}>
-      <ul>
-        <b>Order {orderId} </b>
-      </ul>
-      <ul>
-        <b>Vendor:</b> {vendorId.name}
-      </ul>
-      <ul>
-        <b>Items ordered: </b>
-      </ul>
-      <ul>
-        {Object.keys(foodItems).map((key, i) => (
-          <ul>
-            {key}: {foodItems[key]}
-          </ul>
-        ))}
-      </ul>
-      <ul>
-        <b>Status:</b> {status}
-      </ul>
-      <ul>
-        <b>Total Cost:</b> {totalCost}
-      </ul>
-      <ul>
-        <b>Created at:</b> {createdAt}
-      </ul>
-      <hr />
-    </ul>
+    <div>
+    
+    <OrderTitle>Order {orderId} </OrderTitle> 
+    <hr/>
+    <Division>
+    <innerDiv>
+    <OrderList>
+        <OrderItem><b>Vendor:</b> {vendorId.name}</OrderItem>
+        <OrderItem><b>Status:</b> {status}</OrderItem>
+    </OrderList>
+    </innerDiv>
+
+    <innerDiv>
+    <OrderList>
+    <OrderItem><b>Items ordered: </b></OrderItem>
+    {Object.keys(foodItems).map((key, i) => (
+        <FoodItem>
+        {foodItems[key]}  {key}
+        </FoodItem>
+    ))}
+    </OrderList>
+    
+    </innerDiv>
+
+    <innerDiv>
+    <OrderList>
+    <OrderItem><b>Total Cost:</b> {totalCost}</OrderItem>
+    <OrderItem><b>Created at:</b> {createdAt}</OrderItem>
+    </OrderList>
+    </innerDiv>
+
+    <br/>
+    </Division>
+    <hr/>
+    </div>
   );
 }

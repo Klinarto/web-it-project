@@ -20,10 +20,13 @@ import coffeeMachine from "../../coffeeMachine.png";
 
 export default function Cart() {
   const history = useHistory();
+
+  // Fetch the order details from the local storage. 
+  // This will be replaced with cookie in later version of implementation.
   const orderList = JSON.parse(localStorage.getItem("order"));
   const orderPrice = JSON.parse(localStorage.getItem("price"));
-  console.log(orderList);
 
+  // Organise the order details and send to the database.
   const makeOrder = async (order) => {
     try {
       console.log(order);
@@ -46,6 +49,7 @@ export default function Cart() {
     return;
   };
 
+  // Calculate the total price of the order.
   var totalPrice = 0;
   Object.entries(orderPrice).map({
     function(item) {
@@ -53,8 +57,8 @@ export default function Cart() {
     },
   });
 
-  console.log(Object.entries(orderList));
 
+  // Render
   return (
     <Container>
       <Status>Confirm your order</Status>
