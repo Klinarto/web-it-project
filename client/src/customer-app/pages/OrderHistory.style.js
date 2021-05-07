@@ -5,13 +5,18 @@ export const Title = styled.h1`
   font-size: 32px;
 `;
 
+export const LeftWrapper = styled.div`
+  justify-content: center;
+  min-width: 50%;
+`;
+
 export const Container = styled.div`
   height: 100vh;
   width: 80%;
   position: relative;
   flex: 1;
   flex-direction: column;
-  overflow-y: auto;
+
   display: flex;
   margin: 0;
   padding: 0;
@@ -35,10 +40,6 @@ export const innerDiv = styled.div`
 `;
 
 
-
-export const LeftWrapper = styled.div``;
-
-export const RightWrapper = styled.div``;
 
 export const OrderTitle = styled.h1`
   text-align: left;

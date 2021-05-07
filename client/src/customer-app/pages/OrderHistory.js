@@ -38,6 +38,7 @@ export default function OrderHistory() {
 	return (
 		<Container>
             <LeftWrapper>
+            <br/>
                 <Title>Orders</Title>
             </LeftWrapper>
 			<hr />
@@ -74,6 +75,7 @@ function renderOrder(order) {
 
   return (
     <div>
+    
     <OrderTitle>Order {orderId} </OrderTitle> 
     <hr/>
     <Division>
@@ -85,19 +87,24 @@ function renderOrder(order) {
     </innerDiv>
 
     <innerDiv>
+    <OrderList>
     <OrderItem><b>Items ordered: </b></OrderItem>
     {Object.keys(foodItems).map((key, i) => (
         <FoodItem>
         {foodItems[key]}  {key}
         </FoodItem>
     ))}
+    </OrderList>
     
     </innerDiv>
 
     <innerDiv>
+    <OrderList>
     <OrderItem><b>Total Cost:</b> {totalCost}</OrderItem>
     <OrderItem><b>Created at:</b> {createdAt}</OrderItem>
+    </OrderList>
     </innerDiv>
+
     <br/>
     </Division>
     <hr/>
