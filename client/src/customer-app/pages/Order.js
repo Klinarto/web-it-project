@@ -19,36 +19,27 @@ import {
 import axios from "axios";
 import { useLocation } from "react-router";
 
-
-
-
-
-
-
-
 export function Order(props) {
 	const [menu, setMenu] = useState({});
 
-  // Quick solution to get a price: Fetch the whole menu data. Will be fixed soon.
-  useEffect(() => {
-    let isMounted = true;
-    const fetchMenu = async () => {
-      try {
-        const res = await axios.get("/menu");
-        if (isMounted) {  
-					setMenu(res.data);        
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchMenu();
-    return () => {
-      isMounted = false;
-    };
-  }, [menu]);
-
-	
+	// Quick solution to get a price: Fetch the whole menu data. Will be fixed soon.
+	useEffect(() => {
+		let isMounted = true;
+		const fetchMenu = async () => {
+			try {
+				const res = await axios.get("/menu");
+				if (isMounted) {
+					setMenu(res.data);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchMenu();
+		return () => {
+			isMounted = false;
+		};
+	}, [menu]);
 
 	const order = useLocation().state;
 	console.log(order);
@@ -65,18 +56,10 @@ export function Order(props) {
 	} = order;
 
 	var prices = [];
-	Object.entries(foodItems).map(function ([item, quantity]) {
-		for (const menuItem in menu) {
-			if (menuItem['name'] == item) {
-				prices.push(menuItem['price']);
-			}
-		}
-	}
+	// console.log(foodItems);
+	// console.log(menu);
+	// console.log("menu type", typeof menu);
 
-	console.log(prices);
-
-	console.log(Object.entries(menu));
-	// render
 	return (
 		<Container>
 			<Status>Preparing your order...</Status>
@@ -96,9 +79,7 @@ export function Order(props) {
 					{prices.map(function (price) {
 						return (
 							<OrderList>
-								<OrderItem>
-									$ {price}
-								</OrderItem>
+								<OrderItem>$ {price}</OrderItem>
 							</OrderList>
 						);
 					})}
