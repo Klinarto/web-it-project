@@ -1,5 +1,10 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { ItemList, MyNavLink } from "./Header.styles";
+import { AuthContext } from "../../auth-context";
 import { makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { device } from "../device";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -7,13 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import grey from "@material-ui/core/colors/grey";
-import { useHistory } from "react-router-dom";
-
-import { ItemList, MyNavLink } from "./Header.styles";
-import { AuthContext } from "../../auth-context";
-
 import Drawer from "@material-ui/core/Drawer";
-
 import Divider from "@material-ui/core/Divider";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -27,6 +26,9 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import CheckIcon from "@material-ui/icons/Check";
 import StarsIcon from "@material-ui/icons/Stars";
+import HelpIcon from "@material-ui/icons/Help";
+import CallIcon from "@material-ui/icons/Call";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 // react.school/material-ui
 const drawerWidth = 270;
@@ -102,8 +104,7 @@ export default function Header() {
   const classes = useStyles();
   const auth = useContext(AuthContext);
   const [open, setOpen] = React.useState(false);
-
-  const sideLink = [{ vans: "Vans" }, { menu: "Menu" }];
+  const tabletSize = useMediaQuery(device.tablet);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -199,6 +200,49 @@ export default function Header() {
               <ListItemText primary={"Rate"} />
             </ListItem>
           )}
+          <Divider />
+          {!tabletSize && (
+            <ListItem
+              button
+              key={"help"}
+              onClick={() => {
+                history.push("/help");
+              }}
+            >
+              <ListItemIcon>
+                <HelpIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Help"} />
+            </ListItem>
+          )}
+          {!tabletSize && (
+            <ListItem
+              button
+              key={"contactus"}
+              onClick={() => {
+                history.push("/contactus");
+              }}
+            >
+              <ListItemIcon>
+                <CallIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Contact Us"} />
+            </ListItem>
+          )}
+          {!tabletSize && (
+            <ListItem
+              button
+              key={"myprofile"}
+              onClick={() => {
+                history.push("/customer/myprofile");
+              }}
+            >
+              <ListItemIcon>
+                <AccountCircleIcon />
+              </ListItemIcon>
+              <ListItemText primary={"My Profile"} />
+            </ListItem>
+          )}
         </List>
       </>
     );
@@ -207,13 +251,17 @@ export default function Header() {
   function sideLinks() {
     return (
       <ItemList>
-        <li>
-          <MyNavLink to="/help">Help</MyNavLink>
-        </li>
-        <li>
-          <MyNavLink to="/contactus">Contact Us</MyNavLink>
-        </li>
-        {auth.isLoggedIn && (
+        {tabletSize && (
+          <li>
+            <MyNavLink to="/help">Help</MyNavLink>
+          </li>
+        )}
+        {tabletSize && (
+          <li>
+            <MyNavLink to="/contactus">Contact Us</MyNavLink>
+          </li>
+        )}
+        {tabletSize && auth.isLoggedIn && (
           <li>
             <MyNavLink to="/customer/myaccount">My Account</MyNavLink>
           </li>
@@ -276,9 +324,9 @@ export default function Header() {
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.drawerHeader}>
+        <div className={classes.drawerHeader} onClick={handleDrawerClose}>
           <h3>Snacks in a Van</h3>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton>
             {classes.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
