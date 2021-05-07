@@ -19,81 +19,86 @@ import {
 import axios from "axios";
 import { useLocation } from "react-router";
 
-// Dummy data used for test. Actual data will be passed when each order is clicked in OrderHistory page.
-const dummy = [
-	{
-		id: "1",
-		quantity: "1",
-		name: "Latte",
-		price: "$4.50",
-	},
-	{
-		id: "2",
-		quantity: "2",
-		name: "Cappuccino",
-		price: "$9.00",
-	},
-	{
-		id: "3",
-		quantity: "1",
-		name: "Small cake",
-		price: "$9.00",
-	},
-	{
-		id: "4",
-		quantity: "3",
-		name: "Fancy biscuit",
-		price: "$12.00",
-	},
-	{
-		id: "5",
-		quantity: "3",
-		name: "Fancy biscuit",
-		price: "$12.00",
-	},
-	{
-		id: "6",
-		quantity: "3",
-		name: "Fancy biscuit",
-		price: "$12.00",
-	},
-	{
-		id: "7",
-		quantity: "3",
-		name: "Fancy biscuit",
-		price: "$12.00",
-	},
-];
 
-// Calculate total price of the order.
-var totalPrice = 0;
-for (var i = 0; i < dummy.length; i++) {
-	totalPrice += parseFloat(dummy[i].price.slice(1));
-}
+
+
+
+
+
+
 export function Order(props) {
+	const [menu, setMenu] = useState({});
+
+  // Quick solution to get a price: Fetch the whole menu data. Will be fixed soon.
+  useEffect(() => {
+    let isMounted = true;
+    const fetchMenu = async () => {
+      try {
+        const res = await axios.get("/menu");
+        if (isMounted) {  
+					setMenu(res.data);        
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchMenu();
+    return () => {
+      isMounted = false;
+    };
+  }, [menu]);
+
+	
+
 	const order = useLocation().state;
 	console.log(order);
+	const {
+		createdAt,
+		customerId,
+		foodItems,
+		orderCost,
+		orderId,
+		status,
+		totalCost,
+		updatedAt,
+		vendorId,
+	} = order;
+
+	var prices = [];
+	Object.entries(foodItems).map(function ([item, quantity]) {
+		for (const menuItem in menu) {
+			if (menuItem['name'] == item) {
+				prices.push(menuItem['price']);
+			}
+		}
+	}
+
+	console.log(prices);
+
+	console.log(Object.entries(menu));
 	// render
 	return (
 		<Container>
 			<Status>Preparing your order...</Status>
 			<Division>
 				<div>
-					{dummy.map(function (item) {
+					{Object.entries(foodItems).map(function ([item, quantity]) {
 						return (
-							<OrderList key={item.id}>
+							<OrderList>
 								<OrderItem>
-									{item.quantity} x {item.name}
+									{quantity} x {item}
 								</OrderItem>
 							</OrderList>
 						);
 					})}
 				</div>
 				<div>
-					{dummy.map(function (item) {
+					{prices.map(function (price) {
 						return (
-							<OrderList key={item.id}>
-								<OrderPrice>{item.price}</OrderPrice>
+							<OrderList>
+								<OrderItem>
+									$ {price}
+								</OrderItem>
 							</OrderList>
 						);
 					})}
@@ -108,7 +113,7 @@ export function Order(props) {
 				</div>
 				<div>
 					<Total>Total</Total>
-					<TotalPrice>${totalPrice}</TotalPrice>
+					<TotalPrice>${totalCost}</TotalPrice>
 				</div>
 			</DivisionBottom>
 			<Logo alt="machine-logo" src={coffeeMachine} />
