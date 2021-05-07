@@ -19,15 +19,20 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 // This is the side bar that pops up when hamburger icon is clicked, it is used material UI's design
 export default function SideBarLinks() {
+  // used to redirect to certain pages
   const history = useHistory();
+  // context to check if they are authenticated
   const auth = useContext(AuthContext);
+  // used to detect tablet size, device containss min-width values
   const tabletSize = useMediaQuery(device.tablet);
 
   return (
     <>
       <Divider />
       <List>
-        {/* */}
+        {/* Each list item will have Router's history Hook and rediret to page when a div is clicked.
+        Some lists will check if the screen size is smaller than a certain device size (tablet size) and display the item
+        Some will check whether it is authenticated and screen size is small*/}
         <ListItem
           button
           key={"vans"}
@@ -38,7 +43,7 @@ export default function SideBarLinks() {
           <ListItemIcon>
             <LocalShippingIcon />
           </ListItemIcon>
-          <ListItemText primary={"Vans"} />
+          <ListItemText primary={"Vans (Work In Progress)"} />
         </ListItem>
         <ListItem
           button

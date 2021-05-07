@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../../shared/auth-context";
 import {
   DIV,
   ROW,
@@ -18,6 +19,8 @@ export default function Menu() {
   var orderPrice = {};
   const [menu, setMenu] = useState({});
   const [order, setOrder] = useState({});
+
+  const auth = useContext(AuthContext);
 
   // Render reach menu item.
   function renderLaptopMenu(array) {
@@ -108,7 +111,7 @@ export default function Menu() {
           <Title>Menu</Title>
         </LeftWrapper>
         <RightWrapper>
-          <Link to="/customer/cart">
+          <Link to={auth.isLoggedIn ? "/customer/cart" : "/customer/login"}>
             <MyButton
               aria-label="Go to cart"
               onClick={() => {
