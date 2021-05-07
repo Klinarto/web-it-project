@@ -13,7 +13,7 @@ app.use(express.json(), cors());
 
 // Home page
 app.get("/", (req, res) => {
-  res.send("<h1>Home aPage</h1>");
+  res.send("<h1>Home Page</h1>");
 });
 
 // App routes
