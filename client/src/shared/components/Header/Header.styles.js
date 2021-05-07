@@ -16,10 +16,11 @@ export const LogoText = styled.h1`
 
 export const ItemList = styled.ul`
   color: white;
-  margin: 0 16px 0 0;
   padding: 0;
   display: flex;
   list-style: none;
+  justify-content: center;
+  align-items: center;
 
   & > li:after {
     content: "|";
