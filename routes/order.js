@@ -4,7 +4,7 @@ const verifyToken = require("../middleware/verifyToken");
 const router = express.Router();
 
 // get all outstanding orders
-router.get("/", orderController.getOrders);
+router.get("/", verifyToken, orderController.getOrders);
 
 // get specific order
 router.get("/:orderId", verifyToken, orderController.getOrder);

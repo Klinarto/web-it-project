@@ -3,13 +3,21 @@ const MenuItem = require("../models/menuItem");
 
 // get all outstanding orders
 const getOrders = async (req, res) => {
+	const filter = { status: { $ne: "fulfilled" } };
+	if ((req.customer || req.vendor) && !(req.customer || req.vendor)) {
+		return res.status(401).send("No token provided");
+	}
+	if (req.customer) {
+		filter["customerId"] = req.customer.id;
+	}
+	if (req.vendor) {
+		filter["vendorId"] = req.vendor.id;
+	}
+
 	try {
 		// Find all documents where their status is not fulfilled
-		const orders = await Order.find({
-			status: { $ne: "fulfilled" },
-		}).populate("vendorId", ["name"]);
+		const orders = await Order.find(filter).populate("vendorId", ["name"]);
 
-		console.log(typeof orders[0].vendorId);
 		return res.send(orders);
 	} catch (error) {
 		console.error(error);
