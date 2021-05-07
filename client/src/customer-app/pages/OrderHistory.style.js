@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { device } from "../../shared/components/device";
+
 
 export const Title = styled.h1`
   font-size: 32px;
@@ -11,17 +13,29 @@ export const LeftWrapper = styled.div`
 
 export const Container = styled.div`
   height: 100vh;
-  width: 80%;
   position: relative;
   flex: 1;
   flex-direction: column;
-
   display: flex;
   padding: 0;
   margin-top: 0.5%;
   margin-bottom: 5%;
   margin-left: auto;
   margin-right: auto;
+  @media ${device.mobileS} {
+    height: 100%;
+  }
+  @media ${device.mobileL} {
+    width: 100%;
+  }
+  @media ${device.mobileM} {
+    height: 100%;
+  }
+
+  @media ${device.laptop} {
+    width: 80%;;
+  }
+
 `;
 
 export const Division = styled.div`
