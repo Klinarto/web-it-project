@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-	Container,
-	Title,
-	LeftWrapper,
-} from "./OrderHistory.style";
+import { Container, Title, LeftWrapper } from "./OrderHistory.style";
 import axios from "axios";
 import LinkToOrder from "../components/LinkToOrder";
 
@@ -37,10 +33,9 @@ export default function OrderHistory() {
 	);
 }
 
-
 function renderLaptopOrder(array) {
 	try {
-		const row = array.map((order) => ( <LinkToOrder order = {order} /> ));
+		const row = array.map((order) => <LinkToOrder order={order} />);
 		return row;
 	} catch (error) {
 		console.log(error);

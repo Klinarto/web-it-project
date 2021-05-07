@@ -1,8 +1,18 @@
-import React from "react";
-import { Container, OrderTitle,OrderList,FoodItem, Division, OrderItem, Title, LeftWrapper, MyButton } from "../pages/OrderHistory.style";
+import React, { useEffect, useState } from "react";
+import {
+	Container,
+	OrderTitle,
+	OrderList,
+	FoodItem,
+	Division,
+	OrderItem,
+	Title,
+	LeftWrapper,
+	MyButton,
+} from "../pages/OrderHistory.style";
 import { Link } from "react-router-dom";
 import { parseDate } from "../utilities/Utils";
-
+import axios from "axios";
 
 export default function LinkToOrder(props) {
 	const {
@@ -17,13 +27,14 @@ export default function LinkToOrder(props) {
 		updatedAt,
 	} = props.order;
 
+	console.log(props.order);
 
 	const parsedDate = parseDate(new Date(createdAt));
 
 	return (
 		<Container>
 			<Link
-				to="/customer/order"
+				to={{ pathname: `/customer/order/${orderId}`, state: props.order }}
 				style={{ textDecoration: "none", color: "black" }}
 			>
 				<div>
