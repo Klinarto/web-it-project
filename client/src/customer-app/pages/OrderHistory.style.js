@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { device } from "../../shared/components/device";
 
 export const Title = styled.h1`
@@ -26,7 +27,7 @@ export const Container = styled.div`
 
 export const Division = styled.div`
   /* max-height: 20%; */
-  flex: 3;
+  flex: 4;
   /* overflow-y: auto; */
   display: flex;
   justify-content: space-between;
@@ -127,6 +128,8 @@ export const Time = styled.div`
   margin-left: auto;
   margin-right: auto;
 `;
+
+
 
 export const MyButton = styled.button`
   display: block;
