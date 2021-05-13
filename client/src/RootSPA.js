@@ -14,6 +14,15 @@ import Register from "./customer-app/pages/Register";
 import Help from "./customer-app/pages/Help";
 import Contactus from "./customer-app/pages/Contactus";
 import Cart from "./customer-app/pages/Cart";
+
+import VendorWelcome from "./vendor-app/pages/VendorWelcome";
+import VendorLogin from "./vendor-app/pages/VendorLogin";
+import VendorAddress from "./vendor-app/pages/VendorAddress";
+import VendorClose from "./vendor-app/pages/VendorClose";
+import VendorOrderList from "./vendor-app/pages/VendorOrderList";
+import VendorOrderDetails from "./vendor-app/pages/VendorOrderDetails";
+import VendorProfile from "./vendor-app/pages/VendorProfile";
+
 import axios from "axios";
 
 import { AuthContext } from "./shared/auth-context";
@@ -124,6 +133,34 @@ export function App() {
     );
   }
 
+  let vendorRoutes;
+  vendorRoutes = (
+    <Switch>
+      <Route path="/vendor" exact>
+        <VendorWelcome />
+      </Route>
+      <Route path="/vendor/login">
+        <VendorLogin />
+      </Route>
+      <Route path="/vendor/address">
+        <VendorAddress />
+      </Route>
+      <Route path="/vendor/close">
+        <VendorClose />
+      </Route>
+      <Route path="/vendor/orderlist">
+        <VendorOrderList />
+      </Route>
+      <Route path="/vendor/orderdetails">
+        <VendorOrderDetails />
+      </Route>
+      <Route path="/vendor/profile">
+        <VendorProfile />
+      </Route>
+      <Route>{<div>Error 404</div>}</Route>
+    </Switch>
+  );
+
   return (
     //  Used context to make every page render the token, before rendering pages, it will bind the values in the context
     <AuthContext.Provider
@@ -137,6 +174,7 @@ export function App() {
       <Router>
         <Header />
         {customerRoutes}
+        {vendorRoutes}
       </Router>
     </AuthContext.Provider>
   );
