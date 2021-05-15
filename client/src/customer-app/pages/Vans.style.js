@@ -1,30 +1,40 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  height: 93vh;
-  width: 100%;
-  position: relative;
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  align-items: center;
 
-  margin: 0;
-  padding: 0;
+export const Float_Container = styled.div`
+  
+`;
+export const Container = styled.div`
+  position:relative;
+  width: 30%;
+  float: left;
+  
 `;
 
 export const Title = styled.p`
   text-align: center;
 `;
 
-export const Division = styled.div`
 
-`;
 
 export const LeftDetail = styled.div`
 
 `;
 
 export const MyButton = styled.button`
+  position: fixed;
+  bottom: 0;
+  height: 12vh; 
+  width: 30%;
+`;
 
+export const VanButton = styled.button`
+  width: 100%;
+  height: 60vh;
+  &:focus {
+    color: white;
+    background: red;
+    cursor: pointer;
+  }
+  
 `;
