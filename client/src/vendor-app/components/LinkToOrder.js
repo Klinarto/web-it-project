@@ -6,14 +6,15 @@ import {
 	FoodItem,
 	Division,
 	OrderItem,
-} from "../pages/OrderHistory.style";
+} from "../pages/VendorOrderList.style";
 import { Link } from "react-router-dom";
-import { parseDate } from "../utilities/Utils";
+import { parseDate } from "../../customer-app/utilities/Utils";
+import Button from "@material-ui/core/Button";
 
 export default function LinkToOrder(props) {
 	const {
 		orderId,
-		vendorId,
+		customerId,
 		foodItems,
 		status,
 		totalCost,
@@ -35,33 +36,62 @@ export default function LinkToOrder(props) {
 						<innerDiv>
 							<OrderList>
 								<OrderItem>
-									<b>Vendor:</b> {vendorId.name}
+									<b>Customer:</b> {customerId.email}
 								</OrderItem>
 								<OrderItem>
 									<b>Status:</b> {status}
 								</OrderItem>
+								<OrderItem>
+								<b>Items ordered: </b>
+								</OrderItem>
+								{Object.keys(foodItems).map((key, i) => (
+									<FoodItem>
+										{foodItems[key]} {key}
+									</FoodItem>
+								))}
+								<OrderItem>
+								<b>Created at:</b> {parsedDate}
+								</OrderItem>
 							</OrderList>
 						</innerDiv>
-
+						
 						<innerDiv>
-							<OrderItem>
-								<b>Items ordered: </b>
-							</OrderItem>
-							{Object.keys(foodItems).map((key, i) => (
-								<FoodItem>
-									{foodItems[key]} {key}
-								</FoodItem>
-							))}
+							<Button
+							variant="contained"
+							color="primary"
+							width = "60%"
+							style={{
+								backgroundColor: "black",
+								// padding: "16px 0",
+							}}
+							onClick={() => {
+								// sendData();
+							}}
+						    >
+							Made
+							</Button>
+
 						</innerDiv>
 
 						<innerDiv>
-							<OrderItem>
-								<b>Total Cost:</b> $ {totalCost}
-							</OrderItem>
-							<OrderItem>
-								<b>Created at:</b> {parsedDate}
-							</OrderItem>
+							<Button
+							variant="contained"
+							color="primary"
+							style={{
+								backgroundColor: "#aad9cd",
+								// padding: "16px 0",
+							}}
+							onClick={() => {
+								// sendData();
+							}}
+						    >
+							Picked Up
+							</Button>
+
+
 						</innerDiv>
+
+
 						<br />
 					</Division>
 					<hr />
