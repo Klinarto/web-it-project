@@ -23,9 +23,11 @@ import VendorOrderList from "./vendor-app/pages/VendorOrderList";
 import VendorOrderDetails from "./vendor-app/pages/VendorOrderDetails";
 import VendorProfile from "./vendor-app/pages/VendorProfile";
 
+
 import axios from "axios";
 
 import { AuthContext } from "./shared/auth-context";
+import VendorRegister from "./vendor-app/pages/VendorRegister";
 
 // axios.defaults.baseURL = "http://localhost:5000";
 // axios.interceptors.request.use((request) => {
@@ -141,6 +143,9 @@ export function App() {
       </Route>
       <Route path="/vendor/login">
         <VendorLogin />
+      </Route>
+      <Route path="/vendor/register">
+        <VendorRegister/>
       </Route>
       <Route path="/vendor/address">
         <VendorAddress />

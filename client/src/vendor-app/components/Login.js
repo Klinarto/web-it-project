@@ -16,7 +16,7 @@ export default function SignIn() {
 	const auth = useContext(AuthContext);
 	const history = useHistory();
 
-	const [email, setEmail] = useState("");
+	const [name, setName] = useState("");
 	const [password, setPassword] = useState("");
 
 	// open state for materialUI snackbar
@@ -31,7 +31,7 @@ export default function SignIn() {
 	// send username and password on form submission
 	const sendData = async () => {
 		// create a data object for axios post
-		const data = { email: email, password: password };
+		const data = { name: name, password: password };
 		console.log(data);
 		try {
 			const res = await axios.post("/vendor/login", data, {
@@ -94,8 +94,8 @@ export default function SignIn() {
 						label="Van name"
 						autoComplete="email"
 						autoFocus
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						value={name}
+						onChange={(e) => setName(e.target.value)}
 					/>
 					<TextField
 						variant="outlined"

@@ -4,7 +4,7 @@ import React from "react";
 export function VendorOrderList() {
   return (
     <>
-      <div>hello</div>
+      <div>Orders</div>
     </>
   );
 }
