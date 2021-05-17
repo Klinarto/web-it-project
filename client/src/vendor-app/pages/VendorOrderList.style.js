@@ -77,8 +77,16 @@ export const OrderItem = styled.li`
 `;
 
 export const InnerDivBot = styled.div`
-  position: absolute;
-  bottom: 20%;
+  @media ${device.laptop}{
+    position: absolute;
+    bottom: 20%;
+  }
+
+  @media ${device.tablet}{
+    position: absolute;
+    bottom: 20%;
+  }
+
 `;
 
 export const FoodItem = styled.li`
