@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Container,
 	OrderTitle,
+	InnerDiv,
+	InnerDivBot,
 	OrderList,
 	FoodItem,
 	Division,
@@ -10,6 +12,9 @@ import {
 import { Link } from "react-router-dom";
 import { parseDate } from "../../customer-app/utilities/Utils";
 import Button from "@material-ui/core/Button";
+import { createMuiTheme } from '@material-ui/core/styles'
+import { ThemeProvider } from '@material-ui/styles';
+
 
 export default function LinkToOrder(props) {
 	const {
@@ -20,83 +25,117 @@ export default function LinkToOrder(props) {
 		totalCost,
 		createdAt,
 	} = props.order;
+	
+	const [recieveDisabled, setRecieveDisabled] = useState(false);
+	const [declineDisabled, setDeclineDisabled] = useState(false);
+	const [readyDisabled, setReadyDisabled] = useState(false);
+	const [completeDisabled, setCompleteDisabled] = useState(false);
+
 
 	const parsedDate = parseDate(new Date(createdAt));
 
+	const theme = createMuiTheme({
+		palette: {
+			primary: {
+				main: '#aad9cd',
+			},
+		  action: {
+			disabledBackground: "white",
+		  }
+		}
+	  });
+
 	return (
 		<Container>
-			<Link
-				to={{ pathname: `/customer/order/${orderId}`, state: props.order }}
-				style={{ textDecoration: "none", color: "black" }}
-			>
 				<div>
-					<OrderTitle>Order {orderId} </OrderTitle>
-					<hr />
-					<Division>
-						<innerDiv>
-							<OrderList>
-								<OrderItem>
-									<b>Customer:</b> {customerId.email}
-								</OrderItem>
-								<OrderItem>
-									<b>Status:</b> {status}
-								</OrderItem>
-								<OrderItem>
-								<b>Items ordered: </b>
-								</OrderItem>
-								{Object.keys(foodItems).map((key, i) => (
-									<FoodItem>
-										{foodItems[key]} {key}
-									</FoodItem>
-								))}
-								<OrderItem>
-								<b>Created at:</b> {parsedDate}
-								</OrderItem>
-							</OrderList>
-						</innerDiv>
+				<Link
+					to={{ pathname: `/vendor/orderdetail/${orderId}`, state: props.order }}
+					style={{ textDecoration: "none", color: "black"  }}
+					>
+						<OrderTitle>Order {orderId} </OrderTitle>
+				</Link>
+				<Division>
+					<InnerDiv>
+					<InnerDivBot>
+						<ThemeProvider theme={theme}>
+						<Button
+						variant="contained"
+						color = "secondary"
+						disabled = {declineDisabled}
+						onClick={() => setDeclineDisabled(true)}
+						>
+						Decline
+						</Button>
+						</ThemeProvider>
+					</InnerDivBot></InnerDiv>
+					
+					<InnerDiv>
+						<OrderList>
+							<OrderItem>
+								<b>Customer:</b> {customerId.email}
+							</OrderItem>
+							<OrderItem>
+							<b>Items ordered: </b>
+							</OrderItem>
+							{Object.keys(foodItems).map((key, i) => (
+								<FoodItem>
+									{foodItems[key]} {key}
+								</FoodItem>
+							))}
+							<OrderItem>
+							<b>Created at:</b> {parsedDate}
+							</OrderItem>
+						</OrderList>
+
+					</InnerDiv>
+					
+					<InnerDiv style >
 						
-						<innerDiv>
-							<Button
-							variant="contained"
-							color="primary"
-							width = "60%"
-							style={{
-								backgroundColor: "black",
-								// padding: "16px 0",
-							}}
-							onClick={() => {
-								// sendData();
-							}}
-						    >
-							Made
-							</Button>
+						<ul key ="Recieve">
+						<ThemeProvider theme={theme}>
+						<Button
+						variant="contained"
+						color="primary"
+						disabled = {recieveDisabled}
+						onClick={() => setRecieveDisabled(true)}
+						>
+						Recieved
+						</Button>
+						</ThemeProvider>
+						</ul>
+						
+						<ul key = "Ready">
+						<ThemeProvider theme={theme}>
+						<Button
+						variant="contained"
+						color="primary"
+						disabled = {readyDisabled}
+						onClick={() => setReadyDisabled(true)}
+						>
+						Ready
+						</Button>
+						</ThemeProvider>
+						</ul>
 
-						</innerDiv>
+						<ul key = "Complete">
+						<ThemeProvider theme={theme}>
+						<Button
+						variant="contained"
+						color = "primary"
+						disabled = {completeDisabled}
 
-						<innerDiv>
-							<Button
-							variant="contained"
-							color="primary"
-							style={{
-								backgroundColor: "#aad9cd",
-								// padding: "16px 0",
-							}}
-							onClick={() => {
-								// sendData();
-							}}
-						    >
-							Picked Up
-							</Button>
+						onClick={() => setCompleteDisabled(true)}
+						>
+						Complete
+						</Button>
+						</ThemeProvider>
+						</ul>
 
 
-						</innerDiv>
-
-
-						<br />
-					</Division>
-					<hr />
+					</InnerDiv>
+				</Division>
+				<hr />
 				</div>
-			</Link>
 		</Container>
 	);
 }

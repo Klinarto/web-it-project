@@ -40,17 +40,18 @@ export const Container = styled.div`
 
 export const Division = styled.div`
   /* max-height: 20%; */
-  flex: 4;
+  flex: 3;
   /* overflow-y: auto; */
   display: flex;
   justify-content: space-between;
-  margin: 10px;
-  padding: 10px;
+  /* margin: 10px;
+  padding: 10px; */
 `;
 
-export const innerDiv = styled.div`
-  margin-left: auto;
-  margin-right: auto;
+export const InnerDiv = styled.div`
+
+  /* margin-left: auto;
+  margin-right: auto; */
 `;
 
 export const OrderTitle = styled.h1`
@@ -72,6 +73,12 @@ export const OrderItem = styled.li`
   font-size: 18px;
   list-style-type: none;
   margin-bottom: 5%;
+  margin-top:5%;
+`;
+
+export const InnerDivBot = styled.div`
+  position: absolute;
+  bottom: 20%;
 `;
 
 export const FoodItem = styled.li`
@@ -146,8 +153,8 @@ export const MyButton = styled.button`
   background-color: #aad9cd;
   color: white;
   padding: 7px 14px;
-  transition: background 0.5s ease-in-out;
-  width: 37%;
+  transition: background 0.1s ease-in-out;
+  
   border-radius: 10px;
   border: none;
   &:hover {
@@ -155,3 +162,7 @@ export const MyButton = styled.button`
     background: #fff;
   }
 `;
+
+
+
+
