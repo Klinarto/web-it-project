@@ -23,7 +23,6 @@ import VendorOrderList from "./vendor-app/pages/VendorOrderList";
 import VendorOrderDetails from "./vendor-app/pages/VendorOrderDetails";
 import VendorProfile from "./vendor-app/pages/VendorProfile";
 
-
 import axios from "axios";
 
 import { AuthContext } from "./shared/auth-context";
@@ -35,27 +34,50 @@ import VendorRegister from "./vendor-app/pages/VendorRegister";
 // 	return request;
 // });
 
+let logoutTimer;
+
 export function App() {
   const [token, setToken] = useState(null);
+  const [tokenExpDate, setTokenExpDate] = useState();
 
   // Used for Context (callback used to avoid infinite loop), if user is logged in, it will store token to localStorage and give access to axios DB
-  const login = useCallback((token) => {
+  const login = useCallback((token, expDate) => {
     setToken(token);
+    const tokenExpDate =
+      expDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+    setTokenExpDate(tokenExpDate);
     axios.defaults.headers.common["x-access-token"] = token;
-    localStorage.setItem("userData", JSON.stringify({ token: token }));
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({ token: token, expiration: tokenExpDate.toISOString })
+    );
   }, []);
 
   const logout = useCallback(() => {
     setToken(null);
+    setTokenExpDate(null);
     delete axios.defaults.headers.common["x-access-token"];
     localStorage.removeItem("userData");
   }, []);
 
+  useEffect(() => {
+    if (token && tokenExpDate) {
+      const time = tokenExpDate.getTime() - new Date().getTime();
+      logoutTimer = setTimeout(logout, time);
+    } else {
+      clearTimeout();
+    }
+  }, [token, logout, tokenExpDate]);
+
   // Authentication and if there is a token in localStorage, set the login status to be Logged in
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
-    if (storedData && storedData.token) {
-      login(storedData.token);
+    if (
+      storedData &&
+      storedData.token &&
+      new Date(storedData.expiration) > new Date()
+    ) {
+      login(storedData.token, new Date(storedData.expiration));
     }
   });
 
@@ -145,7 +167,7 @@ export function App() {
         <VendorLogin />
       </Route>
       <Route path="/vendor/register">
-        <VendorRegister/>
+        <VendorRegister />
       </Route>
       <Route path="/vendor/address">
         <VendorAddress />
