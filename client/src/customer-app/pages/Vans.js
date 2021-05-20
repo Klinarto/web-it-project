@@ -12,14 +12,17 @@ import {
 	useLoadScript,
 } from "@react-google-maps/api";
 import axios from "axios";
-import mapStyle from "../../utilities/Mapstyle";
-import { objectIsEmpty, calculateDistance } from "../../utilities/Utils";
+import mapStyle from "../utilities/Mapstyle";
+import { objectIsEmpty, calculateDistance } from "../utilities/Utils";
 import {
 	Container,
 	Title,
-	MyButton,
+	CurrentLocationButton,
+	OrderButton,
 	Float_Container,
 	VanButton,
+	VanButtonTitle,
+	VanButtonDistance,
 } from "../pages/Vans.style";
 
 export default function Map() {
@@ -153,8 +156,11 @@ export default function Map() {
 								panTo(location);
 							}}
 						>
-							{vendor.name}
-							{/* <p>Distance: {calculateDistance(currentLocation, location)}</p> */}
+							<VanButtonTitle>{vendor.name}</VanButtonTitle>
+							<VanButtonDistance>
+								{" "}
+								{calculateDistance(currentLocation, location)} m
+							</VanButtonDistance>
 						</VanButton>
 					</div>
 				);
@@ -230,27 +236,26 @@ export default function Map() {
 		<Fragment>
 			<Float_Container>
 				<Container>
-					<Title>Closest Vans</Title>
+					<div>
+						<Title>Vans near you </Title>
+						<CurrentLocationButton
+							onClick={() => {
+								getCurrentLocation();
+							}}
+						>
+							Curr
+						</CurrentLocationButton>
+					</div>
+
 					{isLoaded ? (
 						<div style={{ overflowY: "scroll", height: "85vh" }}>
 							{displayVendorButtons()}
 						</div>
 					) : null}
-					<MyButton>Order</MyButton>
+					<OrderButton>Order</OrderButton>
 				</Container>
 				{isLoaded ? renderMap() : loadingDiv}
 			</Float_Container>
 		</Fragment>
 	);
-}
-
-// ------my location from line 226
-{
-	/* <button
-		  onClick={() => {
-			getCurrentLocation();
-		  }}
-		>
-		  Current Location
-		</button> */
 }
