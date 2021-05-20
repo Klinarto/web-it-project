@@ -12,14 +12,19 @@ import {
 	useLoadScript,
 } from "@react-google-maps/api";
 import axios from "axios";
-import mapStyle from "../utilities/Mapstyle";
-import { objectIsEmpty, calculateDistance } from "../utilities/Utils";
-import { Container, Title, MyButton, Float_Container, VanButton } from "../pages/Vans.style";
-
+import mapStyle from "../../utilities/Mapstyle";
+import { objectIsEmpty, calculateDistance } from "../../utilities/Utils";
+import {
+	Container,
+	Title,
+	MyButton,
+	Float_Container,
+	VanButton,
+} from "../pages/Vans.style";
 
 export default function Map() {
 	// used to center map, default center is Melbourne
-	const [center, setCenter] = useState({ lat: -37.8136, lng: 144.9631 });
+	const [center, setCenter] = useState();
 	// used to ste zoom level in maps
 	const [zoom, setZoom] = useState(15);
 
@@ -36,6 +41,26 @@ export default function Map() {
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GMAP_KEY,
 	});
+
+	const getCurrentLocation = useCallback(() => {
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					const location = {
+						lat: position.coords.latitude,
+						lng: position.coords.longitude,
+					};
+					setCurrentLocation(location);
+				},
+				(error) => {
+					console.warn(`Error(${error.code}): ${error.message}`);
+				},
+				{ enableHighAccuracy: true, timeout: 5000 }
+			);
+		} else {
+			console.log("Geolocation is not available");
+		}
+	}, []);
 
 	useEffect(() => {
 		// used for cleanup
@@ -56,10 +81,21 @@ export default function Map() {
 		};
 
 		fetchVendors();
+
 		return () => {
 			isMounted = false;
 		};
 	}, [vendors]);
+
+	useEffect(() => {
+		getCurrentLocation();
+		if (!objectIsEmpty(currentLocation)) {
+			setCenter(currentLocation);
+		} else {
+			setCenter({ lat: -37.8136, lng: 144.9631 });
+		}
+		return () => {};
+	}, [currentLocation, getCurrentLocation]);
 
 	// googleMap component options
 	const options = {
@@ -110,17 +146,16 @@ export default function Map() {
 					lng: vendor.location.lng,
 				};
 				return (
-					<div>
+					<div key={vendor._id}>
 						<VanButton
-							key={vendor._id}
 							onClick={() => {
 								console.log(location);
 								panTo(location);
-							}}>
+							}}
+						>
 							{vendor.name}
 							{/* <p>Distance: {calculateDistance(currentLocation, location)}</p> */}
 						</VanButton>
-
 					</div>
 				);
 			});
@@ -131,7 +166,6 @@ export default function Map() {
 		if (!objectIsEmpty(currentLocation)) {
 			return (
 				<Marker
-
 					title={"Current location"}
 					position={currentLocation}
 					onClick={() => {
@@ -143,25 +177,6 @@ export default function Map() {
 					}}
 				/>
 			);
-		}
-	};
-
-	// get current location of user
-	const getCurrentLocation = () => {
-		if ("geolocation" in navigator) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				if (position.coords) {
-					const location = {
-						lat: position.coords.latitude,
-						lng: position.coords.longitude,
-					};
-					setCurrentLocation(location);
-					panTo(location);
-					console.log(currentLocation);
-				}
-			});
-		} else {
-			console.log("Geolocation is not available");
 		}
 	};
 
@@ -201,7 +216,6 @@ export default function Map() {
 		);
 	};
 
-
 	if (loadError) {
 		return <h3>Unable to load map</h3>;
 	}
@@ -231,11 +245,12 @@ export default function Map() {
 }
 
 // ------my location from line 226
-{/* <button
+{
+	/* <button
 		  onClick={() => {
 			getCurrentLocation();
 		  }}
 		>
 		  Current Location
-		</button> */}
-
+		</button> */
+}

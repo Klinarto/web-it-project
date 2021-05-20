@@ -2,11 +2,7 @@ import haversine from "haversine-distance";
 
 // returns true if object is empty
 export const objectIsEmpty = (object) => {
-	if (Object.entries(object).length > 0) {
-		return false;
-	} else {
-		return true;
-	}
+	return Object.keys(object).length === 0;
 };
 
 // parseISO date to HH:MM d/m/yyyy format
