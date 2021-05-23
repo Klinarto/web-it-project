@@ -17,6 +17,7 @@ export default function SignIn() {
   const history = useHistory();
 
   const [email, setEmail] = useState("");
+  const [emailHelper, setEmailHelper] = useState("");
   const [password, setPassword] = useState("");
 
   // open state for materialUI snackbar
@@ -24,6 +25,28 @@ export default function SignIn() {
 
   // details for materialUI snackbar
   const [snackbar, setSnackbar] = useState({});
+
+  const onChange = (e) => {
+    let valid;
+
+    switch (e.target.id) {
+      case "email":
+        setEmail(e.target.value);
+        valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+          e.target.value
+        );
+
+        if (!valid) {
+          setEmailHelper("Invalid Email");
+        } else {
+          setEmailHelper("");
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
 
   // duration for snackbar
   const duration = 3000;
@@ -51,14 +74,14 @@ export default function SignIn() {
       // localStorage.setItem("token", res.data.token);
       auth.login(res.data.token);
       history.push("/customer/menu");
-    } catch (error) {
-      console.log(error);
+    } catch (valid) {
+      console.log(valid);
 
       // set snackbar details
       setOpen(true);
       setSnackbar({
-        data: error.response.data,
-        severity: "error",
+        data: valid.response.data,
+        severity: "valid",
       });
     }
   };
@@ -101,7 +124,9 @@ export default function SignIn() {
             autoComplete="email"
             autoFocus
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            error={emailHelper.length !== 0}
+            helperText={emailHelper}
+            onChange={onChange}
             onKeyDown={handleKeyDown}
           />
           <TextField

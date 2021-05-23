@@ -15,6 +15,49 @@ export default function Register() {
 
   // open state for materialUI snackbar
   const [open, setOpen] = useState(false);
+  const [emailHelper, setEmailHelper] = useState("");
+  const [passwordHelper, setPasswordHelper] = useState("");
+
+  const onChange = (e) => {
+    let validAlpha;
+    let validDigit;
+    let validLength;
+    let valid;
+
+    switch (e.target.id) {
+      case "email":
+        setEmail(e.target.value);
+        valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+          e.target.value
+        );
+
+        if (!valid) {
+          setEmailHelper("Invalid Email");
+        } else {
+          setEmailHelper("");
+        }
+        break;
+      case "password":
+        setPassword(e.target.value);
+        validAlpha = /^.*[a-zA-Z][^a-zA-Z]*$/.test(e.target.value);
+        validDigit = /^.*[0-9][^0-9]*$/.test(e.target.value);
+        validLength = /^.{8,}$/.test(e.target.value);
+
+        if (!validAlpha) {
+          setPasswordHelper("Password should have at least one alphabet (a-Z)");
+        } else if (!validDigit) {
+          setPasswordHelper("Password should have at least one number (0)");
+        } else if (!validLength) {
+          setPasswordHelper("Passwrod should be at least 8 characters long");
+        } else {
+          setPasswordHelper("");
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
 
   // details for materialUI snackbar
   const [snackbar, setSnackbar] = useState({});
@@ -65,12 +108,6 @@ export default function Register() {
     setOpen(false);
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      sendData();
-    }
-  };
-
   return (
     <Container component="main" maxWidth="xs">
       <div>
@@ -98,7 +135,6 @@ export default function Register() {
                 autoFocus
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                onKeyDown={handleKeyDown}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -112,7 +148,6 @@ export default function Register() {
                 autoComplete="lname"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                onKeyDown={handleKeyDown}
               />
             </Grid>
             <Grid item xs={12}>
@@ -125,8 +160,9 @@ export default function Register() {
                 name="email"
                 autoComplete="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={handleKeyDown}
+                onChange={onChange}
+                error={emailHelper.length !== 0}
+                helperText={emailHelper}
               />
             </Grid>
             <Grid item xs={12}>
@@ -140,8 +176,9 @@ export default function Register() {
                 id="password"
                 autoComplete="current-password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onKeyDown={handleKeyDown}
+                onChange={onChange}
+                error={passwordHelper.length !== 0}
+                helperText={passwordHelper}
               />
             </Grid>
           </Grid>
@@ -149,10 +186,18 @@ export default function Register() {
           <Button
             // type="submit"
             fullWidth
+            disabled={
+              firstName.length === 0 ||
+              lastName.length === 0 ||
+              email.length === 0 ||
+              password.length === 0 ||
+              emailHelper.length !== 0 ||
+              passwordHelper.length !== 0
+            }
             variant="contained"
             color="primary"
             style={{
-              backgroundColor: "#000",
+              // backgroundColor: "#000",
               padding: "16px 0",
               marginTop: "16px",
             }}
