@@ -11,21 +11,22 @@ const Title = styled.div`
 `;
 
 const HeroImage = styled.div`
+  background-image: url("./coffeeBackgroundMain.jpg");
+  width: 100%;
+  height: 100%;
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
 `;
 
 const Flexbox = styled.div`
-  background-color: #4b4b4b;
-  color: white;
+  color: black;
   text-align: center;
   line-height: 3vh;
 `;
 
 const Detail = styled.div`
-  background-color: #4b4b4b;
-  color: white;
+  color: black;
   text-align: center;
   line-height: 3vh;
 `;
