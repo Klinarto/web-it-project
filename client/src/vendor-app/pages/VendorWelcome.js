@@ -8,8 +8,8 @@ import {
   Title,
   MyButton,
 } from "./VendorWelcome.style";
-import coffeeBackground from "../../coffeeBackground.png";
-import cookieLogo from "../../cookieLogo.png";
+import coffeeBackground from "../../images/coffeeBackground.png";
+import cookieLogo from "../../images/cookieLogo.png";
 import { Link } from "react-router-dom";
 
 export default function VendorWelcome() {

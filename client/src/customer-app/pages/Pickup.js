@@ -1,5 +1,5 @@
 import React from "react";
-import coffeeCup from "../../coffeeCup.png";
+import coffeeCup from "../../images/coffeeCup.png";
 import {
   Container,
   Status,

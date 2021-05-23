@@ -6,9 +6,9 @@ import {
   LeftImage,
   Title,
 } from "./VendorWelcome.style";
-import coffeeBackground from "../../coffeeBackground.png";
+import coffeeBackground from "../../images/coffeeBackground.png";
 import CreateAccount from "../components/Register";
-import cookieLogo from "../../cookieLogo.png";
+import cookieLogo from "../../images/cookieLogo.png";
 
 // Register page, left has the component of register page, which is being imported,
 // Right side is a image in a flex-box to have 4:6 ratio

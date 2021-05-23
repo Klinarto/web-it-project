@@ -8,8 +8,8 @@ import {
   Button,
 } from "./Rate.style";
 import { Rating } from "@material-ui/lab";
-import coffeeBackgroundHalf from "../../coffeeBackgroundHalf.png";
-import coffeeCup from "../../coffeeCup.png";
+import coffeeBackgroundHalf from "../../images/coffeeBackgroundHalf.png";
+import coffeeCup from "../../images/coffeeCup.png";
 
 export function Rate() {
   return (

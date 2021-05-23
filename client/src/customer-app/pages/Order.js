@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Interval from "../components/Interval";
-import coffeeMachine from "../../coffeeMachine.png";
+import coffeeMachine from "../../images/coffeeMachine.png";
 import {
   Container,
   Status,

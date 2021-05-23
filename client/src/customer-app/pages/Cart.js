@@ -16,7 +16,7 @@ import {
   DiscountMessage,
   MyButton,
 } from "./Cart.style";
-import coffeeMachine from "../../coffeeMachine.png";
+import coffeeMachine from "../../images/coffeeMachine.png";
 import { objectIsEmpty } from "../utilities/Utils";
 
 export default function Cart() {
