@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const customer = require("../models/customer");
 require("dotenv").config;
 
 const verifyToken = (req, res, next) => {
@@ -10,7 +11,15 @@ const verifyToken = (req, res, next) => {
 
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
-		req.customer = decoded.customer;
+
+		if (decoded.customer) {
+			// console.log("Customer token");
+			req.customer = decoded.customer;
+		} else if (decoded.vendor) {
+			// console.log("Vendor token");
+			req.vendor = decoded.vendor;
+		}
+
 		next();
 	} catch (error) {
 		console.error(error);

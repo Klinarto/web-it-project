@@ -8,10 +8,11 @@ import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
 export default function Register() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [location, setLocation] = useState("");
+  const [locationDetail, setLocationDetail] = useState("");
 
   // open state for materialUI snackbar
   const [open, setOpen] = useState(false);
@@ -25,17 +26,18 @@ export default function Register() {
   const sendData = async () => {
     // create a data object to register new customer
     const data = {
-      firstName,
-      lastName,
-      email,
+      name,
       password,
+      location,
+      locationDetail,
     };
 
     console.log(data);
 
-    const res = await axios.post("/customer/register", data, {
+    const res = await axios.post("/vendor/register", data, {
       headers: { "Content-Type": "application/json" },
     });
+    
     try {
       // set snackbar details
       setOpen(true);
@@ -65,12 +67,6 @@ export default function Register() {
     setOpen(false);
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      sendData();
-    }
-  };
-
   return (
     <Container component="main" maxWidth="xs">
       <div>
@@ -86,47 +82,17 @@ export default function Register() {
         </Snackbar>
         <form noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                onKeyDown={handleKeyDown}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                onKeyDown={handleKeyDown}
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={handleKeyDown}
+                id="name"
+                label="Vendor Name"
+                name="Vendor Name"
+                autoComplete="Vendor Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -141,7 +107,33 @@ export default function Register() {
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                onKeyDown={handleKeyDown}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="fname"
+                name="location"
+                variant="outlined"
+                required
+                fullWidth
+                id="location"
+                label="Location"
+                autoFocus
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="locationDetail"
+                label="Location Detail"
+                name="location Detail"
+                autoComplete="lname"
+                value={locationDetail}
+                onChange={(e) => setLocationDetail(e.target.value)}
               />
             </Grid>
           </Grid>

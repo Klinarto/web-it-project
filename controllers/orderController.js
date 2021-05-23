@@ -9,8 +9,7 @@ const getOrders = async (req, res) => {
 	}
 	if (req.customer) {
 		filter["customerId"] = req.customer.id;
-	}
-	if (req.vendor) {
+	} else if (req.vendor) {
 		filter["vendorId"] = req.vendor.id;
 	}
 
