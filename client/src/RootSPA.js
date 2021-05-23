@@ -1,7 +1,11 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import MainSPA from "./MainSPA";
+
 import Header from "./shared/components/Header/Header";
+import Footer from "./shared/components/Footer/Footer";
+
 import Login from "./customer-app/pages/Login";
 import Vans from "./customer-app/pages/Vans";
 import Menu from "./customer-app/pages/Menu";
@@ -82,15 +86,15 @@ export function App() {
   });
 
   //  Allow certain routes when logged in, or not Logged in, if user tries to access it, it will block
-  let customerRoutes;
+  let Routes;
   if (token) {
-    customerRoutes = (
+    Routes = (
       <Switch>
         <Route path="/customer" exact>
           <Welcome />
         </Route>
         <Route path="/" exact>
-          <Welcome />
+          <MainSPA />
         </Route>
         <Route path="/customer/orderhistory">
           <OrderHistory />
@@ -119,17 +123,42 @@ export function App() {
         <Route path="/customer/cart">
           <Cart />
         </Route>
+        <Route path="/vendor" exact>
+          <VendorWelcome />
+        </Route>
+        <Route path="/vendor/login">
+          <VendorLogin />
+        </Route>
+        <Route path="/vendor/register">
+          <VendorRegister />
+        </Route>
+        <Route path="/vendor/address">
+          <VendorAddress />
+        </Route>
+        <Route path="/vendor/close">
+          <VendorClose />
+        </Route>
+        <Route path="/vendor/orderlist">
+          <VendorOrderList />
+        </Route>
+        <Route path="/vendor/orderdetails">
+          <VendorOrderDetails />
+        </Route>
+        <Route path="/vendor/profile">
+          <VendorProfile />
+        </Route>
+
         <Route>{<div>Error 404</div>}</Route>
       </Switch>
     );
   } else {
-    customerRoutes = (
+    Routes = (
       <Switch>
         <Route path="/customer" exact>
           <Welcome />
         </Route>
         <Route path="/" exact>
-          <Welcome />
+          <MainSPA />
         </Route>
         <Route path="/customer/vans">
           <Vans />
@@ -152,41 +181,34 @@ export function App() {
         <Route path="/customer/cart">
           <Cart />
         </Route>
+        <Route path="/vendor" exact>
+          <VendorWelcome />
+        </Route>
+        <Route path="/vendor/login">
+          <VendorLogin />
+        </Route>
+        <Route path="/vendor/register">
+          <VendorRegister />
+        </Route>
+        <Route path="/vendor/address">
+          <VendorAddress />
+        </Route>
+        <Route path="/vendor/close">
+          <VendorClose />
+        </Route>
+        <Route path="/vendor/orderlist">
+          <VendorOrderList />
+        </Route>
+        <Route path="/vendor/orderdetails">
+          <VendorOrderDetails />
+        </Route>
+        <Route path="/vendor/profile">
+          <VendorProfile />
+        </Route>
         <Route>{<div>Error 404</div>}</Route>
       </Switch>
     );
   }
-
-  let vendorRoutes;
-  vendorRoutes = (
-    <Switch>
-      <Route path="/vendor" exact>
-        <VendorWelcome />
-      </Route>
-      <Route path="/vendor/login">
-        <VendorLogin />
-      </Route>
-      <Route path="/vendor/register">
-        <VendorRegister />
-      </Route>
-      <Route path="/vendor/address">
-        <VendorAddress />
-      </Route>
-      <Route path="/vendor/close">
-        <VendorClose />
-      </Route>
-      <Route path="/vendor/orderlist">
-        <VendorOrderList />
-      </Route>
-      <Route path="/vendor/orderdetails">
-        <VendorOrderDetails />
-      </Route>
-      <Route path="/vendor/profile">
-        <VendorProfile />
-      </Route>
-      <Route>{<div>Error 404</div>}</Route>
-    </Switch>
-  );
 
   return (
     //  Used context to make every page render the token, before rendering pages, it will bind the values in the context
@@ -200,8 +222,8 @@ export function App() {
     >
       <Router>
         <Header />
-        {customerRoutes}
-        {vendorRoutes}
+        {Routes}
+        <Footer />
       </Router>
     </AuthContext.Provider>
   );
