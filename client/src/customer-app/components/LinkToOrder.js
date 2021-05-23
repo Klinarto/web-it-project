@@ -8,17 +8,11 @@ import {
 	OrderItem,
 } from "../pages/OrderHistory.style";
 import { Link } from "react-router-dom";
-import { parseDate } from "../utilities/Utils";
+import { parseDate } from "../../utilities/Utils";
 
 export default function LinkToOrder(props) {
-	const {
-		orderId,
-		vendorId,
-		foodItems,
-		status,
-		totalCost,
-		createdAt,
-	} = props.order;
+	const { orderId, vendorId, foodItems, status, totalCost, createdAt } =
+		props.order;
 
 	const parsedDate = parseDate(new Date(createdAt));
 
