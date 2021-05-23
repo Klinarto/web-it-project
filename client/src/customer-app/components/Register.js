@@ -65,6 +65,12 @@ export default function Register() {
     setOpen(false);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      sendData();
+    }
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <div>
@@ -92,6 +98,7 @@ export default function Register() {
                 autoFocus
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -105,6 +112,7 @@ export default function Register() {
                 autoComplete="lname"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </Grid>
             <Grid item xs={12}>
@@ -118,6 +126,7 @@ export default function Register() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </Grid>
             <Grid item xs={12}>
@@ -132,6 +141,7 @@ export default function Register() {
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </Grid>
           </Grid>
