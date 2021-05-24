@@ -7,6 +7,7 @@ import { objectIsEmpty } from "../../utilities/Utils";
 export default function Vans() {
 	// array of vendors
 	const [vendors, setVendors] = useState([]);
+	const [selected, setSelected] = useState(null);
 
 	useEffect(() => {
 		// used for cleanup
@@ -36,7 +37,26 @@ export default function Vans() {
 
 	return (
 		<Fragment>
-			<Map />
+			<Map data={vendors} selected={selected} setSelected={setSelected} />
+			{vendors.map((vendor) => {
+				return (
+					<button
+						key={vendor.id}
+						onClick={(e) => {
+							setSelected(vendor);
+						}}
+					>
+						{vendor.name}
+					</button>
+				);
+			})}
+			<button
+				onClick={(e) => {
+					localStorage.setItem("vendor", JSON.stringify(selected));
+				}}
+			>
+				Order
+			</button>
 		</Fragment>
 	);
 }
