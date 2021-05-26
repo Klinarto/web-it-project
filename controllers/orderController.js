@@ -15,7 +15,7 @@ const getOrders = async (req, res) => {
 
 	try {
 		// Find all documents where their status is not fulfilled
-		const orders = await Order.find(filter).populate("vendorId", ["name"]);
+		const orders = await Order.find(filter).populate("vendorId", ["name"]).populate("customerId", ["firstName", "lastName", "email"], "Customer");
 
 		return res.send(orders);
 	} catch (error) {

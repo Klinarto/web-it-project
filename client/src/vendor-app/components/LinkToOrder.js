@@ -4,7 +4,10 @@ import {
 	Container,
 	OrderTitle,
 	InnerDiv,
+	ButtonDiv,
 	InnerDivBot,
+	InnerDivButtons,
+	DeclineMessage,
 	OrderList,
 	FoodItem,
 	Division,
@@ -58,7 +61,7 @@ export default function LinkToOrder(props) {
 	const [recieveDisabled, setRecieveDisabled] = useState(checkStatus("recieved"));
 	const [declineDisabled, setDeclineDisabled] = useState(checkStatus("declined"));
 	const [readyDisabled, setReadyDisabled] = useState(checkStatus("ready"));
-	const [completeDisabled, setCompleteDisabled] = useState(false);
+	const [completeDisabled, setCompleteDisabled] = useState(checkStatus("fulfilled"));
 
 
 	const parsedDate = parseDate(new Date(createdAt));
@@ -83,7 +86,9 @@ export default function LinkToOrder(props) {
 					>
 						<OrderTitle>Order {orderId} </OrderTitle>
 				</Link>
+				<DeclineMessage><b> {declineDisabled ? 'ORDER DECLINED' : ''}</b> </DeclineMessage>
 				<Division>
+					
 					<InnerDiv>
 					<InnerDivBot>
 						<ThemeProvider theme={theme}>
@@ -117,10 +122,11 @@ export default function LinkToOrder(props) {
 						</OrderList>
 
 					</InnerDiv>
-					
-					<InnerDiv style >
+
+					<InnerDiv>
+					<InnerDivButtons>
 						
-						<ul key ="Recieve">
+						<ButtonDiv>
 						<ThemeProvider theme={theme}>
 						<Button
 						variant="contained"
@@ -131,9 +137,9 @@ export default function LinkToOrder(props) {
 						Recieved
 						</Button>
 						</ThemeProvider>
-						</ul>
+						</ButtonDiv>
 						
-						<ul key = "Ready">
+						<ButtonDiv>
 						<ThemeProvider theme={theme}>
 						<Button
 						variant="contained"
@@ -144,9 +150,9 @@ export default function LinkToOrder(props) {
 						Ready
 						</Button>
 						</ThemeProvider>
-						</ul>
+						</ButtonDiv>
 
-						<ul key = "Complete">
+						<ButtonDiv>
 						<ThemeProvider theme={theme}>
 						<Button
 						variant="contained"
@@ -158,11 +164,12 @@ export default function LinkToOrder(props) {
 						Complete
 						</Button>
 						</ThemeProvider>
-						</ul>
+						</ButtonDiv>
 
-
+					</InnerDivButtons>
 					</InnerDiv>
 				</Division>
+				
 				<hr />
 				</div>
 		</Container>

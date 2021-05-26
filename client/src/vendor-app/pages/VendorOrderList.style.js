@@ -54,6 +54,18 @@ export const InnerDiv = styled.div`
   margin-right: auto; */
 `;
 
+export const ButtonDiv = styled.div`
+  padding:10px;
+  /* margin-left: auto;
+  margin-right: auto; */
+`;
+
+export const InnerDivButtons = styled.div`
+  flex: 3;
+  display: flex;
+  flex-direction: column ;
+`;
+
 export const OrderTitle = styled.h1`
   text-align: left;
   font-size: 22px;
@@ -150,6 +162,12 @@ export const Logo = styled.img`
 export const Time = styled.div`
   margin-left: auto;
   margin-right: auto;
+`;
+
+export const DeclineMessage = styled.p`
+  font-size: 18px;
+  color:red;
+  text-align: left;
 `;
 
 export const MyButton = styled.button`

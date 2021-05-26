@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 93vh;
+  height: 100vh;
   max-width: 70vw;
   position: relative;
   flex: 1;
@@ -15,19 +15,20 @@ export const Container = styled.div`
 `;
 
 export const DivisionTop = styled.div`
-  max-height: 12vh;
+  max-height: 15vh;
   flex: 2;
   display: flex;
-  overflow-y:auto;
+  overflow-y:hidden;
   justify-content: space-between;
 `;
 
 export const Division = styled.div`
   max-height: 30vh;
-  flex: 2;
+  width:97%;
+  flex: 1;
   display: flex;
   justify-content: space-between;
-  overflow-y:auto;
+  overflow-y:scroll;
   margin-top:2%;
   margin-bottom:2%;
   margin-left:3%;
@@ -87,7 +88,7 @@ export const Total = styled.h2`
 `;
 
 export const H2 = styled.h2`
- 
+  font-size : 26px;
   text-align: left;
 `;
 
@@ -95,6 +96,12 @@ export const H3 = styled.h3`
   font-size: 20px;
   text-align: left;
 `;
+
+export const Customer = styled.p`
+  font-size: 18px;
+  text-align: left;
+`;
+
 
 export const TotalPrice = styled.h2`
   font-size: 18px;
