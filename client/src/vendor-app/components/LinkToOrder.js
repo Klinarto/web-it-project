@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
 	Container,
 	OrderTitle,
@@ -25,6 +26,28 @@ export default function LinkToOrder(props) {
 		totalCost,
 		createdAt,
 	} = props.order;
+
+	  //update status to the database.
+	  const updateStatus = async (status) => {
+		try {
+		  console.log(status);
+		  console.log(JSON.parse(status))		  
+		  
+		//   const userData = JSON.parse(localStorage.getItem("userData"));
+		//   console.log(userData);
+		//   const data = { vendorId: "60939f9aa6762b64b82547b3" };
+	
+		//   if (!objectIsEmpty(order)) {
+		// 	data["foodItems"] = order;
+		//   }
+		  
+		  const res = await axios.put(`/order/${orderId}`, JSON.parse(status))
+		  console.log(res);
+		} catch (error) {
+		  console.log(error.response.data);
+		}
+		return;
+	  };
 	
 	const [recieveDisabled, setRecieveDisabled] = useState(false);
 	const [declineDisabled, setDeclineDisabled] = useState(false);
@@ -124,7 +147,7 @@ export default function LinkToOrder(props) {
 						color = "primary"
 						disabled = {completeDisabled}
 
-						onClick={() => setCompleteDisabled(true)}
+						onClick={() => {setCompleteDisabled(true); updateStatus('{"status":"fulfilled"}')}}
 						>
 						Complete
 						</Button>

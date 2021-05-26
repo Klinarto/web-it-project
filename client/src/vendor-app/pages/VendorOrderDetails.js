@@ -8,6 +8,8 @@ import Interval from "../components/Interval";
 
 import {
   Container,
+  H2,
+  H3,
   Status,
   Division,
   DivisionTop,
@@ -35,24 +37,24 @@ export function VendorOrderDetails(props) {
 
   const history = useHistory();
 
-  // Quick solution to get a price: Fetch the whole menu data. Will be fixed soon.
-  useEffect(() => {
-    let isMounted = true;
-    const fetchMenu = async () => {
-      try {
-        const res = await axios.get("/menu");
-        if (isMounted) {
-          setMenu(res.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchMenu();
-    return () => {
-      isMounted = false;
-    };
-  }, [menu]);
+  // // Quick solution to get a price: Fetch the whole menu data. Will be fixed soon.
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   const fetchMenu = async () => {
+  //     try {
+  //       const res = await axios.get("/menu");
+  //       if (isMounted) {
+  //         setMenu(res.data);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchMenu();
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [menu]);
 
   const order = useLocation().state;
   console.log(order);
@@ -78,14 +80,15 @@ export function VendorOrderDetails(props) {
       <br></br>
       <DivisionTop>
       <div>
-      <h2>Order Number #{orderId} </h2>
-      <h3>Customer Name: {customerId.firstName} </h3>
+      <H2>Order Number #{orderId} </H2>
+      <H3>Customer Name: {customerId.firstName} </H3>
       </div>
       <div>
-      <h3>Time remaining </h3>
+      <H3>Time remaining </H3>
       <Interval />
       </div>
       </DivisionTop>
+      <br></br>
       <BreakLine />
       <Division>
         <div>
@@ -93,20 +96,20 @@ export function VendorOrderDetails(props) {
             return (
               <OrderList>
                 <OrderItem>
-                  {quantity}  {item}
+                  {quantity}  &nbsp;  {item}
                 </OrderItem>
               </OrderList>
             );
           })}
         </div>
         <div>
-          {prices.map(function (price) {
+          {/* {prices.map(function (price) {
             return (
               <OrderList>
                 <OrderItem>$ {price}</OrderItem>
               </OrderList>
             );
-          })}
+          })} */}
         </div>
       </Division>
       <BreakLine />
@@ -146,7 +149,7 @@ export function VendorOrderDetails(props) {
 						color = "primary"
 						disabled = {completeDisabled}
 
-						onClick={() => { setCompleteDisabled(true); history.push('/vendor/orderlist/')}} 
+						onClick={() => { setCompleteDisabled(true)}} 
             // setCompleteDisabled(true),
 						>
 						Complete

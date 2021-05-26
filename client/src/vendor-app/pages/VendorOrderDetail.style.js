@@ -15,9 +15,10 @@ export const Container = styled.div`
 `;
 
 export const DivisionTop = styled.div`
-  max-height: 10vh;
+  max-height: 12vh;
   flex: 2;
   display: flex;
+  overflow-y:auto;
   justify-content: space-between;
 `;
 
@@ -26,6 +27,11 @@ export const Division = styled.div`
   flex: 2;
   display: flex;
   justify-content: space-between;
+  overflow-y:auto;
+  margin-top:2%;
+  margin-bottom:2%;
+  margin-left:3%;
+  margin-right:auto;
 `;
 
 export const Status = styled.h1`
@@ -43,8 +49,10 @@ export const OrderList = styled.ul`
   margin-bottom: 10px;
 `;
 export const OrderItem = styled.li`
-  font-size: 18px;
+  font-size: 20px;
   display: inline-block;
+  margin-top:5px;
+  margin-bottom:5px;
 `;
 
 export const OrderPrice = styled.li`
@@ -74,8 +82,18 @@ export const DivisionBack = styled.div`
 
 
 export const Total = styled.h2`
-  font-size: 15px;
+  font-size: 20px;
   text-align: right;
+`;
+
+export const H2 = styled.h2`
+ 
+  text-align: left;
+`;
+
+export const H3 = styled.h3`
+  font-size: 20px;
+  text-align: left;
 `;
 
 export const TotalPrice = styled.h2`
