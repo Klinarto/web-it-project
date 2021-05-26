@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Time } from "../pages/Order.style";
+import { Time } from "../pages/VendorOrderDetail.style";
 
 const Interval = () => {
   const [seconds, setSeconds] = useState(900);
