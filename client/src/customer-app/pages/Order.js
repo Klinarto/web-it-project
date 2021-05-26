@@ -70,6 +70,7 @@ export function Order(props) {
 
 			return (
 				<Fragment>
+					<Status>Preparing your order...</Status>
 					<Division>
 						<div>
 							{Object.entries(foodItems).map(function ([item, quantity], key) {
@@ -105,22 +106,17 @@ export function Order(props) {
 							<TotalPrice>${totalCost}</TotalPrice>
 						</div>
 					</DivisionBottom>
+					<Logo alt="machine-logo" src={coffeeMachine} />
+					<Interval />
+					<MyButton>Change order</MyButton>
+					<MyButton>Cancel order</MyButton>
 				</Fragment>
 			);
 		}
-		return null;
+		return <h1>Order doesn't exist</h1>;
 	};
 
-	return (
-		<Container>
-			<Status>Preparing your order...</Status>
-			{displayOrder()}
-			<Logo alt="machine-logo" src={coffeeMachine} />
-			<Interval />
-			<MyButton>Change order</MyButton>
-			<MyButton>Cancel order</MyButton>
-		</Container>
-	);
+	return <Container>{displayOrder()}</Container>;
 }
 
 export default Order;
