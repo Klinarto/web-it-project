@@ -28,14 +28,10 @@ import { useLocation } from "react-router";
 
 export function VendorOrderDetails(props) {
 
-
-  const [menu, setMenu] = useState({});
-  const [recieveDisabled, setRecieveDisabled] = useState(false);
-	const [declineDisabled, setDeclineDisabled] = useState(false);
-	const [readyDisabled, setReadyDisabled] = useState(false);
-	const [completeDisabled, setCompleteDisabled] = useState(false);
-
   const history = useHistory();
+  
+  // const [menu, setMenu] = useState({});
+
 
   // // Quick solution to get a price: Fetch the whole menu data. Will be fixed soon.
   // useEffect(() => {
@@ -58,7 +54,28 @@ export function VendorOrderDetails(props) {
 
   const order = useLocation().state;
   console.log(order);
-  const { customerId, foodItems,orderId,totalCost } = order;
+  const { customerId, status, foodItems,orderId,totalCost } = order;
+
+    function checkStatus(check){
+		if (status == "declined"){return true;}
+		if (status == "fulfilled"){return true;}
+		if( status == "pending"){return false;}
+		if( status == "recieved" ){
+			if(status == check){return true;}
+		}
+		if( status == "ready" ){
+			if(status == check){return true ;}
+			if(check =="recieved"){return true;}		
+		}
+		return false;
+	}
+	
+	const [recieveDisabled, setRecieveDisabled] = useState(checkStatus("recieved"));
+	const [declineDisabled, setDeclineDisabled] = useState(checkStatus("declined"));
+	const [readyDisabled, setReadyDisabled] = useState(checkStatus("ready"));
+	const [completeDisabled, setCompleteDisabled] = useState(false);
+
+
 
   var prices = [];
   // console.log(foodItems);

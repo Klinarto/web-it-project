@@ -17,6 +17,8 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles';
 
 
+
+
 export default function LinkToOrder(props) {
 	const {
 		orderId,
@@ -27,31 +29,35 @@ export default function LinkToOrder(props) {
 		createdAt,
 	} = props.order;
 
-	  //update status to the database.
-	  const updateStatus = async (status) => {
-		try {
-		  console.log(status);
-		  console.log(JSON.parse(status))		  
-		  
-		//   const userData = JSON.parse(localStorage.getItem("userData"));
-		//   console.log(userData);
-		//   const data = { vendorId: "60939f9aa6762b64b82547b3" };
-	
-		//   if (!objectIsEmpty(order)) {
-		// 	data["foodItems"] = order;
-		//   }
-		  
-		  const res = await axios.put(`/order/${orderId}`, JSON.parse(status))
-		  console.log(res);
-		} catch (error) {
-		  console.log(error.response.data);
+	//update status to the database.
+	const updateStatus = async (updatedStatus) => {
+	try {
+		console.log(JSON.parse(updatedStatus))		    
+		const res = await axios.put(`/order/${orderId}`, JSON.parse(updatedStatus))
+		console.log(res);
+	} catch (error) {
+		console.log(error.response.data);
+	}
+	return;
+	};
+
+	function checkStatus(check){
+		if (status == "declined"){return true;}
+		if (status == "fulfilled"){return true;}
+		if( status == "pending"){return false;}
+		if( status == "recieved" ){
+			if(status == check){return true;}
 		}
-		return;
-	  };
+		if( status == "ready" ){
+			if(status == check){return true ;}
+			if(check =="recieved"){return true;}		
+		}
+		return false;
+	}
 	
-	const [recieveDisabled, setRecieveDisabled] = useState(false);
-	const [declineDisabled, setDeclineDisabled] = useState(false);
-	const [readyDisabled, setReadyDisabled] = useState(false);
+	const [recieveDisabled, setRecieveDisabled] = useState(checkStatus("recieved"));
+	const [declineDisabled, setDeclineDisabled] = useState(checkStatus("declined"));
+	const [readyDisabled, setReadyDisabled] = useState(checkStatus("ready"));
 	const [completeDisabled, setCompleteDisabled] = useState(false);
 
 
@@ -85,7 +91,7 @@ export default function LinkToOrder(props) {
 						variant="contained"
 						color = "secondary"
 						disabled = {declineDisabled}
-						onClick={() => setDeclineDisabled(true)}
+						onClick={() => {setDeclineDisabled(true); updateStatus('{"status":"declined"}')}}
 						>
 						Decline
 						</Button>
@@ -120,7 +126,7 @@ export default function LinkToOrder(props) {
 						variant="contained"
 						color="primary"
 						disabled = {recieveDisabled}
-						onClick={() => setRecieveDisabled(true)}
+						onClick={() => {setRecieveDisabled(true); updateStatus('{"status":"recieved"}')}}
 						>
 						Recieved
 						</Button>
@@ -133,7 +139,7 @@ export default function LinkToOrder(props) {
 						variant="contained"
 						color="primary"
 						disabled = {readyDisabled}
-						onClick={() => setReadyDisabled(true)}
+						onClick={() => {setReadyDisabled(true); updateStatus('{"status":"ready"}')}}
 						>
 						Ready
 						</Button>
