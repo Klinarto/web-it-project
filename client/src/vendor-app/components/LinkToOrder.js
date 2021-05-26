@@ -96,7 +96,11 @@ export default function LinkToOrder(props) {
 						variant="contained"
 						color = "secondary"
 						disabled = {declineDisabled}
-						onClick={() => {setDeclineDisabled(true); updateStatus('{"status":"declined"}')}}
+						onClick={() => {setDeclineDisabled(true);
+							setCompleteDisabled(true);
+							setReadyDisabled(true);
+							setRecieveDisabled(true); 
+							updateStatus('{"status":"declined"}')}}
 						>
 						Decline
 						</Button>
@@ -145,7 +149,10 @@ export default function LinkToOrder(props) {
 						variant="contained"
 						color="primary"
 						disabled = {readyDisabled}
-						onClick={() => {setReadyDisabled(true); updateStatus('{"status":"ready"}')}}
+						onClick={() => {
+							setReadyDisabled(true);
+							setRecieveDisabled(true); 
+							updateStatus('{"status":"ready"}')}}
 						>
 						Ready
 						</Button>
@@ -159,7 +166,10 @@ export default function LinkToOrder(props) {
 						color = "primary"
 						disabled = {completeDisabled}
 
-						onClick={() => {setCompleteDisabled(true); updateStatus('{"status":"fulfilled"}')}}
+						onClick={() => {setCompleteDisabled(true);
+							setReadyDisabled(true);
+							setRecieveDisabled(true); 
+							updateStatus('{"status":"fulfilled"}')}}
 						>
 						Complete
 						</Button>

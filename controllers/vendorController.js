@@ -23,7 +23,7 @@ const setVanStatus = async (req, res) => {
 };
 
 const registerVan = async (req, res) => {
-	const { name, password, location, locationDetails } = req.body;
+	const { name, password } = req.body;
 
 	const saltRounds = 10;
 
@@ -33,8 +33,6 @@ const registerVan = async (req, res) => {
 		let newVan = new Vendor({
 			name,
 			password: hashPassword,
-			location,
-			locationDetails,
 			status: "closed",
 		});
 

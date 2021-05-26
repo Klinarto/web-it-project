@@ -135,7 +135,9 @@ export function VendorOrderDetails(props) {
 						variant="contained"
 						color="primary"
 						disabled = {readyDisabled}
-						onClick={() => {setReadyDisabled(true); updateStatus('{"status":"ready"}')}}
+						onClick={() => {setReadyDisabled(true);
+              setRecieveDisabled(true);
+              updateStatus('{"status":"ready"}')}}
 						>
 						Ready
 						</Button>
@@ -149,7 +151,10 @@ export function VendorOrderDetails(props) {
 						color = "primary"
 						disabled = {completeDisabled}
 
-						onClick={() => {setCompleteDisabled(true); updateStatus('{"status":"fulfilled"}')}}
+						onClick={() => {setCompleteDisabled(true);
+							setReadyDisabled(true);
+							setRecieveDisabled(true); 
+              updateStatus('{"status":"fulfilled"}')}}
 						>
 						Complete
 						</Button>
@@ -168,7 +173,10 @@ export function VendorOrderDetails(props) {
 						variant="contained"
 						color = "secondary"
 						disabled = {declineDisabled}
-						onClick={() => {setDeclineDisabled(true); updateStatus('{"status":"declined"}')}}
+						onClick={() => {setCompleteDisabled(true);
+							setReadyDisabled(true);
+							setRecieveDisabled(true);
+              setDeclineDisabled(true); updateStatus('{"status":"declined"}')}}
 						>
 						Decline
 						</Button>
