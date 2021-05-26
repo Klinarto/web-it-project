@@ -50,7 +50,6 @@ const getOrder = async (req, res) => {
 // update specific order
 // can be used to update order status or change the order
 const updateOrder = async (req, res) => {
-	
 	try {
 		const order = await Order.findOneAndUpdate(
 			{
@@ -58,16 +57,21 @@ const updateOrder = async (req, res) => {
 			},
 			req.body
 		);
-		
 
 		if (!order) {
 			return res.status(404).send("Order not found");
 		}
 
-		// check if the order being updated belongs to the customer
-		// updating it
-		if (req.customer.id != order.customerId || req.vendor.id!=order.vendorId) {
-			return res.status(401).send("Unauthorized access to order");
+		if (req.customer) {
+			if (req.customer.id != order.customerId) {
+				return res.status(401).send("Unauthorized customer access to order");
+			}
+		}
+
+		if (req.vendor) {
+			if (req.vendor.id != order.vendorId) {
+				return res.status(401).send("Unauthorized vendor access to order");
+			}
 		}
 
 		// check if only the order status has been changed
