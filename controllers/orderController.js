@@ -29,14 +29,16 @@ const getOrder = async (req, res) => {
 	try {
 		const order = await Order.findOne({
 			orderId: req.params.orderId,
-		}).populate("vendorId", ["name"]);
+		})
+			.populate("vendorId", ["name"], "Vendor")
+			.populate("customerId", ["firstName", "lastName", "email"], "Customer");
 
 		if (!order) {
 			return res.status(404).send("Order not found");
 		}
 
 		// checks if this order belongs to the customer
-		if (req.customer.id != order.customerId) {
+		if (req.customer.id != order.customerId.id) {
 			return res.status(401).send("Unauthorized access to order");
 		}
 
@@ -67,7 +69,6 @@ const updateOrder = async (req, res) => {
 				return res.status(401).send("Unauthorized customer access to order");
 			}
 		}
-
 		if (req.vendor) {
 			if (req.vendor.id != order.vendorId) {
 				return res.status(401).send("Unauthorized vendor access to order");
