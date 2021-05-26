@@ -18,9 +18,9 @@ const Interval = () => {
 
   return (
     <Time>
-      <header>
-        You have {min}:{sec} to
-      </header>
+    
+        {min}:{sec} 
+      
     </Time>
   );
 };

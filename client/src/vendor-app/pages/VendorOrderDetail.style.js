@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   height: 93vh;
-  max-width: 60vw;
+  max-width: 70vw;
   position: relative;
   flex: 1;
   flex-direction: column;
@@ -11,13 +11,19 @@ export const Container = styled.div`
   margin: 0;
   padding: 0;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 5%;
+`;
+
+export const DivisionTop = styled.div`
+  max-height: 10vh;
+  flex: 2;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const Division = styled.div`
   max-height: 30vh;
   flex: 2;
-  overflow-y: auto;
   display: flex;
   justify-content: space-between;
 `;
@@ -52,17 +58,20 @@ export const BreakLine = styled.hr`
 `;
 
 export const DivisionBottom = styled.div`
-  max-height: 10%;
+  max-height: 30%;
   flex: 2;
   overflow-y: auto;
   display: flex;
   justify-content: space-between;
 `;
 
-export const DiscountMessage = styled.h2`
-  font-size: 15px;
-  text-align: left;
+export const DivisionBack = styled.div`
+  margin-right: auto;
+  margin-left: auto;
+  
 `;
+
+
 
 export const Total = styled.h2`
   font-size: 15px;

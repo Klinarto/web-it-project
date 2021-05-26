@@ -10,11 +10,12 @@ import {
   Container,
   Status,
   Division,
+  DivisionTop,
   OrderList,
   OrderItem,
   BreakLine,
   DivisionBottom,
-  DiscountMessage,
+  DivisionBack,
   Total,
   TotalPrice,
   Logo,
@@ -55,7 +56,7 @@ export function VendorOrderDetails(props) {
 
   const order = useLocation().state;
   console.log(order);
-  const { foodItems,orderId,totalCost } = order;
+  const { customerId, foodItems,orderId,totalCost } = order;
 
   var prices = [];
   // console.log(foodItems);
@@ -74,14 +75,25 @@ export function VendorOrderDetails(props) {
 
   return (
     <Container>
-      <Status>Order {orderId} - detail</Status>
+      <br></br>
+      <DivisionTop>
+      <div>
+      <h2>Order Number #{orderId} </h2>
+      <h3>Customer Name: {customerId.firstName} </h3>
+      </div>
+      <div>
+      <h3>Time remaining </h3>
+      <Interval />
+      </div>
+      </DivisionTop>
+      <BreakLine />
       <Division>
         <div>
           {Object.entries(foodItems).map(function ([item, quantity]) {
             return (
               <OrderList>
                 <OrderItem>
-                  {quantity} x {item}
+                  {quantity}  {item}
                 </OrderItem>
               </OrderList>
             );
@@ -100,21 +112,8 @@ export function VendorOrderDetails(props) {
       <BreakLine />
       <DivisionBottom>
         <div>
-          <DiscountMessage>
-            20% discount applies if the order<br></br>takes more than 15 mins
-          </DiscountMessage>
-        </div>
-        <div>
-          <Total>Total</Total>
-          <TotalPrice>${totalCost}</TotalPrice>
-        </div>
-      </DivisionBottom>
-
-      <Interval />
-      {/* <MyButton>Change order</MyButton>
-      <MyButton>Cancel order</MyButton> */}
-
-            <ul key ="Recieve">
+          
+          <ul key ="Recieve">
 						<ThemeProvider theme={theme}>
 						<Button
 						variant="contained"
@@ -154,6 +153,39 @@ export function VendorOrderDetails(props) {
 						</Button>
 						</ThemeProvider>
 						</ul>
+          
+        </div>
+        <div>
+          <Total>Total</Total>
+          <TotalPrice>${totalCost}</TotalPrice>
+
+          <ThemeProvider theme={theme}>
+						<Button
+						variant="contained"
+						color = "secondary"
+						disabled = {declineDisabled}
+						onClick={() => setDeclineDisabled(true)}
+						>
+						Decline
+						</Button>
+					</ThemeProvider>
+
+        </div>
+      </DivisionBottom>
+
+      <DivisionBack>
+      <ThemeProvider theme={theme}>
+						<Button
+						variant="contained"
+						color = "primary"
+
+						onClick={() => {history.push('/vendor/orderlist/')}} 
+            // setCompleteDisabled(true),
+						>
+						Back
+						</Button>
+				</ThemeProvider>
+      </DivisionBack>
 
     </Container>
   );
