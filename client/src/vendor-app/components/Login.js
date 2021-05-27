@@ -46,11 +46,12 @@ export default function SignIn() {
 
 			console.log(res);
 			console.log(res.data);
-
+			console.log(name)
 			// store token
 			// localStorage.setItem("token", res.data.token);
 			auth.login(res.data.token);
-			history.push("/vendor/orderlist");
+			
+			history.push({pathname:"/vendor/address", state: name });
 		} catch (error) {
 			console.log(error);
 
