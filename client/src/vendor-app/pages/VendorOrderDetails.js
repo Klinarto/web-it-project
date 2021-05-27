@@ -45,7 +45,7 @@ export function VendorOrderDetails() {
   });
 
   const [status, setStatus] = useState(null);
-  const [recieveDisabled, setRecieveDisabled] = useState(false);
+  const [receiveDisabled, setReceiveDisabled] = useState(false);
   const [declineDisabled, setDeclineDisabled] = useState(false);
   const [readyDisabled, setReadyDisabled] = useState(false);
   const [completeDisabled, setCompleteDisabled] = useState(false);
@@ -75,15 +75,17 @@ export function VendorOrderDetails() {
         console.log(res);
         setOrder(res.data);
         
+        console.log(res.data.status)
         setStatus(res.data.status);
+        console.log(status)
 
         if(status){
-        setRecieveDisabled(checkStatus("recieved"));
+        setReceiveDisabled(checkStatus("received"));
         setDeclineDisabled(checkStatus("declined"));
         setReadyDisabled(checkStatus("ready"));
         setCompleteDisabled(checkStatus("fulfilled"));
       }
-        console.log(recieveDisabled);
+        console.log(receiveDisabled);
         console.log(res.data);
         console.log(status);
       } catch (error) {
@@ -105,7 +107,7 @@ export function VendorOrderDetails() {
     if (status == "pending") {
       return false;
     }
-    if (status == "recieved") {
+    if (status == "received") {
       if (status == check) {
         return true;
       }
@@ -114,7 +116,7 @@ export function VendorOrderDetails() {
       if (status == check) {
         return true;
       }
-      if (check == "recieved") {
+      if (check == "received") {
         return true;
       }
     }
@@ -175,13 +177,13 @@ export function VendorOrderDetails() {
                     <Button
                       variant="contained"
                       color="primary"
-                      disabled={recieveDisabled}
+                      disabled={receiveDisabled}
                       onClick={() => {
-                        setRecieveDisabled(true);
-                        updateStatus('{"status":"recieved"}');
+                        setReceiveDisabled(true);
+                        updateStatus('{"status":"received"}');
                       }}
                     >
-                      Recieved
+                      Receieved
                     </Button>
                   </ThemeProvider>
                 </ButtonDiv>
@@ -194,7 +196,7 @@ export function VendorOrderDetails() {
                       disabled={readyDisabled}
                       onClick={() => {
                         setReadyDisabled(true);
-                        setRecieveDisabled(true);
+                        setReceiveDisabled(true);
                         updateStatus('{"status":"ready"}');
                       }}
                     >
@@ -212,7 +214,7 @@ export function VendorOrderDetails() {
                       onClick={() => {
                         setCompleteDisabled(true);
                         setReadyDisabled(true);
-                        setRecieveDisabled(true);
+                        setReceiveDisabled(true);
                         updateStatus('{"status":"fulfilled"}');
                       }}
                     >
@@ -234,7 +236,7 @@ export function VendorOrderDetails() {
                   onClick={() => {
                     setCompleteDisabled(true);
                     setReadyDisabled(true);
-                    setRecieveDisabled(true);
+                    setReceiveDisabled(true);
                     setDeclineDisabled(true);
                     updateStatus('{"status":"declined"}');
                   }}

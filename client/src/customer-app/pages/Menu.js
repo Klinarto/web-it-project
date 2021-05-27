@@ -131,6 +131,26 @@ export default function Menu() {
 		localStorage.setItem("order", JSON.stringify(orderList));
 	};
 
+	const displayCart = () => {
+		if (order) {
+			const numItem = Object.values(order).reduce((a, b) => a + b, 0);
+			if (numItem > 0) {
+				return (
+					<Fab
+						variant="extended"
+						style={style}
+						onClick={() => {
+							finalOrder(order);
+						}}
+					>
+						<ShoppingCartIcon /> Cart
+					</Fab>
+				);
+			}
+		}
+		return null;
+	};
+
 	useEffect(() => {
 		console.log(order);
 		return () => {};
@@ -143,17 +163,7 @@ export default function Menu() {
 				</LeftWrapper>
 				<RightWrapper>
 					<Link to={auth.isLoggedIn ? "/customer/cart" : "/customer/login"}>
-						{Object.values(order).reduce((a, b) => a + b, 0) > 0 ? (
-							<Fab
-								variant="extended"
-								style={style}
-								onClick={() => {
-									finalOrder(order);
-								}}
-							>
-								<ShoppingCartIcon /> Cart
-							</Fab>
-						) : null}
+						{displayCart()}
 						{/* <MyButton
 							aria-label="Go to cart"
 							onClick={() => {
