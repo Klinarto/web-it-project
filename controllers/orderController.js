@@ -37,9 +37,19 @@ const getOrder = async (req, res) => {
 			return res.status(404).send("Order not found");
 		}
 
-		// checks if this order belongs to the customer
-		if (req.customer.id != order.customerId.id) {
-			return res.status(401).send("Unauthorized access to order");
+		if (req.customer) {
+			if (req.customer.id != order.customerId._id) {
+				return res.status(401).send("Unauthorized customer access to order");
+			}
+		}
+
+		console.log(req.vendor.id);
+		console.log(order.vendorId);
+		if (req.vendor) {
+			if (req.vendor.id != order.vendorId._id) {
+				
+				return res.status(401).send("Unauthorized vendor access to order");
+			}
 		}
 
 		return res.status(200).send(order);
