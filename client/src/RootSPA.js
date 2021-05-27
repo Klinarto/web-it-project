@@ -148,7 +148,7 @@ export function App() {
           <VendorProfile />
         </Route>
 
-        <Route>{<div>Error 444</div>}</Route>
+        <Route>{<div>Error 404</div>}</Route>
       </Switch>
     );
   } else {

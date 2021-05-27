@@ -1,20 +1,17 @@
-
-
 import React from "react";
 import styled from "styled-components";
 import Link from "react-router-dom/Link";
 
 const Wrapper = styled.div`
   box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  /* transform: translate(-50%, -50%); */
   z-index: 1;
   width: 700px;
   overflow: hidden;
   display: flex;
-
 `;
 
 const Title = styled.h1`
@@ -24,16 +21,12 @@ const Title = styled.h1`
 const LeftContainer = styled.div`
   width: 50%;
   padding: 30px 50px;
-
 `;
 const RightContainer = styled.div`
   width: 50%;
   padding: 30px 50px;
-
 `;
-const MyButton = styled.button`
-
-`;
+const MyButton = styled.button``;
 
 // const HeroImage = styled.div`
 //   background-image: url("./coffeeBackgroundMain.jpg");
@@ -60,25 +53,16 @@ export function MainSPA() {
   return (
     <Wrapper>
       <LeftContainer>
-        <Title>
-          Vendor login
-        </Title>
+        <Title>Vendor login</Title>
         <Link to={"/vendor/login"}>
-          <MyButton>
-            button
-          </MyButton>
+          <MyButton>button</MyButton>
         </Link>
       </LeftContainer>
       <RightContainer>
-        <Title>
-          Customer login
-        </Title>
+        <Title>Customer login</Title>
         <Link to={"/customer/login"}>
-          <MyButton>
-            button
-        </MyButton>
+          <MyButton>button</MyButton>
         </Link>
-
       </RightContainer>
     </Wrapper>
   );
