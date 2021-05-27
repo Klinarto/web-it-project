@@ -10,10 +10,14 @@ recommend to install plugins:
 
 ## Table of Contents
 
-- [Breakout Room 3 - Project](#breakout-room-3---project)
-  - [Running this project locally](#running-this-project-locally)
+- [Breakout Room 3 - Project (Frontend)](#breakout-room-3---project-frontend)
+- [Breakout Room 3 - Project (Backend)](#breakout-room-3---project-backend)
+  - [Table of Contents](#table-of-contents)
+  - [Background](#background)
+  - [Running this Project Locally](#running-this-project-locally)
   - [MongoDB Access details](#mongodb-access-details)
   - [Postman Routes](#postman-routes)
+  - [Front End](#front-end)
 
 ## Background
 
@@ -53,7 +57,7 @@ but the controller for manipulating the data is implemented and the description 
 
    Under Menu/Get menu
 
-   - GET route recieves menu as JSON file displaying every item in menu with their name, price, image url and detail description
+   - GET route receives menu as JSON file displaying every item in menu with their name, price, image url and detail description
 
 2. **View menu detail**
 
