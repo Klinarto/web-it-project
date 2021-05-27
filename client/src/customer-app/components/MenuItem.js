@@ -8,26 +8,30 @@ import { useEffect, useState } from "react";
 export default function MenuItem(props) {
 	const { item, setOrder } = props;
 	const name = item.name;
-	const [quantity, setQuantity] = useState(0);
+	const [quantity, setQuantity] = useState(props.quantity);
 
-	const updateOrder = () => {
-		setOrder((prevOrder) => ({
-			...prevOrder,
-			[name]: quantity,
-		}));
-		setQuantity(0);
-	};
+	// const updateOrder = () => {
+	// 	setOrder((prevOrder) => ({
+	// 		...prevOrder,
+	// 		[name]: quantity,
+	// 	}));
+	// };
 
-	// useEffect(() => {
-	// 	const updateOrder = () => {
-	// 		setOrder((prevOrder) => ({
-	// 			...prevOrder,
-	// 			[name]: quantity,
-	// 		}));
-	// 	};
-	// 	updateOrder();
-	// 	return () => {};
-	// }, [quantity, setOrder, name]);
+	useEffect(() => {
+		const updateOrder = () => {
+			setOrder((prevOrder) => ({
+				...prevOrder,
+				[name]: quantity,
+			}));
+		};
+
+		if (quantity >= 0) {
+			updateOrder();
+		}
+		// console.log("updating order");
+
+		return () => {};
+	}, [quantity, setOrder, name]);
 	return (
 		<Division>
 			<div>
@@ -63,9 +67,9 @@ export default function MenuItem(props) {
 						<AddCircleOutlineIcon />
 					</IconButton>
 				</Buttons>
-				<IconButton onClick={() => updateOrder()}>
+				{/* <IconButton onClick={() => updateOrder()}>
 					<AddShoppingCartIcon />
-				</IconButton>
+				</IconButton> */}
 			</div>
 		</Division>
 	);

@@ -16,7 +16,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MenuItem from "../components/MenuItem";
 
 export default function Menu() {
-	let orderList = {};
+	let orderList = null;
 	let orderPrice = {};
 
 	if (localStorage.getItem("order")) {
@@ -24,7 +24,7 @@ export default function Menu() {
 	}
 
 	const [menu, setMenu] = useState(null);
-	const [order, setOrder] = useState(null);
+	const [order, setOrder] = useState(orderList);
 
 	const style = {
 		margin: 0,
@@ -41,13 +41,26 @@ export default function Menu() {
 	// Render reach menu item.
 	function renderLaptopMenu(array) {
 		if (array) {
-			const row = array.map((item, key) => (
-				<MenuItem key={key} item={item} setOrder={setOrder} />
-			));
+			const row = array.map((item, key) => {
+				let quantity = 0;
+				if (order) {
+					if (Object.keys(order).includes(item.name)) {
+						quantity = order[item.name];
+					}
+				}
+
+				return (
+					<MenuItem
+						key={key}
+						item={item}
+						setOrder={setOrder}
+						quantity={quantity}
+					/>
+				);
+			});
 			return row;
 		}
 	}
-	console.log(order);
 
 	// This chunk of code related to modal might be used for later implementation.
 
@@ -97,13 +110,10 @@ export default function Menu() {
 		};
 	}, [menu]);
 
-	// Update order when the quantity changes by + - buttons.
-	useEffect(() => {
-		return () => {};
-	}, [order]);
-
 	// Take the current state of order when go to cart button is clicked.
 	const finalOrder = (order) => {
+		console.log("Final Order");
+		orderList = {};
 		for (const [key, value] of Object.entries(order)) {
 			if (value > 0) {
 				orderList[key] = value;
@@ -115,10 +125,15 @@ export default function Menu() {
 				});
 			}
 		}
+		console.log(orderList);
 		localStorage.setItem("price", JSON.stringify(orderPrice));
 		localStorage.setItem("order", JSON.stringify(orderList));
 	};
 
+	useEffect(() => {
+		console.log(order);
+		return () => {};
+	}, [order]);
 	return (
 		<Wrapper>
 			<DIV>
@@ -127,7 +142,7 @@ export default function Menu() {
 				</LeftWrapper>
 				<RightWrapper>
 					<Link to={auth.isLoggedIn ? "/customer/cart" : "/customer/login"}>
-						{order ? (
+						{Object.values(order).reduce((a, b) => a + b, 0) > 0 ? (
 							<Fab
 								variant="extended"
 								style={style}

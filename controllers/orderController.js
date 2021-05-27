@@ -15,7 +15,9 @@ const getOrders = async (req, res) => {
 
 	try {
 		// Find all documents where their status is not fulfilled
-		const orders = await Order.find(filter).populate("vendorId", ["name"]).populate("customerId", ["firstName", "lastName", "email"], "Customer");
+		const orders = await Order.find(filter)
+			.populate("vendorId", ["name"])
+			.populate("customerId", ["firstName", "lastName", "email"], "Customer");
 
 		return res.send(orders);
 	} catch (error) {
@@ -47,7 +49,6 @@ const getOrder = async (req, res) => {
 		console.log(order.vendorId);
 		if (req.vendor) {
 			if (req.vendor.id != order.vendorId._id) {
-				
 				return res.status(401).send("Unauthorized vendor access to order");
 			}
 		}
