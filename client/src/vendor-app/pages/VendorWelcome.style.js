@@ -78,7 +78,6 @@ export const RightImage = styled.img`
     flex: 0 0 60%;
     max-width: 60%;
   }
-
 `;
 
 export const HeaderWrapper = styled.h1`

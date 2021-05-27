@@ -1,6 +1,7 @@
 # Breakout Room 3 - Project (Frontend)
 
 recommend to install plugins:
+
 - prettier
 - vscode-styled-components
 - material icon theme
@@ -108,9 +109,10 @@ but the controller for manipulating the data is implemented and the description 
        "status": "fulfilled"
    }
    ```
-## Front End 
-   
-   Dummy Customer login:
-   
-   email address: john@gmail.com
-   password: 123456
+
+## Front End
+
+Dummy Customer login:
+
+email address: john@gmail.com
+password: 123456

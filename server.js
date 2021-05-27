@@ -22,9 +22,9 @@ app.use("/vendor", require("./routes/vendor"));
 app.use("/order", require("./routes/order"));
 
 app.listen(port, () => {
-	console.log(`The app is listening on port ${port}`);
+  console.log(`The app is listening on port ${port}`);
 });
 
 app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });

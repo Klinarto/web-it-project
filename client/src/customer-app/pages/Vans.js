@@ -1,241 +1,245 @@
 import React, {
-	useState,
-	Fragment,
-	useEffect,
-	useCallback,
-	useRef,
+  useState,
+  Fragment,
+  useEffect,
+  useCallback,
+  useRef,
 } from "react";
 import {
-	GoogleMap,
-	InfoWindow,
-	Marker,
-	useLoadScript,
+  GoogleMap,
+  InfoWindow,
+  Marker,
+  useLoadScript,
 } from "@react-google-maps/api";
 import axios from "axios";
 import mapStyle from "../utilities/Mapstyle";
 import { objectIsEmpty, calculateDistance } from "../utilities/Utils";
-import { Container, Title, MyButton, Float_Container, VanButton } from "../pages/Vans.style";
-
+import {
+  Container,
+  Title,
+  MyButton,
+  Float_Container,
+  VanButton,
+} from "../pages/Vans.style";
 
 export default function Map() {
-	// used to center map, default center is Melbourne
-	const [center, setCenter] = useState({ lat: -37.8136, lng: 144.9631 });
-	// used to ste zoom level in maps
-	const [zoom, setZoom] = useState(15);
+  // used to center map, default center is Melbourne
+  const [center, setCenter] = useState({ lat: -37.8136, lng: 144.9631 });
+  // used to ste zoom level in maps
+  const [zoom, setZoom] = useState(15);
 
-	// array of vendors
-	const [vendors, setVendors] = useState([]);
+  // array of vendors
+  const [vendors, setVendors] = useState([]);
 
-	// used for infowindow marker
-	const [selected, setSelected] = useState(null);
+  // used for infowindow marker
+  const [selected, setSelected] = useState(null);
 
-	// stores current location in latlng object (e.g. {lat: number, lng: number})
-	const [currentLocation, setCurrentLocation] = useState({});
+  // stores current location in latlng object (e.g. {lat: number, lng: number})
+  const [currentLocation, setCurrentLocation] = useState({});
 
-	// from @react-google-maps/api
-	const { isLoaded, loadError } = useLoadScript({
-		googleMapsApiKey: process.env.REACT_APP_GMAP_KEY,
-	});
+  // from @react-google-maps/api
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GMAP_KEY,
+  });
 
-	useEffect(() => {
-		// used for cleanup
-		let isMounted = true;
+  useEffect(() => {
+    // used for cleanup
+    let isMounted = true;
 
-		// fetch list of vendors from db
-		const fetchVendors = async () => {
-			try {
-				const res = await axios.get("/vendor");
-				if (isMounted) {
-					setVendors(res.data);
-				}
+    // fetch list of vendors from db
+    const fetchVendors = async () => {
+      try {
+        const res = await axios.get("/vendor");
+        if (isMounted) {
+          setVendors(res.data);
+        }
 
-				// console.log(vendors);
-			} catch (error) {
-				console.log(error);
-			}
-		};
+        // console.log(vendors);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-		fetchVendors();
-		return () => {
-			isMounted = false;
-		};
-	}, [vendors]);
+    fetchVendors();
+    return () => {
+      isMounted = false;
+    };
+  }, [vendors]);
 
-	// googleMap component options
-	const options = {
-		disableDefaultUI: true,
-		zoomControl: true,
-		// uses custom map style stored in mapStyle
-		styles: mapStyle,
-	};
+  // googleMap component options
+  const options = {
+    disableDefaultUI: true,
+    zoomControl: true,
+    // uses custom map style stored in mapStyle
+    styles: mapStyle,
+  };
 
-	const mapRef = useRef();
+  const mapRef = useRef();
 
-	// when the map loads, create a ref to the map to avoid re-renders
-	const onMapLoad = useCallback((map) => {
-		mapRef.current = map;
-	}, []);
+  // when the map loads, create a ref to the map to avoid re-renders
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
 
-	const panTo = useCallback(({ lat, lng }) => {
-		mapRef.current.panTo({ lat, lng });
-		mapRef.current.setZoom(14);
-	}, []);
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+  }, []);
 
-	// display vendors as markers in the map
-	const displayVendors = () => {
-		if (vendors) {
-			return vendors.map((vendor) => {
-				return (
-					<Marker
-						key={vendor._id}
-						title={vendor.name}
-						position={{
-							lat: vendor.location.lat,
-							lng: vendor.location.lng,
-						}}
-						onClick={() => {
-							setSelected(vendor);
-						}}
-					/>
-				);
-			});
-		}
-	};
+  // display vendors as markers in the map
+  const displayVendors = () => {
+    if (vendors) {
+      return vendors.map((vendor) => {
+        return (
+          <Marker
+            key={vendor._id}
+            title={vendor.name}
+            position={{
+              lat: vendor.location.lat,
+              lng: vendor.location.lng,
+            }}
+            onClick={() => {
+              setSelected(vendor);
+            }}
+          />
+        );
+      });
+    }
+  };
 
-	const displayVendorButtons = () => {
-		if (vendors) {
-			return vendors.map((vendor) => {
-				const location = {
-					lat: vendor.location.lat,
-					lng: vendor.location.lng,
-				};
-				return (
-					<div>
-						<VanButton
-							key={vendor._id}
-							onClick={() => {
-								console.log(location);
-								panTo(location);
-							}}>
-							{vendor.name}
-							{/* <p>Distance: {calculateDistance(currentLocation, location)}</p> */}
-						</VanButton>
+  const displayVendorButtons = () => {
+    if (vendors) {
+      return vendors.map((vendor) => {
+        const location = {
+          lat: vendor.location.lat,
+          lng: vendor.location.lng,
+        };
+        return (
+          <div>
+            <VanButton
+              key={vendor._id}
+              onClick={() => {
+                console.log(location);
+                panTo(location);
+              }}
+            >
+              {vendor.name}
+              {/* <p>Distance: {calculateDistance(currentLocation, location)}</p> */}
+            </VanButton>
+          </div>
+        );
+      });
+    }
+  };
 
-					</div>
-				);
-			});
-		}
-	};
+  const displayCurrentLocation = () => {
+    if (!objectIsEmpty(currentLocation)) {
+      return (
+        <Marker
+          title={"Current location"}
+          position={currentLocation}
+          onClick={() => {
+            setSelected({
+              location: currentLocation,
+              name: "current location",
+              locationDetails: "",
+            });
+          }}
+        />
+      );
+    }
+  };
 
-	const displayCurrentLocation = () => {
-		if (!objectIsEmpty(currentLocation)) {
-			return (
-				<Marker
+  // get current location of user
+  const getCurrentLocation = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        if (position.coords) {
+          const location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          setCurrentLocation(location);
+          panTo(location);
+          console.log(currentLocation);
+        }
+      });
+    } else {
+      console.log("Geolocation is not available");
+    }
+  };
 
-					title={"Current location"}
-					position={currentLocation}
-					onClick={() => {
-						setSelected({
-							location: currentLocation,
-							name: "current location",
-							locationDetails: "",
-						});
-					}}
-				/>
-			);
-		}
-	};
+  // render the map
+  const renderMap = () => {
+    return (
+      <GoogleMap
+        mapContainerStyle={{
+          height: "100vh",
+          width: "70%",
+          float: "right",
+        }}
+        center={center}
+        zoom={zoom}
+        options={options}
+        onLoad={onMapLoad}
+      >
+        {displayVendors()}
+        {selected ? (
+          <InfoWindow
+            position={{
+              lat: selected.location.lat,
+              lng: selected.location.lng,
+            }}
+            onCloseClick={() => {
+              setSelected(null);
+            }}
+          >
+            <div>
+              <h2>{selected.name}</h2>
+              <p>{selected.locationDetails}</p>
+            </div>
+          </InfoWindow>
+        ) : null}
+        {displayCurrentLocation()}
+      </GoogleMap>
+    );
+  };
 
-	// get current location of user
-	const getCurrentLocation = () => {
-		if ("geolocation" in navigator) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				if (position.coords) {
-					const location = {
-						lat: position.coords.latitude,
-						lng: position.coords.longitude,
-					};
-					setCurrentLocation(location);
-					panTo(location);
-					console.log(currentLocation);
-				}
-			});
-		} else {
-			console.log("Geolocation is not available");
-		}
-	};
+  if (loadError) {
+    return <h3>Unable to load map</h3>;
+  }
 
-	// render the map
-	const renderMap = () => {
-		return (
-			<GoogleMap
-				mapContainerStyle={{
-					height: "100vh",
-					width: "70%",
-					float: "right",
-				}}
-				center={center}
-				zoom={zoom}
-				options={options}
-				onLoad={onMapLoad}
-			>
-				{displayVendors()}
-				{selected ? (
-					<InfoWindow
-						position={{
-							lat: selected.location.lat,
-							lng: selected.location.lng,
-						}}
-						onCloseClick={() => {
-							setSelected(null);
-						}}
-					>
-						<div>
-							<h2>{selected.name}</h2>
-							<p>{selected.locationDetails}</p>
-						</div>
-					</InfoWindow>
-				) : null}
-				{displayCurrentLocation()}
-			</GoogleMap>
-		);
-	};
-
-
-	if (loadError) {
-		return <h3>Unable to load map</h3>;
-	}
-
-	// temp loading div
-	const loadingDiv = (
-		<div>
-			<h1>Loading</h1>
-		</div>
-	);
-	return (
-		<Fragment>
-			<Float_Container>
-				<Container>
-					<Title>Closest Vans</Title>
-					{isLoaded ? (
-						<div style={{ overflowY: "scroll", height: "85vh" }}>
-							{displayVendorButtons()}
-						</div>
-					) : null}
-					<MyButton>Order</MyButton>
-				</Container>
-				{isLoaded ? renderMap() : loadingDiv}
-			</Float_Container>
-		</Fragment>
-	);
+  // temp loading div
+  const loadingDiv = (
+    <div>
+      <h1>Loading</h1>
+    </div>
+  );
+  return (
+    <Fragment>
+      <Float_Container>
+        <Container>
+          <Title>Closest Vans</Title>
+          {isLoaded ? (
+            <div style={{ overflowY: "scroll", height: "85vh" }}>
+              {displayVendorButtons()}
+            </div>
+          ) : null}
+          <MyButton>Order</MyButton>
+        </Container>
+        {isLoaded ? renderMap() : loadingDiv}
+      </Float_Container>
+    </Fragment>
+  );
 }
 
 // ------my location from line 226
-{/* <button
+{
+  /* <button
 		  onClick={() => {
 			getCurrentLocation();
 		  }}
 		>
 		  Current Location
-		</button> */}
-
+		</button> */
+}

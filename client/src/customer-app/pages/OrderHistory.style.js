@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { device } from "../../shared/components/device";
 
-
 export const Title = styled.h1`
   font-size: 32px;
 `;
@@ -33,9 +32,8 @@ export const Container = styled.div`
   }
 
   @media ${device.laptop} {
-    width: 80%;;
+    width: 80%;
   }
-
 `;
 
 export const Division = styled.div`
