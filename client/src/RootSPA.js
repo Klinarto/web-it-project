@@ -88,16 +88,16 @@ export function App() {
   }, [token, logout, tokenExpDate]);
 
   // Authentication and if there is a token in localStorage, set the login status to be Logged in
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem("userData"));
-    if (
-      storedData &&
-      storedData.token &&
-      new Date(storedData.expiration) > new Date()
-    ) {
-      login(storedData.token, new Date(storedData.expiration));
-    }
-  });
+  // useEffect(() => {
+  //   const storedData = JSON.parse(localStorage.getItem("userData"));
+  //   if (
+  //     storedData &&
+  //     storedData.token &&
+  //     new Date(storedData.expiration) > new Date()
+  //   ) {
+  //     login(storedData.token, new Date(storedData.expiration));
+  //   }
+  // });
 
   //  Allow certain routes when logged in, or not Logged in, if user tries to access it, it will block
   let Routes;

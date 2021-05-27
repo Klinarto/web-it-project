@@ -44,17 +44,12 @@ export function VendorOrderDetails() {
     },
   });
 
-  const [status, setStatus] = useState("pending");
-  const [recieveDisabled, setRecieveDisabled] = useState(
-    checkStatus("recieved")
-  );
-  const [declineDisabled, setDeclineDisabled] = useState(
-    checkStatus("declined")
-  );
-  const [readyDisabled, setReadyDisabled] = useState(checkStatus("ready"));
-  const [completeDisabled, setCompleteDisabled] = useState(
-    checkStatus("fulfilled")
-  );
+  const [status, setStatus] = useState(null);
+  const [recieveDisabled, setRecieveDisabled] = useState(false);
+  const [declineDisabled, setDeclineDisabled] = useState(false);
+  const [readyDisabled, setReadyDisabled] = useState(false);
+  const [completeDisabled, setCompleteDisabled] = useState(false);
+
   //update status to the database.
 
   const updateStatus = async (updatedStatus) => {
@@ -79,7 +74,18 @@ export function VendorOrderDetails() {
         const res = await axios.get(`/order/${orderId}`);
         console.log(res);
         setOrder(res.data);
+        
         setStatus(res.data.status);
+
+        if(status){
+        setRecieveDisabled(checkStatus("recieved"));
+        setDeclineDisabled(checkStatus("declined"));
+        setReadyDisabled(checkStatus("ready"));
+        setCompleteDisabled(checkStatus("fulfilled"));
+      }
+        console.log(recieveDisabled);
+        console.log(res.data);
+        console.log(status);
       } catch (error) {
         console.log(error.response.data);
       }
