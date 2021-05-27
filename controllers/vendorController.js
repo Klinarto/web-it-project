@@ -23,24 +23,7 @@ const setVanStatus = async (req, res) => {
 };
 
 
-const setLocationDetail = async (req, res) => {
 
-	try {
-		const van = await Vendor.findOneAndUpdate(
-			{
-				name: req.params.vanName,
-			},
-			req.body
-		);
-		if (!van) {
-			return res.status(404).send("Van not found");
-		}
-		return res.send("Van location detail updated");
-	} catch (error) {
-		console.error(error);
-		return res.status(400).send("Database location detail query failed");
-	}
-};
 
 const registerVan = async (req, res) => {
 	const { name, password } = req.body;
@@ -120,5 +103,5 @@ module.exports = {
 	setVanStatus,
 	registerVan,
 	loginVendor,
-	setLocationDetail,
+	
 };

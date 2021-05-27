@@ -11,11 +11,9 @@ router
 // Login van 
 router.post("/login", vendorController.loginVendor);
 
-// Set van status
+// Set van status or location
 router.route("/:vanName").put(vendorController.setVanStatus);
 
-
-router.route("/locdetail/:vanName").put(vendorController.setLocationDetail)
 
 module.exports = router;
 

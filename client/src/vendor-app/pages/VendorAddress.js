@@ -43,7 +43,7 @@ export function VendorAddress() {
   const updateLocation = async (locD) => {
     try {
       console.log(JSON.parse(locD))		 
-      const res = await axios.put(`/vendor/locdetail/${vanname}`, JSON.parse(locD))
+      const res = await axios.put(`/vendor/${vanname}`, JSON.parse(locD))
       console.log(res);
     } catch (error) {
       console.log(error.response.data);
