@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Time } from "../pages/VendorOrderDetail.style";
 
 const Interval = () => {
-  const [seconds, setSeconds] = useState(900);
+  const [seconds, setSeconds] = useState(100);
   var min = 0;
   var sec = 0;
 

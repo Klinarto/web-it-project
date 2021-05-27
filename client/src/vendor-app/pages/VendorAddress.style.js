@@ -30,6 +30,31 @@ export const LocationDetail = styled.div`
   margin-bottom:20vh;
 `;
 
+export const Closing = styled.div`
+  max-width: 80vw;
+  position: relative;
+  flex: 2;
+  flex-direction: row;
+  display: flex;
+  background-color:white;
+  align-items: center;
+  padding: 20px;
+  margin:auto;
+`;
+
+export const Box = styled.div`
+  max-width: 80vw;
+  font-size:40px;
+  position: relative;
+  flex: 2;
+  flex-direction:Column;
+  display: flex;
+  background-color:white;
+  align-items: center;
+  padding: 10px;
+  margin:auto
+`;
+
 
 export const DivisionButton = styled.div`
   padding:10px;
