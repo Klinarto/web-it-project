@@ -87,7 +87,7 @@ export function VendorOrderDetails(props) {
     fetchOneOrder();
     console.log(order);
     return () => {};
-  });
+  },[]);
 
   function checkStatus(check) {
     if (status == "declined") {
