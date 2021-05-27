@@ -1,5 +1,10 @@
 import React, { useCallback, useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 import MainSPA from "./MainSPA";
 
@@ -38,6 +43,7 @@ import VendorRegister from "./vendor-app/pages/VendorRegister";
 // 	return request;
 // });
 
+// eslint-disable-next-line no-unused-vars
 let logoutTimer;
 
 export function App() {
@@ -53,7 +59,7 @@ export function App() {
     axios.defaults.headers.common["x-access-token"] = token;
     localStorage.setItem(
       "userData",
-      JSON.stringify({ token: token, expiration: tokenExpDate.toISOString })
+      JSON.stringify({ token: token, expiration: tokenExpDate.toISOString() })
     );
   }, []);
 
@@ -120,6 +126,12 @@ export function App() {
         <Route path="/contactus">
           <Contactus />
         </Route>
+        <Route path="/customer/login">
+          <Redirect to="/vendor" />
+        </Route>
+        <Route path="/customer/register">
+          <Redirect to="/vendor" />
+        </Route>
         <Route path="/customer/cart">
           <Cart />
         </Route>
@@ -159,6 +171,9 @@ export function App() {
         </Route>
         <Route path="/" exact>
           <MainSPA />
+        </Route>
+        <Route path="/customer/orderhistory">
+          <Redirect to="/customer" />
         </Route>
         <Route path="/customer/vans">
           <Vans />
