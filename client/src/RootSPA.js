@@ -48,23 +48,22 @@ let logoutTimer;
 
 export function App() {
   const [token, setToken] = useState(null);
-  // const [loginType, setLoginType] = useState(null);
+  const [loginType, setLoginType] = useState(null);
   const [tokenExpDate, setTokenExpDate] = useState();
 
   // Used for Context (callback used to avoid infinite loop), if user is logged in, it will store token to localStorage and give access to axios DB
   const login = useCallback((token, loginType, expDate) => {
     setToken(token);
-    // setLoginType(loginType);
+    setLoginType(loginType);
     const tokenExpDate =
       expDate || new Date(new Date().getTime() + 1000 * 60 * 60);
     setTokenExpDate(tokenExpDate);
     axios.defaults.headers.common["x-access-token"] = token;
-    // console.log(loginType);
     localStorage.setItem(
       "userData",
       JSON.stringify({
         token: token,
-        // loginType: loginType,
+        loginType: loginType,
         expiration: tokenExpDate.toISOString(),
       })
     );
@@ -72,32 +71,28 @@ export function App() {
 
   const logout = useCallback(() => {
     setToken(null);
-    // setLoginType(null);
+    setLoginType(null);
     setTokenExpDate(null);
     delete axios.defaults.headers.common["x-access-token"];
     localStorage.removeItem("userData");
   }, []);
 
   useEffect(() => {
-    if (token && tokenExpDate) {
+    if (token && loginType && tokenExpDate) {
       const time = tokenExpDate.getTime() - new Date().getTime();
       logoutTimer = setTimeout(logout, time);
     } else {
       clearTimeout();
     }
-  }, [token, logout, tokenExpDate]);
+  }, [token, loginType, logout, tokenExpDate]);
 
   // Authentication and if there is a token in localStorage, set the login status to be Logged in
-  // useEffect(() => {
-  //   const storedData = JSON.parse(localStorage.getItem("userData"));
-  //   if (
-  //     storedData &&
-  //     storedData.token &&
-  //     new Date(storedData.expiration) > new Date()
-  //   ) {
-  //     login(storedData.token, new Date(storedData.expiration));
-  //   }
-  // });
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("userData"));
+    if (storedData && storedData.token) {
+      login(storedData.token);
+    }
+  }, [login]);
 
   //  Allow certain routes when logged in, or not Logged in, if user tries to access it, it will block
   let Routes;
@@ -241,6 +236,7 @@ export function App() {
         token: token,
         login: login,
         logout: logout,
+        loginType: loginType,
       }}
     >
       <Router>

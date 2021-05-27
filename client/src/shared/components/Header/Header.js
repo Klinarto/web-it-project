@@ -1,6 +1,8 @@
-import React from "react";
-import SideBarLinks from "./SideBarLinks";
-import SideLinks from "./SideLinks";
+import React, { useContext } from "react";
+import SideBarLinksCustomer from "./SideBarLinksCustomer";
+import SideBarLinksVendor from "./SideBarLinksVendor";
+import SideLinksCustomer from "./SideLinksCustomer";
+import SideLinksVendor from "./SideLinksVendor";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,6 +13,7 @@ import grey from "@material-ui/core/colors/grey";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { AuthContext } from "../../auth-context";
 
 // styles for the side bar and the header
 const drawerWidth = 270;
@@ -18,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
     color: grey[50],
+  },
+  toolbar: {
+    // height: "10vh",
   },
   title: {
     flexGrow: 1,
@@ -85,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const auth = useContext(AuthContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -112,7 +119,7 @@ export default function Header() {
         color={"customColor"}
         className={classes.customColor}
       >
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -125,7 +132,11 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Snacks in a Van
           </Typography>
-          <SideLinks />
+          {auth.loginType == "customer" ? (
+            <SideLinksCustomer />
+          ) : (
+            <SideLinksVendor />
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -147,7 +158,11 @@ export default function Header() {
             )}
           </IconButton>
         </div>
-        <SideBarLinks />
+        {auth.loginType == "customer" ? (
+          <SideBarLinksCustomer />
+        ) : (
+          <SideBarLinksVendor />
+        )}
       </Drawer>
     </React.Fragment>
   );

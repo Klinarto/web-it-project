@@ -40,7 +40,7 @@ export default function SideLinks() {
         <li>
           <MyNavLink to="/customer/login">
             <Button variant="contained" color="secondary">
-              LOGIN
+              CUSTOMER LOGIN
             </Button>
           </MyNavLink>
         </li>

@@ -36,6 +36,13 @@ export const LeftImage = styled.img`
   margin-right: auto;
 `;
 
+export const ButtonDiv = styled.div`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 32px;
+`;
+
 export const Title = styled.h1`
   text-align: center;
   font-family: "Dawning of a New Day";
