@@ -21,7 +21,7 @@ export function VendorAddress() {
 
 
   const [locDetail, setLocDetail] = useState("");
-  console.log(locDetail);
+  
 
   const theme = createMuiTheme({
     palette: {
@@ -40,16 +40,16 @@ export function VendorAddress() {
     return;
     };
 
-  // const updateLocation = async (status) => {
-  //   try {
-  //     console.log(JSON.parse(status))		 
-  //     const res = await axios.post(`/vendor/${vanname}`, JSON.parse(status))
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log(error.response.data);
-  //   }
-  //   return;
-  //   };
+  const updateLocation = async (locD) => {
+    try {
+      console.log(JSON.parse(locD))		 
+      const res = await axios.put(`/vendor/locdetail/${vanname}`, JSON.parse(locD))
+      console.log(res);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+    return;
+    };
 
   return (
     <Container>
@@ -69,7 +69,7 @@ export function VendorAddress() {
       </Grid>
       <DivisionButton><ThemeProvider theme={theme}><Button
 						variant="contained" color="primary"
-						onClick={() => {}}>
+						onClick={() => {updateLocation(`{"locationDetails":"${locDetail}"}`); console.log(`{"locationDetails":"${locDetail}"}`)}}>
 						update
 				</Button></ThemeProvider></DivisionButton>					
         <DivisionButton><ThemeProvider theme={theme}><Button
