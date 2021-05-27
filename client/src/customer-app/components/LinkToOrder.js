@@ -41,7 +41,7 @@ export default function LinkToOrder(props) {
               <OrderItem>
                 <b>Items ordered: </b>
               </OrderItem>
-              {Object.keys(foodItems).map((key, i) => (
+              {Object.keys(foodItems).map((key) => (
                 <FoodItem>
                   {foodItems[key]} {key}
                 </FoodItem>
