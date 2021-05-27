@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Container,
@@ -29,4 +28,3 @@ export default function VendorWelcome() {
     </Container>
   );
 }
-

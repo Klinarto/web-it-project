@@ -8,13 +8,10 @@ import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
 
-
-
 export default function Register() {
   const history = useHistory();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
 
   // open state for materialUI snackbar
   const [open, setOpen] = useState(false);
@@ -37,7 +34,7 @@ export default function Register() {
     const res = await axios.post("/vendor/register", data, {
       headers: { "Content-Type": "application/json" },
     });
-    
+
     try {
       // set snackbar details
       setOpen(true);
@@ -109,7 +106,6 @@ export default function Register() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
-
           </Grid>
 
           <Button
@@ -122,10 +118,12 @@ export default function Register() {
               padding: "16px 0",
               marginTop: "16px",
             }}
-            onClick={() => {sendData(); history.push("/vendor/orderlist")}}
+            onClick={() => {
+              sendData();
+              history.push("/vendor/orderlist");
+            }}
           >
             Register
-  
           </Button>
         </form>
       </div>

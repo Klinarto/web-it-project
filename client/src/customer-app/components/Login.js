@@ -72,7 +72,7 @@ export default function SignIn() {
 
       // store token
       // localStorage.setItem("token", res.data.token);
-      auth.login(res.data.token);
+      auth.login(res.data.token, "customer");
       history.push("/customer/menu");
     } catch (valid) {
       console.log(valid);

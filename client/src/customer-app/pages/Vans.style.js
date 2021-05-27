@@ -1,14 +1,10 @@
 import styled from "styled-components";
 
-
-export const Float_Container = styled.div`
-  
-`;
+export const Float_Container = styled.div``;
 export const Container = styled.div`
-  position:relative;
+  position: relative;
   width: 30%;
   float: left;
-  
 `;
 
 export const Title = styled.span`
@@ -29,7 +25,7 @@ export const LeftDetail = styled.div`
 export const OrderButton = styled.button`
   position: fixed;
   bottom: 0;
-  height: 12vh; 
+  height: 12vh;
   width: 30%;
   border-radius:5px;
   background-color:white;
@@ -53,7 +49,6 @@ export const VanButton = styled.button`
     background: #aad9cd;
     cursor: pointer;
   }
-  
 `;
 
 

@@ -1,11 +1,11 @@
 import React from "react";
 import {
-	Container,
-	OrderTitle,
-	OrderList,
-	FoodItem,
-	Division,
-	OrderItem,
+  Container,
+  OrderTitle,
+  OrderList,
+  FoodItem,
+  Division,
+  OrderItem,
 } from "../pages/OrderHistory.style";
 import { Link } from "react-router-dom";
 import { parseDate } from "../../utilities/Utils";
@@ -14,7 +14,7 @@ export default function LinkToOrder(props) {
 	const { orderId, vendorId, foodItems, status, totalCost, createdAt } =
 		props.order;
 
-	const parsedDate = parseDate(new Date(createdAt));
+  const parsedDate = parseDate(new Date(createdAt));
 
 	return (
 		<Container>
@@ -48,19 +48,19 @@ export default function LinkToOrder(props) {
 							))}
 						</innerDiv>
 
-						<innerDiv>
-							<OrderItem>
-								<b>Total Cost:</b> $ {totalCost}
-							</OrderItem>
-							<OrderItem>
-								<b>Created at:</b> {parsedDate}
-							</OrderItem>
-						</innerDiv>
-						<br />
-					</Division>
-					<hr />
-				</div>
-			</Link>
-		</Container>
-	);
+            <innerDiv>
+              <OrderItem>
+                <b>Total Cost:</b> $ {totalCost}
+              </OrderItem>
+              <OrderItem>
+                <b>Created at:</b> {parsedDate}
+              </OrderItem>
+            </innerDiv>
+            <br />
+          </Division>
+          <hr />
+        </div>
+      </Link>
+    </Container>
+  );
 }

@@ -117,12 +117,12 @@ const updateOrder = async (req, res) => {
 		}
 
 		if (req.customer) {
-			if (req.customer.id != order.customerId) {
+			if (req.customer.id != order.customerId._id) {
 				return res.status(401).send("Unauthorized customer access to order");
 			}
 		}
 		if (req.vendor) {
-			if (req.vendor.id != order.vendorId) {
+			if (req.vendor.id != order.vendorId._id) {
 				return res.status(401).send("Unauthorized vendor access to order");
 			}
 		}
@@ -144,42 +144,42 @@ const updateOrder = async (req, res) => {
 
 // create new order
 const createOrder = async (req, res) => {
-	const { foodItems, vendorId } = req.body;
-	let totalCost = 0;
-	try {
-		for (const [foodName, quantity] of Object.entries(foodItems)) {
-			const menuItem = await MenuItem.findOne({
-				name: foodName,
-			});
+  const { foodItems, vendorId } = req.body;
+  let totalCost = 0;
+  try {
+    for (const [foodName, quantity] of Object.entries(foodItems)) {
+      const menuItem = await MenuItem.findOne({
+        name: foodName,
+      });
 
-			if (!menuItem) {
-				return res.status(404).send("Menu item not found");
-			}
-			totalCost += menuItem.price * quantity;
-		}
+      if (!menuItem) {
+        return res.status(404).send("Menu item not found");
+      }
+      totalCost += menuItem.price * quantity;
+    }
 
-		Order.countDocuments({}, async (err, count) => {
-			// count how many orders are in the database
-			// and make the orderId the total number of
-			// order + 1
-			let orderId = count + 1;
+    Order.countDocuments({}, async (err, count) => {
+      // count how many orders are in the database
+      // and make the orderId the total number of
+      // order + 1
+      let orderId = count + 1;
 
-			let newOrder = new Order({
-				orderId: orderId,
-				customerId: req.customer.id,
-				vendorId,
-				foodItems,
-				status: "pending",
-				orderCost: totalCost,
-				totalCost: totalCost,
-			});
-			await newOrder.save();
-		});
-		return res.send("Order created");
-	} catch (error) {
-		console.error(error.message);
-		return res.status(400).send("Database query failed");
-	}
+      let newOrder = new Order({
+        orderId: orderId,
+        customerId: req.customer.id,
+        vendorId,
+        foodItems,
+        status: "pending",
+        orderCost: totalCost,
+        totalCost: totalCost,
+      });
+      await newOrder.save();
+    });
+    return res.send("Order created");
+  } catch (error) {
+    console.error(error.message);
+    return res.status(400).send("Database query failed");
+  }
 };
 
 module.exports = { getOrders, getOrder, updateOrder, createOrder };

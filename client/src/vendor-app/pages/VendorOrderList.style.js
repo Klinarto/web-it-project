@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { device } from "../../shared/components/device";
 
-
 export const Title = styled.h1`
   font-size: 32px;
 `;
@@ -33,9 +32,8 @@ export const Container = styled.div`
   }
 
   @media ${device.laptop} {
-    width: 80%;;
+    width: 80%;
   }
-
 `;
 
 export const Division = styled.div`
@@ -49,13 +47,12 @@ export const Division = styled.div`
 `;
 
 export const InnerDiv = styled.div`
-
   /* margin-left: auto;
   margin-right: auto; */
 `;
 
 export const ButtonDiv = styled.div`
-  padding:10px;
+  padding: 10px;
   /* margin-left: auto;
   margin-right: auto; */
 `;
@@ -63,7 +60,7 @@ export const ButtonDiv = styled.div`
 export const InnerDivButtons = styled.div`
   flex: 3;
   display: flex;
-  flex-direction: column ;
+  flex-direction: column;
 `;
 
 export const OrderTitle = styled.h1`
@@ -85,20 +82,19 @@ export const OrderItem = styled.li`
   font-size: 18px;
   list-style-type: none;
   margin-bottom: 5%;
-  margin-top:5%;
+  margin-top: 5%;
 `;
 
 export const InnerDivBot = styled.div`
-  @media ${device.laptop}{
+  @media ${device.laptop} {
     position: absolute;
     bottom: 20%;
   }
 
-  @media ${device.tablet}{
+  @media ${device.tablet} {
     position: absolute;
     bottom: 20%;
   }
-
 `;
 
 export const FoodItem = styled.li`
@@ -166,7 +162,7 @@ export const Time = styled.div`
 
 export const DeclineMessage = styled.p`
   font-size: 18px;
-  color:red;
+  color: red;
   text-align: left;
 `;
 
@@ -180,7 +176,7 @@ export const MyButton = styled.button`
   color: white;
   padding: 7px 14px;
   transition: background 0.1s ease-in-out;
-  
+
   border-radius: 10px;
   border: none;
   &:hover {
@@ -188,7 +184,3 @@ export const MyButton = styled.button`
     background: #fff;
   }
 `;
-
-
-
-

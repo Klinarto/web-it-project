@@ -1,3 +1,4 @@
+import React from "react";
 import { UL, Division, Price, ImageBig, Buttons } from "../pages/Menu.style";
 import IconButton from "@material-ui/core/IconButton";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
