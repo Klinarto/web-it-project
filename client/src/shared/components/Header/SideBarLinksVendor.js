@@ -8,8 +8,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import CheckIcon from "@material-ui/icons/Check";
 import StarsIcon from "@material-ui/icons/Stars";
@@ -33,44 +31,6 @@ export default function SideBarLinks() {
         {/* Each list item will have Router's history Hook and rediret to page when a div is clicked.
         Some lists will check if the screen size is smaller than a certain device size (tablet size) and display the item
         Some will check whether it is authenticated and screen size is small*/}
-        <ListItem
-          button
-          key={"vans"}
-          onClick={() => {
-            history.push("/customer/vans");
-          }}
-        >
-          <ListItemIcon>
-            <LocalShippingIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Vans (Work In Progress)"} />
-        </ListItem>
-        <ListItem
-          button
-          key={"menu"}
-          onClick={() => {
-            history.push("/customer/menu");
-          }}
-        >
-          <ListItemIcon>
-            <RestaurantMenuIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Menu"} />
-        </ListItem>
-        {/* {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"order"}
-            onClick={() => {
-              history.push("/customer/order");
-            }}
-          >
-            <ListItemIcon>
-              <ListAltIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Order"} />
-          </ListItem>
-        )} */}
         {auth.isLoggedIn && (
           <ListItem
             button
