@@ -6,7 +6,7 @@ const Interval = (props) => {
 		const updatedAt = new Date(props.updatedAt);
 		let currentDate = new Date();
 		// timeLimit is in ms
-		let timeLimit = 0.5 * 60 * 1000;
+		let timeLimit = 15 * 60 * 1000;
 		let difference = timeLimit - (currentDate - updatedAt);
 		let timeLeft = null;
 		if (difference > 0) {
