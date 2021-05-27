@@ -35,6 +35,7 @@ export default function Menu() {
 		position: "fixed",
 		backgroundColor: "#aad9cd",
 		color: "white",
+		zIndex: 2,
 	};
 	const auth = useContext(AuthContext);
 
