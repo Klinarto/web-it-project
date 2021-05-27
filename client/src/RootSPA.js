@@ -48,36 +48,44 @@ let logoutTimer;
 
 export function App() {
   const [token, setToken] = useState(null);
+  const [loginType, setLoginType] = useState(null);
   const [tokenExpDate, setTokenExpDate] = useState();
 
   // Used for Context (callback used to avoid infinite loop), if user is logged in, it will store token to localStorage and give access to axios DB
-  const login = useCallback((token, expDate) => {
+  const login = useCallback((token, loginType, expDate) => {
     setToken(token);
+    setLoginType(loginType);
     const tokenExpDate =
       expDate || new Date(new Date().getTime() + 1000 * 60 * 60);
     setTokenExpDate(tokenExpDate);
     axios.defaults.headers.common["x-access-token"] = token;
+    // console.log(loginType);
     localStorage.setItem(
       "userData",
-      JSON.stringify({ token: token, expiration: tokenExpDate.toISOString() })
+      JSON.stringify({
+        token: token,
+        loginType: loginType,
+        expiration: tokenExpDate.toISOString(),
+      })
     );
   }, []);
 
   const logout = useCallback(() => {
     setToken(null);
+    setLoginType(null);
     setTokenExpDate(null);
     delete axios.defaults.headers.common["x-access-token"];
     localStorage.removeItem("userData");
   }, []);
 
   useEffect(() => {
-    if (token && tokenExpDate) {
+    if (token && loginType && tokenExpDate) {
       const time = tokenExpDate.getTime() - new Date().getTime();
       logoutTimer = setTimeout(logout, time);
     } else {
       clearTimeout();
     }
-  }, [token, logout, tokenExpDate]);
+  }, [token, logout, loginType, tokenExpDate]);
 
   // Authentication and if there is a token in localStorage, set the login status to be Logged in
   useEffect(() => {
@@ -85,9 +93,14 @@ export function App() {
     if (
       storedData &&
       storedData.token &&
+      storedData.loginType &&
       new Date(storedData.expiration) > new Date()
     ) {
-      login(storedData.token, new Date(storedData.expiration));
+      login(
+        storedData.token,
+        storedData.loginType,
+        new Date(storedData.expiration)
+      );
     }
   });
 
@@ -233,6 +246,7 @@ export function App() {
         token: token,
         login: login,
         logout: logout,
+        loginType: "nothing",
       }}
     >
       <Router>
