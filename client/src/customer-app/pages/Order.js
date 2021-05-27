@@ -21,16 +21,20 @@ import { useLocation } from "react-router";
 export function Order(props) {
 	const [menu, setMenu] = useState(null);
 	const [order, setOrder] = useState(null);
+	const [late, setLate] = useState(false);
 
 	const pathname = useLocation().pathname;
 	const orderId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
 	// Quick solution to get a price: Fetch the whole menu data. Will be fixed soon.
 	useEffect(() => {
+		let isMounted = true;
 		const fetchMenu = async () => {
 			try {
 				const res = await axios.get("/menu");
-				setMenu(res.data);
+				if (isMounted) {
+					setMenu(res.data);
+				}
 			} catch (error) {
 				console.log(error);
 			}
@@ -39,34 +43,56 @@ export function Order(props) {
 		const fetchOrder = async () => {
 			try {
 				const res = await axios.get(`/order/${orderId}`);
-				setOrder(res.data);
+				if (isMounted) {
+					setOrder(res.data);
+				}
 			} catch (error) {
 				console.log(error);
 			}
 		};
 		fetchMenu();
 		fetchOrder();
-		return () => {};
-	}, []);
+		return () => {
+			isMounted = false;
+		};
+	}, [orderId]);
 
-	// console.log(foodItems);
-	// console.log(menu);
-	// console.log("menu type", typeof menu);
+	useEffect(() => {
+		const updateOrderCost = async (newCost) => {
+			try {
+				const data = { totalCost: newCost };
+				const res = await axios.put(`/order/${orderId}`, data, {
+					headers: {
+						"Content-Type": "application/json",
+					},
+				});
+				console.log(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		if (order && late) {
+			const newTotalCost = parseFloat((order.orderCost * 0.8).toFixed(2));
+
+			setOrder((prevOrder) => {
+				return { ...prevOrder, totalCost: newTotalCost };
+			});
+			updateOrderCost(newTotalCost);
+		}
+		return () => {};
+	}, [late]);
 
 	const displayOrder = () => {
-		if (order) {
-			const { foodItems, totalCost } = order;
-			console.log(menu);
+		if (order && menu) {
+			const { foodItems, totalCost, createdAt, updatedAt } = order;
 			let prices = [];
 			menu.forEach((item) => {
-				console.log(item);
-				console.log(Object.keys(foodItems));
 				if (Object.keys(foodItems).includes(item.name)) {
 					prices.push(item.price);
 				}
 			});
 
-			console.log(prices);
+			// console.log(prices);
 
 			return (
 				<Fragment>
@@ -96,10 +122,16 @@ export function Order(props) {
 					<BreakLine />
 					<DivisionBottom>
 						<div>
-							<DiscountMessage>
-								20% discount applies if the order<br></br>takes more than 15
-								mins
-							</DiscountMessage>
+							{late ? (
+								<DiscountMessage>
+									Your order has been discounted
+								</DiscountMessage>
+							) : (
+								<DiscountMessage>
+									20% discount applies if the order<br></br>takes more than 15
+									mins
+								</DiscountMessage>
+							)}
 						</div>
 						<div>
 							<Total>Total</Total>
@@ -107,13 +139,13 @@ export function Order(props) {
 						</div>
 					</DivisionBottom>
 					<Logo alt="machine-logo" src={coffeeMachine} />
-					<Interval />
-					<MyButton>Change order</MyButton>
+					<Interval updatedAt={updatedAt} setLate={setLate} />
+					{late ? null : <MyButton>Change order</MyButton>}
 					<MyButton>Cancel order</MyButton>
 				</Fragment>
 			);
 		}
-		return <h1>Order doesn't exist</h1>;
+		return <h1>Loading</h1>;
 	};
 
 	return <Container>{displayOrder()}</Container>;

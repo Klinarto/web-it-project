@@ -1,28 +1,70 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { Time } from "../pages/Order.style";
 
-const Interval = () => {
-  const [seconds, setSeconds] = useState(900);
-  var min = 0;
-  var sec = 0;
+const Interval = (props) => {
+	const calcTimeLeft = useCallback(() => {
+		const updatedAt = new Date(props.updatedAt);
+		let currentDate = new Date();
+		// timeLimit is in ms
+		let timeLimit = 0.5 * 60 * 1000;
+		let difference = timeLimit - (currentDate - updatedAt);
+		let timeLeft = null;
+		if (difference > 0) {
+			timeLeft = {
+				min: Math.floor((difference / 1000 / 60) % 60),
+				sec: Math.floor((difference / 1000) % 60),
+			};
+		}
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds((seconds) => seconds - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+		return timeLeft;
+	}, [props.updatedAt]);
 
-  min = Math.floor(seconds / 60);
-  sec = ("0" + (seconds % 60)).slice(-2);
+	const [timeLeft, setTimeLeft] = useState(calcTimeLeft());
 
-  return (
-    <Time>
-      <header>
-        You have {min}:{sec} to
-      </header>
-    </Time>
-  );
+	const setLate = props.setLate;
+	let min = 0;
+	let sec = 0;
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setTimeLeft(calcTimeLeft());
+		}, 1000);
+
+		console.log(timeLeft);
+
+		return () => clearInterval(interval);
+	}, [calcTimeLeft, timeLeft]);
+
+	useEffect(() => {
+		if (!timeLeft) {
+			setLate(true);
+		}
+		return () => {};
+	}, [setLate, timeLeft]);
+
+	if (timeLeft) {
+		min = timeLeft.min;
+		sec = timeLeft.sec;
+	}
+	if (min < 10) {
+		min = "0" + min;
+	}
+
+	if (sec < 10) {
+		sec = "0" + sec;
+	}
+
+	return (
+		<Fragment>
+			{timeLeft ? (
+				<Time>
+					<header>
+						You have {min}:{sec} to
+					</header>
+				</Time>
+			) : null}
+		</Fragment>
+	);
 };
 
 export default Interval;

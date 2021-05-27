@@ -7,17 +7,22 @@ export default function OrderHistory() {
 	const [orderList, setOrderHistory] = useState([]);
 
 	useEffect(() => {
+		let isMounted = true;
 		const fetchOrder = async () => {
 			try {
 				const res = await axios.get("/order");
-				setOrderHistory(res.data);
+				if (isMounted) {
+					setOrderHistory(res.data);
+				}
 			} catch (error) {
 				console.log(error);
 			}
 		};
 		fetchOrder();
-		return () => {};
-	}, []);
+		return () => {
+			isMounted = false;
+		};
+	}, [orderList]);
 
 	return (
 		<Container>

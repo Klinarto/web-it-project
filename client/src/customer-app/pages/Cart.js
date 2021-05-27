@@ -43,6 +43,8 @@ export default function Cart() {
 					"Content-Type": "application/json",
 				},
 			});
+			localStorage.removeItem("order");
+			localStorage.removeItem("price");
 			console.log(res);
 		} catch (error) {
 			console.log(error.response.data);

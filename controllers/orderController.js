@@ -51,12 +51,53 @@ const getOrder = async (req, res) => {
 // update specific order
 // can be used to update order status or change the order
 const updateOrder = async (req, res) => {
+	let options = null;
+	let totalCost = 0;
+	let updatedOrder = null;
+	let resMsg = "";
+
+	if (req.body.foodItems) {
+		const { foodItems } = req.body;
+		try {
+			for (const [foodName, quantity] of Object.entries(foodItems)) {
+				const menuItem = await MenuItem.findOne({
+					name: foodName,
+				});
+
+				if (!menuItem) {
+					return res.status(404).send("Menu item not found");
+				}
+				totalCost += menuItem.price * quantity;
+			}
+			updatedOrder = {
+				foodItems: foodItems,
+				totalCost: totalCost,
+				orderCost: totalCost,
+			};
+			options = { timestamps: true };
+
+			resMsg = "Order changed";
+		} catch (error) {
+			console.error(error);
+			return res.status(400).send("Food item not found");
+		}
+	} else {
+		if (req.body.totalCost) {
+			resMsg = "Discount applied";
+		}
+		if (req.body.status) {
+			resMsg = "Order status updated";
+		}
+		updatedOrder = req.body;
+		options = { timestamps: false };
+	}
 	try {
 		const order = await Order.findOneAndUpdate(
 			{
 				orderId: req.params.orderId,
 			},
-			req.body
+			updatedOrder,
+			options
 		);
 
 		if (!order) {
@@ -69,13 +110,15 @@ const updateOrder = async (req, res) => {
 			return res.status(401).send("Unauthorized access to order");
 		}
 
-		// check if only the order status has been changed
-		// or if the order has been modified
-		if (req.body.status) {
-			return res.send("Order status updated");
-		} else {
-			return res.send("Order changed");
-		}
+		return res.send(resMsg);
+
+		// // check if only the order status has been changed
+		// // or if the order has been modified
+		// if (req.body.status) {
+		// 	return res.send("Order status updated");
+		// } else {
+		// 	return res.send("Order changed");
+		// }
 	} catch (error) {
 		console.error(error);
 		return res.status(400).send("Database query failed");
