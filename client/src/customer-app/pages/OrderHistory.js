@@ -12,7 +12,7 @@ export default function OrderHistory() {
 			try {
 				const res = await axios.get("/order");
 				if (isMounted) {
-					setOrderHistory(res.data);
+					setOrderHistory(res.data.reverse());
 				}
 			} catch (error) {
 				console.log(error);
