@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 import { useLocation } from "react-router";
 
-export function Order(props) {
+export function Order() {
 	const [menu, setMenu] = useState(null);
 	const [order, setOrder] = useState(null);
 	const [late, setLate] = useState(false);
@@ -84,7 +84,7 @@ export function Order(props) {
 
 	const displayOrder = () => {
 		if (order && menu) {
-			const { foodItems, totalCost, createdAt, updatedAt } = order;
+			const { foodItems, totalCost, updatedAt } = order;
 			let prices = [];
 			menu.forEach((item) => {
 				if (Object.keys(foodItems).includes(item.name)) {

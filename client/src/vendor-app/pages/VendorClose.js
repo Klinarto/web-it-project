@@ -4,7 +4,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
 import { Container, DivisionButton, Closing, Box } from "./VendorAddress.style";
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router";
+// import { useLocation } from "react-router";
 import axios from "axios";
 
 import { Time } from "../pages/VendorOrderDetail.style";

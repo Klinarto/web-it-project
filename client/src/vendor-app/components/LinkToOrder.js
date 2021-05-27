@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import {
   Container,
@@ -20,7 +20,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
 export default function LinkToOrder(props) {
-  const { orderId, customerId, foodItems, status, totalCost, createdAt } =
+  const { orderId, customerId, foodItems, status, createdAt } =
     props.order;
 
   //update status to the database.
@@ -130,9 +130,9 @@ export default function LinkToOrder(props) {
               <OrderItem>
                 <b>Items ordered: </b>
               </OrderItem>
-              {Object.keys(foodItems).map((key, i) => (
-                <FoodItem>
-                  {foodItems[key]} {key}
+              {Object.keys(foodItems).map((food, key) => (
+                <FoodItem key={key}>
+                  {foodItems[food]} {food}
                 </FoodItem>
               ))}
               <OrderItem>

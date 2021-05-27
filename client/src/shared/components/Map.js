@@ -20,7 +20,7 @@ export default function Map(props) {
 	// used to center map, default center is Melbourne
 	const [center, setCenter] = useState(null);
 	// used to ste zoom level in maps
-	const [zoom, setZoom] = useState(15);
+	const [zoom,] = useState(15);
 
 	// stores current location in latlng object (e.g. {lat: number, lng: number})
 	const [currentLocation, setCurrentLocation] = useState(null);
@@ -95,10 +95,10 @@ export default function Map(props) {
 		mapRef.current = map;
 	}, []);
 
-	const panTo = useCallback(({ lat, lng }) => {
-		mapRef.current.panTo({ lat, lng });
-		mapRef.current.setZoom(14);
-	}, []);
+	// const panTo = useCallback(({ lat, lng }) => {
+	// 	mapRef.current.panTo({ lat, lng });
+	// 	mapRef.current.setZoom(14);
+	// }, []);
 
 	const displayCurrentLocation = () => {
 		if (!currentLocation) {

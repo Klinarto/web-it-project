@@ -40,7 +40,7 @@ export default function OrderHistory() {
 
 function renderLaptopOrder(array) {
   try {
-    const row = array.map((order) => <LinkToOrder order={order} />);
+    const row = array.map((order, key) => <LinkToOrder key={key} order={order} />);
     return row;
   } catch (error) {
     console.log(error);

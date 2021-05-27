@@ -4,7 +4,7 @@ import {
 	DIV,
 	ROW,
 	Wrapper,
-	MyButton,
+	// MyButton,
 	LeftWrapper,
 	RightWrapper,
 	Title,

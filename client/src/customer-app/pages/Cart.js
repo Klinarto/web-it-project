@@ -64,9 +64,9 @@ export default function Cart() {
 			<Status>Confirm your order</Status>
 			<Division>
 				<LeftWrapper>
-					{Object.entries(orderList).map(function (item) {
+					{Object.entries(orderList).map(function (item, key) {
 						return (
-							<OrderList>
+							<OrderList key={key}>
 								<OrderItem>
 									{item[1]} x {item[0]}
 								</OrderItem>
@@ -75,9 +75,9 @@ export default function Cart() {
 					})}
 				</LeftWrapper>
 				<RightWrapper>
-					{Object.entries(orderPrice).map(function (item) {
+					{Object.entries(orderPrice).map(function (item, key) {
 						return (
-							<OrderList>
+							<OrderList key={key}>
 								<OrderItem>$ {item[1]}</OrderItem>
 							</OrderList>
 						);

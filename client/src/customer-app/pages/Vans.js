@@ -2,7 +2,7 @@ import React, { useState, Fragment, useEffect } from "react";
 
 import Map from "../../shared/components/Map";
 import axios from "axios";
-import { objectIsEmpty } from "../../utilities/Utils";
+// import { objectIsEmpty } from "../../utilities/Utils";
 
 export default function Vans() {
 	// array of vendors
@@ -42,7 +42,7 @@ export default function Vans() {
 				return (
 					<button
 						key={vendor.id}
-						onClick={(e) => {
+						onClick={() => {
 							setSelected(vendor);
 						}}
 					>
@@ -51,7 +51,7 @@ export default function Vans() {
 				);
 			})}
 			<button
-				onClick={(e) => {
+				onClick={() => {
 					localStorage.setItem("vendor", JSON.stringify(selected));
 				}}
 			>

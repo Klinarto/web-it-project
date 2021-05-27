@@ -27,7 +27,7 @@ import {
 import axios from "axios";
 import { useLocation } from "react-router";
 
-export function VendorOrderDetails(props) {
+export function VendorOrderDetails() {
   const history = useHistory();
 
   const pathname = useLocation().pathname;
@@ -149,9 +149,9 @@ export function VendorOrderDetails(props) {
           <BreakLine />
           <Division>
             <div>
-              {Object.entries(foodItems).map(function ([item, quantity]) {
+              {Object.entries(foodItems).map(function ([item, quantity], key) {
                 return (
-                  <OrderList>
+                  <OrderList key={key}>
                     <OrderItem>
                       {quantity} &nbsp; {item}
                     </OrderItem>
