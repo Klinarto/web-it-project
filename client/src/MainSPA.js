@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  /* transform: translate(-50%, -50%); */
+  min-height: 50vh;
   z-index: 1;
   width: 700px;
   overflow: hidden;
@@ -26,7 +26,18 @@ const RightContainer = styled.div`
   width: 50%;
   padding: 30px 50px;
 `;
-const MyButton = styled.button``;
+const MyButton = styled.button`
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #04aa6d;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+`;
 
 // const HeroImage = styled.div`
 //   background-image: url("./coffeeBackgroundMain.jpg");
