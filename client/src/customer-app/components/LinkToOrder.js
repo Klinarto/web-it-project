@@ -8,24 +8,18 @@ import {
 	OrderItem,
 } from "../pages/OrderHistory.style";
 import { Link } from "react-router-dom";
-import { parseDate } from "../utilities/Utils";
+import { parseDate } from "../../utilities/Utils";
 
 export default function LinkToOrder(props) {
-	const {
-		orderId,
-		vendorId,
-		foodItems,
-		status,
-		totalCost,
-		createdAt,
-	} = props.order;
+	const { orderId, vendorId, foodItems, status, totalCost, createdAt } =
+		props.order;
 
 	const parsedDate = parseDate(new Date(createdAt));
 
 	return (
 		<Container>
 			<Link
-				to={{ pathname: `/customer/order/${orderId}`, state: props.order }}
+				to={{ pathname: `/customer/order/${orderId}` }}
 				style={{ textDecoration: "none", color: "black" }}
 			>
 				<div>
@@ -47,9 +41,9 @@ export default function LinkToOrder(props) {
 							<OrderItem>
 								<b>Items ordered: </b>
 							</OrderItem>
-							{Object.keys(foodItems).map((key, i) => (
-								<FoodItem>
-									{foodItems[key]} {key}
+							{Object.keys(foodItems).map((name, key) => (
+								<FoodItem key={key}>
+									{foodItems[name]} {name}
 								</FoodItem>
 							))}
 						</innerDiv>
