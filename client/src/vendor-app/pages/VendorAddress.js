@@ -31,7 +31,9 @@ export function VendorAddress() {
 
 	const openVan = async (status) => {
 		try {
-			const res = await axios.put(`/vendor/address`, status);
+			const res = await axios.put(`/vendor/address`, status, {
+				headers: { "Content-Type": "application/json" },
+			});
 			console.log(res);
 		} catch (error) {
 			console.log(error.response.data);
@@ -40,8 +42,11 @@ export function VendorAddress() {
 	};
 
 	const updateLocation = async (locD) => {
+		const data = { ...locD, location: currentLocation };
 		try {
-			const res = await axios.put(`/vendor/address`, locD);
+			const res = await axios.put(`/vendor/address`, data, {
+				headers: { "Content-Type": "application/json" },
+			});
 			console.log(res);
 		} catch (error) {
 			console.log(error.response.data);

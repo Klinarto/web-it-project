@@ -17,11 +17,11 @@ import {
 } from "./Order.style";
 import axios from "axios";
 import { useLocation } from "react-router";
-
 export function Order() {
 	const [menu, setMenu] = useState(null);
 	const [order, setOrder] = useState(null);
 	const [late, setLate] = useState(false);
+	const [status, setStatus] = useState("");
 
 	const pathname = useLocation().pathname;
 	const orderId = pathname.substring(pathname.lastIndexOf("/") + 1);
@@ -45,6 +45,7 @@ export function Order() {
 				const res = await axios.get(`/order/${orderId}`);
 				if (isMounted) {
 					setOrder(res.data);
+					setStatus(res.data.status);
 				}
 			} catch (error) {
 				console.log(error);
@@ -66,7 +67,7 @@ export function Order() {
 						"Content-Type": "application/json",
 					},
 				});
-				console.log(res.data);
+				console.log(res);
 			} catch (error) {
 				console.log(error);
 			}
@@ -82,6 +83,59 @@ export function Order() {
 		return () => {};
 	}, [late]);
 
+	const cancelOrder = async () => {
+		const data = { status: "cancelled" };
+		try {
+			const res = await axios.put(`/order/${orderId}`, data, {
+				headers: { "Content-Type": "application/json" },
+			});
+			console.log(res);
+			setStatus("cancelled");
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const displayOrderInteractions = (updatedAt) => {
+		let timer = <Interval updatedAt={updatedAt} setLate={setLate} />;
+		let changeOrderButton = <MyButton>Change order</MyButton>;
+		let cancelOrderButton = (
+			<MyButton onClick={() => cancelOrder()}>Cancel order</MyButton>
+		);
+		if (status == "cancelled") {
+			timer = null;
+			changeOrderButton = null;
+			cancelOrderButton = null;
+		}
+		if (late) {
+			timer = null;
+		}
+		return (
+			<Fragment>
+				{timer}
+				{changeOrderButton}
+				{cancelOrderButton}
+			</Fragment>
+		);
+	};
+
+	const displayOrderStatus = () => {
+		let msg = "Preparing your order...";
+		switch (status) {
+			case "cancelled":
+				msg = "Order cancelled";
+				break;
+			case "ready":
+				msg = "Order ready";
+				break;
+			case "declined":
+				msg = "Order declined";
+				break;
+		}
+
+		return <Status>{msg}</Status>;
+	};
+
 	const displayOrder = () => {
 		if (order && menu) {
 			const { foodItems, totalCost, updatedAt } = order;
@@ -96,7 +150,7 @@ export function Order() {
 
 			return (
 				<Fragment>
-					<Status>Preparing your order...</Status>
+					{displayOrderStatus()}
 					<Division>
 						<div>
 							{Object.entries(foodItems).map(function ([item, quantity], key) {
@@ -139,9 +193,7 @@ export function Order() {
 						</div>
 					</DivisionBottom>
 					<Logo alt="machine-logo" src={coffeeMachine} />
-					<Interval updatedAt={updatedAt} setLate={setLate} />
-					{late ? null : <MyButton>Change order</MyButton>}
-					<MyButton>Cancel order</MyButton>
+					{displayOrderInteractions(updatedAt)}
 				</Fragment>
 			);
 		}

@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 // Set van status by sending location
-const setVanStatus = async (req, res) => {
+const updateVan = async (req, res) => {
 	try {
 		const van = await Vendor.findOneAndUpdate(
 			{
@@ -137,7 +137,7 @@ const getVendors = async (req, res) => {
 
 module.exports = {
 	getVendors,
-	setVanStatus,
+	updateVan,
 	registerVan,
 	loginVendor,
 	updateVanPassword,

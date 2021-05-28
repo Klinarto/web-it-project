@@ -16,6 +16,7 @@ export default function VendorOrderList() {
 			}
 		};
 		fetchOrder();
+		console.log(orderList);
 		return () => {};
 	}, [orderList]);
 

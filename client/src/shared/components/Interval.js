@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
-import { Time } from "./Interval.styled";
+import { Time } from "./Interval.style";
 
 const Interval = (props) => {
 	const calcTimeLeft = useCallback(() => {
