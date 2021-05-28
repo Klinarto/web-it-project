@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  min-height: 50vh;
+  min-height: calc(100vh - 64px - 3vh);
   z-index: 1;
   width: 700px;
   overflow: hidden;
