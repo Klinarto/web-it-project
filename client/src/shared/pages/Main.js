@@ -1,65 +1,130 @@
 import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
-import Link from "react-router-dom/Link";
+import { useHistory } from "react-router-dom";
 import { AuthContext } from "../auth-context";
+import Button from "@material-ui/core/Button";
 
-const Wrapper = styled.div`
-  box-sizing: border-box;
+import cookieLogo from "../../images/cookieLogo.png";
+import { device } from "../components/device";
+import coffeeBackground from "../../images/coffeeBackground.png";
+
+export const Container = styled.div`
+  height: 93vh;
+  width: 100%;
   position: relative;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+`;
+
+export const LeftWrapper = styled.div`
+  flex: 0 0 100%;
+  flex-direction:column;
+  max-width: 100%;
+  margin-bottom: 4%;
+  display:flex;
+
+  @media ${device.tablet} {
+    flex: 0 0 60%;
+    max-width: 60%;
+  }
+
+  @media ${device.laptop} {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+`;
+
+export const RightImage = styled.img`
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  flex: 0 0 0%;
+  max-width: 0%;
+  object-fit: cover;
+  object-position: 15% 85%;
+
+  @media ${device.tablet} {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+
+  @media ${device.laptop} {
+    flex: 0 0 60%;
+    max-width: 60%;
+  }
+`;
+
+
+const BottomContainer = styled.div`
+  padding:20px;
+  margin-left:auto;
+  
+  margin-right:auto;
+  padding-bottom:5vh;
+
+`;
+
+export const LeftImage = styled.img`
+  display: block;
   margin-left: auto;
   margin-right: auto;
-  min-height: calc(100vh - 64px - 3vh);
-  z-index: 1;
-  width: 700px;
-  overflow: hidden;
-  display: flex;
 `;
 
-const Title = styled.h1`
-  min-height: 7vh;
-`;
-
-const LeftContainer = styled.div`
-  width: 50%;
-  padding: 30px 50px;
-`;
-const RightContainer = styled.div`
-  width: 50%;
-  padding: 30px 50px;
-`;
-const MyButton = styled.button`
-  padding: 15px 25px;
-  font-size: 24px;
+export const TitleBig = styled.h1`
   text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  background-color: #04aa6d;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
+  font-family: "Dawning of a New Day";
 `;
 
 export function Main() {
+  const history = useHistory();
+
   const auth = useContext(AuthContext);
   useEffect(() => {
     auth.logout();
   }, []);
+
   return (
-    <Wrapper>
-      <LeftContainer>
-        <Title>Vendor login</Title>
-        <Link to={"/vendor/login"}>
-          <MyButton>button</MyButton>
-        </Link>
-      </LeftContainer>
-      <RightContainer>
-        <Title>Customer login</Title>
-        <Link to={"/customer/login"}>
-          <MyButton>button</MyButton>
-        </Link>
-      </RightContainer>
-    </Wrapper>
+    <Container>
+    <LeftWrapper>
+
+      <BottomContainer>
+        <LeftImage alt="cookie-logo" src={cookieLogo} />
+        <TitleBig>Snacks in a Van</TitleBig>
+      </BottomContainer>
+      <BottomContainer>
+      <Button
+        variant="default"
+        color="default"
+        style={{fontSize:"18px"}}
+        onClick={() => {
+          history.push("customer/login");
+        }}
+      >
+        Customer Login
+      </Button>
+      </BottomContainer>
+      <BottomContainer>
+          <Button
+          variant="default"
+          color="default"
+          style={{fontSize:"18px"}}
+          onClick={() => {
+            history.push("vendor/login");
+          }}
+        >
+          Vendor Login
+        </Button>
+      </BottomContainer>
+
+    </LeftWrapper>
+    <RightImage alt="coffee-image" src={coffeeBackground} />
+    </Container>
   );
 }
 
