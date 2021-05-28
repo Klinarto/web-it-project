@@ -22,8 +22,6 @@ export default function SignIn() {
 	const [emailHelper, setEmailHelper] = useState("");
 	const [password, setPassword] = useState("");
 
-	console.log(pathname);
-
 	// open state for materialUI snackbar
 	const [open, setOpen] = useState(false);
 
