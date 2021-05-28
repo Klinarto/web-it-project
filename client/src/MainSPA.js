@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import Link from "react-router-dom/Link";
+import { AuthContext } from "./shared/auth-context";
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -39,28 +40,11 @@ const MyButton = styled.button`
   box-shadow: 0 9px #999;
 `;
 
-// const HeroImage = styled.div`
-//   background-image: url("./coffeeBackgroundMain.jpg");
-//   width: 100%;
-//   height: 100%;
-//   display: inline-block;
-//   vertical-align: middle;
-//   line-height: normal;
-// `;
-
-// const Flexbox = styled.div`
-//   color: black;
-//   text-align: center;
-//   line-height: 3vh;
-// `;
-
-// const Detail = styled.div`
-//   color: black;
-//   text-align: center;
-//   line-height: 3vh;
-// `;
-
 export function MainSPA() {
+  const auth = useContext(AuthContext);
+  useEffect(() => {
+    auth.logout();
+  }, []);
   return (
     <Wrapper>
       <LeftContainer>
