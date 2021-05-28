@@ -24,7 +24,7 @@ export function Register() {
     <Container>
       <LeftWrapper>
         <Button type="button" onClick={goBack}>
-          Go back to menu page
+          Go to menu page
         </Button>
         <LeftImage alt="cookie-logo" src={cookieLogo} />
         <Title>Snacks in a Van</Title>

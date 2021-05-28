@@ -9,5 +9,5 @@ router.post("/login", customerController.loginCustomer);
 router.get("/me", verifyToken, customerController.getCustomer);
 
 // profile customer profile
-router.put("/customer/myaccount",verifyToken,customerController.updateProfile);
+router.put("/me",verifyToken,customerController.updateProfile);
 module.exports = router;

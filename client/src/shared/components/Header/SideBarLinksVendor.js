@@ -14,6 +14,8 @@ import StarsIcon from "@material-ui/icons/Stars";
 import HelpIcon from "@material-ui/icons/Help";
 import CallIcon from "@material-ui/icons/Call";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 
 // This is the side bar that pops up when hamburger icon is clicked, it is used material UI's design
 export default function SideBarLinks() {
@@ -28,6 +30,44 @@ export default function SideBarLinks() {
     <>
       <Divider />
       <List>
+        <ListItem
+          button
+          key={"vans"}
+          onClick={() => {
+            history.push("/customer/vans");
+          }}
+        >
+          <ListItemIcon>
+            <LocalShippingIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Vans (Work In Progress)"} />
+        </ListItem>
+        <ListItem
+          button
+          key={"menu"}
+          onClick={() => {
+            history.push("/customer/menu");
+          }}
+        >
+          <ListItemIcon>
+            <RestaurantMenuIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Menu"} />
+        </ListItem>
+        {/* {auth.isLoggedIn && (
+          <ListItem
+            button
+            key={"order"}
+            onClick={() => {
+              history.push("/customer/order");
+            }}
+          >
+            <ListItemIcon>
+              <ListAltIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Order"} />
+          </ListItem>
+        )} */}
         {/* Each list item will have Router's history Hook and rediret to page when a div is clicked.
         Some lists will check if the screen size is smaller than a certain device size (tablet size) and display the item
         Some will check whether it is authenticated and screen size is small*/}

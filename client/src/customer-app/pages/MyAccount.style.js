@@ -13,7 +13,7 @@ export const Division = styled.div`
 export const Line = styled.div`
   width:300px;
   flex: 1;
-  font-size:20px;
+ 
   padding:10px;
   margin-left:5px;
   margin-right:auto;
@@ -35,7 +35,7 @@ export const ButDiv = styled.div`
 
 
 export const Edit = styled.div`
-  font-size:20px;
+
   padding:10px;
   margin-top:5px;
   margin-bottom:5px;

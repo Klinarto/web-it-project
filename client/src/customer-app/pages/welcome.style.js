@@ -19,6 +19,13 @@ export const LeftWrapper = styled.div`
   max-width: 100%;
   margin-bottom: 4%;
 
+  > * {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
   @media ${device.tablet} {
     flex: 0 0 60%;
     max-width: 60%;
@@ -31,6 +38,12 @@ export const LeftWrapper = styled.div`
 `;
 
 export const LeftImage = styled.img`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+export const LeftDiv = styled.div`
   display: block;
   margin-left: auto;
   margin-right: auto;

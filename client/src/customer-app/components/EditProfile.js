@@ -17,7 +17,7 @@ export default function EditProfile(props) {
     const updateProfile = async (updated) => {
 		try {
 			console.log(JSON.parse(updated));
-			const res = await axios.put("customer/myaccount", JSON.parse(updated));
+			const res = await axios.put("/customer/me", JSON.parse(updated));
 			console.log(res);
 		} catch (error) {
 			console.log(error.response.data);
@@ -27,7 +27,6 @@ export default function EditProfile(props) {
 
     return(
         <Division>
-            
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                 <TextField
