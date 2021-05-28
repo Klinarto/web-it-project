@@ -93,7 +93,7 @@ const getCustomer = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-	console.log(req.customer);
+
 	try {
 		const customer = await Customer.findByIdAndUpdate(
 			req.customer.id,
@@ -110,7 +110,9 @@ const updateProfile = async (req, res) => {
 };
 
 const updateCustomerPassword = async (req, res) => {
+	console.log(req.body);
 	const { newPassword, password } = req.body;
+
 	try {
 		const customer = await Customer.findOne({ _id: req.customer.id });
 

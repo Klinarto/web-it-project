@@ -91,8 +91,8 @@ export function App() {
 	// Authentication and if there is a token in localStorage, set the login status to be Logged in
 	useEffect(() => {
 		const storedData = JSON.parse(localStorage.getItem("userData"));
-		if (storedData && storedData.token) {
-			login(storedData.token);
+		if (storedData && storedData.token && storedData.loginType) {
+			login(storedData.token, storedData.loginType);
 		}
 	}, [login]);
 
@@ -241,7 +241,6 @@ export function App() {
 				<Route path="/vendor/profile">
 					<VendorProfile />
 				</Route>
-
 				<Route>
 					<Error />
 				</Route>

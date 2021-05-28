@@ -5,12 +5,17 @@ import {Division, Line,  Edit} from "./MyAccount.style";
 import coffeeBackground from "../../images/coffeeBackground.png";
 import cookieLogo from "../../images/cookieLogo.png";
 import EditProfile from "../components/EditProfile";
+import ChangePassword from "../components/ChangePassword";
 import Button from "@material-ui/core/Button";
 
 // SImple Contact us page
 export function MyAccount() {
     const [customer, setCustomer] = useState(null);
     const [edit, setEdit] = useState(false);
+    const [pass, setPassword] = useState(false);
+    const changePassword = () =>{
+        setPassword(false);
+    }
 
 	useEffect(() => {
 		let isMounted = true;
@@ -48,7 +53,8 @@ export function MyAccount() {
         <LeftWrapper>
         <LeftImage alt="cookie-logo" src={cookieLogo} />
         <Title>MyAccount</Title>
-
+        
+        {pass ? (<Division> <ChangePassword changePassword={changePassword}/></Division>):( <>
         {edit ? (<Division> <EditProfile changeState={changeState} customer={customer}/> </Division>) : (
         <Division>
             <Line>
@@ -61,12 +67,16 @@ export function MyAccount() {
                 <b>Last Name:</b> &nbsp; {LName}
             </Line>
             
-            <Edit>
-											
+            <Edit>							
                 <Button color="primary" onClick={() => setEdit(true)}>Edit Profile</Button>
             </Edit>
+            <Edit>
+				<Button color="primary" onClick={() => setPassword(true)}>Change Password</Button>
+            </Edit>
+
         </Division>
-        )}
+        )}</>)}
+
         </LeftWrapper>
 
         <RightImage alt="coffee-image" src={coffeeBackground} />
