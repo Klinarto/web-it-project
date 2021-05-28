@@ -32,9 +32,21 @@ export default function SideBarLinks() {
       <List>
         <ListItem
           button
+          key={"Vendor_home"}
+          onClick={() => {
+            history.push("/vendor");
+          }}
+        >
+          <ListItemIcon>
+            <RestaurantMenuIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Vendor Home"} />
+        </ListItem>
+        <ListItem
+          button
           key={"vans"}
           onClick={() => {
-            history.push("/customer/vans");
+            history.push("/vendor/address");
           }}
         >
           <ListItemIcon>
@@ -42,76 +54,50 @@ export default function SideBarLinks() {
           </ListItemIcon>
           <ListItemText primary={"Vans (Work In Progress)"} />
         </ListItem>
-        <ListItem
-          button
-          key={"menu"}
-          onClick={() => {
-            history.push("/customer/menu");
-          }}
-        >
-          <ListItemIcon>
-            <RestaurantMenuIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Menu"} />
-        </ListItem>
-        {/* {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"order"}
-            onClick={() => {
-              history.push("/customer/order");
-            }}
-          >
-            <ListItemIcon>
-              <ListAltIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Order"} />
-          </ListItem>
-        )} */}
+      </List>
+      <List>
         {/* Each list item will have Router's history Hook and rediret to page when a div is clicked.
         Some lists will check if the screen size is smaller than a certain device size (tablet size) and display the item
         Some will check whether it is authenticated and screen size is small*/}
         {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"Location"}
-            onClick={() => {
-              history.push("/customer/orderHistory");
-            }}
-          >
-            <ListItemIcon>
-              <ListAltIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Location"} />
-          </ListItem>
-        )}
-        {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"Orders"}
-            onClick={() => {
-              history.push("/customer/pickup");
-            }}
-          >
-            <ListItemIcon>
-              <CheckIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Orders"} />
-          </ListItem>
-        )}
-        {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"History"}
-            onClick={() => {
-              history.push("/customer/rate");
-            }}
-          >
-            <ListItemIcon>
-              <StarsIcon />
-            </ListItemIcon>
-            <ListItemText primary={"History"} />
-          </ListItem>
+          <>
+            <ListItem
+              button
+              key={"Location"}
+              onClick={() => {
+                history.push("/vendor/orderHistory");
+              }}
+            >
+              <ListItemIcon>
+                <ListAltIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Location"} />
+            </ListItem>
+            <ListItem
+              button
+              key={"Orders"}
+              onClick={() => {
+                history.push("/vendor/pickup");
+              }}
+            >
+              <ListItemIcon>
+                <CheckIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Orders"} />
+            </ListItem>
+            <ListItem
+              button
+              key={"History"}
+              onClick={() => {
+                history.push("/vendor/rate");
+              }}
+            >
+              <ListItemIcon>
+                <StarsIcon />
+              </ListItemIcon>
+              <ListItemText primary={"History"} />
+            </ListItem>
+          </>
         )}
         <Divider />
         {!tabletSize && (
@@ -147,7 +133,7 @@ export default function SideBarLinks() {
             button
             key={"myprofile"}
             onClick={() => {
-              history.push("/customer/myprofile");
+              history.push("/vendor/profile");
             }}
           >
             <ListItemIcon>
@@ -156,6 +142,20 @@ export default function SideBarLinks() {
             <ListItemText primary={"My Profile"} />
           </ListItem>
         )}
+      </List>
+      <List>
+        <ListItem
+          button
+          key={"go_to_customer_page"}
+          onClick={() => {
+            history.push("/customer");
+          }}
+        >
+          <ListItemIcon>
+            <AccountCircleIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Go to Customer Page"} />
+        </ListItem>
       </List>
     </>
   );
