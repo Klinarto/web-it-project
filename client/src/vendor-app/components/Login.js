@@ -120,7 +120,8 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             style={{
-              backgroundColor: "#000",
+              backgroundColor: "black",
+              color: "white",
               padding: "16px 0",
             }}
             onClick={() => {

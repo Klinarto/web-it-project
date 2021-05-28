@@ -32,9 +32,21 @@ export default function SideBarLinks() {
       <List>
         <ListItem
           button
+          key={"Vendor_home"}
+          onClick={() => {
+            history.push("/vendor");
+          }}
+        >
+          <ListItemIcon>
+            <RestaurantMenuIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Vendor Home"} />
+        </ListItem>
+        <ListItem
+          button
           key={"vans"}
           onClick={() => {
-            history.push("/customer/vans");
+            history.push("/vendor/address");
           }}
         >
           <ListItemIcon>
@@ -42,18 +54,9 @@ export default function SideBarLinks() {
           </ListItemIcon>
           <ListItemText primary={"Vans (Work In Progress)"} />
         </ListItem>
-        <ListItem
-          button
-          key={"menu"}
-          onClick={() => {
-            history.push("/customer/menu");
-          }}
-        >
-          <ListItemIcon>
-            <RestaurantMenuIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Menu"} />
-        </ListItem>
+      </List>
+      <List>
+        <Divider />
         {/* {auth.isLoggedIn && (
           <ListItem
             button
@@ -76,7 +79,7 @@ export default function SideBarLinks() {
             button
             key={"Location"}
             onClick={() => {
-              history.push("/customer/orderHistory");
+              history.push("/vendor/orderHistory");
             }}
           >
             <ListItemIcon>
@@ -90,7 +93,7 @@ export default function SideBarLinks() {
             button
             key={"Orders"}
             onClick={() => {
-              history.push("/customer/pickup");
+              history.push("/vendor/pickup");
             }}
           >
             <ListItemIcon>
@@ -104,7 +107,7 @@ export default function SideBarLinks() {
             button
             key={"History"}
             onClick={() => {
-              history.push("/customer/rate");
+              history.push("/vendor/rate");
             }}
           >
             <ListItemIcon>
@@ -147,7 +150,7 @@ export default function SideBarLinks() {
             button
             key={"myprofile"}
             onClick={() => {
-              history.push("/customer/myprofile");
+              history.push("/vendor/profile");
             }}
           >
             <ListItemIcon>
