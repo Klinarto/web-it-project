@@ -80,9 +80,9 @@ const loginCustomer = async (req, res) => {
 };
 
 const getCustomer = async (req, res) => {
-  console.log(req.customer)
+
   try {
-    console.log(req.customer)
+
     const customer = await Customer.findById(req.customer.id);
     if (!customer) {
       return res.status(404).send("Customer not found");
@@ -95,13 +95,10 @@ const getCustomer = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-  console.log(res.params.id)
+  console.log(req.customer)
 	try {
     
-    const customer = await Customer.findOneAndUpdate(
-			{
-				_id: req.params.id,
-			},
+    const customer = await Customer.findByIdAndUpdate(req.customer.id,
 			req.body
 		);
 		if (!customer) {

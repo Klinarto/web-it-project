@@ -3,8 +3,8 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
 import { Container, DivisionButton, Closing, Box } from "./VendorAddress.style";
-import React, { useState, useEffect } from "react";
-// import { useLocation } from "react-router";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../shared/auth-context";
 import axios from "axios";
 
 import { Time } from "../pages/VendorOrderDetail.style";
@@ -13,6 +13,7 @@ import { Time } from "../pages/VendorOrderDetail.style";
 export function VendorClose() {
   // const vanname = useLocation().state;
   // console.log(vanname)
+  const auth = useContext(AuthContext);
   const history = useHistory();
   const vanname = "Coffee2Go";
 
@@ -34,6 +35,7 @@ export function VendorClose() {
     if (min <= 0 && sec <= 0) {
       min = 0;
       sec = "00";
+      auth.logout;
       history.push("/vendor/");
     }
 
@@ -96,7 +98,8 @@ export function VendorClose() {
                 style={{ fontSize: "24px" }}
                 onClick={() => {
                   closeVan();
-                  history.push("/vendor/");
+                  auth.logout;
+                  history.push("/");
                 }}
               >
                 Close Business

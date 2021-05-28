@@ -17,9 +17,7 @@ export default function EditProfile(props) {
     const updateProfile = async (updated) => {
 		try {
 			console.log(JSON.parse(updated));
-			const res = await axios.put("customer/me",
-				JSON.parse(updated)
-			);
+			const res = await axios.put("customer/myaccount", JSON.parse(updated));
 			console.log(res);
 		} catch (error) {
 			console.log(error.response.data);
@@ -78,7 +76,10 @@ export default function EditProfile(props) {
             <Edit>
             <Button 
             variant="contained"
-            onClick={() => updateProfile(`{"email":"${upEmail}"}`)}
+            
+            onClick={() => {
+                updateProfile(`{"firstName":"${upFirstName}","lastName":"${upLastName}", "email":"${upEmail}"}`);
+                window.location.reload()}}
             >Submit</Button>
             </Edit>
             </ButDiv>
