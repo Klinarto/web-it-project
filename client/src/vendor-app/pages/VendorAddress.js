@@ -73,6 +73,7 @@ export function VendorAddress() {
 							color="primary"
 							onClick={() => {
 								updateLocation({ locationDetails: locDetail });
+								console.log(currentLocation)
 								console.log({ locationDetails: locDetail });
 							}}
 						>
@@ -91,15 +92,6 @@ export function VendorAddress() {
 							}}
 						>
 							open
-						</Button>
-						<Button
-							variant="contained"
-							color="primary"
-							onClick={() => {
-								console.log(currentLocation);
-							}}
-						>
-							Location
 						</Button>
 					</ThemeProvider>
 				</DivisionButton>

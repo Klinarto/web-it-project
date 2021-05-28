@@ -19,6 +19,7 @@ import {
 	OrderList,
 	OrderItem,
 	BreakLine,
+	BigDiv,
 	DivisionBottom,
 	DivisionBack,
 	Total,
@@ -26,6 +27,7 @@ import {
 } from "./VendorOrderDetail.style";
 import axios from "axios";
 import { useLocation } from "react-router";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 export function VendorOrderDetails() {
 	const [status, setStatus] = useState(null);
@@ -156,8 +158,11 @@ export function VendorOrderDetails() {
 				customerId.lastName.slice(1);
 
 			return (
+				<BigDiv>
+				<DivisionBack>
+				<ArrowBackIosIcon onClick={() => history.push("/vendor/orderlist/")}></ArrowBackIosIcon>
+				</DivisionBack>
 				<Container>
-					<br></br>
 					<DivisionTop>
 						<div>
 							<H2>Order Number #{orderId} </H2>
@@ -276,21 +281,8 @@ export function VendorOrderDetails() {
 							</ThemeProvider>
 						</div>
 					</DivisionBottom>
-
-					<DivisionBack>
-						<ThemeProvider theme={theme}>
-							<Button
-								variant="contained"
-								color="primary"
-								onClick={() => {
-									history.push("/vendor/orderlist/");
-								}}
-							>
-								Back
-							</Button>
-						</ThemeProvider>
-					</DivisionBack>
 				</Container>
+				</BigDiv>
 			);
 		}
 	}

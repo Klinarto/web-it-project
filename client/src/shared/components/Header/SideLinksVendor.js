@@ -24,18 +24,18 @@ export default function SideLinks() {
       )}
       {tabletSize && auth.isLoggedIn && (
         <li>
-          <MyNavLink to="/customer/myaccount">My Account</MyNavLink>
+          <MyNavLink to="/vendor/myaccount">My Account</MyNavLink>
         </li>
       )}
       {tabletSize && auth.isLoggedIn && (
-        <li>
-          <MyNavLink to="/customer/myaccount">Logout</MyNavLink>
+        <li onClick={auth.logout}>
+          <MyNavLink to="/vendor/">Logout</MyNavLink>
         </li>
       )}
       {auth.isLoggedIn && (
         <li>
-          <MyNavLink to="/customer">
-            <Button variant="contained" color="secondary" onClick={auth.logout}>
+          <MyNavLink to="/vendor/close">
+            <Button variant="contained" color="secondary">
               CLOSE BUSINESS
             </Button>
           </MyNavLink>
@@ -43,7 +43,7 @@ export default function SideLinks() {
       )}
       {!auth.isLoggedIn && (
         <li>
-          <MyNavLink to="/customer/login">
+          <MyNavLink to="/vendor/login">
             <Button variant="contained" color="secondary">
               VENDOR LOGIN
             </Button>
