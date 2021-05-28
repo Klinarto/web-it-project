@@ -6,6 +6,7 @@ import {Edit, ButDiv, BackDiv, Division} from "../pages/MyAccount.style";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import axios from "axios";
 
+
 export default function EditProfile(props) {
     const changeState =props.changeState
     const { email, lastName, firstName } = props.customer;
@@ -13,6 +14,27 @@ export default function EditProfile(props) {
     const [upFirstName, setFirstName] = useState(firstName);
     const [upLastName, setLastName] = useState(lastName);
     const [upEmail, setEmail] = useState(email);
+
+    const [emailHelper, setEmailHelper] = useState("");
+
+    const onChange = (e) => {
+        let valid;
+    
+    switch (e.target.id) {
+        case "email":
+          setEmail(e.target.value);
+          valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+            e.target.value
+          );
+  
+          if (!valid) {
+            setEmailHelper("Invalid Email");
+          } else {
+            setEmailHelper("");
+          }
+          break;
+        }
+    };
 
     const updateProfile = async (updated) => {
 		try {
@@ -63,26 +85,28 @@ export default function EditProfile(props) {
                     name="email"
                     autoComplete="email"
                     value={upEmail}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={onChange}
+                    error={emailHelper.length !== 0}
+                    helperText={emailHelper}
                 />
                 </Grid>
             </Grid>
-
             <ButDiv>
             <BackDiv>
             <ArrowBackIosIcon onClick={() => changeState()}></ArrowBackIosIcon>
             </BackDiv>
             <Edit>
             <Button 
-            variant="contained"
+            color="primary"
             
             onClick={() => {
                 updateProfile(`{"firstName":"${upFirstName}","lastName":"${upLastName}", "email":"${upEmail}"}`);
                 window.location.reload()}}
             >Submit</Button>
             </Edit>
+
             </ButDiv>
-        </Division>    
-    );
+        </Division>
+        );
 }
 

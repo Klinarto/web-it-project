@@ -12,12 +12,14 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import Map from "../../shared/components/Map";
+import useCurrentLocation from "../../shared/components/useCurrentLocation";
 
 // Simple Help Page
 export function VendorAddress() {
 	const history = useHistory();
 
 	const [locDetail, setLocDetail] = useState("");
+	const currentLocation = useCurrentLocation();
 
 	const theme = createMuiTheme({
 		palette: {
@@ -29,8 +31,7 @@ export function VendorAddress() {
 
 	const openVan = async (status) => {
 		try {
-			console.log(JSON.parse(status));
-			const res = await axios.put(`/vendor/address`, JSON.parse(status));
+			const res = await axios.put(`/vendor/address`, status);
 			console.log(res);
 		} catch (error) {
 			console.log(error.response.data);
@@ -40,8 +41,7 @@ export function VendorAddress() {
 
 	const updateLocation = async (locD) => {
 		try {
-			console.log(JSON.parse(locD));
-			const res = await axios.put(`/vendor/address`, JSON.parse(locD));
+			const res = await axios.put(`/vendor/address`, locD);
 			console.log(res);
 		} catch (error) {
 			console.log(error.response.data);
@@ -72,8 +72,8 @@ export function VendorAddress() {
 							variant="contained"
 							color="primary"
 							onClick={() => {
-								updateLocation(`{"locationDetails":"${locDetail}"}`);
-								console.log(`{"locationDetails":"${locDetail}"}`);
+								updateLocation({ locationDetails: locDetail });
+								console.log({ locationDetails: locDetail });
 							}}
 						>
 							update
@@ -87,10 +87,19 @@ export function VendorAddress() {
 							color="primary"
 							onClick={() => {
 								history.push("/vendor/orderlist");
-								openVan('{"status":"open"}');
+								openVan({ status: "open" });
 							}}
 						>
 							open
+						</Button>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={() => {
+								console.log(currentLocation);
+							}}
+						>
+							Location
 						</Button>
 					</ThemeProvider>
 				</DivisionButton>

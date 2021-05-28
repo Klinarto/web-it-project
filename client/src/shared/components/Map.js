@@ -12,20 +12,18 @@ import {
 	useLoadScript,
 } from "@react-google-maps/api";
 import mapStyle from "../../utilities/Mapstyle";
-import { objectIsEmpty } from "../../utilities/Utils";
+import useCurrentLocation from "./useCurrentLocation";
 
 export default function Map(props) {
-	console.log(props);
-
 	// used to center map, default center is Melbourne
 	const [center, setCenter] = useState(null);
 	// used to ste zoom level in maps
-	const [zoom,] = useState(15);
+	const [zoom] = useState(15);
 
 	// stores current location in latlng object (e.g. {lat: number, lng: number})
-	const [currentLocation, setCurrentLocation] = useState(null);
+	const currentLocation = useCurrentLocation();
 
-	const [data, setData] = useState({});
+	const [data, setData] = useState(null);
 
 	// from @react-google-maps/api
 	const { isLoaded, loadError } = useLoadScript({
@@ -50,58 +48,65 @@ export default function Map(props) {
 	const selected = props.selected;
 	const setSelected = props.setSelected;
 
-	const getCurrentLocation = useCallback(() => {
-		if ("geolocation" in navigator) {
-			navigator.geolocation.getCurrentPosition(
-				(position) => {
-					const location = {
-						lat: position.coords.latitude,
-						lng: position.coords.longitude,
-					};
-					setCurrentLocation(location);
-				},
-				(error) => {
-					console.warn(`Error(${error.code}): ${error.message}`);
-				},
-				{ enableHighAccuracy: true, timeout: 5000 }
-			);
-		} else {
-			console.log("Geolocation is not available");
-		}
-	}, []);
+	// const getCurrentLocation = useCallback(() => {
+	// 	if ("geolocation" in navigator) {
+	// 		navigator.geolocation.getCurrentPosition(
+	// 			(position) => {
+	// 				const location = {
+	// 					lat: position.coords.latitude,
+	// 					lng: position.coords.longitude,
+	// 				};
+	// 				setCurrentLocation(location);
+	// 			},
+	// 			(error) => {
+	// 				console.warn(`Error(${error.code}): ${error.message}`);
+	// 			},
+	// 			{ enableHighAccuracy: true, timeout: 5000 }
+	// 		);
+	// 	} else {
+	// 		console.log("Geolocation is not available");
+	// 	}
+	// }, []);
 
 	useEffect(() => {
 		let mounted = true;
 
-		if (mounted) {
+		if (mounted && props.data) {
 			setData(props.data);
-			console.log(data);
+			// console.log(data);
 		}
 		return () => {};
 	}, [props.data, data]);
 
 	useEffect(() => {
-		getCurrentLocation();
 		if (currentLocation) {
 			setCenter(currentLocation);
 		} else {
 			setCenter({ lat: -37.8136, lng: 144.9631 });
 		}
 		return () => {};
-	}, [currentLocation, getCurrentLocation]);
+	}, [currentLocation]);
+
+	useEffect(() => {
+		if (selected) {
+			panTo(selected.location);
+		}
+
+		return () => {};
+	}, [selected]);
 
 	// when the map loads, create a ref to the map to avoid re-renders
 	const onMapLoad = useCallback((map) => {
 		mapRef.current = map;
 	}, []);
 
-	// const panTo = useCallback(({ lat, lng }) => {
-	// 	mapRef.current.panTo({ lat, lng });
-	// 	mapRef.current.setZoom(14);
-	// }, []);
+	const panTo = useCallback(({ lat, lng }) => {
+		mapRef.current.panTo({ lat, lng });
+		mapRef.current.setZoom(14);
+	}, []);
 
 	const displayCurrentLocation = () => {
-		if (!currentLocation) {
+		if (currentLocation) {
 			return (
 				<Marker
 					title={"Current location"}
@@ -119,7 +124,7 @@ export default function Map(props) {
 	};
 
 	const displayData = () => {
-		if (!objectIsEmpty(data)) {
+		if (data) {
 			return data.map((element) => {
 				return (
 					<Marker
@@ -135,32 +140,35 @@ export default function Map(props) {
 	// render the map
 	const renderMap = () => {
 		return (
-			<GoogleMap
-				mapContainerStyle={mapContainerStyle}
-				center={center}
-				zoom={zoom}
-				options={options}
-				onLoad={onMapLoad}
-			>
-				{displayData()}
-				{selected ? (
-					<InfoWindow
-						position={{
-							lat: selected.location.lat,
-							lng: selected.location.lng,
-						}}
-						onCloseClick={() => {
-							setSelected(null);
-						}}
-					>
-						<div>
-							<h2>{selected.name}</h2>
-							<p>{selected.locationDetails}</p>
-						</div>
-					</InfoWindow>
-				) : null}
-				{displayCurrentLocation()}
-			</GoogleMap>
+			<Fragment>
+				<GoogleMap
+					mapContainerStyle={mapContainerStyle}
+					center={center}
+					zoom={zoom}
+					options={options}
+					onLoad={onMapLoad}
+				>
+					{displayData()}
+					{selected ? (
+						<InfoWindow
+							position={{
+								lat: selected.location.lat,
+								lng: selected.location.lng,
+							}}
+							onCloseClick={() => {
+								setSelected(null);
+							}}
+						>
+							<div>
+								<h2>{selected.name}</h2>
+								<p>{selected.locationDetails}</p>
+							</div>
+						</InfoWindow>
+					) : null}
+					{displayCurrentLocation()}
+				</GoogleMap>
+				{/* <button onClick={() => panTo(currentLocation)}>Current location</button> */}
+			</Fragment>
 		);
 	};
 
