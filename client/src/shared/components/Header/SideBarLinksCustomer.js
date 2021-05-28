@@ -157,6 +157,20 @@ export default function SideBarLinks() {
           </ListItem>
         )}
       </List>
+      <List>
+        <ListItem
+          button
+          key={"Go_to_vendor"}
+          onClick={() => {
+            history.push("/vendor");
+          }}
+        >
+          <ListItemIcon>
+            <AccountCircleIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Go Vendor Page"} />
+        </ListItem>
+      </List>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Container,
   LeftWrapper,
@@ -10,8 +10,13 @@ import {
 import coffeeBackground from "../../images/coffeeBackground.png";
 import cookieLogo from "../../images/cookieLogo.png";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../shared/auth-context";
 
 export default function VendorWelcome() {
+  const auth = useContext(AuthContext);
+  useEffect(() => {
+    auth.logout();
+  }, []);
   return (
     <Container>
       {/* Left container made to 40% of the screen*/}
