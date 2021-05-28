@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import Link from "react-router-dom/Link";
-import { AuthContext } from "./shared/auth-context";
+import { AuthContext } from "../auth-context";
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -40,7 +40,7 @@ const MyButton = styled.button`
   box-shadow: 0 9px #999;
 `;
 
-export function MainSPA() {
+export function Main() {
   const auth = useContext(AuthContext);
   useEffect(() => {
     auth.logout();
@@ -63,4 +63,4 @@ export function MainSPA() {
   );
 }
 
-export default MainSPA;
+export default Main;

@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: grey[50],
   },
+  subTitle: {
+    flexGrow: 1,
+    color: grey[500],
+  },
   customColor: {
     backgroundColor: grey[900],
   },
@@ -92,6 +96,30 @@ const usePathname = () => {
   return location.pathname;
 };
 
+const GetTitle = () => {
+  const location = useLocation();
+  const classes = useStyles();
+  if (location.pathname.includes("/vendor")) {
+    return (
+      <div>
+        <Typography variant="h7" className={classes.subTitle}>
+          Vendor
+        </Typography>
+      </div>
+    );
+  } else if (location.pathname.includes("/customer")) {
+    return (
+      <div>
+        <Typography variant="h7" className={classes.subTitle}>
+          Customer
+        </Typography>
+      </div>
+    );
+  } else {
+    return;
+  }
+};
+
 // useState hook to check if the Drawer status is open or not,
 // Top bar is also stylised here, actual codes are written in SideBar codes and rendered here.
 export default function Header() {
@@ -137,7 +165,9 @@ export default function Header() {
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Snacks in a Van
+            {GetTitle()}
           </Typography>
+
           {usePathname().includes("/vendor") ? (
             <SideLinksVendor />
           ) : (

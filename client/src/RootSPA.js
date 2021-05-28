@@ -6,10 +6,11 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import MainSPA from "./MainSPA";
+import Main from "./shared/pages/Main";
 
 import Header from "./shared/components/Header/Header";
 import Footer from "./shared/components/Footer/Footer";
+import Error from "./shared/pages/ErrorPage";
 
 import Login from "./customer-app/pages/Login";
 import Vans from "./customer-app/pages/Vans";
@@ -95,16 +96,15 @@ export function App() {
     }
   }, [login]);
 
-  //  Allow certain routes when logged in, or not Logged in, if user tries to access it, it will block
   let Routes;
-  if (token) {
+  if (token && loginType == "vendor") {
     Routes = (
       <Switch>
         <Route path="/customer" exact>
           <Welcome />
         </Route>
         <Route path="/" exact>
-          <MainSPA />
+          <Main />
         </Route>
         <Route path="/customer/orderhistory">
           <OrderHistory />
@@ -167,7 +167,84 @@ export function App() {
           <VendorProfile />
         </Route>
 
-        <Route>{<div>Error 404</div>}</Route>
+        <Route>
+          <Error />
+        </Route>
+      </Switch>
+    );
+  } else if (token && loginType == "customer") {
+    Routes = (
+      <Switch>
+        <Route path="/customer" exact>
+          <Welcome />
+        </Route>
+        <Route path="/" exact>
+          <Main />
+        </Route>
+        <Route path="/customer/orderhistory">
+          <OrderHistory />
+        </Route>
+        <Route path="/customer/vans">
+          <Vans />
+        </Route>
+        <Route path="/customer/menu">
+          <Menu />
+        </Route>
+        <Route path="/customer/pickup">
+          <Pickup />
+        </Route>
+        <Route path="/customer/order">
+          <Order />
+        </Route>
+        <Route path="/customer/rate">
+          <Rate />
+        </Route>
+        <Route path="/help">
+          <Help />
+        </Route>
+        <Route path="/contactus">
+          <Contactus />
+        </Route>
+        <Route path="/customer/myaccount">
+          <MyAccount />
+        </Route>
+        <Route path="/customer/login">
+          <Redirect to="/vendor" />
+        </Route>
+        <Route path="/customer/register">
+          <Redirect to="/vendor" />
+        </Route>
+        <Route path="/customer/cart">
+          <Cart />
+        </Route>
+        <Route path="/vendor" exact>
+          <VendorWelcome />
+        </Route>
+        <Route path="/vendor/login">
+          <VendorLogin />
+        </Route>
+        <Route path="/vendor/register">
+          <VendorRegister />
+        </Route>
+        <Route path="/vendor/address">
+          <VendorAddress />
+        </Route>
+        <Route path="/vendor/close">
+          <VendorClose />
+        </Route>
+        <Route path="/vendor/orderlist">
+          <VendorOrderList />
+        </Route>
+        <Route path="/vendor/orderdetails">
+          <VendorOrderDetails />
+        </Route>
+        <Route path="/vendor/profile">
+          <VendorProfile />
+        </Route>
+
+        <Route>
+          <Error />
+        </Route>
       </Switch>
     );
   } else {
@@ -177,7 +254,7 @@ export function App() {
           <Welcome />
         </Route>
         <Route path="/" exact>
-          <MainSPA />
+          <Main />
         </Route>
         <Route path="/customer/orderhistory">
           <Redirect to="/customer" />
@@ -227,7 +304,9 @@ export function App() {
         <Route path="/vendor/profile">
           <VendorProfile />
         </Route>
-        <Route>{<div>Error 404</div>}</Route>
+        <Route>
+          <Error />
+        </Route>
       </Switch>
     );
   }
