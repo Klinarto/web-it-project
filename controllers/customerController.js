@@ -80,7 +80,9 @@ const loginCustomer = async (req, res) => {
 };
 
 const getCustomer = async (req, res) => {
+  console.log(req.customer)
   try {
+    console.log(req.customer)
     const customer = await Customer.findById(req.customer.id);
     if (!customer) {
       return res.status(404).send("Customer not found");
@@ -88,8 +90,28 @@ const getCustomer = async (req, res) => {
     return res.status(200).send(customer);
   } catch (error) {
     console.error(error);
-    res.status(500).send("Database query failed");
+    res.status(600).send("Database query failed");
   }
 };
 
-module.exports = { registerCustomer, loginCustomer, getCustomer };
+const updateProfile = async (req, res) => {
+  console.log(res.params.id)
+	try {
+    
+    const customer = await Customer.findOneAndUpdate(
+			{
+				_id: req.params.id,
+			},
+			req.body
+		);
+		if (!customer) {
+			return res.status(404).send("customer not found");
+		}
+		return res.send("Profile updated");
+	} catch (error) {
+		console.error(error);
+		return res.status(400).send("Database query failed");
+	}
+};
+
+module.exports = { registerCustomer, loginCustomer, getCustomer, updateProfile};

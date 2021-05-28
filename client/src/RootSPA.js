@@ -23,6 +23,7 @@ import Register from "./customer-app/pages/Register";
 import Help from "./customer-app/pages/Help";
 import Contactus from "./customer-app/pages/Contactus";
 import Cart from "./customer-app/pages/Cart";
+import MyAccount from "./customer-app/pages/MyAccount";
 
 import VendorWelcome from "./vendor-app/pages/VendorWelcome";
 import VendorLogin from "./vendor-app/pages/VendorLogin";
@@ -128,6 +129,9 @@ export function App() {
         </Route>
         <Route path="/contactus">
           <Contactus />
+        </Route>
+        <Route path="/customer/myaccount">
+          <MyAccount />
         </Route>
         <Route path="/customer/login">
           <Redirect to="/vendor" />

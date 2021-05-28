@@ -8,4 +8,7 @@ router.post("/register", customerController.registerCustomer);
 router.post("/login", customerController.loginCustomer);
 router.get("/me", verifyToken, customerController.getCustomer);
 
+// Set van status or location
+router.put("/me", verifyToken, customerController.updateProfile);
+
 module.exports = router;
