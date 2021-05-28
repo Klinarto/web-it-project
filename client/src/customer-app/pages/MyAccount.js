@@ -62,7 +62,8 @@ export function MyAccount() {
             </Line>
             
             <Edit>
-                <Button onClick={() => setEdit(true)}>Edit Profile</Button>
+											
+                <Button color="primary" onClick={() => setEdit(true)}>Edit Profile</Button>
             </Edit>
         </Division>
         )}
