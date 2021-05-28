@@ -2,9 +2,7 @@
 
 recommend to install plugins:
 
-- prettier
-- vscode-styled-components
-- material icon theme
+./node_modules/.bin/cypress run
 
 # Breakout Room 3 - Project (Backend)
 

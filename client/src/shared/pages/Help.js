@@ -44,7 +44,7 @@ export default function Help() {
             color="textSecondary"
             paragraph
           >
-            Need help? Submit a support request and we&aposll get back to you
+            Need help? Submit a support request and we will get back to you
             ASAP.
           </Typography>
           {/* <div className={classes.heroButtons}>
