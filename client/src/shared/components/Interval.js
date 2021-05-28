@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
-import { Time } from "../pages/Order.style";
+import { Time } from "./Interval.styled";
 
 const Interval = (props) => {
 	const calcTimeLeft = useCallback(() => {
 		const updatedAt = new Date(props.updatedAt);
 		let currentDate = new Date();
 		// timeLimit is in ms
-		let timeLimit = 15 * 60 * 1000;
+		let timeLimit = 0.5 * 60 * 1000;
 		let difference = timeLimit - (currentDate - updatedAt);
 		let timeLeft = null;
 		if (difference > 0) {
@@ -59,7 +59,7 @@ const Interval = (props) => {
 			{timeLeft ? (
 				<Time>
 					<header>
-						You have {min}:{sec} to
+						{min}:{sec}
 					</header>
 				</Time>
 			) : null}

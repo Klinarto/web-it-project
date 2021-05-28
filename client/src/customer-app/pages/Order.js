@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import Interval from "../components/Interval";
+import Interval from "../../shared/components/Interval";
 import coffeeMachine from "../../images/coffeeMachine.png";
 import {
 	Container,
