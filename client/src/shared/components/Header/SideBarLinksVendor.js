@@ -9,13 +9,13 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListAltIcon from "@material-ui/icons/ListAlt";
-import CheckIcon from "@material-ui/icons/Check";
 import StarsIcon from "@material-ui/icons/Stars";
 import HelpIcon from "@material-ui/icons/Help";
 import CallIcon from "@material-ui/icons/Call";
+import HomeIcon from "@material-ui/icons/Home";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 
 // This is the side bar that pops up when hamburger icon is clicked, it is used material UI's design
 export default function SideBarLinks() {
@@ -38,13 +38,13 @@ export default function SideBarLinks() {
           }}
         >
           <ListItemIcon>
-            <RestaurantMenuIcon />
+            <HomeIcon />
           </ListItemIcon>
           <ListItemText primary={"Vendor Home"} />
         </ListItem>
         <ListItem
           button
-          key={"vans"}
+          key={"Location"}
           onClick={() => {
             history.push("/vendor/address");
           }}
@@ -52,7 +52,7 @@ export default function SideBarLinks() {
           <ListItemIcon>
             <LocalShippingIcon />
           </ListItemIcon>
-          <ListItemText primary={"Vans (Work In Progress)"} />
+          <ListItemText primary={"Location"} />
         </ListItem>
       </List>
       <List>
@@ -63,25 +63,13 @@ export default function SideBarLinks() {
           <>
             <ListItem
               button
-              key={"Location"}
+              key={"orderlist"}
               onClick={() => {
-                history.push("/vendor/orderHistory");
+                history.push("/vendor/orderlist");
               }}
             >
               <ListItemIcon>
                 <ListAltIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Location"} />
-            </ListItem>
-            <ListItem
-              button
-              key={"Orders"}
-              onClick={() => {
-                history.push("/vendor/pickup");
-              }}
-            >
-              <ListItemIcon>
-                <CheckIcon />
               </ListItemIcon>
               <ListItemText primary={"Orders"} />
             </ListItem>
@@ -89,13 +77,13 @@ export default function SideBarLinks() {
               button
               key={"History"}
               onClick={() => {
-                history.push("/vendor/rate");
+                history.push("/vendor/profile");
               }}
             >
               <ListItemIcon>
                 <StarsIcon />
               </ListItemIcon>
-              <ListItemText primary={"History"} />
+              <ListItemText primary={"Profile"} />
             </ListItem>
           </>
         )}
@@ -152,7 +140,7 @@ export default function SideBarLinks() {
           }}
         >
           <ListItemIcon>
-            <AccountCircleIcon />
+            <ExitToAppIcon />
           </ListItemIcon>
           <ListItemText primary={"Go to Customer Page"} />
         </ListItem>

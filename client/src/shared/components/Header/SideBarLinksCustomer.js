@@ -15,6 +15,8 @@ import CheckIcon from "@material-ui/icons/Check";
 import StarsIcon from "@material-ui/icons/Stars";
 import HelpIcon from "@material-ui/icons/Help";
 import CallIcon from "@material-ui/icons/Call";
+import HomeIcon from "@material-ui/icons/Home";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 // This is the side bar that pops up when hamburger icon is clicked, it is used material UI's design
@@ -30,6 +32,18 @@ export default function SideBarLinks() {
     <>
       <Divider />
       <List>
+        <ListItem
+          button
+          key={"Customer_home"}
+          onClick={() => {
+            history.push("/customer");
+          }}
+        >
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Customer Home"} />
+        </ListItem>
         {/* Each list item will have Router's history Hook and rediret to page when a div is clicked.
         Some lists will check if the screen size is smaller than a certain device size (tablet size) and display the item
         Some will check whether it is authenticated and screen size is small*/}
@@ -57,20 +71,6 @@ export default function SideBarLinks() {
           </ListItemIcon>
           <ListItemText primary={"Menu"} />
         </ListItem>
-        {/* {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"order"}
-            onClick={() => {
-              history.push("/customer/order");
-            }}
-          >
-            <ListItemIcon>
-              <ListAltIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Order"} />
-          </ListItem>
-        )} */}
         {auth.isLoggedIn && (
           <ListItem
             button
@@ -166,7 +166,7 @@ export default function SideBarLinks() {
           }}
         >
           <ListItemIcon>
-            <AccountCircleIcon />
+            <ExitToAppIcon />
           </ListItemIcon>
           <ListItemText primary={"Go Vendor Page"} />
         </ListItem>
