@@ -14,6 +14,7 @@ import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 // import { AuthContext } from "../../auth-context";
+import { useLocation } from "react-router-dom";
 
 // styles for the side bar and the header
 const drawerWidth = 270;
@@ -86,6 +87,11 @@ const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
 }));
 
+const usePathname = () => {
+  const location = useLocation();
+  return location.pathname;
+};
+
 // useState hook to check if the Drawer status is open or not,
 // Top bar is also stylised here, actual codes are written in SideBar codes and rendered here.
 export default function Header() {
@@ -132,7 +138,7 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Snacks in a Van
           </Typography>
-          {window.location.pathname.includes("/vendor") ? (
+          {usePathname().includes("/vendor") ? (
             <SideLinksVendor />
           ) : (
             <SideLinksCustomer />
@@ -158,7 +164,7 @@ export default function Header() {
             )}
           </IconButton>
         </div>
-        {window.location.pathname.includes("/vendor") ? (
+        {usePathname().includes("/vendor") ? (
           <SideBarLinksVendor />
         ) : (
           <SideBarLinksCustomer />
