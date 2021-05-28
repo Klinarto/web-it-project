@@ -12,12 +12,40 @@ export default function Register() {
   const history = useHistory();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordHelper, setPasswordHelper] = useState("");
 
   // open state for materialUI snackbar
   const [open, setOpen] = useState(false);
 
   // details for materialUI snackbar
   const [snackbar, setSnackbar] = useState({});
+
+  const onChange = (e) => {
+    let validAlpha;
+    let validDigit;
+    let validLength;
+    switch (e.target.id) {
+      case "password":
+        setPassword(e.target.value);
+        validAlpha = /^.*[a-zA-Z][^a-zA-Z]*$/.test(e.target.value);
+        validDigit = /^.*[0-9][^0-9]*$/.test(e.target.value);
+        validLength = /^.{8,}$/.test(e.target.value);
+
+        if (!validAlpha) {
+          setPasswordHelper("Password should have at least one alphabet (a-Z)");
+        } else if (!validDigit) {
+          setPasswordHelper("Password should have at least one number (0)");
+        } else if (!validLength) {
+          setPasswordHelper("Passwrod should be at least 8 characters long");
+        } else {
+          setPasswordHelper("");
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
 
   // duration for snackbar
   const duration = 3000;
@@ -103,7 +131,9 @@ export default function Register() {
                 id="password"
                 autoComplete="current-password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={onChange}
+                error={passwordHelper.length !== 0}
+                helperText={passwordHelper}
               />
             </Grid>
           </Grid>
