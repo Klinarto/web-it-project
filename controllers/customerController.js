@@ -109,9 +109,51 @@ const updateProfile = async (req, res) => {
 	}
 };
 
+const updateCustomerPassword = async (req, res) => {
+	const { newPassword, password } = req.body;
+	try {
+		const customer = await Customer.findOne({ _id: req.customer.id });
+
+		if (!customer) {
+			return res.status(404).send("Vendor doesn't exist");
+		}
+
+		const passMatch = await bcrypt.compare(password, customer.password);
+
+		if (!passMatch) {
+			return res.status(400).send("Invalid password");
+		}
+		const saltRounds = 10;
+
+		customer.password = await bcrypt.hash(newPassword, saltRounds);
+
+		console.log(customer);
+
+		await customer.save();
+
+		const payload = {
+			vendor: { id: customer.id },
+		};
+
+		// expires in 24 hours
+		const expiry = 86400;
+
+		// sign jwt
+		const token = jwt.sign(payload, process.env.JWT_SECRET, {
+			expiresIn: expiry,
+		});
+
+		return res.status(200).send({ token: token });
+	} catch (error) {
+		console.error(error);
+		return res.status(400).send("Database query failed");
+	}
+};
+
 module.exports = {
 	registerCustomer,
 	loginCustomer,
 	getCustomer,
 	updateProfile,
+	updateCustomerPassword,
 };

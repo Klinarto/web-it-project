@@ -12,7 +12,7 @@ router
 // Login van
 router.post("/login", vendorController.loginVendor);
 
-router.put("/me", verifyToken, vendorController.updateVanDetails);
+router.put("/me/password", verifyToken, vendorController.updateVanPassword);
 
 // Set van status or location
 router.put("/address", verifyToken, vendorController.setVanStatus);

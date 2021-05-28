@@ -53,7 +53,7 @@ const registerVan = async (req, res) => {
 	}
 };
 
-const updateVanDetails = async (req, res) => {
+const updateVanPassword = async (req, res) => {
 	const { newPassword, password } = req.body;
 	try {
 		const vendor = await Vendor.findOne({ _id: req.vendor.id });
@@ -140,5 +140,5 @@ module.exports = {
 	setVanStatus,
 	registerVan,
 	loginVendor,
-	updateVanDetails,
+	updateVanPassword,
 };
