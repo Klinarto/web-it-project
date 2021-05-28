@@ -6,7 +6,7 @@ import {
   RightImage,
   Title,
   MyButton,
-} from "./welcome.style";
+} from "./Welcome.style";
 import coffeeBackground from "../../images/coffeeBackground.png";
 import cookieLogo from "../../images/cookieLogo.png";
 import { Link } from "react-router-dom";
