@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import SideBarLinksCustomer from "./SideBarLinksCustomer";
 import SideBarLinksVendor from "./SideBarLinksVendor";
 import SideLinksCustomer from "./SideLinksCustomer";
@@ -13,7 +13,7 @@ import grey from "@material-ui/core/colors/grey";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { AuthContext } from "../../auth-context";
+// import { AuthContext } from "../../auth-context";
 
 // styles for the side bar and the header
 const drawerWidth = 270;
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const auth = useContext(AuthContext);
+  // const auth = useContext(AuthContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -132,10 +132,10 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Snacks in a Van
           </Typography>
-          {auth.loginType == "customer" ? (
-            <SideLinksCustomer />
-          ) : (
+          {window.location.pathname.includes("/vendor") ? (
             <SideLinksVendor />
+          ) : (
+            <SideLinksCustomer />
           )}
         </Toolbar>
       </AppBar>
@@ -158,10 +158,10 @@ export default function Header() {
             )}
           </IconButton>
         </div>
-        {auth.loginType == "customer" ? (
-          <SideBarLinksCustomer />
-        ) : (
+        {window.location.pathname.includes("/vendor") ? (
           <SideBarLinksVendor />
+        ) : (
+          <SideBarLinksCustomer />
         )}
       </Drawer>
     </React.Fragment>
