@@ -4,14 +4,15 @@ const router = express.Router();
 const verifyToken = require("../middleware/verifyToken");
 
 // Register van
-router
-	.route("/register")
-	.post(vendorController.registerVan)
-	.get(vendorController.getVendors);
+router.post("/register", vendorController.registerVan);
+
+// Get vans
+router.get("/", vendorController.getVendors);
 
 // Login van
 router.post("/login", vendorController.loginVendor);
 
+// Change specific vendor password
 router.put("/me/password", verifyToken, vendorController.updateVanPassword);
 
 // Set van status or location

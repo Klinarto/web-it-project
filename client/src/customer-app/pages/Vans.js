@@ -21,8 +21,6 @@ export default function Vans() {
 					setVendors(res.data);
 					console.log(vendors);
 				}
-
-				// console.log(vendors);
 			} catch (error) {
 				console.log(error);
 			}

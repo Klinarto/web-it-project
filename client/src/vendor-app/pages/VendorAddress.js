@@ -11,12 +11,10 @@ import Grid from "@material-ui/core/Grid";
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
+import Map from "../../shared/components/Map";
 
 // Simple Help Page
 export function VendorAddress() {
-	const token = JSON.parse(localStorage.getItem("userData")).token;
-	console.log(jwtDecode(token));
 	const history = useHistory();
 
 	const [locDetail, setLocDetail] = useState("");
@@ -53,6 +51,7 @@ export function VendorAddress() {
 
 	return (
 		<Container>
+			<Map />
 			<LocationDetail>
 				<Grid item xs={12}>
 					<TextField
