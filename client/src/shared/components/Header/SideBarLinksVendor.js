@@ -9,6 +9,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListAltIcon from "@material-ui/icons/ListAlt";
+
 import StarsIcon from "@material-ui/icons/Stars";
 import HelpIcon from "@material-ui/icons/Help";
 import CallIcon from "@material-ui/icons/Call";
@@ -136,6 +137,7 @@ export default function SideBarLinks() {
           button
           key={"go_to_customer_page"}
           onClick={() => {
+            auth.logout();
             history.push("/customer");
           }}
         >

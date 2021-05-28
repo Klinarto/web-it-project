@@ -162,6 +162,7 @@ export default function SideBarLinks() {
           button
           key={"Go_to_vendor"}
           onClick={() => {
+            auth.logout();
             history.push("/vendor");
           }}
         >
