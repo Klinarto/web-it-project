@@ -1,22 +1,19 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-	height: 100vh;
-	max-width: 70vw;
+	height: 90vh;
+	min-height:80vh;
 	position: relative;
-	flex: 1;
-	flex-direction: row;
+	flex: 2;
+	flex-direction: Column;
 	display: flex;
-
-	margin: 0;
-	padding: 5%;
 	margin-left: auto;
 	margin-right: auto;
 `;
 
 export const LocationDetail = styled.div`
 	max-height: 8vh;
-	max-width: 80vw;
+	width: 95vw;
 	position: relative;
 	flex: 2;
 	flex-direction: row;
@@ -27,7 +24,7 @@ export const LocationDetail = styled.div`
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: auto;
-	margin-bottom: 20vh;
+	margin-bottom: auto;
 `;
 
 export const Closing = styled.div`
