@@ -25,14 +25,14 @@ export const Container = styled.div`
     height: 100%;
   }
   @media ${device.tablet} {
-    width: 100%;
+    width: 95vw;
   }
   @media ${device.mobileM} {
     height: 100%;
   }
 
   @media ${device.laptop} {
-    width: 80%;
+    width: 80vw;
   }
 `;
 

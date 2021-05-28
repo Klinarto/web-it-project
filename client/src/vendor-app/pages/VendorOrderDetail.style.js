@@ -1,17 +1,32 @@
 import styled from "styled-components";
+import { device } from "../../shared/components/device";
+
+
+export const BigDiv=styled.div`
+  max-width:90vw;
+  margin-left:50px;
+  margin-top:40px;
+`;
 
 export const Container = styled.div`
   height: 100vh;
-  max-width: 70vw;
   position: relative;
   flex: 1;
   flex-direction: column;
   display: flex;
-
   margin: 0;
   padding: 0;
   margin-left: auto;
-  margin-right: 5%;
+  margin-right: auto;
+
+  @media ${device.tablet} {
+    max-width: 95vh;
+  }
+
+  @media ${device.laptop} {
+    width: 80%vh
+  }
+
 `;
 
 export const DivisionTop = styled.div`
@@ -75,8 +90,8 @@ export const DivisionBottom = styled.div`
 `;
 
 export const DivisionBack = styled.div`
-  margin-right: auto;
-  margin-left: auto;
+  padding-right: auto;
+  margin-top:10px;
 `;
 
 export const Total = styled.h2`
