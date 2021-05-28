@@ -4,40 +4,42 @@ import axios from "axios";
 import LinkToOrder from "../components/LinkToOrder";
 
 export default function VendorOrderList() {
-  const [orderList, setOrderHistory] = useState([]);
+	const [orderList, setOrderHistory] = useState([]);
 
-  useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const res = await axios.get("/order");
-        setOrderHistory(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchOrder();
-    return () => {};
-  }, []);
+	useEffect(() => {
+		const fetchOrder = async () => {
+			try {
+				const res = await axios.get("/order");
+				setOrderHistory(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchOrder();
+		return () => {};
+	}, [orderList]);
 
-  return (
-    <Container>
-      <LeftWrapper>
-        <br />
-        <Title>Outstanding Orders</Title>
-      </LeftWrapper>
-      <hr />
-      <br />
-      {renderLaptopOrder(orderList)}
-      <br />
-    </Container>
-  );
+	return (
+		<Container>
+			<LeftWrapper>
+				<br />
+				<Title>Outstanding Orders</Title>
+			</LeftWrapper>
+			<hr />
+			<br />
+			{renderLaptopOrder(orderList)}
+			<br />
+		</Container>
+	);
 }
 
 function renderLaptopOrder(array) {
-  try {
-    const row = array.map((order, key) => <LinkToOrder key={key} order={order} />);
-    return row;
-  } catch (error) {
-    console.log(error);
-  }
+	try {
+		const row = array.map((order, key) => (
+			<LinkToOrder key={key} order={order} />
+		));
+		return row;
+	} catch (error) {
+		console.log(error);
+	}
 }

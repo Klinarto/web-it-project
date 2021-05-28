@@ -3,7 +3,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import Interval from "../components/Interval";
+import Interval from "../../shared/components/Interval";
 import {
 	InnerDivButtons,
 	ButtonDiv,
@@ -33,6 +33,7 @@ export function VendorOrderDetails() {
 	const [declineDisabled, setDeclineDisabled] = useState(false);
 	const [readyDisabled, setReadyDisabled] = useState(false);
 	const [completeDisabled, setCompleteDisabled] = useState(false);
+	const [late, setLate] = useState(false);
 
 	const history = useHistory();
 
@@ -92,6 +93,31 @@ export function VendorOrderDetails() {
 		return () => {};
 	}, [status]);
 
+	useEffect(() => {
+		const updateOrderCost = async (newCost) => {
+			try {
+				const data = { totalCost: newCost };
+				const res = await axios.put(`/order/${orderId}`, data, {
+					headers: {
+						"Content-Type": "application/json",
+					},
+				});
+				console.log(res.data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		if (order && late) {
+			const newTotalCost = parseFloat((order.orderCost * 0.8).toFixed(2));
+
+			setOrder((prevOrder) => {
+				return { ...prevOrder, totalCost: newTotalCost };
+			});
+			updateOrderCost(newTotalCost);
+		}
+		return () => {};
+	}, [late]);
+
 	function checkStatus(check) {
 		if (status == "declined") {
 			return true;
@@ -120,7 +146,7 @@ export function VendorOrderDetails() {
 
 	function renderOrder() {
 		if (order) {
-			const { customerId, foodItems, orderId, totalCost } = order;
+			const { customerId, foodItems, orderId, totalCost, updatedAt } = order;
 
 			const customerFName =
 				customerId.firstName.charAt(0).toUpperCase() +
@@ -136,17 +162,23 @@ export function VendorOrderDetails() {
 						<div>
 							<H2>Order Number #{orderId} </H2>
 							<Customer>
-								<b>Customer Name :</b>
-								{customerFName} {customerLName}{" "}
+								<b>Customer Name: </b>
+								{customerFName} {customerLName}
 							</Customer>
 							<Customer>
-								<b>Customer Email :</b> {customerId.email}
+								<b>Customer Email: </b> {customerId.email}
 							</Customer>
 						</div>
-						<div>
-							<H3>Time remaining </H3>
-							<Interval />
-						</div>
+						{late ? (
+							<div>
+								<H3>Order is late</H3>
+							</div>
+						) : (
+							<div>
+								<H3>Time remaining </H3>
+								<Interval updatedAt={updatedAt} setLate={setLate} />
+							</div>
+						)}
 					</DivisionTop>
 
 					<BreakLine />
