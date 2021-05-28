@@ -21,8 +21,8 @@ import Pickup from "./customer-app/pages/Pickup";
 import Rate from "./customer-app/pages/Rate";
 import Welcome from "./customer-app/pages/welcome";
 import Register from "./customer-app/pages/Register";
-import Help from "./customer-app/pages/Help";
-import Contactus from "./customer-app/pages/Contactus";
+import Help from "./shared/pages/Help";
+import Contactus from "./shared/pages/Contactus";
 import Cart from "./customer-app/pages/Cart";
 import MyAccount from "./customer-app/pages/MyAccount";
 
