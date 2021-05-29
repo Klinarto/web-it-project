@@ -5,10 +5,34 @@ export const Title = styled.h1`
 	font-size: 32px;
 `;
 
+export const H1 = styled.h1`
+
+	@media ${device.mobileS} {
+		font-size:18px;
+	}
+	@media ${device.mobileL} {
+		font-size:24px;
+	}
+	@media ${device.mobileM} {
+		font-size:20px;
+	}
+`;
+
+export const H2 = styled.h2`
+
+	@media ${device.mobileS} {
+		font-size:16px;
+	}
+	@media ${device.mobileL} {
+		font-size:22px;
+	}
+	@media ${device.mobileM} {
+		font-size:18px;
+	}
+`;
+
 export const Division = styled.div`
-	/* max-height: 20%; */
-	flex-direction: column;
-	flex: 3;
+	flex: 2;
 
 	/* overflow-y: auto; */
 	display: flex;
@@ -19,6 +43,26 @@ export const Division = styled.div`
 	  cursor: pointer;
       background-color: lightgrey;
     }
+
+	@media ${device.mobileS} {
+		flex-direction:row-reverse;
+		font-size:14px;
+	}
+
+	@media ${device.mobileL} {
+		flex-direction:row-reverse;
+		font-size:14px;
+	}
+	@media ${device.mobileM} {
+		flex-direction:row-reverse;
+		font-size:14px;
+	}
+
+	@media ${device.laptop} {
+		flex-direction: column;
+		font-size:18px;
+	}
+
 `;
 
 export const PopDivision = styled.div`
@@ -30,11 +74,18 @@ export const PopDivision = styled.div`
 	display: flex;
 	justify-content: space-between;
 
+	@media ${device.mobileS} {
+		flex-direction:column-reverse;
+		font-size:14px;
+	}
+
 	@media ${device.mobileL} {
 		flex-direction:column-reverse;
+		font-size:14px;
 	}
 	@media ${device.mobileM} {
 		flex-direction:column-reverse;
+		font-size:14px;
 	}
 
 	@media ${device.laptop} {
@@ -57,12 +108,16 @@ export const Img = styled.img`
 
 	@media ${device.mobileL} {
 		width:100%;
-		height:280px;
+		height:300px;
+	}
+	@media ${device.mobileS} {
+		width:100%;
+		height:250px;
 	}
 
 	@media ${device.mobileM} {
 		width:100%;
-		height:280px;
+		height:270px;
 	}
 
 	@media ${device.laptop} {
@@ -78,13 +133,6 @@ export const ImgDiv = styled.div`
 	align-items: center;
 	overflow-x: hidden;
 
-	@media ${device.mobileL} {
-
-	}
-
-	@media ${device.laptop} {
-
-	}
 `;
 
 
@@ -97,23 +145,29 @@ export const UL = styled.li`
 export const ImageBig = styled.img`
 	display: block;
 	/* width: 300px; */
-	width: 100%;
-
 	object-fit: cover;
 	align-self: center;
 
 	@media ${device.mobileS} {
-		height: 300px;
+		width:100px;
+		height:100px;
+		padding-left:5px;
 	}
 	@media ${device.mobileL} {
-		height: 300px;
+		height: 100px;
+		width:100px;
+		padding-left:5px;
 	}
 	@media ${device.mobileM} {
-		height: 300px;
+		height: 100px;
+		width:100px;
+		padding-left:5px;
 	}
 
 	@media ${device.laptop} {
+		width: 100%;
 		height: 200px;
+		padding-left:0px;
 	}
 `;
 

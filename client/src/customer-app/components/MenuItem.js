@@ -52,13 +52,17 @@ export default function MenuItem(props) {
 				<div>
 					<ImageBig src={item["image"]} />
 				</div>
-
 				<div>
 					<UL>
 						<b>{item["name"]}</b> <Price>{item["price"]}</Price>
 					</UL>
 					<UL>{item["detail"]}</UL>
 				</div>
+			</Division>
+		</Fragment>
+	);
+}
+
 
 				{/* <div>
 					<Buttons>
@@ -84,7 +88,3 @@ export default function MenuItem(props) {
 					</Buttons>
 					
 				</div> */}
-			</Division>
-		</Fragment>
-	);
-}

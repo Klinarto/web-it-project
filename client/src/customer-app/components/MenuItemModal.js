@@ -8,7 +8,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import TextField from "@material-ui/core/TextField";
 import { Fragment } from "react";
-import {Img , ImgDiv, PopDivision} from "../pages/Menu.style"
+import {Img , ImgDiv, PopDivision, H1, H2} from "../pages/Menu.style"
 import Button from "@material-ui/core/Button";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -67,8 +67,8 @@ export default function MenuItemModal(props) {
 					>
 						{" "}
 						<div>
-							<h1>{item.name}</h1>
-							<h2>{item.price}</h2>
+							<H1>{item.name}</H1>
+							<H2>{item.price}</H2>
 							<p>{item.detail}</p>
 						</div>
 						<TextField
