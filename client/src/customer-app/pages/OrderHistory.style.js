@@ -3,9 +3,16 @@ import { device } from "../../shared/components/device";
 
 export const Title = styled.h1`
   font-size: 32px;
-  padding-left:20px;
+  padding-left: 20px;
 `;
 
+export const Status = styled.h3`
+  text-align: right;
+  font-size: 18px;
+  color: #75c1ae;
+  margin-top: 5px;
+  margin-bottom: 3px;
+`;
 
 export const Wrapper = styled.div`
   justify-content: center;
@@ -23,8 +30,8 @@ export const Container = styled.div`
   margin-bottom: 5%;
   margin-left: auto;
   margin-right: auto;
-  padding:5px;
-  
+  padding: 5px;
+
   @media ${device.mobileS} {
     height: 100%;
   }
@@ -42,66 +49,59 @@ export const Container = styled.div`
 
 export const Division = styled.div`
   /* max-height: 20%; */
-  display:flex;
-  align-items:center;
-  flex:2;
-  flex-direction:row;
-  justify-content:space-between;
+  display: flex;
+  align-items: center;
+  flex: 2;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 15px;
   box-shadow: 2px 2px 2px 2px lightgrey;
-  
 
   @media ${device.mobileS} {
-    font-size:12px;
-    width:80vw;
-    
-
+    font-size: 12px;
+    width: 80vw;
   }
   @media ${device.mobileM} {
-    font-size:12px;
-    width:90vw;
+    font-size: 12px;
+    width: 90vw;
   }
 
   @media ${device.laptop} {
-    font-size:18px;
-    width:70vw;
-
+    font-size: 18px;
+    width: 70vw;
   }
 `;
 
 export const InnerDiv = styled.div`
-  display:flex;
-  justify-content:space-between;
+  display: flex;
+  justify-content: space-between;
   margin-right: 10px;
-  margin-left:auto;
-  padding:0px;
+  margin-left: auto;
+  padding: 0px;
 `;
 
-
 export const TopDiv = styled.div`
-  display:flex;
-  flex:2;
-  flex-direction:row;
-  justify-content:space-between;
+  display: flex;
+  flex: 2;
+  flex-direction: row;
+  justify-content: space-between;
   @media ${device.mobileS} {
-    width:90vw;
+    width: 90vw;
   }
   @media ${device.mobileM} {
-    width:90vw;
+    width: 90vw;
   }
 
   @media ${device.laptop} {
-    width:70vw;
+    width: 70vw;
   }
 `;
-
-
 
 export const OrderTitle = styled.h1`
   text-align: left;
   font-size: 20px;
   font: roboto (to be changed);
-  padding-left:5px;
+  padding-left: 5px;
   margin-top: 2%;
   margin-bottom: 0.5%;
 `;
@@ -112,25 +112,19 @@ export const ItemWrapper = styled.div`
   margin-right: auto;
 `;
 
-export const OrderTitle = styled.h1`
-  text-align: left;
-  font-size: 22px;
-  font-family: "roboto";
-`;
-
 export const ButtonDiv = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-top:auto;
-  margin-bottom:auto;
-  margin-left:auto;
-  margin-right:auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
   align-self: right;
 `;
 
 export const OrderList = styled.ul`
-  align-self:left;
+  align-self: left;
   list-style: none;
   margin: 0;
   padding: 5px;
@@ -139,13 +133,12 @@ export const OrderList = styled.ul`
 
 export const OrderItem = styled.li`
   font-size: 18px;
-  color:grey;
+  color: grey;
   list-style-type: none;
   @media only screen and (max-width: 768px) {
     font-size: 13px;
   }
 `;
-
 
 export const OrderPrice = styled.li`
   font-size: 18px;
@@ -219,12 +212,4 @@ export const MyButton = styled.button`
     color: black;
     background: #fff;
   }
-`;
-
-export const Status = styled.h3`
-  text-align: right;
-  font-size: 18px;
-  color: 	#75c1ae;
-  margin-top: 5px;
-  margin-bottom: 3px;
 `;
