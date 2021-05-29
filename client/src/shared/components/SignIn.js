@@ -194,10 +194,6 @@ export default function SignIn() {
             fullWidth
             variant="contained"
             color="primary"
-            style={{
-              backgroundColor: "#000",
-              padding: "16px 0",
-            }}
             onClick={() => {
               sendData();
             }}
