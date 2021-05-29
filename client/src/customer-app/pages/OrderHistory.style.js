@@ -15,8 +15,9 @@ export const Status = styled.h3`
 `;
 
 export const Wrapper = styled.div`
-  justify-content: center;
-  min-width: 50%;
+  max-width:95vw;
+  margin-left:auto;
+  margin-right:auto;
 `;
 
 export const Container = styled.div`
@@ -24,7 +25,7 @@ export const Container = styled.div`
   position: relative;
   flex: 1;
   flex-direction: column;
-  display: block;
+  display: flex;
   padding: 0;
   margin-top: 0.5%;
   margin-bottom: 5%;
@@ -59,11 +60,15 @@ export const Division = styled.div`
 
   @media ${device.mobileS} {
     font-size: 12px;
-    width: 80vw;
+    width: 85vw;
   }
   @media ${device.mobileM} {
     font-size: 12px;
-    width: 90vw;
+    width: 85vw;
+  }
+  @media ${device.mobileL} {
+    font-size: 12px;
+    width: 85vw;
   }
 
   @media ${device.laptop} {
@@ -72,13 +77,13 @@ export const Division = styled.div`
   }
 `;
 
-export const InnerDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-right: 10px;
-  margin-left: auto;
-  padding: 0px;
-`;
+// export const InnerDiv = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   margin-right: 10px;
+//   margin-left: auto;
+//   padding: 0px;
+// `;
 
 export const TopDiv = styled.div`
   display: flex;
@@ -106,11 +111,6 @@ export const OrderTitle = styled.h1`
   margin-bottom: 0.5%;
 `;
 
-export const ItemWrapper = styled.div`
-  max-width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-`;
 
 export const ButtonDiv = styled.div`
   flex: 1;
@@ -129,6 +129,7 @@ export const OrderList = styled.ul`
   margin: 0;
   padding: 5px;
   padding-left: 15px;
+  padding-right: 15px;
 `;
 
 export const OrderItem = styled.li`

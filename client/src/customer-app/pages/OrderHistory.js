@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Container, Title, Wrapper, ItemWrapper } from "./OrderHistory.style";
+import { Container, Title, Wrapper } from "./OrderHistory.style";
 import axios from "axios";
 import LinkToOrder from "../components/LinkToOrder";
 
@@ -30,10 +30,9 @@ export default function OrderHistory() {
     <Container>
 
       <Wrapper>
-        <ItemWrapper>
           <Title>Orders</Title>
           {renderLaptopOrder(orderList)}
-        </ItemWrapper>
+   
       </Wrapper>
     </Container>
   );
