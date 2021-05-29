@@ -115,10 +115,8 @@ export default function SimpleModal() {
 				const res = await axios.get("/vendor");
 				if (isMounted) {
 					setVendors(res.data);
-					console.log(vendors);
+					// console.log(vendors);
 				}
-
-				// console.log(vendors);
 			} catch (error) {
 				console.log(error);
 			}

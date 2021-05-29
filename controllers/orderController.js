@@ -3,20 +3,21 @@ const MenuItem = require("../models/menuItem");
 
 // get all outstanding orders
 const getOrders = async (req, res) => {
-	const filter = { status: { $ne: "fulfilled" } };
+	const filter = { status: { $nin: ["fulfilled" , "cancelled", "declined"] } };
 	if ((req.customer || req.vendor) && !(req.customer || req.vendor)) {
 		return res.status(401).send("No token provided");
 	}
 	if (req.customer) {
 		filter["customerId"] = req.customer.id;
-	}
-	if (req.vendor) {
+	} else if (req.vendor) {
 		filter["vendorId"] = req.vendor.id;
 	}
 
 	try {
 		// Find all documents where their status is not fulfilled
-		const orders = await Order.find(filter).populate("vendorId", ["name"]);
+		const orders = await Order.find(filter)
+			.populate("vendorId", ["name"])
+			.populate("customerId", ["firstName", "lastName", "email"], "Customer");
 
 		return res.send(orders);
 	} catch (error) {
@@ -30,15 +31,24 @@ const getOrder = async (req, res) => {
 	try {
 		const order = await Order.findOne({
 			orderId: req.params.orderId,
-		}).populate("vendorId", ["name"]);
+		})
+			.populate("vendorId", ["name"], "Vendor")
+			.populate("customerId", ["firstName", "lastName", "email"], "Customer");
 
 		if (!order) {
 			return res.status(404).send("Order not found");
 		}
 
-		// checks if this order belongs to the customer
-		if (req.customer.id != order.customerId) {
-			return res.status(401).send("Unauthorized access to order");
+		if (req.customer) {
+			if (req.customer.id != order.customerId._id) {
+				return res.status(401).send("Unauthorized customer access to order");
+			}
+		}
+
+		if (req.vendor) {
+			if (req.vendor.id != order.vendorId._id) {
+				return res.status(401).send("Unauthorized vendor access to order");
+			}
 		}
 
 		return res.status(200).send(order);
@@ -104,10 +114,15 @@ const updateOrder = async (req, res) => {
 			return res.status(404).send("Order not found");
 		}
 
-		// check if the order being updated belongs to the customer
-		// updating it
-		if (req.customer.id != order.customerId) {
-			return res.status(401).send("Unauthorized access to order");
+		if (req.customer) {
+			if (req.customer.id != order.customerId._id) {
+				return res.status(401).send("Unauthorized customer access to order");
+			}
+		}
+		if (req.vendor) {
+			if (req.vendor.id != order.vendorId._id) {
+				return res.status(401).send("Unauthorized vendor access to order");
+			}
 		}
 
 		return res.send(resMsg);

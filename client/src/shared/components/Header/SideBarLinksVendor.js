@@ -8,14 +8,15 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 import ListAltIcon from "@material-ui/icons/ListAlt";
-import CheckIcon from "@material-ui/icons/Check";
+
 import StarsIcon from "@material-ui/icons/Stars";
 import HelpIcon from "@material-ui/icons/Help";
 import CallIcon from "@material-ui/icons/Call";
+import HomeIcon from "@material-ui/icons/Home";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 
 // This is the side bar that pops up when hamburger icon is clicked, it is used material UI's design
 export default function SideBarLinks() {
@@ -30,88 +31,62 @@ export default function SideBarLinks() {
     <>
       <Divider />
       <List>
-        {/* Each list item will have Router's history Hook and rediret to page when a div is clicked.
-        Some lists will check if the screen size is smaller than a certain device size (tablet size) and display the item
-        Some will check whether it is authenticated and screen size is small*/}
         <ListItem
           button
-          key={"vans"}
+          key={"Vendor_home"}
           onClick={() => {
-            history.push("/customer/vans");
+            history.push("/vendor");
+          }}
+        >
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Vendor Home"} />
+        </ListItem>
+        <ListItem
+          button
+          key={"Location"}
+          onClick={() => {
+            history.push("/vendor/address");
           }}
         >
           <ListItemIcon>
             <LocalShippingIcon />
           </ListItemIcon>
-          <ListItemText primary={"Vans (Work In Progress)"} />
+          <ListItemText primary={"Location"} />
         </ListItem>
-        <ListItem
-          button
-          key={"menu"}
-          onClick={() => {
-            history.push("/customer/menu");
-          }}
-        >
-          <ListItemIcon>
-            <RestaurantMenuIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Menu"} />
-        </ListItem>
-        {/* {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"order"}
-            onClick={() => {
-              history.push("/customer/order");
-            }}
-          >
-            <ListItemIcon>
-              <ListAltIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Order"} />
-          </ListItem>
-        )} */}
+      </List>
+      <List>
+        {/* Each list item will have Router's history Hook and rediret to page when a div is clicked.
+        Some lists will check if the screen size is smaller than a certain device size (tablet size) and display the item
+        Some will check whether it is authenticated and screen size is small*/}
         {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"order"}
-            onClick={() => {
-              history.push("/customer/orderHistory");
-            }}
-          >
-            <ListItemIcon>
-              <ListAltIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Orders"} />
-          </ListItem>
-        )}
-        {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"pickup"}
-            onClick={() => {
-              history.push("/customer/pickup");
-            }}
-          >
-            <ListItemIcon>
-              <CheckIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Pickup"} />
-          </ListItem>
-        )}
-        {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"rate"}
-            onClick={() => {
-              history.push("/customer/rate");
-            }}
-          >
-            <ListItemIcon>
-              <StarsIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Rate"} />
-          </ListItem>
+          <>
+            <ListItem
+              button
+              key={"orderlist"}
+              onClick={() => {
+                history.push("/vendor/orderlist");
+              }}
+            >
+              <ListItemIcon>
+                <ListAltIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Orders"} />
+            </ListItem>
+            <ListItem
+              button
+              key={"History"}
+              onClick={() => {
+                history.push("/vendor/profile");
+              }}
+            >
+              <ListItemIcon>
+                <StarsIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Profile"} />
+            </ListItem>
+          </>
         )}
         <Divider />
         {!tabletSize && (
@@ -147,7 +122,7 @@ export default function SideBarLinks() {
             button
             key={"myprofile"}
             onClick={() => {
-              history.push("/customer/myprofile");
+              history.push("/vendor/profile");
             }}
           >
             <ListItemIcon>
@@ -156,6 +131,21 @@ export default function SideBarLinks() {
             <ListItemText primary={"My Profile"} />
           </ListItem>
         )}
+      </List>
+      <List>
+        <ListItem
+          button
+          key={"go_to_customer_page"}
+          onClick={() => {
+            auth.logout();
+            history.push("/customer");
+          }}
+        >
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Go to Customer Page"} />
+        </ListItem>
       </List>
     </>
   );

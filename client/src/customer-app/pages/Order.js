@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
-import Interval from "../components/Interval";
-import coffeeMachine from "../../coffeeMachine.png";
+import Interval from "../../shared/components/Interval";
+import coffeeMachine from "../../images/coffeeMachine.png";
 import {
 	Container,
 	Status,
@@ -17,11 +17,12 @@ import {
 } from "./Order.style";
 import axios from "axios";
 import { useLocation } from "react-router";
-
-export function Order(props) {
+import { Link } from "react-router-dom";
+export function Order() {
 	const [menu, setMenu] = useState(null);
 	const [order, setOrder] = useState(null);
 	const [late, setLate] = useState(false);
+	const [status, setStatus] = useState("");
 
 	const pathname = useLocation().pathname;
 	const orderId = pathname.substring(pathname.lastIndexOf("/") + 1);
@@ -45,6 +46,7 @@ export function Order(props) {
 				const res = await axios.get(`/order/${orderId}`);
 				if (isMounted) {
 					setOrder(res.data);
+					setStatus(res.data.status);
 				}
 			} catch (error) {
 				console.log(error);
@@ -66,7 +68,7 @@ export function Order(props) {
 						"Content-Type": "application/json",
 					},
 				});
-				console.log(res.data);
+				console.log(res);
 			} catch (error) {
 				console.log(error);
 			}
@@ -82,9 +84,72 @@ export function Order(props) {
 		return () => {};
 	}, [late]);
 
+	const cancelOrder = async () => {
+		const data = { status: "cancelled" };
+		try {
+			const res = await axios.put(`/order/${orderId}`, data, {
+				headers: { "Content-Type": "application/json" },
+			});
+			console.log(res);
+			setStatus("cancelled");
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+
+  const updateOrder = () => {
+		console.log(order);
+		localStorage.setItem("curr_order", JSON.stringify(order));
+  };
+
+	const displayOrderInteractions = (updatedAt) => {
+		let timer = <Interval updatedAt={updatedAt} setLate={setLate} />;
+		let changeOrderButton = (
+			<Link to="/customer/menu" style={{textDecoration:'none'}}>
+					<MyButton onClick = {() => updateOrder()}>Change order</MyButton>
+			</Link>
+		);
+		let cancelOrderButton = (
+			<MyButton onClick={() => cancelOrder()}>Cancel order</MyButton>
+		);
+		if (status == "cancelled") {
+			timer = null;
+			changeOrderButton = null;
+			cancelOrderButton = null;
+		}
+		if (late) {
+			timer = null;
+		}
+		return (
+			<Fragment>
+				{timer}
+				{changeOrderButton}
+				{cancelOrderButton}
+			</Fragment>
+		);
+	};
+
+	const displayOrderStatus = () => {
+		let msg = "Preparing your order...";
+		switch (status) {
+			case "cancelled":
+				msg = "Order cancelled";
+				break;
+			case "ready":
+				msg = "Order ready";
+				break;
+			case "declined":
+				msg = "Order declined";
+				break;
+		}
+
+		return <Status>{msg}</Status>;
+	};
+
 	const displayOrder = () => {
 		if (order && menu) {
-			const { foodItems, totalCost, createdAt, updatedAt } = order;
+			const { foodItems, totalCost, updatedAt } = order;
 			let prices = [];
 			menu.forEach((item) => {
 				if (Object.keys(foodItems).includes(item.name)) {
@@ -96,7 +161,7 @@ export function Order(props) {
 
 			return (
 				<Fragment>
-					<Status>Preparing your order...</Status>
+					{displayOrderStatus()}
 					<Division>
 						<div>
 							{Object.entries(foodItems).map(function ([item, quantity], key) {
@@ -139,9 +204,7 @@ export function Order(props) {
 						</div>
 					</DivisionBottom>
 					<Logo alt="machine-logo" src={coffeeMachine} />
-					<Interval updatedAt={updatedAt} setLate={setLate} />
-					{late ? null : <MyButton>Change order</MyButton>}
-					<MyButton>Cancel order</MyButton>
+					{displayOrderInteractions(updatedAt)}
 				</Fragment>
 			);
 		}

@@ -12,20 +12,18 @@ import {
 	useLoadScript,
 } from "@react-google-maps/api";
 import mapStyle from "../../utilities/Mapstyle";
-import { objectIsEmpty } from "../../utilities/Utils";
+import useCurrentLocation from "./useCurrentLocation";
 
 export default function Map(props) {
-	console.log(props);
-
 	// used to center map, default center is Melbourne
 	const [center, setCenter] = useState(null);
 	// used to ste zoom level in maps
-	const [zoom, setZoom] = useState(15);
+	const [zoom] = useState(15);
 
 	// stores current location in latlng object (e.g. {lat: number, lng: number})
-	const [currentLocation, setCurrentLocation] = useState(null);
+	const currentLocation = useCurrentLocation();
 
-	const [data, setData] = useState({});
+	const [data, setData] = useState(null);
 
 	// from @react-google-maps/api
 	const { isLoaded, loadError } = useLoadScript({
@@ -52,38 +50,37 @@ export default function Map(props) {
 	const selected = props.selected;
 	const setSelected = props.setSelected;
 
-	const getCurrentLocation = useCallback(() => {
-		if ("geolocation" in navigator) {
-			navigator.geolocation.getCurrentPosition(
-				(position) => {
-					const location = {
-						lat: position.coords.latitude,
-						lng: position.coords.longitude,
-					};
-					setCurrentLocation(location);
-				},
-				(error) => {
-					console.warn(`Error(${error.code}): ${error.message}`);
-				},
-				{ enableHighAccuracy: true, timeout: 5000 }
-			);
-		} else {
-			console.log("Geolocation is not available");
-		}
-	}, []);
+	// const getCurrentLocation = useCallback(() => {
+	// 	if ("geolocation" in navigator) {
+	// 		navigator.geolocation.getCurrentPosition(
+	// 			(position) => {
+	// 				const location = {
+	// 					lat: position.coords.latitude,
+	// 					lng: position.coords.longitude,
+	// 				};
+	// 				setCurrentLocation(location);
+	// 			},
+	// 			(error) => {
+	// 				console.warn(`Error(${error.code}): ${error.message}`);
+	// 			},
+	// 			{ enableHighAccuracy: true, timeout: 5000 }
+	// 		);
+	// 	} else {
+	// 		console.log("Geolocation is not available");
+	// 	}
+	// }, []);
 
 	useEffect(() => {
 		let mounted = true;
 
-		if (mounted) {
+		if (mounted && props.data) {
 			setData(props.data);
-			console.log(data);
+			// console.log(data);
 		}
 		return () => { };
 	}, [props.data, data]);
 
 	useEffect(() => {
-		getCurrentLocation();
 		if (currentLocation) {
 			setCenter(currentLocation);
 		} else {
@@ -103,7 +100,7 @@ export default function Map(props) {
 	}, []);
 
 	const displayCurrentLocation = () => {
-		if (!currentLocation) {
+		if (currentLocation) {
 			return (
 				<Marker
 					title={"Current location"}
@@ -121,7 +118,7 @@ export default function Map(props) {
 	};
 
 	const displayData = () => {
-		if (!objectIsEmpty(data)) {
+		if (data) {
 			return data.map((element) => {
 				return (
 					<Marker onClick={() => setSelected(element)}

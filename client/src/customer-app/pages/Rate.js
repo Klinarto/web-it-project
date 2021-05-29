@@ -8,10 +8,13 @@ import {
   Button,
 } from "./Rate.style";
 import { Rating } from "@material-ui/lab";
-import coffeeBackgroundHalf from "../../coffeeBackgroundHalf.png";
-import coffeeCup from "../../coffeeCup.png";
+import coffeeBackgroundHalf from "../../images/coffeeBackgroundHalf.png";
+import coffeeCup from "../../images/coffeeCup.png";
 
 export function Rate() {
+  const [value, setValue] = React.useState(2);
+  const [hover, setHover] = React.useState(-1);
+
   return (
     <Container>
       <TopWrapper>
@@ -26,8 +29,18 @@ export function Rate() {
             margin: "0 0 0 94px",
             transform: "scale(1.5)",
           }}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          onChangeActive={(event, newHover) => {
+            setHover(newHover);
+          }}
         />
         <br />
+        <p>
+          {value}
+          {hover}
+        </p>
         <Button>Submit</Button>
       </TopWrapper>
 

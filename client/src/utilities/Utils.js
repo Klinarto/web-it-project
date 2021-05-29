@@ -22,7 +22,7 @@ export const parseDate = (date) => {
 };
 // calculate distance (in meters) between two latlng points
 export const calculateDistance = (to, from) => {
-	if (!objectIsEmpty(to) && !objectIsEmpty(from)) {
-		return haversine(to, from);
-	}
+  if (!objectIsEmpty(to) && !objectIsEmpty(from)) {
+    return haversine(to, from);
+  }
 };

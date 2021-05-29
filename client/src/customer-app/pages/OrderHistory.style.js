@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { device } from "../../shared/components/device";
 
-
 export const Title = styled.h1`
   font-size: 32px;
 `;
 
-export const LeftWrapper = styled.div`
+export const Wrapper = styled.div`
   justify-content: center;
   min-width: 50%;
 `;
@@ -33,19 +32,17 @@ export const Container = styled.div`
   }
 
   @media ${device.laptop} {
-    width: 80%;;
+    width: 100%;
   }
-
 `;
 
 export const Division = styled.div`
-  /* max-height: 20%; */
-  flex: 4;
-  /* overflow-y: auto; */
-  display: flex;
   justify-content: space-between;
   margin: 10px;
-  padding: 10px;
+  display: flex;
+  @media only screen and (max-width: 768px) {
+    display: contents;
+  }
 `;
 
 export const innerDiv = styled.div`
@@ -53,25 +50,31 @@ export const innerDiv = styled.div`
   margin-right: auto;
 `;
 
+export const ItemWrapper = styled.div`
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
 export const OrderTitle = styled.h1`
   text-align: left;
   font-size: 22px;
-  font: roboto (to be changed);
-  margin-top: 2%;
-  margin-bottom: 0.5%;
+  font-family: "roboto";
 `;
 
 export const OrderList = styled.ul`
   list-style: none;
   margin: 0;
-  padding: 5px;
-  padding-left: 15px;
   margin-bottom: 5%;
 `;
+
 export const OrderItem = styled.li`
   font-size: 18px;
   list-style-type: none;
   margin-bottom: 5%;
+  @media only screen and (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 export const FoodItem = styled.li`
@@ -80,6 +83,9 @@ export const FoodItem = styled.li`
   color: grey;
   margin-left: auto;
   margin-right: auto;
+  @media only screen and (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 export const OrderPrice = styled.li`

@@ -4,27 +4,32 @@ import {
 	DIV,
 	ROW,
 	Wrapper,
-	MyButton,
+	// MyButton,
 	LeftWrapper,
 	RightWrapper,
 	Title,
 } from "./Menu.style";
-import Link from "react-router-dom/Link";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { Fab } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MenuItem from "../components/MenuItem";
 
 export default function Menu() {
-	let orderList = {};
+	let orderList = null;
+	let orderUpdate = null;
+	let isUpdate = false;
 	let orderPrice = {};
 
-	if (localStorage.getItem("order")) {
-		orderList = JSON.parse(localStorage.getItem("order"));
+	const [menu, setMenu] = useState(null);
+	const [order, setOrder] = useState(orderList);
+
+	if (localStorage.getItem("curr_order")) {
+		isUpdate = true;
+		orderUpdate = JSON.parse(localStorage.getItem("curr_order"));
 	}
 
-	const [menu, setMenu] = useState(null);
-	const [order, setOrder] = useState(null);
+
 
 	const style = {
 		margin: 0,
@@ -35,19 +40,31 @@ export default function Menu() {
 		position: "fixed",
 		backgroundColor: "#aad9cd",
 		color: "white",
+		height: "20",
+		width: "20",
+		zIndex: 2,
 	};
 	const auth = useContext(AuthContext);
 
 	// Render reach menu item.
 	function renderLaptopMenu(array) {
 		if (array) {
-			const row = array.map((item, key) => (
-				<MenuItem key={key} item={item} setOrder={setOrder} />
-			));
+			const row = array.map((item, key) => {
+				let quantity = 0;
+			
+
+				return (
+					<MenuItem
+						key={key}
+						item={item}
+						setOrder={setOrder}
+						quantity={quantity}
+					/>
+				);
+			});
 			return row;
 		}
 	}
-	console.log(order);
 
 	// This chunk of code related to modal might be used for later implementation.
 
@@ -97,13 +114,15 @@ export default function Menu() {
 		};
 	}, [menu]);
 
-	// Update order when the quantity changes by + - buttons.
-	useEffect(() => {
-		return () => {};
-	}, [order]);
-
 	// Take the current state of order when go to cart button is clicked.
 	const finalOrder = (order) => {
+		if (orderUpdate) {
+			for (const [name, quantity] of Object.entries(orderUpdate["foodItems"])) {
+				console.log(name,  quantity);
+				order[name] += quantity;
+			}
+		}
+		orderList = {};
 		for (const [key, value] of Object.entries(order)) {
 			if (value > 0) {
 				orderList[key] = value;
@@ -115,10 +134,54 @@ export default function Menu() {
 				});
 			}
 		}
+		console.log(orderList);
 		localStorage.setItem("price", JSON.stringify(orderPrice));
 		localStorage.setItem("order", JSON.stringify(orderList));
 	};
 
+	const displayCart = () => {
+		if (!isUpdate) {
+			if (order) {
+				const numItem = Object.values(order).reduce((a, b) => a + b, 0);
+				if (numItem > 0) {
+					return (
+						<Fab
+							variant="extended"
+							style={style}
+							onClick={() => {
+								finalOrder(order);
+							}}
+						>
+							<ShoppingCartIcon /> Cart
+						</Fab>
+					);
+				}
+			}
+		}
+		return null;
+	};
+
+	const displayUpdate = () => {
+		if (isUpdate) {
+			return (
+				<Fab
+					variant="extended"
+					style={style}
+					onClick={() => {
+						finalOrder(order);
+					}}
+				>
+					<ShoppingCartIcon /> Update
+				</Fab>
+			);
+		}
+		return null;
+	}
+
+	useEffect(() => {
+		console.log(order);
+		return () => {};
+	}, [order]);
 	return (
 		<Wrapper>
 			<DIV>
@@ -127,17 +190,8 @@ export default function Menu() {
 				</LeftWrapper>
 				<RightWrapper>
 					<Link to={auth.isLoggedIn ? "/customer/cart" : "/customer/login"}>
-						{order ? (
-							<Fab
-								variant="extended"
-								style={style}
-								onClick={() => {
-									finalOrder(order);
-								}}
-							>
-								<ShoppingCartIcon /> Cart
-							</Fab>
-						) : null}
+						{displayCart()}
+						{displayUpdate()}
 						{/* <MyButton
 							aria-label="Go to cart"
 							onClick={() => {

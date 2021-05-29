@@ -1,6 +1,8 @@
 import React from "react";
-import SideBarLinks from "./SideBarLinks";
-import SideLinks from "./SideLinks";
+import SideBarLinksCustomer from "./SideBarLinksCustomer";
+import SideBarLinksVendor from "./SideBarLinksVendor";
+import SideLinksCustomer from "./SideLinksCustomer";
+import SideLinksVendor from "./SideLinksVendor";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,6 +13,8 @@ import grey from "@material-ui/core/colors/grey";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+// import { AuthContext } from "../../auth-context";
+import { useLocation } from "react-router-dom";
 
 // styles for the side bar and the header
 const drawerWidth = 270;
@@ -19,9 +23,18 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     color: grey[50],
   },
+  toolbar: {
+    // height: "10vh",
+  },
   title: {
     flexGrow: 1,
     color: grey[50],
+    fontFamily: "Dawning of a New Day",
+  },
+  subTitle: {
+    flexGrow: 1,
+    color: grey[500],
+    fontFamily: "Dawning of a New Day",
   },
   customColor: {
     backgroundColor: grey[900],
@@ -80,11 +93,41 @@ const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
 }));
 
+const usePathname = () => {
+  const location = useLocation();
+  return location.pathname;
+};
+
+const GetTitle = () => {
+  const location = useLocation();
+  const classes = useStyles();
+  if (location.pathname.includes("/vendor")) {
+    return (
+      <div>
+        <Typography variant="h6" className={classes.subTitle}>
+          Vendor
+        </Typography>
+      </div>
+    );
+  } else if (location.pathname.includes("/customer")) {
+    return (
+      <div>
+        <Typography variant="h6" className={classes.subTitle}>
+          Customer
+        </Typography>
+      </div>
+    );
+  } else {
+    return;
+  }
+};
+
 // useState hook to check if the Drawer status is open or not,
 // Top bar is also stylised here, actual codes are written in SideBar codes and rendered here.
 export default function Header() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  // const auth = useContext(AuthContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -94,7 +137,7 @@ export default function Header() {
     setOpen(false);
   };
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = () => (event) => {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
@@ -109,10 +152,10 @@ export default function Header() {
     <React.Fragment>
       <AppBar
         position="relative"
-        color={"customColor"}
+        color="inherit"
         className={classes.customColor}
       >
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -124,8 +167,14 @@ export default function Header() {
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Snacks in a Van
+            {GetTitle()}
           </Typography>
-          <SideLinks />
+
+          {usePathname().includes("/vendor") ? (
+            <SideLinksVendor />
+          ) : (
+            <SideLinksCustomer />
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -147,7 +196,11 @@ export default function Header() {
             )}
           </IconButton>
         </div>
-        <SideBarLinks />
+        {usePathname().includes("/vendor") ? (
+          <SideBarLinksVendor />
+        ) : (
+          <SideBarLinksCustomer />
+        )}
       </Drawer>
     </React.Fragment>
   );

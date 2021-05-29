@@ -1,3 +1,4 @@
+import React from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import {
@@ -16,7 +17,7 @@ import {
 	DiscountMessage,
 	MyButton,
 } from "./Cart.style";
-import coffeeMachine from "../../coffeeMachine.png";
+import coffeeMachine from "../../images/coffeeMachine.png";
 import { objectIsEmpty } from "../../utilities/Utils";
 
 export default function Cart() {
@@ -54,10 +55,8 @@ export default function Cart() {
 
 	var totalPrice = 0;
 	Object.entries(orderPrice).map((item) => {
-		totalPrice += parseFloat(item[1]);
+		return (totalPrice += parseFloat(item[1]));
 	});
-
-	console.log(Object.entries(orderList));
 
 	// Render
 	return (
@@ -65,9 +64,9 @@ export default function Cart() {
 			<Status>Confirm your order</Status>
 			<Division>
 				<LeftWrapper>
-					{Object.entries(orderList).map(function (item) {
+					{Object.entries(orderList).map(function (item, key) {
 						return (
-							<OrderList>
+							<OrderList key={key}>
 								<OrderItem>
 									{item[1]} x {item[0]}
 								</OrderItem>
@@ -76,9 +75,9 @@ export default function Cart() {
 					})}
 				</LeftWrapper>
 				<RightWrapper>
-					{Object.entries(orderPrice).map(function (item) {
+					{Object.entries(orderPrice).map(function (item, key) {
 						return (
-							<OrderList>
+							<OrderList key={key}>
 								<OrderItem>$ {item[1]}</OrderItem>
 							</OrderList>
 						);
