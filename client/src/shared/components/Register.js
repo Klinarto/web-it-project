@@ -8,6 +8,10 @@ import axios from "axios";
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import styled from "styled-components";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+
+
 
 const LinkDiv = styled.div`
   text-align: left;
@@ -144,6 +148,14 @@ export default function Register() {
     setOpen(false);
   };
 
+  const theme2 = createMuiTheme({
+    palette: {
+      primary: {
+        main: "#000",
+      },}
+  
+  });
+
   const renderForm = () => {
     // console.log(formData);
     if (formData) {
@@ -268,10 +280,12 @@ export default function Register() {
                 />
               </Grid>
             </Grid>
-
+            <br></br>
+            <ThemeProvider theme={theme2}>
             <Button
               // type="submit"
               fullWidth
+              style={{fontSize:"16px"}}
               disabled={
                 formData.firstName.length === 0 ||
                 formData.lastName.length === 0 ||
@@ -282,15 +296,11 @@ export default function Register() {
               }
               variant="contained"
               color="primary"
-              style={{
-                // backgroundColor: "#000",
-                padding: "16px 0",
-                marginTop: "16px",
-              }}
               onClick={sendData}
             >
               Register
             </Button>
+            </ThemeProvider>
           </form>
         );
       }

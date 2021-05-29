@@ -11,8 +11,12 @@ import axios from "axios";
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { AuthContext } from "../auth-context";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+
 
 export default function SignIn() {
+  
   const auth = useContext(AuthContext);
   const history = useHistory();
 
@@ -27,6 +31,14 @@ export default function SignIn() {
 
   // details for materialUI snackbar
   const [snackbar, setSnackbar] = useState({});
+
+  const theme2 = createMuiTheme({
+    palette: {
+      primary: {
+        main: "#000",
+      },}
+  
+  });
 
   let textFieldProps = {
     error: emailHelper.length !== 0,
@@ -66,6 +78,7 @@ export default function SignIn() {
 
   // duration for snackbar
   const duration = 3000;
+
 
   // send username and password on form submission
   const sendData = async () => {
@@ -189,17 +202,21 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          <br></br>
+          <ThemeProvider theme={theme2}>
           <Button
             type="button"
-            fullWidth
             variant="contained"
             color="primary"
+            fullWidth
+            style={{fontSize:"16px"}}
             onClick={() => {
               sendData();
             }}
           >
             Sign In
           </Button>
+          </ThemeProvider>
           <Grid container>
             <Grid item>{renderRegisterRedirect()}</Grid>
           </Grid>
