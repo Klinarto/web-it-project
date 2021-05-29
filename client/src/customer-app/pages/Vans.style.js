@@ -1,15 +1,12 @@
 import styled from "styled-components";
 
-
 export const Wrapper = styled.div`
-  background-color: blue;   
+  background-color: blue;
   position: absolute;
-  left: 70;
-  bottom: 50;
+  left: 70%;
+  bottom: 50%;
 `;
-export const VanName = styled.div`
-  
-`;
+export const VanName = styled.div``;
 
 // <div style={{
 // 				backgroundColor: "blue", position: "absolute",

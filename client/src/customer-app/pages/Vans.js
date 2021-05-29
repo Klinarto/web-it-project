@@ -7,7 +7,6 @@
 // const [vendors, setVendors] = useState([]);
 // const [selected, setSelected] = useState(null);
 
-
 // 	useEffect(() => {
 // 		// used for cleanup
 // 		let isMounted = true;
@@ -34,7 +33,6 @@
 // 		};
 // 	}, [vendors]);
 
-
 // 	return (
 // 		<>
 // 			<Map data={vendors} selected={selected} setSelected={setSelected} />
@@ -52,110 +50,61 @@
 // 	);
 // }
 
-
-
-
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
 import React, { useState, Fragment, useEffect } from "react";
 import Map from "../../shared/components/Map";
 import axios from "axios";
-import { Wrapper, VanName } from "../pages/Vans.style";
-function rand() {
-	return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-	const top = 50 + rand();
-	const left = 50 + rand();
-
-	return {
-		top: `${top}%`,
-		left: `${left}%`,
-		transform: `translate(-${top}%, -${left}%)`,
-	};
-}
-
-const useStyles = makeStyles((theme) => ({
-	paper: {
-		position: 'absolute',
-		width: 400,
-		backgroundColor: theme.palette.background.paper,
-		border: '2px solid #000',
-		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2, 4, 3),
-	},
-}));
+import { Wrapper } from "../pages/Vans.style";
 
 export default function SimpleModal() {
-	const [vendors, setVendors] = useState([]);
-	const [selected, setSelected] = useState(null);
+  const [vendors, setVendors] = useState([]);
+  const [selected, setSelected] = useState(null);
 
-	const classes = useStyles();
-	// getModalStyle is not a pure function, we roll the style only on the first render
-	const [modalStyle] = React.useState(getModalStyle);
-	const [open, setOpen] = React.useState(false);
+  useEffect(() => {
+    // used for cleanup
+    let isMounted = true;
 
-	const handleOpen = () => {
-		setOpen(true);
-	};
+    // fetch list of vendors from db
+    const fetchVendors = async () => {
+      try {
+        const res = await axios.get("/vendor");
+        if (isMounted) {
+          setVendors(res.data);
+          // console.log(vendors);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-	const handleClose = () => {
-		setOpen(false);
-	};
+    fetchVendors();
 
+    return () => {
+      isMounted = false;
+    };
+  }, [vendors]);
 
-	useEffect(() => {
-		// used for cleanup
-		let isMounted = true;
+  return (
+    <Fragment>
+      <Map data={vendors} selected={selected} setSelected={setSelected} />
 
-		// fetch list of vendors from db
-		const fetchVendors = async () => {
-			try {
-				const res = await axios.get("/vendor");
-				if (isMounted) {
-					setVendors(res.data);
-					// console.log(vendors);
-				}
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		fetchVendors();
-
-		return () => {
-			isMounted = false;
-		};
-	}, [vendors]);
-
-	return (
-		<Fragment>
-
-			<Map data={vendors} selected={selected} setSelected={setSelected} />
-
-
-			<Wrapper>
-				{selected ?
-					<div style={{}}>
-						<h1>{selected.name}</h1>
-						<button onClick={() => setSelected(null)}>
-							&times;
-								</button>
-					</div>
-					: null}
-
-			</Wrapper>
-		</Fragment >
-	);
+      {selected ? (
+        <Wrapper>
+          <div style={{}}>
+            <h1>{selected.name}</h1>
+            <button onClick={() => setSelected(null)}>&times;</button>
+          </div>
+        </Wrapper>
+      ) : null}
+    </Fragment>
+  );
 }
 
-
-{/* <button type="button" onClick={handleOpen}>
+{
+  /* <button type="button" onClick={handleOpen}>
 Open Modal
 
-</button> */}
-
+</button> */
+}
 
 // <Modal
 //                 open={open}
