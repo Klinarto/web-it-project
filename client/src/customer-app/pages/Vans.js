@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Map from "../../shared/components/Map";
 import axios from "axios";
-import { PopUpHeader, PopUpBody, PopUpTitle, PopUpCloseButton } from "../pages/Vans.style";
+import {
+	PopUpHeader,
+	PopUpBody,
+	PopUpTitle,
+	PopUpCloseButton,
+} from "../pages/Vans.style";
 import { Fragment } from "react";
 import { Dialog } from "@material-ui/core";
 
@@ -40,32 +45,33 @@ export default function SimpleModal() {
 		};
 	}, [vendors]);
 
+	const renderDialog = () => {
+		if (selected) {
+			return (
+				<Dialog
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="simple-modal-title"
+					aria-describedby="simple-modal-description"
+				>
+					<PopUpHeader>
+						<PopUpTitle>{selected.name}</PopUpTitle>
+						<PopUpCloseButton onClick={handleClose}>&times;</PopUpCloseButton>
+					</PopUpHeader>
+					<PopUpBody></PopUpBody>
+				</Dialog>
+			);
+		}
+	};
 	return (
 		<Fragment>
-			{ console.log(selected)}
-
 			<Map
 				data={vendors}
 				selected={selected}
 				setOpen={setOpen}
 				setSelected={setSelected}
 			/>
-			<Dialog
-
-				open={open}
-				onClose={handleClose}
-				aria-labelledby="simple-modal-title"
-				aria-describedby="simple-modal-description"
-			>
-
-				<PopUpHeader>
-					<PopUpTitle>{selected.name}</PopUpTitle>
-					<PopUpCloseButton onClick={handleClose}>&times;</PopUpCloseButton>
-				</PopUpHeader>
-				<PopUpBody></PopUpBody>
-			</Dialog>
+			{renderDialog()}
 		</Fragment>
-
 	);
 }
-
