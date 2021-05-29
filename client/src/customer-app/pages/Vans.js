@@ -58,7 +58,8 @@ export default function SimpleModal() {
 						<PopUpTitle>{selected.name}</PopUpTitle>
 						<PopUpCloseButton onClick={handleClose}>&times;</PopUpCloseButton>
 					</PopUpHeader>
-					<PopUpBody></PopUpBody>
+					<PopUpBody>{selected.locationDetails} </PopUpBody>
+
 				</Dialog>
 			);
 		}
