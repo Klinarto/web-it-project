@@ -9,6 +9,7 @@ import {
   Title,
   VansList,
 } from "./Vans.style";
+import { useHistory } from "react-router";
 // import { objectIsEmpty } from "../../utilities/Utils";
 
 export default function Vans() {
@@ -16,6 +17,7 @@ export default function Vans() {
   const [vendors, setVendors] = useState([]);
   const [selected, setSelected] = useState(null);
 
+  const history = useHistory();
   // const checkSelected = (vendors) => {};
 
   useEffect(() => {
@@ -65,6 +67,10 @@ export default function Vans() {
           <button
             onClick={() => {
               localStorage.setItem("vendor", JSON.stringify(selected));
+              console.log("is selected?" + selected);
+              if (selected) {
+                history.push("/customer/menu");
+              }
             }}
           >
             Order

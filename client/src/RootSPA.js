@@ -200,9 +200,16 @@ export function App() {
         <Route path="/customer/vans">
           <Vans />
         </Route>
-        <Route path="/customer/menu">
-          <Menu />
-        </Route>
+        {localStorage.getItem("vendor") ? (
+          <Route path="/customer/menu">
+            <Menu />
+          </Route>
+        ) : (
+          <Route path="/customer/menu">
+            <Redirect to="/customer/vans" />
+          </Route>
+        )}
+
         <Route path="/help">
           <Help />
         </Route>
