@@ -17,54 +17,56 @@ export default function MenuItem(props) {
 		setOpen(true);
 	};
 
-  // const updateOrder = () => {
-  // 	setOrder((prevOrder) => ({
-  // 		...prevOrder,
-  // 		[name]: quantity,
-  // 	}));
-  // };
+	// const updateOrder = () => {
+	// 	setOrder((prevOrder) => ({
+	// 		...prevOrder,
+	// 		[name]: quantity,
+	// 	}));
+	// };
 
-  useEffect(() => {
-    const updateOrder = () => {
-      setOrder((prevOrder) => ({
-        ...prevOrder,
-        [name]: quantity,
-      }));
-    };
+	useEffect(() => {
+		const updateOrder = () => {
+			setOrder((prevOrder) => ({
+				...prevOrder,
+				[name]: quantity,
+			}));
+		};
 
-    if (quantity >= 0) {
-      updateOrder();
-    }
-    // console.log("updating order");
+		console.log(quantity);
 
-    return () => {};
-  }, [quantity, setOrder, name]);
-  return (
-    <Fragment>
-      <MenuItemModal
-        open={open}
-        setOpen={setOpen}
-        item={item}
-        returnQuantity={setQuantity}
-        startQuantity={quantity}
-      />
-      <Division onClick={() => handleClickOpen()}>
-        <div>
-          <ImageBig src={item["image"]} />
-        </div>
-        <div>
-          <UL>
-            <b>{item["name"]}</b> <Price>{item["price"]}</Price>
-          </UL>
-          <UL>{item["detail"]}</UL>
-        </div>
-      </Division>
-    </Fragment>
-  );
+		if (quantity >= 0) {
+			updateOrder();
+		}
+		// console.log("updating order");
+
+		return () => {};
+	}, [quantity, setOrder, name]);
+	return (
+		<Fragment>
+			<MenuItemModal
+				open={open}
+				setOpen={setOpen}
+				item={item}
+				returnQuantity={setQuantity}
+				startQuantity={quantity}
+			/>
+			<Division onClick={() => handleClickOpen()}>
+				<div>
+					<ImageBig src={item["image"]} />
+				</div>
+				<div>
+					<UL>
+						<b>{item["name"]}</b> <Price>{item["price"]}</Price>
+					</UL>
+					<UL>{item["detail"]}</UL>
+				</div>
+			</Division>
+		</Fragment>
+	);
 }
 
 {
-  /* <div>
+	/* <div>
 					<Buttons>
 						<IconButton
 							aria-label="Remove"
