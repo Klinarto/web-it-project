@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Map from "../../shared/components/Map";
 import axios from "axios";
-// import { Wrapper, PopUpHeader, PopUpBody, PopUpTitle, PopUpCloseButton } from "../pages/Vans.style";
+import { PopUpHeader, PopUpBody, PopUpTitle, PopUpCloseButton } from "../pages/Vans.style";
 import { Fragment } from "react";
 import { Dialog } from "@material-ui/core";
 
@@ -42,6 +42,8 @@ export default function SimpleModal() {
 
 	return (
 		<Fragment>
+			{ console.log(selected)}
+
 			<Map
 				data={vendors}
 				selected={selected}
@@ -49,15 +51,21 @@ export default function SimpleModal() {
 				setSelected={setSelected}
 			/>
 			<Dialog
+
 				open={open}
 				onClose={handleClose}
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description"
 			>
-				{/* {body}
-         */}
-        hello
-      </Dialog>
+
+				<PopUpHeader>
+					<PopUpTitle>{selected.name}</PopUpTitle>
+					<PopUpCloseButton onClick={handleClose}>&times;</PopUpCloseButton>
+				</PopUpHeader>
+				<PopUpBody></PopUpBody>
+			</Dialog>
 		</Fragment>
+
 	);
 }
+

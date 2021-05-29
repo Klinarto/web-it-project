@@ -42,6 +42,7 @@ cursor: pointer;
 
 export const PopUpBody = styled.div`
   padding: 10px 15px;
+  
 
 `;
 
