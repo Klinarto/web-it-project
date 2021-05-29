@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Container, Title, LeftWrapper } from "./VendorOrderList.style";
 import axios from "axios";
 import LinkToOrder from "../components/LinkToOrder";
+import FilterOrder from "../../shared/components/FilterOrder";
 
 export default function VendorOrderList() {
 	const [orderList, setOrderHistory] = useState([]);
+	// const[filter, setFilter]= useState({});
+	const changeFilter = (event) => {
+		console.log(event.target.value);
+	}
 
 	useEffect(() => {
 		let isMounted = true;
@@ -31,6 +36,7 @@ export default function VendorOrderList() {
 			<LeftWrapper>
 				<br />
 				<Title>Outstanding Orders</Title>
+				<FilterOrder status={orderList.status} changeFilter={changeFilter}/>
 			</LeftWrapper>
 			<hr />
 			<br />

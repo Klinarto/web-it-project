@@ -41,7 +41,7 @@ export const Closing = styled.div`
 
 export const Box = styled.div`
 	max-width: 80vw;
-	font-size: 40px;
+	font-size: 32px;
 	position: relative;
 	flex: 2;
 	flex-direction: Column;
