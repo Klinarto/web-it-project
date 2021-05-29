@@ -20,6 +20,8 @@ import { ThemeProvider } from "@material-ui/styles";
 
 export default function LinkToOrder(props) {
 	const { orderId, customerId, foodItems, status, createdAt } = props.order;
+	const stat = props.stat;
+	console.log(stat);
 	//update status to the database.
 	const updateStatus = async (updatedStatus) => {
 		try {
@@ -38,9 +40,7 @@ export default function LinkToOrder(props) {
 
 	function checkStatus(check) {
 		if (status== "cancelled"){
-			if(check != "declined"){
 				return true;
-				}
 		}
 		if (status == "declined") {
 			if(check != "cancelled"){
@@ -93,7 +93,10 @@ export default function LinkToOrder(props) {
 			},
 		},
 	});
+	
 
+	function renderOrder(){
+	
 	return (
 		<Container >
 			<div>
@@ -102,10 +105,12 @@ export default function LinkToOrder(props) {
 					style={{ textDecoration: "none", color: "black" }}
 				>
 
-			<OrderTitle>Order {orderId} </OrderTitle>
+			<OrderTitle>Order {orderId} - {status}</OrderTitle>
 				<Button variant="default"color="default">
 				Order detail
 				</Button>
+				
+						
 			</Link>
 
 				<Division>
@@ -136,8 +141,9 @@ export default function LinkToOrder(props) {
 
 					<InnerDiv>
 						<OrderList>
+
 							<OrderItem>
-								<b>Customer:</b> {customerId.email}
+								<b>Customer:</b> {customerId.firstName } {customerId.lastName }
 							</OrderItem>
 							<OrderItem>
 								<b>Items ordered: </b>
@@ -214,4 +220,19 @@ export default function LinkToOrder(props) {
 
 		</Container>
 	);
+	}
+
+
+	if(stat===status || stat==="all"){
+		return(<>{renderOrder()}</>)
+	}
+	else if(stat==="active" && (status !=="declined") && (status !== "fulfilled") &&(status !== "cancelled")){
+			return(<>{renderOrder()}</>)
+	}
+	else{
+		return(<></>)
+	}
+	
 }
+
+// & status != "declined" & status != "fulfilled"

@@ -6,9 +6,11 @@ import FilterOrder from "../../shared/components/FilterOrder";
 
 export default function VendorOrderList() {
 	const [orderList, setOrderHistory] = useState([]);
-	// const[filter, setFilter]= useState({});
+	const [stat, setStat]=useState("");
+
 	const changeFilter = (event) => {
 		console.log(event.target.value);
+		setStat(event.target.value);
 	}
 
 	useEffect(() => {
@@ -20,6 +22,7 @@ export default function VendorOrderList() {
 				if (isMounted) {
 					setOrderHistory(res.data);
 				}
+				setStat("active");
 			} catch (error) {
 				console.log(error.response.data);
 			}
@@ -30,26 +33,31 @@ export default function VendorOrderList() {
 			isMounted = false;
 		};
 	}, [orderList]);
+	
+	
+	
 
 	return (
 		<Container>
 			<LeftWrapper>
 				<br />
 				<Title>Outstanding Orders</Title>
-				<FilterOrder status={orderList.status} changeFilter={changeFilter}/>
+				<FilterOrder changeFilter={changeFilter}/>
 			</LeftWrapper>
 			<hr />
 			<br />
-			{renderLaptopOrder(orderList)}
+			{renderLaptopOrder(orderList, stat)}
 			<br />
 		</Container>
 	);
 }
 
-function renderLaptopOrder(array) {
+function renderLaptopOrder(array, stat) {
+	
+	
 	try {
 		const row = array.map((order, key) => (
-			<LinkToOrder key={key} order={order} />
+			<LinkToOrder key={key} order={order} stat={stat} />
 		));
 		return row;
 	} catch (error) {

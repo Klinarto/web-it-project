@@ -121,9 +121,8 @@ export function VendorOrderDetails() {
 
 	function checkStatus(check) {
 		if (status== "cancelled"){
-			if(check != "declined"){
 			return true;
-			}
+
 		}
 		if (status == "declined") {
 			return true;
@@ -169,7 +168,7 @@ export function VendorOrderDetails() {
 				<Container>
 					<DivisionTop>
 						<div>
-							<H2>Order Number #{orderId} </H2>
+							<H2>Order Number #{orderId} - {status} </H2>
 							<Customer>
 								<b>Customer Name: </b>
 								{customerFName} {customerLName}
