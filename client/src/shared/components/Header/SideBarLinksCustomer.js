@@ -59,18 +59,20 @@ export default function SideBarLinks() {
           </ListItemIcon>
           <ListItemText primary={"Vans (Work In Progress)"} />
         </ListItem>
-        <ListItem
-          button
-          key={"menu"}
-          onClick={() => {
-            history.push("/customer/menu");
-          }}
-        >
-          <ListItemIcon>
-            <RestaurantMenuIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Menu"} />
-        </ListItem>
+        {auth.isLoggedIn && (
+          <ListItem
+            button
+            key={"menu"}
+            onClick={() => {
+              history.push("/customer/menu");
+            }}
+          >
+            <ListItemIcon>
+              <RestaurantMenuIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Menu"} />
+          </ListItem>
+        )}
         {auth.isLoggedIn && (
           <ListItem
             button
