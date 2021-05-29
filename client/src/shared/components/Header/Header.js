@@ -29,12 +29,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     color: grey[50],
-    fontFamily: "",
   },
   subTitle: {
     flexGrow: 1,
     color: grey[500],
-    fontFamily: "Dawning of a New Day",
   },
   customColor: {
     backgroundColor: grey[900],
