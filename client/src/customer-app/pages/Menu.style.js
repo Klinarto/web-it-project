@@ -204,10 +204,6 @@ export const ROW = styled.div`
 		grid-gap: 20px;
 	}
 
-	@media ${device.tablet} {
-		grid-template-columns: 1fr 1fr 1fr 1fr;
-		grid-gap: 20px;
-	}
 	@media ${device.laptop} {
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 		grid-gap: 20px;

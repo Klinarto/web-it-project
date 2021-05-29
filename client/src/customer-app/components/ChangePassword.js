@@ -159,6 +159,7 @@ export default function ChangePassword({ changePassword }) {
 				<Edit>
 					<Button
 						variant="contained"
+						color="primary"
 						onClick={() => {
 							if (confirmPass === newPass) {
 								differentPassword();

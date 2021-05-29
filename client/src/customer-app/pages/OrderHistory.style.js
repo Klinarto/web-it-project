@@ -3,24 +3,27 @@ import { device } from "../../shared/components/device";
 
 export const Title = styled.h1`
   font-size: 32px;
+  padding-left:20px;
 `;
 
-export const LeftWrapper = styled.div`
-  justify-content: center;
-  min-width: 50%;
-`;
+// export const LeftWrapper = styled.div`
+//   justify-content: center;
+//   min-width: 50%;
+// `;
 
 export const Container = styled.div`
   height: 100vh;
   position: relative;
   flex: 1;
   flex-direction: column;
-  display: flex;
+  display: block;
   padding: 0;
   margin-top: 0.5%;
   margin-bottom: 5%;
   margin-left: auto;
   margin-right: auto;
+  padding:5px;
+  
   @media ${device.mobileS} {
     height: 100%;
   }
@@ -38,47 +41,94 @@ export const Container = styled.div`
 
 export const Division = styled.div`
   /* max-height: 20%; */
-  flex: 4;
-  /* overflow-y: auto; */
-  display: flex;
-  justify-content: space-between;
-  margin: 10px;
-  padding: 10px;
+  display:flex;
+  align-items:center;
+  flex:2;
+  flex-direction:row;
+  justify-content:space-between;
+  padding: 15px;
+  box-shadow: 2px 2px 2px 2px lightgrey;
+  
+
+  @media ${device.mobileS} {
+    font-size:12px;
+    width:80vw;
+    
+
+  }
+  @media ${device.mobileM} {
+    font-size:12px;
+    width:90vw;
+  }
+
+  @media ${device.laptop} {
+    font-size:18px;
+    width:70vw;
+  }
 `;
 
-export const innerDiv = styled.div`
-  margin-left: auto;
-  margin-right: auto;
+export const InnerDiv = styled.div`
+  display:flex;
+  justify-content:space-between;
+  margin-right: 10px;
+  margin-left:auto;
+  padding:0px;
 `;
+
+
+
+export const TopDiv = styled.div`
+  display:flex;
+  flex:2;
+  flex-direction:row;
+  justify-content:space-between;
+  @media ${device.mobileS} {
+    width:90vw;
+  }
+  @media ${device.mobileM} {
+    width:90vw;
+  }
+
+  @media ${device.laptop} {
+    width:70vw;
+  }
+`;
+
+
 
 export const OrderTitle = styled.h1`
   text-align: left;
-  font-size: 22px;
+  font-size: 20px;
   font: roboto (to be changed);
+  padding-left:5px;
   margin-top: 2%;
   margin-bottom: 0.5%;
 `;
 
+export const ButtonDiv = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top:auto;
+  margin-bottom:auto;
+  margin-left:auto;
+  margin-right:auto;
+  align-self: right;
+`;
+
 export const OrderList = styled.ul`
+  align-self:left;
   list-style: none;
   margin: 0;
   padding: 5px;
   padding-left: 15px;
-  margin-bottom: 5%;
 `;
 export const OrderItem = styled.li`
   font-size: 18px;
+  color:grey;
   list-style-type: none;
-  margin-bottom: 5%;
 `;
 
-export const FoodItem = styled.li`
-  font-size: 18px;
-  list-style-type: none;
-  color: grey;
-  margin-left: auto;
-  margin-right: auto;
-`;
 
 export const OrderPrice = styled.li`
   font-size: 18px;
@@ -152,4 +202,12 @@ export const MyButton = styled.button`
     color: black;
     background: #fff;
   }
+`;
+
+export const Status = styled.h3`
+  text-align: right;
+  font-size: 18px;
+  color: 	#75c1ae;
+  margin-top: 5px;
+  margin-bottom: 3px;
 `;

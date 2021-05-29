@@ -136,6 +136,7 @@ export default function EditProfile(props) {
 				</BackDiv>
 				<Edit>
 					<Button
+						variant="contained"
 						color="primary"
 						onClick={() => {
 							updateProfile(
