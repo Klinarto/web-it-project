@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Map from "../../shared/components/Map";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import {
 	PopUpHeader,
 	PopUpBody,
 	PopUpTitle,
 	PopUpCloseButton,
+	OrderButton
 } from "../pages/Vans.style";
 import { Fragment } from "react";
 import { Dialog } from "@material-ui/core";
@@ -52,7 +54,14 @@ export default function SimpleModal() {
 	const renderDistance = () => {
 		if (selected && selected.location != currentLocation && currentLocation) {
 			const distance = calculateDistance(selected.location, currentLocation);
-			return <p>{distance}</p>;
+			return <p>{distance.toFixed(2)} m away from you</p>;
+		}
+		return null;
+	};
+	const renderRating = () => {
+		if (selected && selected.location != currentLocation && currentLocation) {
+			const distance = calculateDistance(selected.location, currentLocation);
+			return <p>{distance.toFixed(2)} m away from you</p>;
 		}
 		return null;
 	};
@@ -70,9 +79,18 @@ export default function SimpleModal() {
 						<PopUpCloseButton onClick={handleClose}>&times;</PopUpCloseButton>
 					</PopUpHeader>
 					<PopUpBody>
-						{selected.locationDetails}
+						<p>{selected.locationDetails}</p>
 						{renderDistance()}
+						<p>{selected.rating}</p>
 					</PopUpBody>
+
+					<Link
+						to={{ pathname: `/customer/menu/` }}
+
+					><OrderButton onClick={() => { localStorage.setItem("vendor", JSON.stringify(selected)) }}>Make an order</OrderButton>
+
+					</Link>
+
 				</Dialog>
 			);
 		}
