@@ -87,12 +87,12 @@ export function MyAccount() {
 										</Line>
 
 										<Edit>
-											<Button color="primary" onClick={() => setEdit(true)}>
+											<Button color="default" onClick={() => setEdit(true)}>
 												Edit Profile
 											</Button>
 										</Edit>
 										<Edit>
-											<Button color="primary" onClick={() => setPassword(true)}>
+											<Button color="default" onClick={() => setPassword(true)}>
 												Change Password
 											</Button>
 										</Edit>

@@ -47,6 +47,7 @@ export const Division = styled.div`
 `;
 
 
+
 export const InnerDiv = styled.div`
   /* margin-left: auto;
   margin-right: auto; */
