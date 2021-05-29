@@ -22,11 +22,19 @@ import { objectIsEmpty } from "../../utilities/Utils";
 
 export default function Cart() {
 	const history = useHistory();
+	var isUpdate = false;
 
 	// Fetch the order details from the local storage.
 	// This will be replaced with cookie in later version of implementation.
 	const orderList = JSON.parse(localStorage.getItem("order"));
 	const orderPrice = JSON.parse(localStorage.getItem("price"));
+	let orderUpdated = null;
+
+	if (localStorage.getItem("curr_order")) {
+		isUpdate = true;
+		orderUpdated = JSON.parse(localStorage.getItem("curr_order"));
+		console.log(orderUpdated);
+	}
 
 	// Organise the order details and send to the database.
 	const makeOrder = async (order) => {
@@ -53,6 +61,30 @@ export default function Cart() {
 		return;
 	};
 
+	const updateOrder = async (order) => {
+		const userData = JSON.parse(localStorage.getItem("userData"));
+		console.log(userData);
+		const data = { vendorId: orderUpdated["vendorId"]["_Id"] };
+		const orderId = orderUpdated["orderId"];
+		try {
+			if (!objectIsEmpty(order)) {
+				data["foodItems"] = order;
+			}
+			const res = await axios.put(`/order/${orderId}`, data, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			localStorage.removeItem("order");
+			localStorage.removeItem("price");
+			localStorage.removeItem("curr_order");
+			console.log(res);
+		} catch (error) {
+			console.log(error.response.data);
+		}
+		return;
+	}
+
 	var totalPrice = 0;
 	Object.entries(orderPrice).map((item) => {
 		return (totalPrice += parseFloat(item[1]));
@@ -61,7 +93,7 @@ export default function Cart() {
 	// Render
 	return (
 		<Container>
-			<Status>Confirm your order</Status>
+			{isUpdate ? <Status>Confirm your update</Status> : <Status>Confirm your order</Status>}
 			<Division>
 				<LeftWrapper>
 					{Object.entries(orderList).map(function (item, key) {
@@ -97,14 +129,23 @@ export default function Cart() {
 				</div>
 			</DivisionBottom>
 			<Logo alt="machine-logo" src={coffeeMachine} />
-			<MyButton
-				onClick={() => {
+			{isUpdate ? 
+				<MyButton
+				onClick={() => { 
+					updateOrder(orderList);
+					history.push("/customer/orderHistory");
+				}}>
+				update order
+				</MyButton> :
+				<MyButton
+				onClick={() => { 
 					makeOrder(orderList);
 					history.push("/customer/orderHistory");
-				}}
-			>
+				}}>
 				make order
-			</MyButton>
+				</MyButton>
+				}
+			
 		</Container>
 	);
 }
