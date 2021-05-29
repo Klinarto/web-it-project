@@ -35,7 +35,7 @@ export default function Map(props) {
   };
 
   const mapContainerStyle = {
-    height: "100vh",
+    height: "calc(100vh - 64px - 3vh)",
     width: "100%",
     // height: "95vh",
     // width: "100%",

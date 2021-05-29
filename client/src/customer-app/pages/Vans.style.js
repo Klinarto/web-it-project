@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   background-color: blue;
   position: absolute;
-  left: 70%;
+  transform: translate(-50%, 50%);
+  left: 50%;
   bottom: 50%;
 `;
 export const VanName = styled.div``;
