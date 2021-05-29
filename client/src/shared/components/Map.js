@@ -44,6 +44,7 @@ export default function Map(props) {
   const mapRef = useRef();
   const selected = props.selected;
   const setSelected = props.setSelected;
+  const setOpen = props.setOpen;
 
   // const getCurrentLocation = useCallback(() => {
   // 	if ("geolocation" in navigator) {
@@ -112,7 +113,10 @@ export default function Map(props) {
       return data.map((element) => {
         return (
           <Marker
-            onClick={() => setSelected(element)}
+            onClick={() => {
+              setSelected(element);
+              setOpen(true);
+            }}
             key={element.id}
             title={element.name}
             position={{ lat: element.location.lat, lng: element.location.lng }}

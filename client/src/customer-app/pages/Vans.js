@@ -1,0 +1,63 @@
+import React, { useState, useEffect } from "react";
+import Map from "../../shared/components/Map";
+import axios from "axios";
+// import { Wrapper, PopUpHeader, PopUpBody, PopUpTitle, PopUpCloseButton } from "../pages/Vans.style";
+import { Fragment } from "react";
+import { Dialog } from "@material-ui/core";
+
+export default function SimpleModal() {
+	const [vendors, setVendors] = useState([]);
+	// const [modalStyle] = React.useState(getModalStyle);
+
+	const [selected, setSelected] = useState(null);
+	const [open, setOpen] = React.useState(false);
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	useEffect(() => {
+		// used for cleanup
+		let isMounted = true;
+
+		// fetch list of vendors from db
+		const fetchVendors = async () => {
+			try {
+				const res = await axios.get("/vendor");
+				if (isMounted) {
+					setVendors(res.data);
+					// console.log(vendors);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		fetchVendors();
+
+		return () => {
+			isMounted = false;
+		};
+	}, [vendors]);
+
+	return (
+		<Fragment>
+			<Map
+				data={vendors}
+				selected={selected}
+				setOpen={setOpen}
+				setSelected={setSelected}
+			/>
+			<Dialog
+				open={open}
+				onClose={handleClose}
+				aria-labelledby="simple-modal-title"
+				aria-describedby="simple-modal-description"
+			>
+				{/* {body}
+         */}
+        hello
+      </Dialog>
+		</Fragment>
+	);
+}
