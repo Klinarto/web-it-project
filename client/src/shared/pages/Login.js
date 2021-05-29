@@ -7,7 +7,7 @@ import {
   RightImage,
   LeftImage,
   Title,
-} from "./Welcome.style";
+} from "./welcome.style";
 import coffeeBackground from "../../images/coffeeBackground.png";
 // import SignIn from "../components/Login";
 

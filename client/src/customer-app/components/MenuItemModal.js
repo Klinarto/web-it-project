@@ -8,6 +8,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import TextField from "@material-ui/core/TextField";
 import { Fragment } from "react";
+// import {Img } from "../pages/Menu.style"
 // import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 export default function MenuItemModal(props) {
 	const { open, setOpen, item, returnQuantity } = props;
@@ -121,6 +122,7 @@ export default function MenuItemModal(props) {
 									alignItems: "center",
 									overflow: "hidden",
 									height: "80vh",
+									
 								}}
 							/>
 						</div>

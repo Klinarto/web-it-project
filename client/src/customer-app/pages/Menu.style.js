@@ -13,15 +13,31 @@ export const Division = styled.div`
 	/* overflow-y: auto; */
 	display: flex;
 	justify-content: space-between;
-	margin: 10px;
-	padding: 0;
+	padding: 10px;
+
+	&:hover {
+	  cursor: pointer;
+      background-color: lightgrey;
+    }
 `;
 
-// export const ImageDiv = styled.div`
-//   width:100%;
-//   height: auto;
-//   margin-left : auto;
-//   margin-right : auto;
+// export const Img = styled.img`
+// 	position: absolute;
+// 	/* object-fit: cover;
+// 	object-position: 15% 85%; */
+// 	display: flex;
+// 	justify-Content: center;
+// 	align-Items: center;
+// 	overflow: hidden;
+// 	height: 80vh;
+
+// 	/* @media ${device.mobileL} {
+// 		max-width: 0vw;
+// 	}
+
+// 	@media ${device.laptop} {
+// 		max-width: 50vw;
+// 	} */
 // `;
 
 export const UL = styled.li`
