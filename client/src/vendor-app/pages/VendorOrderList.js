@@ -7,18 +7,23 @@ export default function VendorOrderList() {
 	const [orderList, setOrderHistory] = useState([]);
 
 	useEffect(() => {
+		let isMounted = true;
+		console.log("Fetching vendor orders");
 		const fetchOrder = async () => {
 			try {
 				const res = await axios.get("/order");
-				setOrderHistory(res.data);
+				if (isMounted) {
+					setOrderHistory(res.data);
+				}
 			} catch (error) {
-				console.log(error);
+				console.log(error.response.data);
 			}
 		};
 		fetchOrder();
-		console.log(orderList);
-		console.log(axios.defaults.headers.common["x-access-token"]);
-		return () => {};
+		// console.log(orderList);
+		return () => {
+			isMounted = false;
+		};
 	}, [orderList]);
 
 	return (
