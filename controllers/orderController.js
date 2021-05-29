@@ -3,32 +3,23 @@ const MenuItem = require("../models/menuItem");
 
 // get all outstanding orders
 const getOrders = async (req, res) => {
-	const filterCustomer = { status: { $nin: [ "cancelled", "declined"] } };
-	const filterVendor = { status: { $nin: ["fulfilled" , "cancelled", "declined"] } };
+	const filter = {};
 	if ((req.customer || req.vendor) && !(req.customer || req.vendor)) {
 		return res.status(401).send("No token provided");
 	}
 	if (req.customer) {
-		filterCustomer["customerId"] = req.customer.id;
+		filter["customerId"] = req.customer.id;
 	} else if (req.vendor) {
-		filterVendor["vendorId"] = req.vendor.id;
+		filter["vendorId"] = req.vendor.id;
 	}
 
 	try {
 		// Find all documents where their status is not fulfilled
-		if (req.customer) {
-			const orders = await Order.find(filterCustomer)
-			.populate("vendorId", ["name"])
-			.populate("customerId", ["firstName", "lastName", "email"], "Customer");
-			return res.send(orders);
-		} else if (req.vendor) {
-			const orders = await Order.find(filterVendor)
-			.populate("vendorId", ["name"])
-			.populate("customerId", ["firstName", "lastName", "email"], "Customer");
-			return res.send(orders);
-		}
 
-		
+		const orders = await Order.find(filter)
+			.populate("vendorId", ["name"])
+			.populate("customerId", ["firstName", "lastName", "email"], "Customer");
+		return res.send(orders);
 	} catch (error) {
 		console.error(error);
 		return res.status(400).send("Database query failed");

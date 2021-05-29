@@ -33,6 +33,16 @@ export default function Vans() {
 		};
 	}, [vendors]);
 
+	const storeVendorData = () => {
+		console.log(selected);
+		if (selected) {
+			const vendor = { id: selected._id, name: selected.name };
+			localStorage.setItem("vendor", JSON.stringify(vendor));
+		} else {
+			console.log("Vendor not selected");
+		}
+	};
+
 	return (
 		<Fragment>
 			<Map data={vendors} selected={selected} setSelected={setSelected} />
@@ -50,7 +60,7 @@ export default function Vans() {
 			})}
 			<button
 				onClick={() => {
-					localStorage.setItem("vendor", JSON.stringify(selected));
+					storeVendorData();
 				}}
 			>
 				Order

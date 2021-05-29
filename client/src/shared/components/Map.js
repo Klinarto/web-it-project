@@ -13,6 +13,7 @@ import {
 } from "@react-google-maps/api";
 import mapStyle from "../../utilities/Mapstyle";
 import useCurrentLocation from "./useCurrentLocation";
+import { calculateDistance } from "../../utilities/Utils";
 
 export default function Map(props) {
 	// used to center map, default center is Melbourne
@@ -125,16 +126,36 @@ export default function Map(props) {
 
 	const displayData = () => {
 		if (data) {
-			return data.map((element) => {
+			return data.map((element, key) => {
 				return (
 					<Marker
-						key={element.id}
+						key={key}
 						title={element.name}
 						position={{ lat: element.location.lat, lng: element.location.lng }}
 					/>
 				);
 			});
 		}
+	};
+
+	const displayDistance = () => {
+		if (currentLocation && selected.location != currentLocation) {
+			const distance = calculateDistance(currentLocation, selected.location);
+			return <p>{distance}</p>;
+		}
+		return null;
+	};
+
+	const displayRating = () => {
+		if (selected.rating) {
+			let numRatings = selected.rating.length;
+			let ratingTotal = selected.rating.reduce((a, b) => a + b);
+
+			let rating = ratingTotal / numRatings;
+
+			return <p>{rating}</p>;
+		}
+		return null;
 	};
 
 	// render the map
@@ -162,6 +183,8 @@ export default function Map(props) {
 							<div>
 								<h2>{selected.name}</h2>
 								<p>{selected.locationDetails}</p>
+								{displayRating()}
+								{displayDistance()}
 							</div>
 						</InfoWindow>
 					) : null}
