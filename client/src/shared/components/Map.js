@@ -5,12 +5,7 @@ import React, {
 	useCallback,
 	useRef,
 } from "react";
-import {
-	GoogleMap,
-	InfoWindow,
-	Marker,
-	useLoadScript,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import mapStyle from "../../utilities/Mapstyle";
 import useCurrentLocation from "./useCurrentLocation";
 import { calculateDistance } from "../../utilities/Utils";
@@ -41,13 +36,16 @@ export default function Map(props) {
 	};
 
 	const mapContainerStyle = {
-		height: "95vh",
+		height: "calc(100vh - 64px - 3vh)",
 		width: "100%",
+		// height: "95vh",
+		// width: "100%",
 	};
 
 	const mapRef = useRef();
 	const selected = props.selected;
 	const setSelected = props.setSelected;
+	const setOpen = props.setOpen;
 
 	// const getCurrentLocation = useCallback(() => {
 	// 	if ("geolocation" in navigator) {
@@ -88,22 +86,9 @@ export default function Map(props) {
 		return () => {};
 	}, [currentLocation]);
 
-	useEffect(() => {
-		if (selected) {
-			panTo(selected.location);
-		}
-
-		return () => {};
-	}, [selected]);
-
 	// when the map loads, create a ref to the map to avoid re-renders
 	const onMapLoad = useCallback((map) => {
 		mapRef.current = map;
-	}, []);
-
-	const panTo = useCallback(({ lat, lng }) => {
-		mapRef.current.panTo({ lat, lng });
-		mapRef.current.setZoom(14);
 	}, []);
 
 	const displayCurrentLocation = () => {
@@ -126,10 +111,14 @@ export default function Map(props) {
 
 	const displayData = () => {
 		if (data) {
-			return data.map((element, key) => {
+			return data.map((element) => {
 				return (
 					<Marker
-						key={key}
+						onClick={() => {
+							setSelected(element);
+							setOpen(true);
+						}}
+						key={element.id}
 						title={element.name}
 						position={{ lat: element.location.lat, lng: element.location.lng }}
 					/>
@@ -138,60 +127,36 @@ export default function Map(props) {
 		}
 	};
 
-	const displayDistance = () => {
-		if (currentLocation && selected.location != currentLocation) {
-			const distance = calculateDistance(currentLocation, selected.location);
-			return <p>{distance}</p>;
-		}
-		return null;
-	};
-
-	const displayRating = () => {
-		if (selected.rating) {
-			let numRatings = selected.rating.length;
-			let ratingTotal = selected.rating.reduce((a, b) => a + b);
-
-			let rating = ratingTotal / numRatings;
-
-			return <p>{rating}</p>;
-		}
-		return null;
-	};
-
 	// render the map
 	const renderMap = () => {
 		return (
-			<Fragment>
-				<GoogleMap
-					mapContainerStyle={mapContainerStyle}
-					center={center}
-					zoom={zoom}
-					options={options}
-					onLoad={onMapLoad}
-				>
-					{displayData()}
-					{selected ? (
-						<InfoWindow
-							position={{
-								lat: selected.location.lat,
-								lng: selected.location.lng,
-							}}
-							onCloseClick={() => {
-								setSelected(null);
-							}}
-						>
-							<div>
-								<h2>{selected.name}</h2>
-								<p>{selected.locationDetails}</p>
-								{displayRating()}
-								{displayDistance()}
-							</div>
-						</InfoWindow>
-					) : null}
-					{displayCurrentLocation()}
-				</GoogleMap>
-				{/* <button onClick={() => panTo(currentLocation)}>Current location</button> */}
-			</Fragment>
+			<GoogleMap
+				mapContainerStyle={mapContainerStyle}
+				center={center}
+				zoom={zoom}
+				options={options}
+				onLoad={onMapLoad}
+			>
+				{displayData()}
+				{selected
+					? // <InfoWindow
+					  // 	position={{
+					  // 		lat: selected.location.lat,
+					  // 		lng: selected.location.lng,
+					  // 	}}
+					  // 	onCloseClick={() => {
+					  // 		setSelected(null);
+					  // 	}}
+					  // >
+					  // 	<div>
+					  // 		<div><h2>{selected.name}</h2>
+					  // 			<p>{selected.locationDetails}</p></div>
+					  // 	</div>
+					  // </InfoWindow>
+					  ""
+					: null}
+				{displayCurrentLocation()}
+			</GoogleMap>
 		);
 	};
 

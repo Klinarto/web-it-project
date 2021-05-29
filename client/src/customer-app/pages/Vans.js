@@ -1,21 +1,25 @@
-import React, { useState, Fragment, useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import Map from "../../shared/components/Map";
 import axios from "axios";
 import {
-	LeftDetail,
-	RightDetail,
-	Container,
-	Title,
-	VansList,
-} from "./Vans.style";
-import { useHistory } from "react-router";
-// import { objectIsEmpty } from "../../utilities/Utils";
+	PopUpHeader,
+	PopUpBody,
+	PopUpTitle,
+	PopUpCloseButton,
+} from "../pages/Vans.style";
+import { Fragment } from "react";
+import { Dialog } from "@material-ui/core";
 
-export default function Vans() {
-	// array of vendors
+export default function SimpleModal() {
 	const [vendors, setVendors] = useState([]);
+	// const [modalStyle] = React.useState(getModalStyle);
+
 	const [selected, setSelected] = useState(null);
+	const [open, setOpen] = React.useState(false);
+
+	const handleClose = () => {
+		setOpen(false);
+	};
 
 	const history = useHistory();
 	// const checkSelected = (vendors) => {};
@@ -44,42 +48,33 @@ export default function Vans() {
 		};
 	}, [vendors]);
 
+	const renderDialog = () => {
+		if (selected) {
+			return (
+				<Dialog
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="simple-modal-title"
+					aria-describedby="simple-modal-description"
+				>
+					<PopUpHeader>
+						<PopUpTitle>{selected.name}</PopUpTitle>
+						<PopUpCloseButton onClick={handleClose}>&times;</PopUpCloseButton>
+					</PopUpHeader>
+					<PopUpBody>{selected.locationDetails} </PopUpBody>
+				</Dialog>
+			);
+		}
+	};
 	return (
 		<Fragment>
-			<Container>
-				<LeftDetail>
-					<Title>Closest Vans</Title>
-					{vendors.map((vendor) => {
-						return (
-							// {
-							//   isClicked_vendorid ? <> : <>
-							// }
-							<VansList
-								key={vendor.id}
-								onClick={() => {
-									setSelected(vendor);
-								}}
-							>
-								{vendor.name}
-							</VansList>
-						);
-					})}
-					<button
-						onClick={() => {
-							if (selected) {
-								const vendor = { id: selected._id, name: selected.name };
-								localStorage.setItem("vendor", JSON.stringify(vendor));
-								history.push("/customer/menu");
-							}
-						}}
-					>
-						Order
-					</button>
-				</LeftDetail>
-				<RightDetail>
-					<Map data={vendors} selected={selected} setSelected={setSelected} />
-				</RightDetail>
-			</Container>
+			<Map
+				data={vendors}
+				selected={selected}
+				setOpen={setOpen}
+				setSelected={setSelected}
+			/>
+			{renderDialog()}
 		</Fragment>
 	);
 }

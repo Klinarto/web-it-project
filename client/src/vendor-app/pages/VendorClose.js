@@ -35,7 +35,7 @@ export function VendorClose() {
 		if (min <= 0 && sec <= 0) {
 			min = 0;
 			sec = "00";
-			auth.logout;
+			auth.logout();
 			history.push("/vendor/");
 		}
 
@@ -100,7 +100,7 @@ export function VendorClose() {
 								style={{ fontSize: "24px" }}
 								onClick={() => {
 									closeVan();
-									auth.logout;
+									auth.logout();
 									history.push("/");
 								}}
 							>

@@ -1,83 +1,94 @@
 import styled from "styled-components";
 import { device } from "../../shared/components/device";
 
-export const Container = styled.div`
-  display: flex;
+export const Wrapper = styled.div`
+	position: absolute;
+	transform: translate(-50%, 50%);
+	left: 50%;
+	bottom: 50%;
+	transition: 3s ease-in-out;
+	z-index: 10;
+	background-color: white;
+	width: 500px;
+	max-width: 80%;
+	border: 1px solid black;
+	border-radius: 10px;
+	&:active {
+		transform: translate(-50%, -50%) scale(1);
+	}
+`;
+export const PopUpHeader = styled.div`
+	padding: 10px 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid black;
 `;
 
-export const CurrentLocationButton = styled.button`
-  float: right;
+export const PopUpTitle = styled.div`
+	font-size: 1.25rem;
+	font-weight: bold;
 `;
 
-export const LeftDetail = styled.div`
-  width: 25%;
-  text-align: center;
-  & > {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  @media ${device.tablet} {
-    width: %;
-  }
+export const PopUpCloseButton = styled.button`
+	cursor: pointer;
+	border: none;
+	outline: none;
+	background: none;
+	font-size: 1.25rem;
+	font-weight: bold;
 `;
 
 export const RightDetail = styled.div`
-  width: 75%;
+	width: 75%;
 `;
 export const Title = styled.h1`
-  /* font-family: initial; */
+	/* font-family: initial; */
 `;
 
-export const VansList = styled.div`
-  width: 100%;
-  height: 90px;
+export const PopUpBody = styled.div`
+	padding: 10px 15px;
 
-  &:active {
-    background-color: #aad9cd;
-  }
+	&:active {
+		background-color: #aad9cd;
+	}
 
-  &:hover {
-    background-color: #aad9cd;
-  }
+	&:hover {
+		background-color: #aad9cd;
+	}
 `;
 
-export const OrderButton = styled.button`
-  position: fixed;
-  bottom: 0;
-  height: 12vh;
-  width: 30%;
-  border-radius: 5px;
-  background-color: white;
-  &:focus {
-    color: white;
-    background: black;
-    cursor: pointer;
-  }
+export const Overlay = styled.div`
+	position: fixed;
+	opacity: 0;
+	transition: 200ms ease-in-out;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	pointer-events: none;
+	&::active {
+		opacity: 1;
+		pointer-events: all;
+	}
 `;
 
-export const VanButton = styled.button`
-  width: 100%;
-  height: 15vh;
-  border-radius: 5px;
-  background-color: white;
-  border-color: white;
-
-  &:focus {
-    color: black;
-    background: #aad9cd;
-    cursor: pointer;
-  }
-
-  &:hover {
-    background-color: blue;
-  }
+export const Aaaa = styled.div`
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2;
 `;
-
-export const VanButtonTitle = styled.p`
-  text-align: left;
-`;
-
-export const VanButtonDistance = styled.p`
-  text-align: right;
+export const Bbbb = styled.div`
+	width: 60%;
+	min-height: 200px;
+	background-color: white;
+	padding: 25px;
 `;
