@@ -7,7 +7,6 @@ import Interval from "../../shared/components/Interval";
 import {
 	InnerDivButtons,
 	ButtonDiv,
-	DeclineMessage,
 } from "./VendorOrderList.style";
 import {
 	Container,
@@ -121,6 +120,11 @@ export function VendorOrderDetails() {
 	}, [late]);
 
 	function checkStatus(check) {
+		if (status== "cancelled"){
+			if(check != "declined"){
+			return true;
+			}
+		}
 		if (status == "declined") {
 			return true;
 		}
@@ -275,9 +279,6 @@ export function VendorOrderDetails() {
 								>
 									Decline
 								</Button>
-								<DeclineMessage>
-									<b> {declineDisabled ? "ORDER DECLINED" : ""}</b>{" "}
-								</DeclineMessage>
 							</ThemeProvider>
 						</div>
 					</DivisionBottom>

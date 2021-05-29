@@ -3,7 +3,7 @@ const MenuItem = require("../models/menuItem");
 
 // get all outstanding orders
 const getOrders = async (req, res) => {
-	const filter = { status: { $ne: "fulfilled" } };
+	const filter = { status: { $nin: ["fulfilled" , "cancelled", "declined"] } };
 	if ((req.customer || req.vendor) && !(req.customer || req.vendor)) {
 		return res.status(401).send("No token provided");
 	}

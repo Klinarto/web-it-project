@@ -25,7 +25,7 @@ export const Container = styled.div`
     height: 100%;
   }
   @media ${device.tablet} {
-    width: 95vw;
+    width: 90vw;
   }
   @media ${device.mobileM} {
     height: 100%;
@@ -46,6 +46,7 @@ export const Division = styled.div`
   padding: 10px; */
 `;
 
+
 export const InnerDiv = styled.div`
   /* margin-left: auto;
   margin-right: auto; */
@@ -64,6 +65,7 @@ export const InnerDivButtons = styled.div`
 `;
 
 export const OrderTitle = styled.h1`
+
   text-align: left;
   font-size: 22px;
   font: roboto (to be changed);

@@ -39,11 +39,11 @@ import axios from "axios";
 import { AuthContext } from "./shared/auth-context";
 // import VendorRegister from "./vendor-app/pages/VendorRegister";
 
-// axios.defaults.baseURL = "http://localhost:5000";
-// axios.interceptors.request.use((request) => {
-// 	console.log("Starting Request", JSON.stringify(request, null, 2));
-// 	return request;
-// });
+axios.defaults.baseURL = "http://localhost:5000";
+axios.interceptors.request.use((request) => {
+	console.log("Starting Request", JSON.stringify(request, null, 2));
+	return request;
+});
 
 // eslint-disable-next-line no-unused-vars
 let logoutTimer;

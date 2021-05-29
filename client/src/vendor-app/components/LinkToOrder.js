@@ -7,7 +7,6 @@ import {
 	ButtonDiv,
 	InnerDivBot,
 	InnerDivButtons,
-	DeclineMessage,
 	OrderList,
 	FoodItem,
 	Division,
@@ -21,7 +20,6 @@ import { ThemeProvider } from "@material-ui/styles";
 
 export default function LinkToOrder(props) {
 	const { orderId, customerId, foodItems, status, createdAt } = props.order;
-
 	//update status to the database.
 	const updateStatus = async (updatedStatus) => {
 		try {
@@ -37,9 +35,17 @@ export default function LinkToOrder(props) {
 		return;
 	};
 
+
 	function checkStatus(check) {
+		if (status== "cancelled"){
+			if(check != "declined"){
+				return true;
+				}
+		}
 		if (status == "declined") {
-			return true;
+			if(check != "cancelled"){
+				return true;
+			}
 		}
 		if (status == "fulfilled") {
 			return true;
@@ -62,6 +68,7 @@ export default function LinkToOrder(props) {
 		}
 		return false;
 	}
+
 
 	const [receiveDisabled, setReceiveDisabled] = useState(
 		checkStatus("received")
@@ -88,17 +95,19 @@ export default function LinkToOrder(props) {
 	});
 
 	return (
-		<Container>
+		<Container >
 			<div>
-				<Link
+			<Link
 					to={{ pathname: `/vendor/orderdetails/${orderId}` }}
 					style={{ textDecoration: "none", color: "black" }}
 				>
-					<OrderTitle>Order {orderId} </OrderTitle>
-				</Link>
-				<DeclineMessage>
-					<b> {declineDisabled ? "ORDER DECLINED" : ""}</b>{" "}
-				</DeclineMessage>
+
+			<OrderTitle>Order {orderId} </OrderTitle>
+				<Button variant="default"color="default">
+				Order detail
+				</Button>
+			</Link>
+
 				<Division>
 					<InnerDiv>
 						<InnerDivBot>
@@ -120,6 +129,10 @@ export default function LinkToOrder(props) {
 							</ThemeProvider>
 						</InnerDivBot>
 					</InnerDiv>
+					<Link
+					to={{ pathname: `/vendor/orderdetails/${orderId}` }}
+					style={{ textDecoration: "none", color: "black" }}
+				>
 
 					<InnerDiv>
 						<OrderList>
@@ -139,7 +152,7 @@ export default function LinkToOrder(props) {
 							</OrderItem>
 						</OrderList>
 					</InnerDiv>
-
+					</Link>
 					<InnerDiv>
 						<InnerDivButtons>
 							<ButtonDiv>
@@ -198,6 +211,7 @@ export default function LinkToOrder(props) {
 
 				<hr />
 			</div>
+
 		</Container>
 	);
 }

@@ -6,29 +6,11 @@ export const Title = styled.h1`
 `;
 
 export const H1 = styled.h1`
-
-	@media ${device.mobileS} {
-		font-size:18px;
-	}
-	@media ${device.mobileL} {
-		font-size:24px;
-	}
-	@media ${device.mobileM} {
-		font-size:20px;
-	}
+	font-size:28px;
 `;
 
 export const H2 = styled.h2`
-
-	@media ${device.mobileS} {
-		font-size:16px;
-	}
-	@media ${device.mobileL} {
-		font-size:22px;
-	}
-	@media ${device.mobileM} {
-		font-size:18px;
-	}
+	font-size:24px;
 `;
 
 export const Division = styled.div`
@@ -46,21 +28,17 @@ export const Division = styled.div`
 
 	@media ${device.mobileS} {
 		flex-direction:row-reverse;
-		font-size:14px;
 	}
 
 	@media ${device.mobileL} {
 		flex-direction:row-reverse;
-		font-size:14px;
 	}
 	@media ${device.mobileM} {
 		flex-direction:row-reverse;
-		font-size:14px;
 	}
 
 	@media ${device.laptop} {
 		flex-direction: column;
-		font-size:18px;
 	}
 
 `;
@@ -76,20 +54,18 @@ export const PopDivision = styled.div`
 
 	@media ${device.mobileS} {
 		flex-direction:column-reverse;
-		font-size:14px;
 	}
 
 	@media ${device.mobileL} {
 		flex-direction:column-reverse;
-		font-size:14px;
 	}
 	@media ${device.mobileM} {
 		flex-direction:column-reverse;
-		font-size:14px;
 	}
 
 	@media ${device.laptop} {
 		flex-direction: row;
+
 	}
 
 `;

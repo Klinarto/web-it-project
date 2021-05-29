@@ -17,6 +17,7 @@ export default function VendorOrderList() {
 		};
 		fetchOrder();
 		console.log(orderList);
+		console.log(axios.defaults.headers.common["x-access-token"]);
 		return () => {};
 	}, [orderList]);
 
