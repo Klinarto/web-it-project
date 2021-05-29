@@ -21,6 +21,10 @@ export default function Menu() {
 	let isUpdate = false;
 	let orderPrice = {};
 
+	if (localStorage.getItem("order")) {
+		orderList = JSON.parse(localStorage.getItem("order"));
+	}
+
 	const [menu, setMenu] = useState(null);
 	const [order, setOrder] = useState(orderList);
 
@@ -28,8 +32,6 @@ export default function Menu() {
 		isUpdate = true;
 		orderUpdate = JSON.parse(localStorage.getItem("curr_order"));
 	}
-
-
 
 	const style = {
 		margin: 0,
@@ -51,7 +53,6 @@ export default function Menu() {
 		if (array) {
 			const row = array.map((item, key) => {
 				let quantity = 0;
-			
 
 				return (
 					<MenuItem
@@ -118,7 +119,7 @@ export default function Menu() {
 	const finalOrder = (order) => {
 		if (orderUpdate) {
 			for (const [name, quantity] of Object.entries(orderUpdate["foodItems"])) {
-				console.log(name,  quantity);
+				console.log(name, quantity);
 				order[name] += quantity;
 			}
 		}
@@ -176,7 +177,7 @@ export default function Menu() {
 			);
 		}
 		return null;
-	}
+	};
 
 	useEffect(() => {
 		console.log(order);
