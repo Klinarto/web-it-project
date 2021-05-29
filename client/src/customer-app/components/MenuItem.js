@@ -9,14 +9,13 @@ import MenuItemModal from "./MenuItemModal";
 import { Fragment } from "react";
 
 export default function MenuItem(props) {
-  const { item, setOrder } = props;
-  const [open, setOpen] = useState(false);
-  const name = item.name;
-  const [quantity, setQuantity] = useState(0);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+	const { item, setOrder } = props;
+	const [open, setOpen] = useState(false);
+	const name = item.name;
+	const [quantity, setQuantity] = useState(0);
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
 
   // const updateOrder = () => {
   // 	setOrder((prevOrder) => ({

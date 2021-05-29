@@ -96,9 +96,15 @@ export function Order() {
 		}
 	};
 
+
+  const updateOrder = () => {
+		console.log(order);
+		localStorage.setItem("curr_order", JSON.stringify(order));
+  };
+
 	const displayOrderInteractions = (updatedAt) => {
 		let timer = <Interval updatedAt={updatedAt} setLate={setLate} />;
-		let changeOrderButton = <MyButton>Change order</MyButton>;
+		let changeOrderButton = <MyButton onClick = {() => updateOrder()}>Change order</MyButton>;
 		let cancelOrderButton = (
 			<MyButton onClick={() => cancelOrder()}>Cancel order</MyButton>
 		);
