@@ -8,7 +8,10 @@ import CloseIcon from "@material-ui/icons/Close";
 import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import TextField from "@material-ui/core/TextField";
 import { Fragment } from "react";
-// import {Img } from "../pages/Menu.style"
+import {Img , ImgDiv, PopDivision} from "../pages/Menu.style"
+import Button from "@material-ui/core/Button";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
 // import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 export default function MenuItemModal(props) {
 	const { open, setOpen, item, returnQuantity } = props;
@@ -25,8 +28,16 @@ export default function MenuItemModal(props) {
 
 		handleClose();
 	};
+
+	const theme = createMuiTheme({
+		palette: {
+			primary: {
+				main: "#aad9cd",
+			},}
+	});
 	return (
 		<Fragment>
+
 			{/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
 				Open dialog
 			</Button> */}
@@ -37,7 +48,7 @@ export default function MenuItemModal(props) {
 				maxWidth={"md"}
 			>
 				{" "}
-				<div style={{ display: "flex" }}>
+				<PopDivision>
 					<IconButton
 						onClick={() => handleClose()}
 						style={{ position: "absolute", top: "-1%", left: "-1%" }}
@@ -102,33 +113,32 @@ export default function MenuItemModal(props) {
 								alignItems: "center",
 								justifyContent: "center",
 								margin: "auto",
+								paddingBottom:"10px",
 							}}
-						>
-							<button onClick={() => sendQuantityToParent()}>
+						><ThemeProvider theme={theme}>
+							<Button 
+								variant="contained"
+								color="primary"
+								onClick={() => sendQuantityToParent()}>
 								Add {quantity > 0 ? quantity : null} to cart
 								{quantity > 0 ? ` • $${quantity * 4.5}` : null}
-							</button>
+							</Button>
+							</ThemeProvider>
+							<br></br>
 						</div>
 					</div>
 
 					<div>
-						<div>
-							<img
+						<ImgDiv>
+							<Img
 								src={item.image}
 								alt=""
-								style={{
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									overflow: "hidden",
-									height: "80vh",
-									
-								}}
 							/>
-						</div>
+						</ImgDiv>
 					</div>
-				</div>
+				</PopDivision>
 			</Dialog>
 		</Fragment>
+	
 	);
 }

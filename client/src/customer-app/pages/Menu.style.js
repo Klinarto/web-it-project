@@ -21,24 +21,72 @@ export const Division = styled.div`
     }
 `;
 
-// export const Img = styled.img`
-// 	position: absolute;
-// 	/* object-fit: cover;
-// 	object-position: 15% 85%; */
-// 	display: flex;
-// 	justify-Content: center;
-// 	align-Items: center;
-// 	overflow: hidden;
-// 	height: 80vh;
+export const PopDivision = styled.div`
+	/* max-height: 20%; */
+	
+	flex: 2;
 
-// 	/* @media ${device.mobileL} {
-// 		max-width: 0vw;
-// 	}
+	/* overflow-y: auto; */
+	display: flex;
+	justify-content: space-between;
 
-// 	@media ${device.laptop} {
-// 		max-width: 50vw;
-// 	} */
-// `;
+	@media ${device.mobileL} {
+		flex-direction:column-reverse;
+	}
+	@media ${device.mobileM} {
+		flex-direction:column-reverse;
+	}
+
+	@media ${device.laptop} {
+		flex-direction: row;
+	}
+
+`;
+
+export const Img = styled.img`
+	/* position: absolute;
+	object-fit: cover;
+	object-position: 15% 85%; */
+	display: block;
+	object-fit: cover;
+	align-self: center;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+
+
+	@media ${device.mobileL} {
+		width:100%;
+		height:280px;
+	}
+
+	@media ${device.mobileM} {
+		width:100%;
+		height:280px;
+	}
+
+	@media ${device.laptop} {
+		height: 70vh;
+		width:500px;
+	}
+`;
+
+
+export const ImgDiv = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow-x: hidden;
+
+	@media ${device.mobileL} {
+
+	}
+
+	@media ${device.laptop} {
+
+	}
+`;
+
 
 export const UL = styled.li`
 	list-style-type: none;
