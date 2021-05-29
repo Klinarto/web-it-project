@@ -40,7 +40,7 @@ export default function SideLinks() {
         <li>
           <MyNavLink to="/customer/login">
             <Button variant="contained" color="secondary">
-              CUSTOMER LOGIN
+              {tabletSize ? "CUSTOMER LOGIN" : "LOGIN"}
             </Button>
           </MyNavLink>
         </li>
