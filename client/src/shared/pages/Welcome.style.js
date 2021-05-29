@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "../../shared/components/device";
+import { device } from "../components/device";
 
 export const Container = styled.div`
 	height: 93vh;
@@ -14,20 +14,17 @@ export const Container = styled.div`
 	padding: 0;
 `;
 
-export const Title = styled.h1`
-	text-align: center;
-`;
-
-export const LeftImage = styled.img`
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-`;
-
 export const LeftWrapper = styled.div`
 	flex: 0 0 100%;
 	max-width: 100%;
 	margin-bottom: 4%;
+
+	> * {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
 
 	@media ${device.tablet} {
 		flex: 0 0 60%;
@@ -38,6 +35,30 @@ export const LeftWrapper = styled.div`
 		flex: 0 0 40%;
 		max-width: 40%;
 	}
+`;
+
+export const LeftImage = styled.img`
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+`;
+
+export const LeftDiv = styled.div`
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+`;
+
+export const ButtonDiv = styled.div`
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 32px;
+`;
+
+export const Title = styled.h1`
+	text-align: center;
+	font-family: "Dawning of a New Day";
 `;
 
 export const MyButton = styled.button`
@@ -54,6 +75,7 @@ export const MyButton = styled.button`
 	&:hover {
 		color: black;
 		background: #fff;
+		cursor: pointer;
 	}
 `;
 
@@ -76,8 +98,6 @@ export const RightImage = styled.img`
 		flex: 0 0 60%;
 		max-width: 60%;
 	}
-
-	// margin: auto;
 `;
 
 export const HeaderWrapper = styled.h1`

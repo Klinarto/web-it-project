@@ -17,14 +17,19 @@ import MenuItem from "../components/MenuItem";
 
 export default function Menu() {
 	let orderList = null;
+	let orderUpdate = null;
+	let isUpdate = false;
 	let orderPrice = {};
-
-	if (localStorage.getItem("order")) {
-		orderList = JSON.parse(localStorage.getItem("order"));
-	}
 
 	const [menu, setMenu] = useState(null);
 	const [order, setOrder] = useState(orderList);
+
+	if (localStorage.getItem("curr_order")) {
+		isUpdate = true;
+		orderUpdate = JSON.parse(localStorage.getItem("curr_order"));
+	}
+
+
 
 	const style = {
 		margin: 0,
@@ -46,11 +51,7 @@ export default function Menu() {
 		if (array) {
 			const row = array.map((item, key) => {
 				let quantity = 0;
-				if (order) {
-					if (Object.keys(order).includes(item.name)) {
-						quantity = order[item.name];
-					}
-				}
+			
 
 				return (
 					<MenuItem
@@ -115,7 +116,12 @@ export default function Menu() {
 
 	// Take the current state of order when go to cart button is clicked.
 	const finalOrder = (order) => {
-		console.log("Final Order");
+		if (orderUpdate) {
+			for (const [name, quantity] of Object.entries(orderUpdate["foodItems"])) {
+				console.log(name,  quantity);
+				order[name] += quantity;
+			}
+		}
 		orderList = {};
 		for (const [key, value] of Object.entries(order)) {
 			if (value > 0) {
@@ -134,24 +140,43 @@ export default function Menu() {
 	};
 
 	const displayCart = () => {
-		if (order) {
-			const numItem = Object.values(order).reduce((a, b) => a + b, 0);
-			if (numItem > 0) {
-				return (
-					<Fab
-						variant="extended"
-						style={style}
-						onClick={() => {
-							finalOrder(order);
-						}}
-					>
-						<ShoppingCartIcon /> Cart
-					</Fab>
-				);
+		if (!isUpdate) {
+			if (order) {
+				const numItem = Object.values(order).reduce((a, b) => a + b, 0);
+				if (numItem > 0) {
+					return (
+						<Fab
+							variant="extended"
+							style={style}
+							onClick={() => {
+								finalOrder(order);
+							}}
+						>
+							<ShoppingCartIcon /> Cart
+						</Fab>
+					);
+				}
 			}
 		}
 		return null;
 	};
+
+	const displayUpdate = () => {
+		if (isUpdate) {
+			return (
+				<Fab
+					variant="extended"
+					style={style}
+					onClick={() => {
+						finalOrder(order);
+					}}
+				>
+					<ShoppingCartIcon /> Update
+				</Fab>
+			);
+		}
+		return null;
+	}
 
 	useEffect(() => {
 		console.log(order);
@@ -166,6 +191,7 @@ export default function Menu() {
 				<RightWrapper>
 					<Link to={auth.isLoggedIn ? "/customer/cart" : "/customer/login"}>
 						{displayCart()}
+						{displayUpdate()}
 						{/* <MyButton
 							aria-label="Go to cart"
 							onClick={() => {

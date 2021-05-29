@@ -2,7 +2,6 @@ import React from "react";
 import {
   Container,
   OrderTitle,
-
   OrderList,
   Division,
   OrderItem,
@@ -25,8 +24,8 @@ const theme = createMuiTheme({
 });
 
 export default function LinkToOrder(props) {
-	const { orderId, vendorId, foodItems, status, totalCost, createdAt } =
-		props.order;
+  const { orderId, vendorId, foodItems, status, totalCost, createdAt } =
+    props.order;
 
 	const parsedDate = parseDate(new Date(createdAt));
 	

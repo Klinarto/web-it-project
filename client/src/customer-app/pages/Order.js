@@ -17,6 +17,7 @@ import {
 } from "./Order.style";
 import axios from "axios";
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 export function Order() {
 	const [menu, setMenu] = useState(null);
 	const [order, setOrder] = useState(null);
@@ -96,9 +97,19 @@ export function Order() {
 		}
 	};
 
+
+  const updateOrder = () => {
+		console.log(order);
+		localStorage.setItem("curr_order", JSON.stringify(order));
+  };
+
 	const displayOrderInteractions = (updatedAt) => {
 		let timer = <Interval updatedAt={updatedAt} setLate={setLate} />;
-		let changeOrderButton = <MyButton>Change order</MyButton>;
+		let changeOrderButton = (
+			<Link to="/customer/menu" style={{textDecoration:'none'}}>
+					<MyButton onClick = {() => updateOrder()}>Change order</MyButton>
+			</Link>
+		);
 		let cancelOrderButton = (
 			<MyButton onClick={() => cancelOrder()}>Cancel order</MyButton>
 		);
