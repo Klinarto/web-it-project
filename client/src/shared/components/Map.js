@@ -8,7 +8,7 @@ import React, {
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import mapStyle from "../../utilities/Mapstyle";
 import useCurrentLocation from "./useCurrentLocation";
-import { calculateDistance } from "../../utilities/Utils";
+// import { calculateDistance } from "../../utilities/Utils";
 
 export default function Map(props) {
 	// used to center map, default center is Melbourne

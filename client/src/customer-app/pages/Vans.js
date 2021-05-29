@@ -9,20 +9,21 @@ import {
 } from "../pages/Vans.style";
 import { Fragment } from "react";
 import { Dialog } from "@material-ui/core";
+import useCurrentLocation from "../../shared/components/useCurrentLocation";
+import { calculateDistance } from "../../utilities/Utils";
 
 export default function SimpleModal() {
 	const [vendors, setVendors] = useState([]);
 	// const [modalStyle] = React.useState(getModalStyle);
 
 	const [selected, setSelected] = useState(null);
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useState(false);
+
+	const currentLocation = useCurrentLocation();
 
 	const handleClose = () => {
 		setOpen(false);
 	};
-
-	const history = useHistory();
-	// const checkSelected = (vendors) => {};
 
 	useEffect(() => {
 		// used for cleanup
@@ -48,6 +49,13 @@ export default function SimpleModal() {
 		};
 	}, [vendors]);
 
+	const renderDistance = () => {
+		if (selected && selected.location != currentLocation && currentLocation) {
+			const distance = calculateDistance(selected.location, currentLocation);
+			return <p>{distance}</p>;
+		}
+		return null;
+	};
 	const renderDialog = () => {
 		if (selected) {
 			return (
@@ -61,7 +69,10 @@ export default function SimpleModal() {
 						<PopUpTitle>{selected.name}</PopUpTitle>
 						<PopUpCloseButton onClick={handleClose}>&times;</PopUpCloseButton>
 					</PopUpHeader>
-					<PopUpBody>{selected.locationDetails} </PopUpBody>
+					<PopUpBody>
+						{selected.locationDetails}
+						{renderDistance()}
+					</PopUpBody>
 				</Dialog>
 			);
 		}
