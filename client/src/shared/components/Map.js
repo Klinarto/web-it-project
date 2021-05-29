@@ -42,8 +42,10 @@ export default function Map(props) {
 	};
 
 	const mapContainerStyle = {
-		height: "95vh",
+		height: "100vh",
 		width: "100%",
+		// height: "95vh",
+		// width: "100%",
 	};
 
 	const mapRef = useRef();
@@ -77,7 +79,7 @@ export default function Map(props) {
 			setData(props.data);
 			console.log(data);
 		}
-		return () => {};
+		return () => { };
 	}, [props.data, data]);
 
 	useEffect(() => {
@@ -87,7 +89,7 @@ export default function Map(props) {
 		} else {
 			setCenter({ lat: -37.8136, lng: 144.9631 });
 		}
-		return () => {};
+		return () => { };
 	}, [currentLocation, getCurrentLocation]);
 
 	// when the map loads, create a ref to the map to avoid re-renders
@@ -122,7 +124,7 @@ export default function Map(props) {
 		if (!objectIsEmpty(data)) {
 			return data.map((element) => {
 				return (
-					<Marker
+					<Marker onClick={() => setSelected(element)}
 						key={element.id}
 						title={element.name}
 						position={{ lat: element.location.lat, lng: element.location.lng }}
@@ -144,20 +146,23 @@ export default function Map(props) {
 			>
 				{displayData()}
 				{selected ? (
-					<InfoWindow
-						position={{
-							lat: selected.location.lat,
-							lng: selected.location.lng,
-						}}
-						onCloseClick={() => {
-							setSelected(null);
-						}}
-					>
-						<div>
-							<h2>{selected.name}</h2>
-							<p>{selected.locationDetails}</p>
-						</div>
-					</InfoWindow>
+					// <InfoWindow
+					// 	position={{
+					// 		lat: selected.location.lat,
+					// 		lng: selected.location.lng,
+					// 	}}
+					// 	onCloseClick={() => {
+					// 		setSelected(null);
+					// 	}}
+					// >
+					// 	<div>
+					// 		<div><h2>{selected.name}</h2>
+					// 			<p>{selected.locationDetails}</p></div>
+					// 	</div>
+					// </InfoWindow>
+					""
+
+
 				) : null}
 				{displayCurrentLocation()}
 			</GoogleMap>
