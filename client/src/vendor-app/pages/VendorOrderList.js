@@ -39,7 +39,7 @@ export default function VendorOrderList() {
 
 	return (
 		<Container>
-			<LeftWrapper>
+			<LeftWrapper >
 				<br />
 				<Title>Outstanding Orders</Title>
 				<FilterOrder changeFilter={changeFilter}/>
