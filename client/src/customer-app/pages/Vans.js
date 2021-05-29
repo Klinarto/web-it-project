@@ -2,69 +2,78 @@ import React, { useState, Fragment, useEffect } from "react";
 
 import Map from "../../shared/components/Map";
 import axios from "axios";
+import {
+  LeftDetail,
+  RightDetail,
+  Container,
+  Title,
+  VansList,
+} from "./Vans.style";
 // import { objectIsEmpty } from "../../utilities/Utils";
 
 export default function Vans() {
-	// array of vendors
-	const [vendors, setVendors] = useState([]);
-	const [selected, setSelected] = useState(null);
+  // array of vendors
+  const [vendors, setVendors] = useState([]);
+  const [selected, setSelected] = useState(null);
 
-	useEffect(() => {
-		// used for cleanup
-		let isMounted = true;
+  // const checkSelected = (vendors) => {};
 
-		// fetch list of vendors from db
-		const fetchVendors = async () => {
-			try {
-				const res = await axios.get("/vendor");
-				if (isMounted) {
-					setVendors(res.data);
-					// console.log(vendors);
-				}
-			} catch (error) {
-				console.log(error);
-			}
-		};
+  useEffect(() => {
+    // used for cleanup
+    let isMounted = true;
 
-		fetchVendors();
+    // fetch list of vendors from db
+    const fetchVendors = async () => {
+      try {
+        const res = await axios.get("/vendor");
+        if (isMounted) {
+          setVendors(res.data);
+          // console.log(vendors);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-		return () => {
-			isMounted = false;
-		};
-	}, [vendors]);
+    fetchVendors();
 
-	const storeVendorData = () => {
-		console.log(selected);
-		if (selected) {
-			const vendor = { id: selected._id, name: selected.name };
-			localStorage.setItem("vendor", JSON.stringify(vendor));
-		} else {
-			console.log("Vendor not selected");
-		}
-	};
+    return () => {
+      isMounted = false;
+    };
+  }, [vendors]);
 
-	return (
-		<Fragment>
-			<Map data={vendors} selected={selected} setSelected={setSelected} />
-			{vendors.map((vendor) => {
-				return (
-					<button
-						key={vendor.id}
-						onClick={() => {
-							setSelected(vendor);
-						}}
-					>
-						{vendor.name}
-					</button>
-				);
-			})}
-			<button
-				onClick={() => {
-					storeVendorData();
-				}}
-			>
-				Order
-			</button>
-		</Fragment>
-	);
+  return (
+    <Fragment>
+      <Container>
+        <LeftDetail>
+          <Title>Closest Vans</Title>
+          {vendors.map((vendor) => {
+            return (
+              // {
+              //   isClicked_vendorid ? <> : <>
+              // }
+              <VansList
+                key={vendor.id}
+                onClick={() => {
+                  setSelected(vendor);
+                }}
+              >
+                {vendor.name}
+              </VansList>
+            );
+          })}
+          <button
+            onClick={() => {
+              localStorage.setItem("vendor", JSON.stringify(selected));
+            }}
+          >
+            Order
+          </button>
+        </LeftDetail>
+        <RightDetail>
+          <Map data={vendors} selected={selected} setSelected={setSelected} />
+        </RightDetail>
+      </Container>
+    </Fragment>
+  );
 }
