@@ -81,7 +81,9 @@ const loginCustomer = async (req, res) => {
 
 const getCustomer = async (req, res) => {
 	try {
-		const customer = await Customer.findById(req.customer.id);
+		const customer = await Customer.findById(req.customer.id).select(
+			"-password"
+		);
 		if (!customer) {
 			return res.status(404).send("Customer not found");
 		}
@@ -93,7 +95,6 @@ const getCustomer = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-
 	try {
 		const customer = await Customer.findByIdAndUpdate(
 			req.customer.id,

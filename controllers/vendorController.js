@@ -127,7 +127,7 @@ const loginVendor = async (req, res) => {
 
 const getVendors = async (req, res) => {
 	try {
-		const vendors = await Vendor.find();
+		const vendors = await Vendor.find().select("-password");
 		return res.send(vendors);
 	} catch (error) {
 		console.error(error);
