@@ -27,6 +27,8 @@ export default function LinkToOrder(props) {
   const { orderId, vendorId, foodItems, status, totalCost, createdAt } =
     props.order;
 
+  const stat=props.stat;
+
   const parsedDate = parseDate(new Date(createdAt));
 
   function Quantity(foodlist) {
@@ -36,6 +38,8 @@ export default function LinkToOrder(props) {
     }
     return sum;
   }
+
+  function renderOrder(){
 
   return (
     <Container>
@@ -67,6 +71,17 @@ export default function LinkToOrder(props) {
       </Division>
     </Container>
   );
+
+  }
+  if(stat===status || stat==="all"){
+		return(<>{renderOrder()}</>)
+	}
+	else if(stat==="active" && (status !=="declined") && (status !== "fulfilled") &&(status !== "cancelled")){
+			return(<>{renderOrder()}</>)
+	}
+	else{
+		return(<></>)
+	}
 }
 
 {

@@ -3,9 +3,16 @@ import React, { useEffect, useState } from "react";
 import { Container, Title, Wrapper } from "./OrderHistory.style";
 import axios from "axios";
 import LinkToOrder from "../components/LinkToOrder";
+import FilterOrder from "../../shared/components/FilterOrder";
 
 export default function OrderHistory() {
 	const [orderList, setOrderHistory] = useState([]);
+	const [stat, setStat]=useState("active");
+
+	const changeFilter = (event) => {
+		console.log(event.target.value);
+		setStat(event.target.value);
+	}
 
 	useEffect(() => {
 		let isMounted = true;
@@ -30,16 +37,17 @@ export default function OrderHistory() {
 		<Container>
 			<Wrapper>
 				<Title>Orders</Title>
-				{renderLaptopOrder(orderList)}
+				<FilterOrder changeFilter={changeFilter}/>
+				{renderLaptopOrder(orderList, stat)}
 			</Wrapper>
 		</Container>
 	);
 }
 
-function renderLaptopOrder(array) {
+function renderLaptopOrder(array, stat) {
 	try {
 		const row = array.map((order, key) => (
-			<LinkToOrder key={key} order={order} />
+			<LinkToOrder key={key} order={order} stat={stat}/>
 		));
 		return row;
 	} catch (error) {

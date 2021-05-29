@@ -6,7 +6,7 @@ import FilterOrder from "../../shared/components/FilterOrder";
 
 export default function VendorOrderList() {
 	const [orderList, setOrderHistory] = useState([]);
-	const [stat, setStat]=useState("");
+	const [stat, setStat]=useState("active");
 
 	const changeFilter = (event) => {
 		console.log(event.target.value);
@@ -22,7 +22,7 @@ export default function VendorOrderList() {
 				if (isMounted) {
 					setOrderHistory(res.data);
 				}
-				setStat("active");
+				
 			} catch (error) {
 				console.log(error.response.data);
 			}
