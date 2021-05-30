@@ -149,7 +149,7 @@ export default function SimpleModal() {
 							<p>{renderDistance()}</p>
 						</VanDescription>
 						<Link to={{ pathname: `/customer/menu/` }}>
-							<OrderButton onClick={() => { localStorage.setItem(JSON.stringify(selected)) }}>Make an order</OrderButton>
+							<OrderButton onClick={() => { localStorage.setItem("vendor", JSON.stringify(selected)) }}>Make an order</OrderButton>
 						</Link>
 					</PopUpBody>
 
