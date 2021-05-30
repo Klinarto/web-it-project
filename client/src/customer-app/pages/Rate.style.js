@@ -1,8 +1,18 @@
 import styled from "styled-components";
+import { device } from "../../shared/components/device";
 
-export const Container = styled.div`
-  height: 90vh;
-  position: relative;
+
+export const TopWrapper = styled.div`
+  display: block;
+  padding-top: 16px;
+
+  @media ${device.mobileS} {
+		padding-left:30.3%;
+	}
+
+	@media ${device.laptop} {
+    padding-left: 45%;
+  }
 
   & > * {
     align-items: center;
@@ -10,35 +20,20 @@ export const Container = styled.div`
   }
 `;
 
-export const TopWrapper = styled.div`
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 16px;
-  width: 100%;
-`;
-export const TopImage = styled.img`
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-export const Title = styled.h1`
-  margin-bottom: 32px;
-`;
 
 export const Button = styled.button`
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 32px;
+  margin-top: 20px;
 
-  background-color: black;
+  background-color: #aad9cd;
   color: white;
-  padding: 15px 32px;
-  text-align: center;
+  padding: 7px 14px;
   transition: background 0.5s ease-in-out;
-  border-radius: 5px;
+  width: 37%;
+  border-radius: 10px;
+  border: none;
   &:hover {
     color: black;
     background: #fff;
@@ -46,8 +41,3 @@ export const Button = styled.button`
   }
 `;
 
-export const BottomImage = styled.img`
-  width: 100%;
-  height: 50%;
-  bottom: 0%;
-`;
