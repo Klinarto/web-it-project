@@ -14,7 +14,7 @@ import axios from "axios";
 import Map from "../../shared/components/Map";
 import useCurrentLocation from "../../shared/components/useCurrentLocation";
 
-// Simple Help Page
+// vendor map page, where vendor can set location and location details
 export function VendorAddress() {
 	const history = useHistory();
 
@@ -36,11 +36,12 @@ export function VendorAddress() {
 			});
 			console.log(res);
 		} catch (error) {
-			console.log(error.response.data);
+			console.log(error);
 		}
 		return;
 	};
 
+	// update vendor's location and location details
 	const updateLocation = async (locD) => {
 		const data = { ...locD, location: currentLocation };
 		try {
@@ -49,7 +50,7 @@ export function VendorAddress() {
 			});
 			console.log(res);
 		} catch (error) {
-			console.log(error.response.data);
+			console.log(error);
 		}
 		return;
 	};
@@ -78,8 +79,6 @@ export function VendorAddress() {
 							color="primary"
 							onClick={() => {
 								updateLocation({ locationDetails: locDetail });
-								console.log(currentLocation)
-								console.log({ locationDetails: locDetail });
 							}}
 						>
 							update

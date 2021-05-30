@@ -16,7 +16,7 @@ export function Rate(props) {
 			});
 			console.log(res);
 		} catch (error) {
-			console.log(error.response.data);
+			console.log(error);
 		}
 	};
 

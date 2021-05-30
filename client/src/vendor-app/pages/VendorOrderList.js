@@ -4,14 +4,15 @@ import axios from "axios";
 import LinkToOrder from "../components/LinkToOrder";
 import FilterOrder from "../../shared/components/FilterOrder";
 
+// page to display all of the vendor's order
 export default function VendorOrderList() {
 	const [orderList, setOrderHistory] = useState([]);
-	const [stat, setStat]=useState("active");
+	const [stat, setStat] = useState("active");
 
 	const changeFilter = (event) => {
 		console.log(event.target.value);
 		setStat(event.target.value);
-	}
+	};
 
 	useEffect(() => {
 		let isMounted = true;
@@ -22,9 +23,8 @@ export default function VendorOrderList() {
 				if (isMounted) {
 					setOrderHistory(res.data);
 				}
-				
 			} catch (error) {
-				console.log(error.response.data);
+				console.log(error);
 			}
 		};
 		fetchOrder();
@@ -33,16 +33,13 @@ export default function VendorOrderList() {
 			isMounted = false;
 		};
 	}, [orderList]);
-	
-	
-	
 
 	return (
 		<Container>
-			<LeftWrapper >
+			<LeftWrapper>
 				<br />
 				<Title>Outstanding Orders</Title>
-				<FilterOrder changeFilter={changeFilter}/>
+				<FilterOrder changeFilter={changeFilter} />
 			</LeftWrapper>
 			<hr />
 			<br />
@@ -53,8 +50,6 @@ export default function VendorOrderList() {
 }
 
 function renderLaptopOrder(array, stat) {
-	
-	
 	try {
 		const row = array.map((order, key) => (
 			<LinkToOrder key={key} order={order} stat={stat} />

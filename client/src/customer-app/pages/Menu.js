@@ -24,13 +24,10 @@ export default function Menu() {
 
 	if (localStorage.getItem("order")) {
 		orderList = JSON.parse(localStorage.getItem("order"));
-		// console.log(orderList);
-		// console.log(order);
 	}
 
 	const [menu, setMenu] = useState(null);
 	const [order, setOrder] = useState(orderList);
-	// console.log(order);
 
 	if (localStorage.getItem("curr_order")) {
 		isUpdate = true;
@@ -58,7 +55,6 @@ export default function Menu() {
 		if (array) {
 			const row = array.map((item, key) => {
 				let quantity = 0;
-				// console.log(item.name, order[item.name]);
 
 				if (order) {
 					if (order[item.name] > 0) {
@@ -108,8 +104,6 @@ export default function Menu() {
 	}, [menu]);
 
 	useEffect(() => {
-		// localStorage.setItem("order", JSON.stringify(order));
-		console.log(order);
 		return () => {};
 	}, [order]);
 
@@ -117,7 +111,6 @@ export default function Menu() {
 	const finalOrder = (order) => {
 		if (orderUpdate) {
 			for (const [name, quantity] of Object.entries(orderUpdate["foodItems"])) {
-				console.log(name, quantity);
 				order[name] += quantity;
 			}
 		}
@@ -134,7 +127,6 @@ export default function Menu() {
 				});
 			}
 		}
-		// console.log(orderList);
 		localStorage.setItem("price", JSON.stringify(orderPrice));
 		localStorage.setItem("order", JSON.stringify(orderList));
 	};

@@ -36,8 +36,6 @@ const Interval = (props) => {
 			setTimeLeft(calcTimeLeft());
 		}, 1000);
 
-		console.log(timeLeft);
-
 		return () => clearInterval(interval);
 	}, [calcTimeLeft, timeLeft]);
 

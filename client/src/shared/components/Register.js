@@ -100,7 +100,6 @@ export default function Register() {
 				break;
 
 			default:
-				// console.log(e.target.id, e.target.value);
 				setFormData((prevState) => {
 					return { ...prevState, [e.target.id]: e.target.value };
 				});
@@ -113,8 +112,6 @@ export default function Register() {
 
 	// duration for snackbar
 	const duration = 3000;
-
-	// console.log(formData);
 
 	const sendData = async () => {
 		console.log(formData);
@@ -130,14 +127,13 @@ export default function Register() {
 				severity: "success",
 			});
 			console.log(res);
-			console.log(res.data);
 		} catch (error) {
 			console.log(error);
 
 			// set snackbar details
 			setOpen(true);
 			setSnackbar({
-				data: error.response.data,
+				data: error,
 				severity: "error",
 			});
 		}

@@ -41,10 +41,8 @@ export default function Cart() {
 	// Organize the order details and send to the database.
 	const makeOrder = async (order) => {
 		try {
-			console.log(order);
-			const userData = JSON.parse(localStorage.getItem("userData"));
 			const vendorData = JSON.parse(localStorage.getItem("vendor"));
-			console.log(userData);
+
 			const data = { vendorId: vendorData["_id"] };
 
 			if (!objectIsEmpty(order)) {
@@ -59,15 +57,14 @@ export default function Cart() {
 			localStorage.removeItem("price");
 			console.log(res);
 		} catch (error) {
-			console.log(error.response.data);
+			console.log(error);
 		}
 		return;
 	};
 
 	const updateOrder = async (order) => {
 		const update = JSON.parse(localStorage.getItem("curr_order"));
-		const userData = JSON.parse(localStorage.getItem("userData"));
-		console.log(userData);
+
 		const data = { vendorId: update["vendorId"]["_Id"] };
 		const orderId = update["orderId"];
 		try {
@@ -88,7 +85,7 @@ export default function Cart() {
 			localStorage.removeItem("curr_order");
 			console.log(res);
 		} catch (error) {
-			console.log(error.response.data);
+			console.log(error);
 		}
 		return;
 	};

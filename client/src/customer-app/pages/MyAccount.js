@@ -28,7 +28,6 @@ export function MyAccount() {
 		const fetchAccount = async () => {
 			try {
 				const res = await axios.get("/customer/me");
-				console.log(res.data);
 				if (isMounted) {
 					setCustomer(res.data);
 				}
@@ -45,8 +44,6 @@ export function MyAccount() {
 	const changeState = () => {
 		setEdit(false);
 	};
-
-	console.log(customer);
 
 	function renderCustomer() {
 		if (customer) {

@@ -52,7 +52,6 @@ export default function Map(props) {
 
 		if (mounted && props.data) {
 			setData(props.data);
-			// console.log(data);
 		}
 		return () => {};
 	}, [props.data, data]);

@@ -48,9 +48,9 @@ export default function EditProfile(props) {
 
 	const updateProfile = async (updated) => {
 		try {
-			console.log(JSON.parse(updated));
 			const res = await axios.put("/customer/me", JSON.parse(updated));
 			console.log(res);
+
 			// set snackbar details
 			setOpen(true);
 			setSnackbar({

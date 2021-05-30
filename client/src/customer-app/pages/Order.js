@@ -111,7 +111,6 @@ export function Order() {
 	};
 
 	const updateOrder = () => {
-		console.log(order);
 		localStorage.setItem("curr_order", JSON.stringify(order));
 	};
 
@@ -155,7 +154,6 @@ export function Order() {
 		// if the order status isn't fulfilled, don't render
 		// the rate component
 		if (status != "fulfilled") {
-			console.log(order["vendorId"]["_id"]);
 			rate = null;
 		}
 

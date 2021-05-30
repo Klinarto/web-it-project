@@ -21,6 +21,8 @@ router.put("/me/password", verifyToken, vendorController.updateVanPassword);
 // Set van status or location
 router.put("/address", verifyToken, vendorController.updateVan);
 
+// Set van status
+router.put("/close", verifyToken, vendorController.updateVan);
 // Add van rating
 router.put("/rate", verifyToken, vendorController.addVanRating);
 

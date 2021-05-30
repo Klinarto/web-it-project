@@ -105,7 +105,6 @@ export default function SignIn() {
 			});
 
 			console.log(res);
-			console.log(res.data);
 
 			// store token
 			// localStorage.setItem("token", res.data.token);
@@ -129,7 +128,7 @@ export default function SignIn() {
 			// set snackbar details
 			setOpen(true);
 			setSnackbar({
-				data: error.response.data,
+				data: error,
 				severity: "error",
 			});
 		}

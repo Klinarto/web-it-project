@@ -25,6 +25,7 @@ import axios from "axios";
 import { useLocation } from "react-router";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
+// order detail page for vendor
 export function VendorOrderDetails() {
 	const [status, setStatus] = useState(null);
 	const [receiveDisabled, setReceiveDisabled] = useState(false);
@@ -61,7 +62,7 @@ export function VendorOrderDetails() {
 			);
 			console.log(res);
 		} catch (error) {
-			console.log(error.response.data);
+			console.log(error);
 		}
 		return;
 	};
@@ -76,7 +77,7 @@ export function VendorOrderDetails() {
 				setOrder(res.data);
 				setStatus(res.data.status);
 			} catch (error) {
-				console.log(error.response.data);
+				console.log(error);
 			}
 		};
 		fetchOneOrder();

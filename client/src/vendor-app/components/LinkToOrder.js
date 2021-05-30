@@ -21,21 +21,22 @@ import { ThemeProvider } from "@material-ui/styles";
 export default function LinkToOrder(props) {
 	const { orderId, customerId, foodItems, status, createdAt } = props.order;
 	const stat = props.stat;
+
 	// update status to the database.
 	const updateStatus = async (updatedStatus) => {
 		try {
-			console.log(JSON.parse(updatedStatus));
 			const res = await axios.put(
 				`/order/${orderId}`,
 				JSON.parse(updatedStatus)
 			);
 			console.log(res);
 		} catch (error) {
-			console.log(error.response.data);
+			console.log(error);
 		}
 		return;
 	};
 
+	// check the status of the order
 	function checkStatus(check) {
 		if (status == "cancelled") {
 			return true;

@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import {
-	Edit,
-	ButDiv,
-	BackDiv,
-	Division,
-} from "../pages/MyAccount.style";
+import { Edit, ButDiv, BackDiv, Division } from "../pages/MyAccount.style";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import axios from "axios";
 import { Snackbar } from "@material-ui/core";
@@ -29,7 +24,6 @@ export default function ChangePassword({ changePassword }) {
 
 	const updatePassword = async (updated) => {
 		try {
-			console.log(JSON.parse(updated));
 			const res = await axios.put("/customer/me/password", JSON.parse(updated));
 			console.log(res);
 
@@ -87,7 +81,6 @@ export default function ChangePassword({ changePassword }) {
 				break;
 		}
 	};
-
 
 	return (
 		<Division>
@@ -155,7 +148,7 @@ export default function ChangePassword({ changePassword }) {
 						color="primary"
 						disabled={
 							newPass.length === 0 ||
-							confirmPass!==newPass ||
+							confirmPass !== newPass ||
 							passwordHelper.length !== 0
 						}
 						onClick={() => {
@@ -163,9 +156,6 @@ export default function ChangePassword({ changePassword }) {
 								updatePassword(
 									`{"newPassword":"${newPass}","password":"${currPass}"}`
 								);
-							} else {
-								console.log(confirmPass);
-								console.log(newPass);
 							}
 						}}
 					>

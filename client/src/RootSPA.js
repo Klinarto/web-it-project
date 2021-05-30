@@ -32,13 +32,11 @@ import VendorAddress from "./vendor-app/pages/VendorAddress";
 import VendorClose from "./vendor-app/pages/VendorClose";
 import VendorOrderList from "./vendor-app/pages/VendorOrderList";
 import VendorOrderDetails from "./vendor-app/pages/VendorOrderDetails";
-import VendorProfile from "./vendor-app/pages/VendorProfile";
 
 import axios from "axios";
 
 import { AuthContext } from "./shared/auth-context";
 
-// axios.defaults.baseURL = "http://localhost:5000";
 // axios.interceptors.request.use((request) => {
 // 	console.log("Starting Request", JSON.stringify(request, null, 2));
 // 	return request;
@@ -68,10 +66,7 @@ export function App() {
 		const tokenExpDate =
 			expDate || new Date(new Date().getTime() + 1000 * 60 * 60);
 		setTokenExpDate(tokenExpDate);
-		// console.log("Setting token");
-		// console.log(token);
-		// axios.defaults.headers.common["x-access-token"] = token;
-		// console.log(axios.defaults.headers.common["x-access-token"]);
+
 		localStorage.setItem(
 			"userData",
 			JSON.stringify({
@@ -86,9 +81,7 @@ export function App() {
 		setToken(null);
 		setLoginType(null);
 		setTokenExpDate(null);
-		// console.log("Deleting token header");
 		delete axios.defaults.headers.common["x-access-token"];
-		// localStorage.removeItem("userData");
 		localStorage.clear();
 	}, []);
 
@@ -104,7 +97,6 @@ export function App() {
 	// Authentication and if there is a token in localStorage, set the login status to be Logged in
 	useEffect(() => {
 		const storedData = JSON.parse(localStorage.getItem("userData"));
-		// console.log("Relogging");
 		if (storedData && storedData.token && storedData.loginType) {
 			login(storedData.token, storedData.loginType);
 		}
@@ -174,9 +166,6 @@ export function App() {
 				<Route path="/vendor/orderdetails">
 					<VendorOrderDetails />
 				</Route>
-				<Route path="/vendor/profile">
-					<VendorProfile />
-				</Route>
 
 				<Route>
 					<Error404 />
@@ -238,9 +227,7 @@ export function App() {
 				<Route path="/vendor/orderdetails">
 					<VendorOrderDetails />
 				</Route>
-				<Route path="/vendor/profile">
-					<VendorProfile />
-				</Route>
+
 				<Route>
 					<Error404 />
 				</Route>

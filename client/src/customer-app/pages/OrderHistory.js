@@ -12,13 +12,11 @@ export default function OrderHistory() {
 	const [stat, setStat] = useState("active");
 
 	const changeFilter = (event) => {
-		console.log(event.target.value);
 		setStat(event.target.value);
 	};
 
 	useEffect(() => {
 		let isMounted = true;
-		console.log("Fetching customer orders");
 		const fetchOrder = async () => {
 			try {
 				const res = await axios.get("/order");

@@ -3,19 +3,15 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
 import { Container, DivisionButton, Closing, Box } from "./VendorAddress.style";
-import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../../shared/auth-context";
+import React, { useState, useEffect } from "react";
+// import { AuthContext } from "../../shared/auth-context";
 import axios from "axios";
 
 import { Time } from "../pages/VendorOrderDetail.style";
 
-// Simple Help Page
+// closing page for vendor
 export function VendorClose() {
-	// const vanname = useLocation().state;
-	// console.log(vanname)
-	const auth = useContext(AuthContext);
 	const history = useHistory();
-	const vanname = "Coffee2Go";
 
 	const Interval = () => {
 		const [seconds, setSeconds] = useState(60);
@@ -35,8 +31,7 @@ export function VendorClose() {
 		if (min <= 0 && sec <= 0) {
 			min = 0;
 			sec = "00";
-			auth.logout();
-			history.push("/vendor/");
+			history.push("/vendor/orderlist");
 		}
 
 		return (
@@ -58,14 +53,14 @@ export function VendorClose() {
 		try {
 			console.log(JSON.parse('{"status":"closed"}'));
 			const res = await axios.put(
-				`/vendor/${vanname}`,
+				"/vendor/close",
 				JSON.parse('{"status":"closed"}', {
 					headers: { "Content-Type": "application/json" },
 				})
 			);
 			console.log(res);
 		} catch (error) {
-			console.log(error.response.data);
+			console.log(error);
 		}
 		return;
 	};
@@ -100,7 +95,7 @@ export function VendorClose() {
 								style={{ fontSize: "24px" }}
 								onClick={() => {
 									closeVan();
-									auth.logout();
+									// auth.logout();
 									history.push("/");
 								}}
 							>
