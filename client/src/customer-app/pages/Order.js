@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Interval from "../../shared/components/Interval";
+import Rating from "./Rate"
 import coffeeMachine from "../../images/coffeeMachine.png";
 import {
 	Container,
@@ -126,6 +127,9 @@ export function Order() {
 				<MyButton> Back to orders </MyButton>
 			</Link>
 		);
+		let rate = (
+			<Rating vendorId={order["vendorId"]["_id"]}/>
+		)
 		let statusReq = ["fulfilled", "declined", "cancelled"];
 		if (statusReq.includes(status)) {
 			timer = null;
@@ -136,11 +140,16 @@ export function Order() {
 			timer = null;
 			changeOrderButton = null;
 		}
+		if (status != "fulfilled") {
+			console.log(order["vendorId"]["_id"]);
+			rate = null;
+		}
 		if (late) {
 			timer = null;
 		}
 		return (
 			<Fragment>
+				{rate}
 				{timer}
 				{changeOrderButton}
 				{cancelOrderButton}
