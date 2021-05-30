@@ -4,7 +4,6 @@ import { ThemeProvider } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
 import { Container, DivisionButton, Closing, Box } from "./VendorAddress.style";
 import React, { useState, useEffect } from "react";
-// import { AuthContext } from "../../shared/auth-context";
 import axios from "axios";
 
 import { Time } from "../pages/VendorOrderDetail.style";
@@ -95,8 +94,7 @@ export function VendorClose() {
 								style={{ fontSize: "24px" }}
 								onClick={() => {
 									closeVan();
-									// auth.logout();
-									history.push("/");
+									history.push("/vendor/address");
 								}}
 							>
 								Close Business
