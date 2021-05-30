@@ -133,7 +133,7 @@ export default function Register() {
 			// set snackbar details
 			setOpen(true);
 			setSnackbar({
-				data: error,
+				data: error.response.data,
 				severity: "error",
 			});
 		}
