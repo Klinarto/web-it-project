@@ -18,8 +18,8 @@ export function Welcome() {
       <LeftWrapper>
         <LeftImage alt="cookie-logo" src={cookieLogo} />
         <Title>Snacks in a Van</Title>
-        <Link to="/customer/vans">
-          <MyButton>Find the closest Van</MyButton>
+        <Link to="/customer/menu">
+          <MyButton>See our Menu</MyButton>
         </Link>
       </LeftWrapper>
       {/* Right container made to 60% of the screen*/}
