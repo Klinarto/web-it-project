@@ -9,10 +9,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 import ListAltIcon from "@material-ui/icons/ListAlt";
-// import CheckIcon from "@material-ui/icons/Check";
-// import StarsIcon from "@material-ui/icons/Stars";
 import HelpIcon from "@material-ui/icons/Help";
 import CallIcon from "@material-ui/icons/Call";
 import HomeIcon from "@material-ui/icons/Home";
@@ -59,20 +56,6 @@ export default function SideBarLinks() {
 					</ListItemIcon>
 					<ListItemText primary={"Find Vans"} />
 				</ListItem>
-				{auth.isLoggedIn && (
-					<ListItem
-						button
-						key={"menu"}
-						onClick={() => {
-							history.push("/customer/menu");
-						}}
-					>
-						<ListItemIcon>
-							<RestaurantMenuIcon />
-						</ListItemIcon>
-						<ListItemText primary={"Menu"} />
-					</ListItem>
-				)}
 				{auth.isLoggedIn && (
 					<ListItem
 						button
