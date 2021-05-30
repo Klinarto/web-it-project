@@ -10,10 +10,24 @@ import {
 import { Rating } from "@material-ui/lab";
 import coffeeBackgroundHalf from "../../images/coffeeBackgroundHalf.png";
 import coffeeCup from "../../images/coffeeCup.png";
+import axios from "axios";
 
 export function Rate() {
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
+
+  const onClick = async (rest) => {
+    const data = { ...rest, rating: value };
+    try {
+      const res = await axios.put(`/vendor/rating`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+    return;
+  };
 
   return (
     <Container>
@@ -26,7 +40,6 @@ export function Rate() {
           precision={0.5}
           style={{
             color: "black",
-            margin: "0 0 0 94px",
             transform: "scale(1.5)",
           }}
           onChange={(event, newValue) => {
@@ -41,7 +54,7 @@ export function Rate() {
           {value}
           {hover}
         </p>
-        <Button>Submit</Button>
+        <Button onClick={onClick}>Submit</Button>
       </TopWrapper>
 
       <BottomImage alt="coffee-image" src={coffeeBackgroundHalf} />

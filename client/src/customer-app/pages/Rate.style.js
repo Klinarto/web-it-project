@@ -4,7 +4,7 @@ export const Container = styled.div`
   height: 90vh;
   position: relative;
 
-  & > {
+  & > * {
     align-items: center;
     text-align: center;
   }
@@ -14,7 +14,7 @@ export const TopWrapper = styled.div`
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 16px;
+  padding-top: 16px;
   width: 100%;
 `;
 export const TopImage = styled.img`
