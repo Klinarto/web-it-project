@@ -133,5 +133,10 @@ but the controller for manipulating the data is implemented and the description 
 
 Dummy Customer login:
 
-email address: john@gmail.com
-password: 123456
+-email address: john@gmail.com
+-password: 1234567a
+
+Dummy Vendor login:
+
+-vanname: Coffee2Go
+-password: hihi
