@@ -23,11 +23,6 @@ export default function SideLinks() {
         </li>
       )}
       {tabletSize && auth.isLoggedIn && (
-        <li>
-          <MyNavLink to="/vendor/myaccount">My Account</MyNavLink>
-        </li>
-      )}
-      {tabletSize && auth.isLoggedIn && (
         <li onClick={auth.logout}>
           <MyNavLink to="/vendor/">Logout</MyNavLink>
         </li>

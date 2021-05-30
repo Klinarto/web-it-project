@@ -43,25 +43,25 @@ export default function SideBarLinks() {
           </ListItemIcon>
           <ListItemText primary={"Vendor Home"} />
         </ListItem>
-        <ListItem
-          button
-          key={"Location"}
-          onClick={() => {
-            history.push("/vendor/address");
-          }}
-        >
-          <ListItemIcon>
-            <LocalShippingIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Location"} />
-        </ListItem>
       </List>
+      <Divider />
       <List>
         {/* Each list item will have Router's history Hook and rediret to page when a div is clicked.
         Some lists will check if the screen size is smaller than a certain device size (tablet size) and display the item
         Some will check whether it is authenticated and screen size is small*/}
         {auth.isLoggedIn && (
           <>
+            <ListItem
+            button
+            key={"Location"}
+            onClick={() => {
+              history.push("/vendor/address");
+            }}>
+            <ListItemIcon>
+              <LocalShippingIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Location"} />
+          </ListItem>
             <ListItem
               button
               key={"orderlist"}
@@ -86,9 +86,9 @@ export default function SideBarLinks() {
               </ListItemIcon>
               <ListItemText primary={"Profile"} />
             </ListItem>
+            <Divider />
           </>
         )}
-        <Divider />
         {!tabletSize && (
           <ListItem
             button
@@ -117,21 +117,10 @@ export default function SideBarLinks() {
             <ListItemText primary={"Contact Us"} />
           </ListItem>
         )}
-        {!tabletSize && (
-          <ListItem
-            button
-            key={"myprofile"}
-            onClick={() => {
-              history.push("/vendor/profile");
-            }}
-          >
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary={"My Profile"} />
-          </ListItem>
-        )}
       </List>
+      {!tabletSize && (
+        <Divider />
+      )}
       <List>
         <ListItem
           button
