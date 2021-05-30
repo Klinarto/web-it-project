@@ -137,6 +137,15 @@ export default function Menu() {
 		localStorage.setItem("order", JSON.stringify(orderList));
 	};
 
+	const displayMenuTitle = () => {
+		let title = "Menu";
+		if (localStorage.getItem("vendor")) {
+			const vanName = JSON.parse(localStorage.getItem("vendor")).name;
+			title = `${vanName}'s Menu`;
+		}
+		return title;
+	};
+
 	const displayCart = () => {
 		if (!isUpdate) {
 			if (order) {
@@ -180,7 +189,7 @@ export default function Menu() {
 		<Wrapper>
 			<DIV>
 				<LeftWrapper>
-					<Title>Menu</Title>
+					<Title>{displayMenuTitle()}</Title>
 				</LeftWrapper>
 				<RightWrapper>
 					<Link to={auth.isLoggedIn ? "/customer/cart" : "/customer/login"}>

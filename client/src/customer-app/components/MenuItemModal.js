@@ -16,16 +16,17 @@ import { ThemeProvider } from "@material-ui/styles";
 export default function MenuItemModal(props) {
 	const { open, setOpen, item, returnQuantity, startQuantity } = props;
 
+	// set the modal quantity to menuItem's (parent) quantity
 	const [quantity, setQuantity] = useState(startQuantity);
 
+	// close modal
 	const handleClose = () => {
 		setOpen(false);
 	};
 
+	// send quantity from menuItemModal to menuItem
 	const sendQuantityToParent = () => {
-		// console.log(startQuantity);
 		returnQuantity(quantity);
-		// setQuantity(0);
 		handleClose();
 	};
 
@@ -38,9 +39,6 @@ export default function MenuItemModal(props) {
 	});
 	return (
 		<Fragment>
-			{/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-				Open dialog
-			</Button> */}
 			<Dialog
 				onClose={handleClose}
 				aria-labelledby="simple-dialog-title"
