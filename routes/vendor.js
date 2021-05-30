@@ -18,4 +18,6 @@ router.put("/me/password", verifyToken, vendorController.updateVanPassword);
 // Set van status or location
 router.put("/address", verifyToken, vendorController.updateVan);
 
+router.put("/rate", verifyToken, vendorController.addVanRating);
+
 module.exports = router;
