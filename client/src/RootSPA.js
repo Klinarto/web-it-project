@@ -88,9 +88,10 @@ export function App() {
 		setToken(null);
 		setLoginType(null);
 		setTokenExpDate(null);
-		console.log("Deleting token header");
+		// console.log("Deleting token header");
 		delete axios.defaults.headers.common["x-access-token"];
-		localStorage.removeItem("userData");
+		// localStorage.removeItem("userData");
+		localStorage.clear();
 	}, []);
 
 	useEffect(() => {

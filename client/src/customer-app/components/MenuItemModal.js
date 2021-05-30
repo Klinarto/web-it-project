@@ -23,7 +23,7 @@ export default function MenuItemModal(props) {
 	};
 
 	const sendQuantityToParent = () => {
-		console.log(startQuantity);
+		// console.log(startQuantity);
 		returnQuantity(quantity);
 		// setQuantity(0);
 		handleClose();

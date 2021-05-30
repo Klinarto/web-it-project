@@ -93,19 +93,7 @@ export default function Map(props) {
 
 	const displayCurrentLocation = () => {
 		if (currentLocation) {
-			return (
-				<Marker
-					title={"Current location"}
-					position={currentLocation}
-					onClick={() => {
-						setSelected({
-							location: currentLocation,
-							name: "current location",
-							locationDetails: "",
-						});
-					}}
-				/>
-			);
+			return <Marker title={"Current location"} position={currentLocation} />;
 		}
 	};
 
