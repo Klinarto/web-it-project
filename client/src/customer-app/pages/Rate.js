@@ -1,15 +1,12 @@
 import React from "react";
-import {
-	TopWrapper,
-	Button,
-} from "./Rate.style";
-import { Rating } from "@material-ui/lab";
-import coffeeBackgroundHalf from "../../images/coffeeBackgroundHalf.png";
-import coffeeCup from "../../images/coffeeCup.png";
+import { TopWrapper, Button } from "./Rate.style";
+// import { Rating } from "@material-ui/lab";
+// import coffeeBackgroundHalf from "../../images/coffeeBackgroundHalf.png";
+// import coffeeCup from "../../images/coffeeCup.png";
 import axios from "axios";
 
 export function Rate(props) {
-	const [value, setValue] = React.useState(2);
+	const [value] = React.useState(2);
 
 	const onClick = async () => {
 		try {
@@ -18,7 +15,7 @@ export function Rate(props) {
 				headers: { "Content-Type": "application/json" },
 			});
 			console.log(res);
-			} catch (error) {
+		} catch (error) {
 			console.log(error.response.data);
 		}
 	};
@@ -26,7 +23,7 @@ export function Rate(props) {
 	return (
 		<div>
 			<TopWrapper>
-				<Rating
+				{/* <Rating
 					name="half-rating"
 					defaultValue={0}
 					precision={0.5}
@@ -37,13 +34,12 @@ export function Rate(props) {
 					onChange={(event, newValue) => {
 						setValue(newValue);
 					}}
-				/>
+				/> */}
 
 				<br />
 			</TopWrapper>
 			<Button onClick={onClick}>Rate the order</Button>
 		</div>
-
 	);
 }
 export default Rate;
