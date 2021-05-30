@@ -11,6 +11,7 @@ router.get("/me", verifyToken, customerController.getCustomer);
 // profile customer profile
 router.put("/me", verifyToken, customerController.updateProfile);
 
+// update customer password
 router.put(
 	"/me/password",
 	verifyToken,

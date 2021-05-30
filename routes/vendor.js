@@ -6,6 +6,9 @@ const verifyToken = require("../middleware/verifyToken");
 // Register van
 router.post("/register", vendorController.registerVan);
 
+// Register van
+router.delete("/", verifyToken, vendorController.deleteVendor);
+
 // Get vans
 router.get("/", vendorController.getVendors);
 
@@ -18,6 +21,7 @@ router.put("/me/password", verifyToken, vendorController.updateVanPassword);
 // Set van status or location
 router.put("/address", verifyToken, vendorController.updateVan);
 
+// Add van rating
 router.put("/rate", verifyToken, vendorController.addVanRating);
 
 module.exports = router;

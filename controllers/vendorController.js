@@ -154,6 +154,16 @@ const getVendors = async (req, res) => {
 	}
 };
 
+const deleteVendor = async (req, res) => {
+	try {
+		const vendor = await Vendor.findByIdAndDelete(req.vendor.id);
+		return res.status(200).send(vendor);
+	} catch (error) {
+		console.error(error);
+		return res.status(400).send("Database query failed");
+	}
+};
+
 module.exports = {
 	getVendors,
 	updateVan,
@@ -161,4 +171,5 @@ module.exports = {
 	loginVendor,
 	updateVanPassword,
 	addVanRating,
+	deleteVendor,
 };

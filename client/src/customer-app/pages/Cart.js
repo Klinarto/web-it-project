@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import {
@@ -44,7 +44,7 @@ export default function Cart() {
 			const userData = JSON.parse(localStorage.getItem("userData"));
 			const vendorData = JSON.parse(localStorage.getItem("vendor"));
 			console.log(userData);
-			const data = { vendorId: vendorData["id"] };
+			const data = { vendorId: vendorData["_id"] };
 
 			if (!objectIsEmpty(order)) {
 				data["foodItems"] = order;
@@ -133,107 +133,114 @@ export default function Cart() {
 	};
 
 	var totalPrice = 0;
-	Object.entries(orderPrice).map((item) => {
-		return (totalPrice += parseFloat(item[1]));
-	});
+	if (orderPrice) {
+		Object.entries(orderPrice).map((item) => {
+			return (totalPrice += parseFloat(item[1]));
+		});
+	}
 
-	console.log(order);
+	const renderCart = () => {
+		if ((order, orderPrice)) {
+			return (
+				<Container>
+					{isUpdate ? (
+						<Status>Confirm your update</Status>
+					) : (
+						<Status>Confirm your order</Status>
+					)}
+					<Division>
+						<LeftWrapper>
+							{Object.entries(order).map(function (item, key) {
+								if (order[item[0]]) {
+									return (
+										<OrderList key={key}>
+											<OrderItem>
+												{order[item[0]]} x {item[0]}
+											</OrderItem>
+
+											<IconButton
+												aria-label="Remove"
+												onClick={() => {
+													let newOrder = filterItem(order, item[0]);
+													setOrder(newOrder);
+													let newPrice = filterPrice(price, item[0]);
+													setPrice(newPrice);
+												}}
+											>
+												<RemoveCircleOutlineOutlinedIcon />
+											</IconButton>
+										</OrderList>
+									);
+								}
+							})}
+						</LeftWrapper>
+						<RightWrapper>
+							{Object.entries(orderPrice).map(function (item, key) {
+								return (
+									<OrderList key={key}>
+										<OrderItem>$ {item[1]}</OrderItem>
+									</OrderList>
+								);
+							})}
+						</RightWrapper>
+					</Division>
+					<BreakLine />
+					<DivisionBottom>
+						<div>
+							<DiscountMessage>
+								20% discount applies if the order<br></br>takes more than 15
+								mins
+							</DiscountMessage>
+						</div>
+						<div>
+							<Total>Total</Total>
+							<TotalPrice>${totalPrice}</TotalPrice>
+						</div>
+					</DivisionBottom>
+					<Logo alt="machine-logo" src={coffeeMachine} />
+					{isUpdate ? (
+						<div>
+							<MyButton
+								onClick={() => {
+									updateOrder(order);
+									history.push("/customer/orderHistory");
+								}}
+							>
+								Update order
+							</MyButton>
+
+							<MyButton
+								onClick={() => {
+									history.push("/customer/menu");
+								}}
+							>
+								Back to menu
+							</MyButton>
+						</div>
+					) : (
+						<div>
+							<MyButton
+								onClick={() => {
+									makeOrder(order);
+									history.push("/customer/orderHistory");
+								}}
+							>
+								Make order
+							</MyButton>
+							<MyButton
+								onClick={() => {
+									history.push("/customer/menu");
+								}}
+							>
+								Back to menu
+							</MyButton>
+						</div>
+					)}
+				</Container>
+			);
+		}
+	};
 
 	// Render
-	return (
-		<Container>
-			{isUpdate ? (
-				<Status>Confirm your update</Status>
-			) : (
-				<Status>Confirm your order</Status>
-			)}
-			<Division>
-				<LeftWrapper>
-					{Object.entries(order).map(function (item, key) {
-						if (order[item[0]]) {
-							return (
-								<OrderList key={key}>
-									<OrderItem>
-										{order[item[0]]} x {item[0]}
-									</OrderItem>
-
-									<IconButton
-										aria-label="Remove"
-										onClick={() => {
-											let newOrder = filterItem(order, item[0]);
-											setOrder(newOrder);
-											let newPrice = filterPrice(price, item[0]);
-											setPrice(newPrice);
-										}}
-									>
-										<RemoveCircleOutlineOutlinedIcon />
-									</IconButton>
-								</OrderList>
-							);
-						}
-					})}
-				</LeftWrapper>
-				<RightWrapper>
-					{Object.entries(orderPrice).map(function (item, key) {
-						return (
-							<OrderList key={key}>
-								<OrderItem>$ {item[1]}</OrderItem>
-							</OrderList>
-						);
-					})}
-				</RightWrapper>
-			</Division>
-			<BreakLine />
-			<DivisionBottom>
-				<div>
-					<DiscountMessage>
-						20% discount applies if the order<br></br>takes more than 15 mins
-					</DiscountMessage>
-				</div>
-				<div>
-					<Total>Total</Total>
-					<TotalPrice>${totalPrice}</TotalPrice>
-				</div>
-			</DivisionBottom>
-			<Logo alt="machine-logo" src={coffeeMachine} />
-			{isUpdate ? (
-				<div>
-					<MyButton
-						onClick={() => {
-							updateOrder(order);
-							history.push("/customer/orderHistory");
-						}}
-					>
-						Update order
-					</MyButton>
-
-					<MyButton
-						onClick={() => {
-							history.push("/customer/menu");
-						}}
-					>
-						Back to menu
-					</MyButton>
-				</div>
-			) : (
-				<div>
-					<MyButton
-						onClick={() => {
-							makeOrder(order);
-							history.push("/customer/orderHistory");
-						}}
-					>
-						Make order
-					</MyButton>
-					<MyButton
-						onClick={() => {
-							history.push("/customer/menu");
-						}}
-					>
-						Back to menu
-					</MyButton>
-				</div>
-			)}
-		</Container>
-	);
+	return <Fragment>{renderCart()}</Fragment>;
 }
