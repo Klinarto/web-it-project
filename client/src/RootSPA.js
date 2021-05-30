@@ -111,14 +111,6 @@ export function App() {
 		}
 	}, [login]);
 
-	const customerRoute = () => {
-		if (localStorage.getItem("vendor")) {
-			// console.log("Going to menu");
-			return <Menu />;
-		} else {
-			return <Redirect to="/customer/vans" />;
-		}
-	};
 
 	let Routes;
 	if (token) {
@@ -208,7 +200,8 @@ export function App() {
 				<Route path="/customer/vans">
 					<Vans />
 				</Route>
-				<Route path="/customer/menu">{customerRoute()}</Route>
+				<Route path="/customer/menu"><Menu /></Route>
+
 
 				<Route path="/help">
 					<Help />
