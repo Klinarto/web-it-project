@@ -113,6 +113,11 @@ export function Order() {
 		let cancelOrderButton = (
 			<MyButton onClick={() => cancelOrder()}>Cancel order</MyButton>
 		);
+		let goBackButton = (
+			<Link to="/customer/orderHistory" style={{textDecoration:'none'}}>
+				<MyButton> Back to orders </MyButton>
+			</Link>
+		);
 		if (status == "cancelled") {
 			timer = null;
 			changeOrderButton = null;
@@ -126,6 +131,7 @@ export function Order() {
 				{timer}
 				{changeOrderButton}
 				{cancelOrderButton}
+				{goBackButton}
 			</Fragment>
 		);
 	};
