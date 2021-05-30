@@ -104,7 +104,7 @@ export default function SideBarLinks() {
 						button
 						key={"myprofile"}
 						onClick={() => {
-							history.push("/customer/myprofile");
+							history.push("/customer/myaccount");
 						}}
 					>
 						<ListItemIcon>
