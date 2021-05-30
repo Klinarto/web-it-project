@@ -5,8 +5,12 @@ const Interval = (props) => {
 	const calcTimeLeft = useCallback(() => {
 		const updatedAt = new Date(props.updatedAt);
 		let currentDate = new Date();
+		// max late time limit for discount
+		let discountTime = 15;
 		// timeLimit is in ms
-		let timeLimit = 0.5 * 60 * 1000;
+		let timeLimit = discountTime * 60 * 1000;
+
+		// time difference between the time limit and the current time
 		let difference = timeLimit - (currentDate - updatedAt);
 		let timeLeft = null;
 		if (difference > 0) {
@@ -25,6 +29,7 @@ const Interval = (props) => {
 	let min = 0;
 	let sec = 0;
 
+	// countdown every second
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setTimeLeft(calcTimeLeft());
@@ -35,6 +40,8 @@ const Interval = (props) => {
 		return () => clearInterval(interval);
 	}, [calcTimeLeft, timeLeft]);
 
+	// if timeLeft is null (i.e. time limit met or exceeded),
+	// set the order as late, which will apply a 20% discount
 	useEffect(() => {
 		if (!timeLeft) {
 			setLate(true);

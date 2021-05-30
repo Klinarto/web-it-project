@@ -34,6 +34,7 @@ export default function ChangePassword({ changePassword }) {
 			console.log(JSON.parse(updated));
 			const res = await axios.put("/customer/me/password", JSON.parse(updated));
 			console.log(res);
+
 			// set snackbar details
 			setOpen(true);
 			setSnackbar({
@@ -42,6 +43,7 @@ export default function ChangePassword({ changePassword }) {
 			});
 		} catch (error) {
 			console.log(error);
+
 			// set snackbar details
 			setOpen(true);
 			setSnackbar({
@@ -68,6 +70,7 @@ export default function ChangePassword({ changePassword }) {
 		let validLength;
 
 		switch (e.target.id) {
+			// used for password requirements
 			case "New Password":
 				setNewPass(e.target.value);
 				validAlpha = /^.*[a-zA-Z][^a-zA-Z]*$/.test(e.target.value);
@@ -79,7 +82,7 @@ export default function ChangePassword({ changePassword }) {
 				} else if (!validDigit) {
 					setPasswordHelper("Password should have at least one number (0)");
 				} else if (!validLength) {
-					setPasswordHelper("Passwrod should be at least 8 characters long");
+					setPasswordHelper("Password should be at least 8 characters long");
 				} else {
 					setPasswordHelper("");
 				}

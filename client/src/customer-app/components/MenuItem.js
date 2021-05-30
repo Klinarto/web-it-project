@@ -12,20 +12,18 @@ export default function MenuItem(props) {
 	const { item, setOrder } = props;
 	const [open, setOpen] = useState(false);
 	const name = item.name;
+
+	// set the menuItem quantity to the previous quantity, i.e if
+	// there was 3 lattes in the cart, quantity = 3
 	const [quantity, setQuantity] = useState(props.quantity);
 
+	// handle open state of menuItemModal
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
 
-	// const updateOrder = () => {
-	// 	setOrder((prevOrder) => ({
-	// 		...prevOrder,
-	// 		[name]: quantity,
-	// 	}));
-	// };
-
 	useEffect(() => {
+		// update order object, which will be used with cart
 		const updateOrder = () => {
 			setOrder((prevOrder) => ({
 				...prevOrder,
@@ -33,12 +31,9 @@ export default function MenuItem(props) {
 			}));
 		};
 
-		// console.log(quantity);
-
 		if (quantity >= 0) {
 			updateOrder();
 		}
-		// console.log("updating order");
 
 		return () => {};
 	}, [quantity, setOrder, name]);

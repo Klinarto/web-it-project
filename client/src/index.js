@@ -7,10 +7,10 @@ import "typeface-roboto";
 import "@fontsource/dawning-of-a-new-day";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <RootSPA />
-  </React.StrictMode>,
-  document.getElementById("root")
+	<React.StrictMode>
+		<RootSPA />
+	</React.StrictMode>,
+	document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
