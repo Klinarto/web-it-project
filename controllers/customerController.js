@@ -45,6 +45,7 @@ const registerCustomer = async (req, res) => {
 	}
 };
 
+// customer login
 const loginCustomer = async (req, res) => {
 	const { email, password } = req.body;
 	try {
@@ -54,6 +55,8 @@ const loginCustomer = async (req, res) => {
 			return res.status(404).send("User doesn't exist");
 		}
 
+		// use bcrypt to check if the password sent is the same as the hashed
+		// password
 		const validPassword = await bcrypt.compare(password, customer.password);
 
 		if (!validPassword) {
@@ -79,8 +82,10 @@ const loginCustomer = async (req, res) => {
 	}
 };
 
+// get specific customer
 const getCustomer = async (req, res) => {
 	try {
+		// return customer data except the password
 		const customer = await Customer.findById(req.customer.id).select(
 			"-password"
 		);
@@ -94,6 +99,7 @@ const getCustomer = async (req, res) => {
 	}
 };
 
+// update customer profile
 const updateProfile = async (req, res) => {
 	try {
 		const customer = await Customer.findByIdAndUpdate(
@@ -101,15 +107,17 @@ const updateProfile = async (req, res) => {
 			req.body
 		);
 		if (!customer) {
-			return res.status(404).send("customer not found");
+			return res.status(404).send("Customer doesn't exist");
 		}
-		return res.send("Profile updated");
+		return res.status(200).send("Profile updated");
 	} catch (error) {
 		console.error(error);
 		return res.status(400).send("Database query failed");
 	}
 };
 
+// update customer password, requires old password to change
+// the customer's password
 const updateCustomerPassword = async (req, res) => {
 	console.log(req.body);
 	const { newPassword, password } = req.body;
@@ -118,9 +126,11 @@ const updateCustomerPassword = async (req, res) => {
 		const customer = await Customer.findOne({ _id: req.customer.id });
 
 		if (!customer) {
-			return res.status(404).send("Vendor doesn't exist");
+			return res.status(404).send("Customer doesn't exist");
 		}
 
+		// use bcrypt to check if the password sent is the same as the hashed
+		// password
 		const passMatch = await bcrypt.compare(password, customer.password);
 
 		if (!passMatch) {
@@ -128,6 +138,7 @@ const updateCustomerPassword = async (req, res) => {
 		}
 		const saltRounds = 10;
 
+		// update the customer password
 		customer.password = await bcrypt.hash(newPassword, saltRounds);
 
 		console.log(customer);

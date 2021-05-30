@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { Time } from "./Interval.style";
 
+// Timer for order
 const Interval = (props) => {
 	const calcTimeLeft = useCallback(() => {
 		const updatedAt = new Date(props.updatedAt);

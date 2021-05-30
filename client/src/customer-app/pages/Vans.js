@@ -21,9 +21,8 @@ import bigCake from "../../images/bigcakeCrop.png";
 import cappuccino from "../../images/cappuccinoCrop.png";
 import fancybiscuit from "../../images/fancybiscuit.jpg";
 
-export default function SimpleModal() {
+export default function Vans() {
 	const [vendors, setVendors] = useState([]);
-	// const [modalStyle] = React.useState(getModalStyle);
 
 	const [selected, setSelected] = useState(null);
 	const [open, setOpen] = useState(false);
@@ -84,6 +83,8 @@ export default function SimpleModal() {
 		};
 	}, [vendors]);
 
+	// display the distance between the user's current location and
+	// the vendor in meters
 	const renderDistance = () => {
 		if (selected && selected.location != currentLocation && currentLocation) {
 			const distance = calculateDistance(selected.location, currentLocation);
@@ -92,6 +93,7 @@ export default function SimpleModal() {
 		return null;
 	};
 
+	// render rating
 	const renderRating = () => {
 		var total = 0;
 		for (var i in selected.rating) {
@@ -100,6 +102,7 @@ export default function SimpleModal() {
 		return total / selected.rating.length;
 	};
 
+	// render rating in star format
 	const renderRatingStar = () => {
 		var total = 0;
 		var output = "";
@@ -119,6 +122,8 @@ export default function SimpleModal() {
 			return output;
 		}
 	};
+
+	// render the dialog modal
 	const renderDialog = () => {
 		if (selected && selected.location != currentLocation) {
 			return (

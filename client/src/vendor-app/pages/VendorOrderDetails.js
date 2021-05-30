@@ -4,10 +4,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Interval from "../../shared/components/Interval";
-import {
-	InnerDivButtons,
-	ButtonDiv,
-} from "./VendorOrderList.style";
+import { InnerDivButtons, ButtonDiv } from "./VendorOrderList.style";
 import {
 	Container,
 	H2,
@@ -26,7 +23,7 @@ import {
 } from "./VendorOrderDetail.style";
 import axios from "axios";
 import { useLocation } from "react-router";
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 export function VendorOrderDetails() {
 	const [status, setStatus] = useState(null);
@@ -39,6 +36,8 @@ export function VendorOrderDetails() {
 	const history = useHistory();
 
 	const pathname = useLocation().pathname;
+
+	// get the orderId from the url
 	const orderId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
 	const theme = createMuiTheme({
@@ -52,8 +51,7 @@ export function VendorOrderDetails() {
 		},
 	});
 
-	//update status to the database.
-
+	// update status to the database.
 	const updateStatus = async (updatedStatus) => {
 		try {
 			console.log(JSON.parse(updatedStatus));
@@ -120,9 +118,8 @@ export function VendorOrderDetails() {
 	}, [late]);
 
 	function checkStatus(check) {
-		if (status== "cancelled"){
+		if (status == "cancelled") {
 			return true;
-
 		}
 		if (status == "declined") {
 			return true;
@@ -162,126 +159,133 @@ export function VendorOrderDetails() {
 
 			return (
 				<BigDiv>
-				<DivisionBack>
-				<ArrowBackIosIcon onClick={() => history.push("/vendor/orderlist/")}></ArrowBackIosIcon>
-				</DivisionBack>
-				<Container>
-					<DivisionTop>
-						<div>
-							<H2>Order Number #{orderId} - {status} </H2>
-							<Customer>
-								<b>Customer Name: </b>
-								{customerFName} {customerLName}
-							</Customer>
-							<Customer>
-								<b>Customer Email: </b> {customerId.email}
-							</Customer>
-						</div>
-						{late ? (
+					<DivisionBack>
+						<ArrowBackIosIcon
+							onClick={() => history.push("/vendor/orderlist/")}
+						></ArrowBackIosIcon>
+					</DivisionBack>
+					<Container>
+						<DivisionTop>
 							<div>
-								<H3>Order is late</H3>
+								<H2>
+									Order Number #{orderId} - {status}{" "}
+								</H2>
+								<Customer>
+									<b>Customer Name: </b>
+									{customerFName} {customerLName}
+								</Customer>
+								<Customer>
+									<b>Customer Email: </b> {customerId.email}
+								</Customer>
 							</div>
-						) : (
+							{late ? (
+								<div>
+									<H3>Order is late</H3>
+								</div>
+							) : (
+								<div>
+									<H3>Time remaining </H3>
+									<Interval updatedAt={updatedAt} setLate={setLate} />
+								</div>
+							)}
+						</DivisionTop>
+
+						<BreakLine />
+						<Division>
 							<div>
-								<H3>Time remaining </H3>
-								<Interval updatedAt={updatedAt} setLate={setLate} />
+								{Object.entries(foodItems).map(function (
+									[item, quantity],
+									key
+								) {
+									return (
+										<OrderList key={key}>
+											<OrderItem>
+												{quantity} &nbsp; {item}
+											</OrderItem>
+										</OrderList>
+									);
+								})}
 							</div>
-						)}
-					</DivisionTop>
+						</Division>
+						<BreakLine />
+						<DivisionBottom>
+							<div>
+								<InnerDivButtons>
+									<ButtonDiv>
+										<ThemeProvider theme={theme}>
+											<Button
+												variant="contained"
+												color="primary"
+												disabled={receiveDisabled}
+												onClick={() => {
+													setReceiveDisabled(true);
+													updateStatus('{"status":"received"}');
+												}}
+											>
+												Receieved
+											</Button>
+										</ThemeProvider>
+									</ButtonDiv>
 
-					<BreakLine />
-					<Division>
-						<div>
-							{Object.entries(foodItems).map(function ([item, quantity], key) {
-								return (
-									<OrderList key={key}>
-										<OrderItem>
-											{quantity} &nbsp; {item}
-										</OrderItem>
-									</OrderList>
-								);
-							})}
-						</div>
-					</Division>
-					<BreakLine />
-					<DivisionBottom>
-						<div>
-							<InnerDivButtons>
-								<ButtonDiv>
-									<ThemeProvider theme={theme}>
-										<Button
-											variant="contained"
-											color="primary"
-											disabled={receiveDisabled}
-											onClick={() => {
-												setReceiveDisabled(true);
-												updateStatus('{"status":"received"}');
-											}}
-										>
-											Receieved
-										</Button>
-									</ThemeProvider>
-								</ButtonDiv>
+									<ButtonDiv>
+										<ThemeProvider theme={theme}>
+											<Button
+												variant="contained"
+												color="primary"
+												disabled={readyDisabled}
+												onClick={() => {
+													setReadyDisabled(true);
+													setReceiveDisabled(true);
+													updateStatus('{"status":"ready"}');
+												}}
+											>
+												Ready
+											</Button>
+										</ThemeProvider>
+									</ButtonDiv>
 
-								<ButtonDiv>
-									<ThemeProvider theme={theme}>
-										<Button
-											variant="contained"
-											color="primary"
-											disabled={readyDisabled}
-											onClick={() => {
-												setReadyDisabled(true);
-												setReceiveDisabled(true);
-												updateStatus('{"status":"ready"}');
-											}}
-										>
-											Ready
-										</Button>
-									</ThemeProvider>
-								</ButtonDiv>
+									<ButtonDiv>
+										<ThemeProvider theme={theme}>
+											<Button
+												variant="contained"
+												color="primary"
+												disabled={completeDisabled}
+												onClick={() => {
+													setCompleteDisabled(true);
+													setReadyDisabled(true);
+													setReceiveDisabled(true);
+													updateStatus('{"status":"fulfilled"}');
+												}}
+											>
+												Complete
+											</Button>
+										</ThemeProvider>
+									</ButtonDiv>
+								</InnerDivButtons>
+							</div>
+							<div>
+								<Total>Total</Total>
+								<TotalPrice>${totalCost}</TotalPrice>
 
-								<ButtonDiv>
-									<ThemeProvider theme={theme}>
-										<Button
-											variant="contained"
-											color="primary"
-											disabled={completeDisabled}
-											onClick={() => {
-												setCompleteDisabled(true);
-												setReadyDisabled(true);
-												setReceiveDisabled(true);
-												updateStatus('{"status":"fulfilled"}');
-											}}
-										>
-											Complete
-										</Button>
-									</ThemeProvider>
-								</ButtonDiv>
-							</InnerDivButtons>
-						</div>
-						<div>
-							<Total>Total</Total>
-							<TotalPrice>${totalCost}</TotalPrice>
-
-							<ThemeProvider theme={theme}>
-								<Button
-									variant="contained"
-									color="secondary"
-									disabled={declineDisabled}
-									onClick={() => {
-										setCompleteDisabled(true);
-										setReadyDisabled(true);
-										setReceiveDisabled(true);
-										setDeclineDisabled(true);
-										updateStatus('{"status":"declined"}');
-									}}
-								>
-									Decline
-								</Button>
-							</ThemeProvider>
-						</div>
-					</DivisionBottom>
-				</Container>
+								<ThemeProvider theme={theme}>
+									<Button
+										variant="contained"
+										color="secondary"
+										disabled={declineDisabled}
+										onClick={() => {
+											setCompleteDisabled(true);
+											setReadyDisabled(true);
+											setReceiveDisabled(true);
+											setDeclineDisabled(true);
+											updateStatus('{"status":"declined"}');
+										}}
+									>
+										Decline
+									</Button>
+								</ThemeProvider>
+							</div>
+						</DivisionBottom>
+					</Container>
 				</BigDiv>
 			);
 		}

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Interval from "../../shared/components/Interval";
-import Rating from "./Rate"
+import Rating from "./Rate";
 import coffeeMachine from "../../images/coffeeMachine.png";
 import {
 	Container,
@@ -19,6 +19,8 @@ import {
 import axios from "axios";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+
+// Single order page
 export function Order() {
 	const [menu, setMenu] = useState(null);
 	const [order, setOrder] = useState(null);
@@ -60,10 +62,10 @@ export function Order() {
 		};
 	}, [orderId]);
 
-	// When an order is late
+	// runs when an order is late
 	useEffect(() => {
 		// update only the cost of the order (doesn't affect the updatedAt
-		// field in mongoDB)
+		// field in mongoDB, which is used for the timer)
 		const updateOrderCost = async (newCost) => {
 			try {
 				const data = { totalCost: newCost };
@@ -94,6 +96,7 @@ export function Order() {
 		return () => {};
 	}, [late]);
 
+	// cancel order
 	const cancelOrder = async () => {
 		const data = { status: "cancelled" };
 		try {
@@ -112,6 +115,7 @@ export function Order() {
 		localStorage.setItem("curr_order", JSON.stringify(order));
 	};
 
+	// display the order's buttons and timer
 	const displayOrderInteractions = (updatedAt) => {
 		let timer = <Interval updatedAt={updatedAt} setLate={setLate} />;
 		let changeOrderButton = (
@@ -127,23 +131,35 @@ export function Order() {
 				<MyButton> Back to orders </MyButton>
 			</Link>
 		);
-		let rate = (
-			<Rating vendorId={order["vendorId"]["_id"]}/>
-		)
+		let rate = <Rating vendorId={order["vendorId"]["_id"]} />;
+
+		// array of status used for conditionally rendering
 		let statusReq = ["fulfilled", "declined", "cancelled"];
+
+		// if the order's status is either fulfilled, declined or
+		// cancelled, don't render the timer, change order or
+		// cancel order interactions
 		if (statusReq.includes(status)) {
 			timer = null;
 			changeOrderButton = null;
 			cancelOrderButton = null;
 		}
+
+		// if the order status is ready, don't render the timer
+		// or change order button
 		if (status == "ready") {
 			timer = null;
 			changeOrderButton = null;
 		}
+
+		// if the order status isn't fulfilled, don't render
+		// the rate component
 		if (status != "fulfilled") {
 			console.log(order["vendorId"]["_id"]);
 			rate = null;
 		}
+
+		// if the order is late, don't render the timer
 		if (late) {
 			timer = null;
 		}

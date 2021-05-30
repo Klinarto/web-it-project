@@ -10,6 +10,7 @@ import mapStyle from "../../utilities/Mapstyle";
 import useCurrentLocation from "./useCurrentLocation";
 import currentLocationMarker from "../../images/currentLocat.png";
 
+// map for both customer and vendor app
 export default function Map(props) {
 	// used to center map, default center is Melbourne
 	const [center, setCenter] = useState(null);
@@ -56,6 +57,9 @@ export default function Map(props) {
 		return () => {};
 	}, [props.data, data]);
 
+	// set the center of the map to be the current user's location
+	// if there is a current location for the user, (e.g. user denies
+	// sharing location), if not, set the center of the map to Melbourne
 	useEffect(() => {
 		if (currentLocation) {
 			setCenter(currentLocation);
@@ -70,6 +74,7 @@ export default function Map(props) {
 		mapRef.current = map;
 	}, []);
 
+	// render a marker on the map in the user's current location
 	const displayCurrentLocation = () => {
 		if (currentLocation) {
 			return (
@@ -85,6 +90,8 @@ export default function Map(props) {
 		}
 	};
 
+	// render markers to display the position of the data's element
+	// location
 	const displayData = () => {
 		if (data) {
 			return data.map((element) => {

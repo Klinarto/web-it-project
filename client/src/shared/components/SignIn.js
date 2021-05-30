@@ -14,214 +14,218 @@ import { AuthContext } from "../auth-context";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
-
+// login component for both customer and vendor app
 export default function SignIn() {
-  
-  const auth = useContext(AuthContext);
-  const history = useHistory();
+	const auth = useContext(AuthContext);
+	const history = useHistory();
 
-  const pathname = useLocation().pathname;
+	// get the url's pathname
+	const pathname = useLocation().pathname;
 
-  const [username, setUsername] = useState("");
-  const [emailHelper, setEmailHelper] = useState("");
-  const [password, setPassword] = useState("");
+	const [username, setUsername] = useState("");
+	const [emailHelper, setEmailHelper] = useState("");
+	const [password, setPassword] = useState("");
 
-  // open state for materialUI snackbar
-  const [open, setOpen] = useState(false);
+	// open state for materialUI snackbar
+	const [open, setOpen] = useState(false);
 
-  // details for materialUI snackbar
-  const [snackbar, setSnackbar] = useState({});
+	// details for materialUI snackbar
+	const [snackbar, setSnackbar] = useState({});
 
-  const theme2 = createMuiTheme({
-    palette: {
-      primary: {
-        main: "#000",
-      },}
-  
-  });
+	const theme2 = createMuiTheme({
+		palette: {
+			primary: {
+				main: "#000",
+			},
+		},
+	});
 
-  let textFieldProps = {
-    error: emailHelper.length !== 0,
-    helperText: emailHelper,
-  };
+	let textFieldProps = {
+		error: emailHelper.length !== 0,
+		helperText: emailHelper,
+	};
 
-  if (pathname.includes("customer")) {
-    textFieldProps["label"] = "Email Address";
-    textFieldProps["id"] = "email";
-  } else {
-    textFieldProps["id"] = "van name";
-    textFieldProps["label"] = "Van name";
-  }
+	// conditionally define the properties of the text field
+	// depending on which user is using the app, either
+	// the vendor or customer
+	if (pathname.includes("customer")) {
+		textFieldProps["label"] = "Email Address";
+		textFieldProps["id"] = "email";
+	} else {
+		textFieldProps["id"] = "van name";
+		textFieldProps["label"] = "Van name";
+	}
 
-  const onChange = (e) => {
-    let valid;
+	const onChange = (e) => {
+		let valid;
 
-    switch (e.target.id) {
-      case "email":
-        setUsername(e.target.value);
-        valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
-          e.target.value
-        );
+		switch (e.target.id) {
+			// used to input a valid email
+			case "email":
+				setUsername(e.target.value);
+				valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+					e.target.value
+				);
 
-        if (!valid) {
-          setEmailHelper("Invalid Email");
-        } else {
-          setEmailHelper("");
-        }
-        break;
+				if (!valid) {
+					setEmailHelper("Invalid Email");
+				} else {
+					setEmailHelper("");
+				}
+				break;
 
-      default:
-        setUsername(e.target.value);
-        break;
-    }
-  };
+			default:
+				setUsername(e.target.value);
+				break;
+		}
+	};
 
-  // duration for snackbar
-  const duration = 3000;
+	// duration for snackbar
+	const duration = 3000;
 
+	// send username and password on form submission
+	const sendData = async () => {
+		// create a data object for axios post
+		const data = { password: password };
+		if (pathname.includes("customer")) {
+			data["email"] = username;
+		} else {
+			data["name"] = username;
+		}
 
-  // send username and password on form submission
-  const sendData = async () => {
-    // create a data object for axios post
-    const data = { password: password };
-    if (pathname.includes("customer")) {
-      data["email"] = username;
-    } else {
-      data["name"] = username;
-    }
+		try {
+			const res = await axios.post(pathname, data, {
+				headers: { "Content-Type": "application/json" },
+			});
+			// set snackbar details
+			setOpen(true);
+			setSnackbar({
+				data: "Login successful",
+				severity: "success",
+			});
 
-    try {
-      const res = await axios.post(pathname, data, {
-        headers: { "Content-Type": "application/json" },
-      });
-      // set snackbar details
-      setOpen(true);
-      setSnackbar({
-        data: "Login successful",
-        severity: "success",
-      });
+			console.log(res);
+			console.log(res.data);
 
-      console.log(res);
-      console.log(res.data);
+			// store token
+			// localStorage.setItem("token", res.data.token);
 
-      // store token
-      // localStorage.setItem("token", res.data.token);
+			let redirectPath = "/customer/vans";
+			let user = "customer";
 
-      let redirectPath = "/customer/vans";
-      let user = "customer";
-      if (pathname.includes("vendor")) {
-        redirectPath = "/vendor/address";
-        user = "vendor";
-      }
-      auth.login(res.data.token, user);
+			// decide the redirect path depending on
+			// which "app" is being used
+			if (pathname.includes("vendor")) {
+				redirectPath = "/vendor/address";
+				user = "vendor";
+			}
 
-      history.push(redirectPath);
-    } catch (error) {
-      console.log(error);
+			auth.login(res.data.token, user);
 
-      // set snackbar details
-      setOpen(true);
-      setSnackbar({
-        data: error.response.data,
-        severity: "error",
-      });
-    }
-  };
+			history.push(redirectPath);
+		} catch (error) {
+			console.log(error);
 
-  const renderRegisterRedirect = () => {
-    let linkText = "Don't have an account? Sign Up";
-    let linkPath = "/customer/register";
+			// set snackbar details
+			setOpen(true);
+			setSnackbar({
+				data: error.response.data,
+				severity: "error",
+			});
+		}
+	};
 
-    if (pathname.includes("vendor")) {
-      linkText = "New vendor? Sign Up";
-      linkPath = "/vendor/register";
-    }
+	const renderRegisterRedirect = () => {
+		let linkText = "Don't have an account? Sign Up";
+		let linkPath = "/customer/register";
 
-    return <Link to={linkPath}>{linkText}</Link>;
-  };
+		if (pathname.includes("vendor")) {
+			linkText = "New vendor? Sign Up";
+			linkPath = "/vendor/register";
+		}
 
-  // handleclose template from materialUI docs
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
+		return <Link to={linkPath}>{linkText}</Link>;
+	};
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      sendData();
-    }
-  };
+	// handleclose template from materialUI docs
+	const handleClose = (event, reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
+		setOpen(false);
+	};
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={open}
-        autoHideDuration={duration}
-        onClose={handleClose}
-      >
-        <Alert severity={snackbar.severity} onClose={handleClose}>
-          {snackbar.data}
-        </Alert>
-      </Snackbar>
-      <div>
-        <form noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            // id="email"
-            // label="Email Address"
-            autoComplete="email"
-            autoFocus
-            value={username}
-            // error={emailHelper.length !== 0}
-            helperText={emailHelper}
-            onChange={onChange}
-            onKeyDown={handleKeyDown}
-            {...textFieldProps}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
+	const handleKeyDown = (event) => {
+		if (event.key === "Enter") {
+			sendData();
+		}
+	};
 
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <br></br>
-          <ThemeProvider theme={theme2}>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            fullWidth
-            style={{fontSize:"16px"}}
-            onClick={() => {
-              sendData();
-            }}
-          >
-            Sign In
-          </Button>
-          </ThemeProvider>
-          <Grid container>
-            <Grid item>{renderRegisterRedirect()}</Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
-  );
+	return (
+		<Container component="main" maxWidth="xs">
+			<Snackbar
+				anchorOrigin={{ vertical: "top", horizontal: "center" }}
+				open={open}
+				autoHideDuration={duration}
+				onClose={handleClose}
+			>
+				<Alert severity={snackbar.severity} onClose={handleClose}>
+					{snackbar.data}
+				</Alert>
+			</Snackbar>
+			<div>
+				<form noValidate>
+					<TextField
+						variant="outlined"
+						margin="normal"
+						required
+						fullWidth
+						autoComplete="email"
+						autoFocus
+						value={username}
+						helperText={emailHelper}
+						onChange={onChange}
+						onKeyDown={handleKeyDown}
+						{...textFieldProps}
+					/>
+					<TextField
+						variant="outlined"
+						margin="normal"
+						required
+						fullWidth
+						label="Password"
+						type="password"
+						id="password"
+						autoComplete="current-password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						onKeyDown={handleKeyDown}
+					/>
+
+					<FormControlLabel
+						control={<Checkbox value="remember" color="primary" />}
+						label="Remember me"
+					/>
+					<br></br>
+					<ThemeProvider theme={theme2}>
+						<Button
+							type="button"
+							variant="contained"
+							color="primary"
+							fullWidth
+							style={{ fontSize: "16px" }}
+							onClick={() => {
+								sendData();
+							}}
+						>
+							Sign In
+						</Button>
+					</ThemeProvider>
+					<Grid container>
+						<Grid item>{renderRegisterRedirect()}</Grid>
+					</Grid>
+				</form>
+			</div>
+		</Container>
+	);
 }

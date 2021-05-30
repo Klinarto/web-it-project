@@ -5,6 +5,8 @@ import axios from "axios";
 import LinkToOrder from "../components/LinkToOrder";
 import FilterOrder from "../../shared/components/FilterOrder";
 
+// Order history page, or page where it list's a
+// customer's orders
 export default function OrderHistory() {
 	const [orderList, setOrderHistory] = useState([]);
 	const [stat, setStat] = useState("active");

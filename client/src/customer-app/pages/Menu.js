@@ -15,6 +15,7 @@ import { Fab } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MenuItem from "../components/MenuItem";
 
+// Menu page
 export default function Menu() {
 	let orderList = null;
 	let orderUpdate = null;
@@ -78,7 +79,7 @@ export default function Menu() {
 		}
 	}
 
-	// Fetch the menu data from the DB and categorise into beverage and food.
+	// Fetch the menu data from the DB and categorize into beverage and food.
 	useEffect(() => {
 		let isMounted = true;
 		const fetchMenu = async () => {
@@ -120,6 +121,7 @@ export default function Menu() {
 				order[name] += quantity;
 			}
 		}
+		// filter order, keeping items that have a quantity > 1
 		orderList = {};
 		for (const [key, value] of Object.entries(order)) {
 			if (value > 0) {
@@ -137,8 +139,10 @@ export default function Menu() {
 		localStorage.setItem("order", JSON.stringify(orderList));
 	};
 
+	// render the vendor name + menu as the title
 	const displayMenuTitle = () => {
 		let title = "Menu";
+		// guard case to make sure vanName is present
 		if (localStorage.getItem("vendor")) {
 			const vanName = JSON.parse(localStorage.getItem("vendor")).name;
 			title = `${vanName}'s Menu`;
@@ -146,6 +150,8 @@ export default function Menu() {
 		return title;
 	};
 
+	// conditionally render the cart, i.e. when an item has been added,
+	// display the cart. Avoids cases where there is an empty cart
 	const displayCart = () => {
 		if (!isUpdate) {
 			if (order) {

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+// custom hook to get the user's current location
+// using the browser's implementation
 export default function useCurrentLocation() {
 	const [location, setLocation] = useState(null);
 
@@ -11,8 +13,6 @@ export default function useCurrentLocation() {
 						lat: position.coords.latitude,
 						lng: position.coords.longitude,
 					});
-
-					// console.log(location);
 				},
 				(error) => {
 					console.warn(`Error(${error.code}): ${error.message}`);

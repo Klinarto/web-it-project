@@ -37,7 +37,6 @@ import VendorProfile from "./vendor-app/pages/VendorProfile";
 import axios from "axios";
 
 import { AuthContext } from "./shared/auth-context";
-// import VendorRegister from "./vendor-app/pages/VendorRegister";
 
 // axios.defaults.baseURL = "http://localhost:5000";
 // axios.interceptors.request.use((request) => {
@@ -110,7 +109,6 @@ export function App() {
 			login(storedData.token, storedData.loginType);
 		}
 	}, [login]);
-
 
 	let Routes;
 	if (token) {
@@ -200,8 +198,9 @@ export function App() {
 				<Route path="/customer/vans">
 					<Vans />
 				</Route>
-				<Route path="/customer/menu"><Menu /></Route>
-
+				<Route path="/customer/menu">
+					<Menu />
+				</Route>
 
 				<Route path="/help">
 					<Help />

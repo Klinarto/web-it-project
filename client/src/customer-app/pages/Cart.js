@@ -22,6 +22,7 @@ import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutl
 import coffeeMachine from "../../images/coffeeMachine.png";
 import { objectIsEmpty } from "../../utilities/Utils";
 
+// Cart page
 export default function Cart() {
 	const history = useHistory();
 	var isUpdate = false;

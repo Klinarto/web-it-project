@@ -14,7 +14,7 @@ import EditProfile from "../components/EditProfile";
 import ChangePassword from "../components/ChangePassword";
 import Button from "@material-ui/core/Button";
 
-// SImple Contact us page
+// My account page
 export function MyAccount() {
 	const [customer, setCustomer] = useState(null);
 	const [edit, setEdit] = useState(false);

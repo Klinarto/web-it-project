@@ -21,6 +21,7 @@ const updateVan = async (req, res) => {
 	}
 };
 
+// add van rating
 const addVanRating = async (req, res) => {
 	try {
 		const { rating, id } = req.body;
@@ -40,6 +41,7 @@ const addVanRating = async (req, res) => {
 	}
 };
 
+// register a new van
 const registerVan = async (req, res) => {
 	const { name, password } = req.body;
 
@@ -56,6 +58,7 @@ const registerVan = async (req, res) => {
 			return res.status(400).send("Van already exists");
 		}
 
+		// the default status is closed
 		van = new Vendor({
 			name,
 			password: hashPassword,
@@ -72,6 +75,7 @@ const registerVan = async (req, res) => {
 	}
 };
 
+// update the vendor password
 const updateVanPassword = async (req, res) => {
 	const { newPassword, password } = req.body;
 	try {
@@ -81,6 +85,8 @@ const updateVanPassword = async (req, res) => {
 			return res.status(404).send("Vendor doesn't exist");
 		}
 
+		// use bcrypt to check if the password sent is the same as the hashed
+		// password
 		const passMatch = await bcrypt.compare(password, vendor.password);
 
 		if (!passMatch) {
@@ -88,6 +94,7 @@ const updateVanPassword = async (req, res) => {
 		}
 		const saltRounds = 10;
 
+		// update the vendor password
 		vendor.password = await bcrypt.hash(newPassword, saltRounds);
 
 		console.log(vendor);
@@ -110,6 +117,7 @@ const updateVanPassword = async (req, res) => {
 	} catch (error) {}
 };
 
+// login vendor
 const loginVendor = async (req, res) => {
 	const { name, password } = req.body;
 	try {
@@ -119,6 +127,8 @@ const loginVendor = async (req, res) => {
 			return res.status(404).send("Vendor doesn't exist");
 		}
 
+		// use bcrypt to check if the password sent is the same as the hashed
+		// password
 		const validPassword = await bcrypt.compare(password, vendor.password);
 
 		if (!validPassword) {
@@ -144,9 +154,12 @@ const loginVendor = async (req, res) => {
 	}
 };
 
+// get all open vendors
 const getVendors = async (req, res) => {
 	try {
-		const vendors = await Vendor.find().select("-password");
+		const vendors = await Vendor.find({ status: { $ne: "closed" } }).select(
+			"-password"
+		);
 		return res.send(vendors);
 	} catch (error) {
 		console.error(error);
