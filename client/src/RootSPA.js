@@ -21,7 +21,6 @@ import Vans from "./customer-app/pages/Vans";
 import Menu from "./customer-app/pages/Menu";
 import OrderHistory from "./customer-app/pages/OrderHistory";
 import Order from "./customer-app/pages/Order";
-import Pickup from "./customer-app/pages/Pickup";
 import Rate from "./customer-app/pages/Rate";
 import Welcome from "./customer-app/pages/Welcome";
 
@@ -139,9 +138,6 @@ export function App() {
 				</Route>
 				<Route path="/customer/menu">
 					<Menu />
-				</Route>
-				<Route path="/customer/pickup">
-					<Pickup />
 				</Route>
 				<Route path="/customer/order">
 					<Order />

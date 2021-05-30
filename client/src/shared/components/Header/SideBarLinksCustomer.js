@@ -57,7 +57,7 @@ export default function SideBarLinks() {
           <ListItemIcon>
             <LocalShippingIcon />
           </ListItemIcon>
-          <ListItemText primary={"Vans (Work In Progress)"} />
+          <ListItemText primary={"Find Vans"} />
         </ListItem>
         {auth.isLoggedIn && (
           <ListItem
@@ -85,34 +85,6 @@ export default function SideBarLinks() {
               <ListAltIcon />
             </ListItemIcon>
             <ListItemText primary={"Orders"} />
-          </ListItem>
-        )}
-        {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"pickup"}
-            onClick={() => {
-              history.push("/customer/pickup");
-            }}
-          >
-            <ListItemIcon>
-              <CheckIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Pickup"} />
-          </ListItem>
-        )}
-        {auth.isLoggedIn && (
-          <ListItem
-            button
-            key={"rate"}
-            onClick={() => {
-              history.push("/customer/rate");
-            }}
-          >
-            <ListItemIcon>
-              <StarsIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Rate"} />
           </ListItem>
         )}
         <Divider />
@@ -159,6 +131,9 @@ export default function SideBarLinks() {
           </ListItem>
         )}
       </List>
+      {!tabletSize && (
+        <Divider />
+      )}
       <List>
         <ListItem
           button
