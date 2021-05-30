@@ -119,12 +119,7 @@ export default function Map(props) {
 				onLoad={onMapLoad}
 			>
 				{displayData()}
-				{
-					selected
-						?
-						""
-						: null
-				}
+
 				{ displayCurrentLocation()}
 			</GoogleMap >
 		);
