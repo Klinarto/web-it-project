@@ -1,16 +1,21 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 93vh;
+  height: 90vh;
   position: relative;
-  display: flex;
+
+  & > * {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 export const TopWrapper = styled.div`
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 16px;
+  padding-top: 16px;
+  width: 100%;
 `;
 export const TopImage = styled.img`
   display: block;
@@ -42,8 +47,7 @@ export const Button = styled.button`
 `;
 
 export const BottomImage = styled.img`
-  position: absolute;
   width: 100%;
-  height: auto;
+  height: 50%;
   bottom: 0%;
 `;

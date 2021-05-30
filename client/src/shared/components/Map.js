@@ -46,7 +46,6 @@ export default function Map(props) {
 
 
 	const mapRef = useRef();
-	const selected = props.selected;
 	const setSelected = props.setSelected;
 	const setOpen = props.setOpen;
 
@@ -120,25 +119,14 @@ export default function Map(props) {
 				onLoad={onMapLoad}
 			>
 				{displayData()}
-				{selected
-					? // <InfoWindow
-					// 	position={{
-					// 		lat: selected.location.lat,
-					// 		lng: selected.location.lng,
-					// 	}}
-					// 	onCloseClick={() => {
-					// 		setSelected(null);
-					// 	}}
-					// >
-					// 	<div>
-					// 		<div><h2>{selected.name}</h2>
-					// 			<p>{selected.locationDetails}</p></div>
-					// 	</div>
-					// </InfoWindow>
-					""
-					: null}
-				{displayCurrentLocation()}
-			</GoogleMap>
+				{
+					selected
+						?
+						""
+						: null
+				}
+				{ displayCurrentLocation()}
+			</GoogleMap >
 		);
 	};
 

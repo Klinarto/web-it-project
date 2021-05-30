@@ -23,10 +23,13 @@ export default function Menu() {
 
 	if (localStorage.getItem("order")) {
 		orderList = JSON.parse(localStorage.getItem("order"));
+		// console.log(orderList);
+		// console.log(order);
 	}
 
 	const [menu, setMenu] = useState(null);
 	const [order, setOrder] = useState(orderList);
+	// console.log(order);
 
 	if (localStorage.getItem("curr_order")) {
 		isUpdate = true;
@@ -46,6 +49,7 @@ export default function Menu() {
 		width: "20",
 		zIndex: 2,
 	};
+
 	const auth = useContext(AuthContext);
 
 	// Render reach menu item.
@@ -53,6 +57,13 @@ export default function Menu() {
 		if (array) {
 			const row = array.map((item, key) => {
 				let quantity = 0;
+				// console.log(item.name, order[item.name]);
+
+				if (order) {
+					if (order[item.name] > 0) {
+						quantity = order[item.name];
+					}
+				}
 
 				return (
 					<MenuItem
@@ -66,26 +77,6 @@ export default function Menu() {
 			return row;
 		}
 	}
-
-	// This chunk of code related to modal might be used for later implementation.
-
-	// Sets up the modal for cart
-	// const useStyles = makeStyles((theme) => ({
-	// 	modal: {
-	// 		display: 'flex',
-	// 		alignItems: 'center',
-	// 		justifyContent: 'center',
-	// 	},
-	// 	paper: {
-	// 		backgroundColor: theme.palette.background.paper,
-	// 		border: '2px solid #000',
-	// 		boxShadow: theme.shadows[5],
-	// 		padding: theme.spacing(2, 4, 3),
-	// 	},
-	// 	}));
-	// const [open, setOpen] = useState(false);
-	// const handleOpen = () => {finalOrder(order); setOpen(true)};
-	// const handleClose = () => {setOpen(false)};
 
 	// Fetch the menu data from the DB and categorise into beverage and food.
 	useEffect(() => {
@@ -115,6 +106,12 @@ export default function Menu() {
 		};
 	}, [menu]);
 
+	useEffect(() => {
+		// localStorage.setItem("order", JSON.stringify(order));
+		console.log(order);
+		return () => {};
+	}, [order]);
+
 	// Take the current state of order when go to cart button is clicked.
 	const finalOrder = (order) => {
 		if (orderUpdate) {
@@ -135,7 +132,7 @@ export default function Menu() {
 				});
 			}
 		}
-		console.log(orderList);
+		// console.log(orderList);
 		localStorage.setItem("price", JSON.stringify(orderPrice));
 		localStorage.setItem("order", JSON.stringify(orderList));
 	};
@@ -179,10 +176,6 @@ export default function Menu() {
 		return null;
 	};
 
-	useEffect(() => {
-		console.log(order);
-		return () => {};
-	}, [order]);
 	return (
 		<Wrapper>
 			<DIV>
@@ -193,38 +186,7 @@ export default function Menu() {
 					<Link to={auth.isLoggedIn ? "/customer/cart" : "/customer/login"}>
 						{displayCart()}
 						{displayUpdate()}
-						{/* <MyButton
-							aria-label="Go to cart"
-							onClick={() => {
-								finalOrder(order);
-							}}
-						>
-							<ShoppingCartIcon />
-						</MyButton> */}
 					</Link>
-					{/* <MyButton 
-						aria-label="Go to cart" 
-						onClick={event =>  window.location.href='./cart'}
-							//handleOpen
-						>
-						<ShoppingCartIcon/>
-					</MyButton> */}
-					{/* <Modal
-						aria-labelledby="transition-modal-title"
-						aria-describedby="transition-modal-description"
-						className={useStyles().modal}
-						open={open}
-						onClose={handleClose}
-						closeAfterTransition
-					>
-						<Fade in={open}>
-						<div className={useStyles().paper}>
-							<h2 id="transition-modal-title">Transition modal</h2>
-							<p id="transition-modal-description"></p>
-							<button onClick={() => makeOrder(orderList)}>send</button>
-						</div>
-						</Fade>
-					</Modal> */}
 				</RightWrapper>
 			</DIV>
 			<h2>Beverage</h2>

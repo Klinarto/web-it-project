@@ -12,7 +12,8 @@ export default function MenuItem(props) {
 	const { item, setOrder } = props;
 	const [open, setOpen] = useState(false);
 	const name = item.name;
-	const [quantity, setQuantity] = useState(0);
+	const [quantity, setQuantity] = useState(props.quantity);
+
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
@@ -32,7 +33,7 @@ export default function MenuItem(props) {
 			}));
 		};
 
-		console.log(quantity);
+		// console.log(quantity);
 
 		if (quantity >= 0) {
 			updateOrder();

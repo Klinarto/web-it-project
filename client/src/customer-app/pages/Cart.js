@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import {
@@ -17,6 +17,8 @@ import {
 	DiscountMessage,
 	MyButton,
 } from "./Cart.style";
+import IconButton from "@material-ui/core/IconButton";
+import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import coffeeMachine from "../../images/coffeeMachine.png";
 import { objectIsEmpty } from "../../utilities/Utils";
 
@@ -28,12 +30,12 @@ export default function Cart() {
 	// This will be replaced with cookie in later version of implementation.
 	const orderList = JSON.parse(localStorage.getItem("order"));
 	const orderPrice = JSON.parse(localStorage.getItem("price"));
-	let orderUpdated = null;
+	const [order, setOrder] = useState(orderList);
+	const [price, setPrice] = useState(orderPrice);
+
 
 	if (localStorage.getItem("curr_order")) {
 		isUpdate = true;
-		orderUpdated = JSON.parse(localStorage.getItem("curr_order"));
-		console.log(orderUpdated);
 	}
 
 	// Organise the order details and send to the database.
@@ -41,8 +43,9 @@ export default function Cart() {
 		try {
 			console.log(order);
 			const userData = JSON.parse(localStorage.getItem("userData"));
+			const vendorData = JSON.parse(localStorage.getItem("vendor"));
 			console.log(userData);
-			const data = { vendorId: "60939f9aa6762b64b82547b3" };
+			const data = { vendorId: vendorData["id"] };
 
 			if (!objectIsEmpty(order)) {
 				data["foodItems"] = order;
@@ -62,14 +65,17 @@ export default function Cart() {
 	};
 
 	const updateOrder = async (order) => {
+		const update = JSON.parse(localStorage.getItem("curr_order"));
 		const userData = JSON.parse(localStorage.getItem("userData"));
 		console.log(userData);
-		const data = { vendorId: orderUpdated["vendorId"]["_Id"] };
-		const orderId = orderUpdated["orderId"];
+		const data = { vendorId: update["vendorId"]["_Id"] };
+		const orderId = update["orderId"];
 		try {
 			if (!objectIsEmpty(order)) {
 				data["foodItems"] = order;
 			}
+			data["orderCost"] = update["orderCost"];
+			data["totalCost"] = update["totalCost"];
 			const res = await axios.put(`/order/${orderId}`, data, {
 				headers: {
 					"Content-Type": "application/json",
@@ -85,10 +91,49 @@ export default function Cart() {
 		return;
 	}
 
+	const filterItem = (order, name) => {
+		let result = {}, key;
+		for (key in order) {
+			if (order[key] && key != name) {
+				result[key] = order[key];
+			}
+		}
+		if (isUpdate) {
+			let updated = JSON.parse(localStorage.getItem("curr_order"));
+			updated["foodItems"] = result;
+			localStorage.setItem("curr_order", JSON.stringify(updated));
+		}
+
+		localStorage.setItem("order", JSON.stringify(result));
+		return result;
+	}
+
+	const filterPrice = (price, name) => {
+		let result = {}, key, orderCost = 0;
+		for (key in price) {
+			if (price[key] && key != name) {
+				result[key] = price[key];
+				orderCost += parseFloat(result[key]);
+			}
+		}
+		const totalCost = orderCost*85/100;
+		if (isUpdate) {
+			let updated = JSON.parse(localStorage.getItem("curr_order"));
+			updated["orderCost"] = orderCost;
+			updated["totalCost"] = totalCost;
+			localStorage.setItem("curr_order", JSON.stringify(updated));
+		}
+
+		localStorage.setItem("price", JSON.stringify(result));
+		return result;
+	}
+
 	var totalPrice = 0;
 	Object.entries(orderPrice).map((item) => {
 		return (totalPrice += parseFloat(item[1]));
 	});
+
+	console.log(order);
 
 	// Render
 	return (
@@ -96,15 +141,31 @@ export default function Cart() {
 			{isUpdate ? <Status>Confirm your update</Status> : <Status>Confirm your order</Status>}
 			<Division>
 				<LeftWrapper>
-					{Object.entries(orderList).map(function (item, key) {
-						return (
-							<OrderList key={key}>
-								<OrderItem>
-									{item[1]} x {item[0]}
-								</OrderItem>
-							</OrderList>
-						);
-					})}
+					{Object.entries(order).map(function (item, key) {
+						if (order[item[0]]) {
+							return (
+								<OrderList key={key}>
+									
+									<OrderItem>
+										{order[item[0]]} x {item[0]}
+									</OrderItem>
+	
+									<IconButton
+									aria-label="Remove"
+									onClick={() => {
+										let newOrder = filterItem(order, item[0]);
+										setOrder(newOrder);
+										let newPrice = filterPrice(price, item[0]);
+										setPrice(newPrice);
+									}}
+								>
+									<RemoveCircleOutlineOutlinedIcon />
+								</IconButton>
+	
+	
+								</OrderList>
+							);
+						}})}
 				</LeftWrapper>
 				<RightWrapper>
 					{Object.entries(orderPrice).map(function (item, key) {
@@ -130,20 +191,37 @@ export default function Cart() {
 			</DivisionBottom>
 			<Logo alt="machine-logo" src={coffeeMachine} />
 			{isUpdate ? 
+				<div>
+					<MyButton
+					onClick={() => { 
+						updateOrder(order);
+						history.push("/customer/orderHistory");
+					}}>
+					Update order
+					</MyButton>
+					
+					<MyButton
+					onClick={() => {
+						history.push("/customer/menu");
+					}}>
+					Back to menu
+					</MyButton>
+				</div>:
+				<div>
 				<MyButton
 				onClick={() => { 
-					updateOrder(orderList);
+					makeOrder(order);
 					history.push("/customer/orderHistory");
 				}}>
-				update order
-				</MyButton> :
-				<MyButton
-				onClick={() => { 
-					makeOrder(orderList);
-					history.push("/customer/orderHistory");
-				}}>
-				make order
+				Make order
 				</MyButton>
+				<MyButton
+					onClick={() => {
+						history.push("/customer/menu");
+					}}>
+					Back to menu
+					</MyButton>
+				</div>
 				}
 			
 		</Container>

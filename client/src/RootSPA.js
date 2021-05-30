@@ -21,7 +21,6 @@ import Vans from "./customer-app/pages/Vans";
 import Menu from "./customer-app/pages/Menu";
 import OrderHistory from "./customer-app/pages/OrderHistory";
 import Order from "./customer-app/pages/Order";
-import Pickup from "./customer-app/pages/Pickup";
 import Rate from "./customer-app/pages/Rate";
 import Welcome from "./customer-app/pages/Welcome";
 
@@ -88,9 +87,10 @@ export function App() {
 		setToken(null);
 		setLoginType(null);
 		setTokenExpDate(null);
-		console.log("Deleting token header");
+		// console.log("Deleting token header");
 		delete axios.defaults.headers.common["x-access-token"];
-		localStorage.removeItem("userData");
+		// localStorage.removeItem("userData");
+		localStorage.clear();
 	}, []);
 
 	useEffect(() => {
@@ -138,9 +138,6 @@ export function App() {
 				</Route>
 				<Route path="/customer/menu">
 					<Menu />
-				</Route>
-				<Route path="/customer/pickup">
-					<Pickup />
 				</Route>
 				<Route path="/customer/order">
 					<Order />

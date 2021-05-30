@@ -108,13 +108,16 @@ const GetTitle = () => {
       </div>
     );
   } else if (location.pathname.includes("/customer")) {
-    return (
-      <div>
-        <Typography variant="h6" className={classes.subTitle}>
-          Customer
-        </Typography>
-      </div>
-    );
+    if (localStorage.getItem("vendor")) {
+      return (
+        <div>
+          <Typography variant="h6" className={classes.subTitle}>
+            {JSON.parse(localStorage.getItem("vendor"))["name"]}
+          </Typography>
+        </div>
+      );
+    }
+    
   } else {
     return;
   }

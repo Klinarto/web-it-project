@@ -9,18 +9,17 @@ import {
 	PopUpRating,
 	SlideDiv,
 	SlideWrapper,
-	VanDescription
+	VanDescription,
 } from "../pages/Vans.style";
 import { Fragment } from "react";
 import { Dialog } from "@material-ui/core";
 import useCurrentLocation from "../../shared/components/useCurrentLocation";
 import { calculateDistance } from "../../utilities/Utils";
-import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css'
+import { Slide } from "react-slideshow-image";
+import "react-slideshow-image/dist/styles.css";
 import bigCake from "../../images/bigcakeCrop.png";
 import cappuccino from "../../images/cappuccinoCrop.png";
 import fancybiscuit from "../../images/fancybiscuit.jpg";
-
 
 export default function SimpleModal() {
 	const [vendors, setVendors] = useState([]);
@@ -31,35 +30,30 @@ export default function SimpleModal() {
 
 	const currentLocation = useCurrentLocation();
 
-	const slideImages = [
-		bigCake,
-		cappuccino,
-		fancybiscuit
-
-	];
+	const slideImages = [bigCake, cappuccino, fancybiscuit];
 
 	const Slideshow = () => {
 		return (
 			<div>
 				<Slide easing="ease">
 					<div className="each-slide">
-						<SlideDiv style={{ 'backgroundImage': `url(${slideImages[0]})` }}>
-						</SlideDiv>
-
+						<SlideDiv
+							style={{ backgroundImage: `url(${slideImages[0]})` }}
+						></SlideDiv>
 					</div>
 					<div className="each-slide">
-						<SlideDiv style={{ 'backgroundImage': `url(${slideImages[1]})` }}>
-						</SlideDiv>
-
+						<SlideDiv
+							style={{ backgroundImage: `url(${slideImages[1]})` }}
+						></SlideDiv>
 					</div>
 					<div className="each-slide">
-						<SlideDiv style={{ 'backgroundImage': `url(${slideImages[2]})` }}>
-						</SlideDiv>
-
+						<SlideDiv
+							style={{ backgroundImage: `url(${slideImages[2]})` }}
+						></SlideDiv>
 					</div>
 				</Slide>
 			</div>
-		)
+		);
 	};
 
 	const handleClose = () => {
@@ -103,8 +97,7 @@ export default function SimpleModal() {
 		for (var i in selected.rating) {
 			total += selected.rating[i];
 		}
-		return (total / selected.rating.length);
-
+		return total / selected.rating.length;
 	};
 
 	const renderRatingStar = () => {
@@ -113,21 +106,21 @@ export default function SimpleModal() {
 		for (var i in selected.rating) {
 			total += selected.rating[i];
 		}
-		if (Math.floor((total / selected.rating.length)) === (total / selected.rating.length)) {
-			output += '★'.repeat(total / selected.rating.length);
-			output += '☆'.repeat(5 - (total / selected.rating.length));
+		if (
+			Math.floor(total / selected.rating.length) ===
+			total / selected.rating.length
+		) {
+			output += "★".repeat(total / selected.rating.length);
+			output += "☆".repeat(5 - total / selected.rating.length);
 			return output;
-
-		}
-		else {
-			output += '★'.repeat(Math.floor((total / selected.rating.length)));
-			output += '☆'.repeat(5 - Math.floor((total / selected.rating.length)));
+		} else {
+			output += "★".repeat(Math.floor(total / selected.rating.length));
+			output += "☆".repeat(5 - Math.floor(total / selected.rating.length));
 			return output;
 		}
-
 	};
 	const renderDialog = () => {
-		if (selected) {
+		if (selected && selected.location != currentLocation) {
 			return (
 				<Dialog
 					open={open}
@@ -137,11 +130,14 @@ export default function SimpleModal() {
 				>
 					<PopUpTitle>{selected.name}</PopUpTitle>
 
-					<SlideWrapper>
-						{Slideshow()}
-					</SlideWrapper>
+					<SlideWrapper>{Slideshow()}</SlideWrapper>
 					<PopUpBody>
-						<PopUpRating>{renderRatingStar()} <span style={{ fontSize: "1.7rem", color: "grey" }}>{renderRating()}/5</span></PopUpRating>
+						<PopUpRating>
+							{renderRatingStar()}{" "}
+							<span style={{ fontSize: "1.7rem", color: "grey" }}>
+								{renderRating()}/5
+							</span>
+						</PopUpRating>
 
 						<VanDescription>
 							<p style={{ fontWeight: "bold" }}>Description:</p>
@@ -149,10 +145,15 @@ export default function SimpleModal() {
 							<p>{renderDistance()}</p>
 						</VanDescription>
 						<Link to={{ pathname: `/customer/menu/` }}>
-							<OrderButton onClick={() => { localStorage.setItem("vendor", JSON.stringify(selected)) }}>Make an order</OrderButton>
+							<OrderButton
+								onClick={() => {
+									localStorage.setItem("vendor", JSON.stringify(selected));
+								}}
+							>
+								Make an order
+							</OrderButton>
 						</Link>
 					</PopUpBody>
-
 				</Dialog>
 			);
 		}
