@@ -9,7 +9,7 @@ context("Actions", () => {
 
   it(".type() - type into a DOM element", () => {
     // https://on.cypress.io/type
-    cy.get('input[id="email"]')
+    cy.get('input[id="van name"]')
       .type("Coffee2Go")
       .should("have.value", "Coffee2Go")
 
@@ -35,6 +35,9 @@ context("Actions", () => {
       .should("have.value", "Anythingaskjdlkvabdsjvbklbdsav");
 
     cy.get("button").contains("open").trigger("mouseover").click();
+    cy.get("a").contains("Logout").trigger("mouseover").click();
+
+    cy.end();
 
     //change status
   });

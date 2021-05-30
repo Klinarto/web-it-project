@@ -1,13 +1,6 @@
 # How to run tests
 
-**Unit test (Jest)**  
-To run unit tests for API, what you have to do is npm test under root directory
-
-- `pwd` Check if you are in `...\project-t05-breakout-room-3\`
-- `cd .\client\` to Move to Front-End project folder
-- `npx jest` to run the test, if this does not work, you can also `npm test`
-
-**Integration test (supertest with Mocha)**  
+**Unit/Component test (supertest with Mocha)**  
 To run integration tests for API, what you have to do is npm test under root directory
 
 - `pwd` Check if you are in `...\project-t05-breakout-room-3`
@@ -15,10 +8,11 @@ To run integration tests for API, what you have to do is npm test under root dir
 
 To run functional tests for API, what you have to do is npm test under root directory
 
-**Functional test (Cypress)**
+**Component test (Cypress)**
 
 - `pwd` Check if you are in `...\project-t05-breakout-room-3\`
 - `cd .\client\` to Move to Front-End project folder
+- Run `npx cypress open` and select which ever test you like OR
 - `npm run cy:run` to run the test, if this does not work, you can also `npm cypress run`
 
 # Breakout Room 3 - Project (Frontend)
