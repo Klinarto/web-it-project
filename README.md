@@ -140,3 +140,4 @@ Dummy Vendor login:
 
 -vanname: Coffee2Go
 -password: hihi
+
