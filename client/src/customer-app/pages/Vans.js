@@ -3,16 +3,24 @@ import Map from "../../shared/components/Map";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {
-	PopUpHeader,
 	PopUpBody,
 	PopUpTitle,
-	PopUpCloseButton,
-	OrderButton
+	OrderButton,
+	PopUpRating,
+	SlideDiv,
+	SlideWrapper,
+	VanDescription
 } from "../pages/Vans.style";
 import { Fragment } from "react";
 import { Dialog } from "@material-ui/core";
 import useCurrentLocation from "../../shared/components/useCurrentLocation";
 import { calculateDistance } from "../../utilities/Utils";
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
+import bigCake from "../../images/bigcakeCrop.png";
+import cappuccino from "../../images/cappuccinoCrop.png";
+import fancybiscuit from "../../images/fancybiscuit.jpg";
+
 
 export default function SimpleModal() {
 	const [vendors, setVendors] = useState([]);
@@ -22,6 +30,37 @@ export default function SimpleModal() {
 	const [open, setOpen] = useState(false);
 
 	const currentLocation = useCurrentLocation();
+
+	const slideImages = [
+		bigCake,
+		cappuccino,
+		fancybiscuit
+
+	];
+
+	const Slideshow = () => {
+		return (
+			<div>
+				<Slide easing="ease">
+					<div className="each-slide">
+						<SlideDiv style={{ 'backgroundImage': `url(${slideImages[0]})` }}>
+						</SlideDiv>
+
+					</div>
+					<div className="each-slide">
+						<SlideDiv style={{ 'backgroundImage': `url(${slideImages[1]})` }}>
+						</SlideDiv>
+
+					</div>
+					<div className="each-slide">
+						<SlideDiv style={{ 'backgroundImage': `url(${slideImages[2]})` }}>
+						</SlideDiv>
+
+					</div>
+				</Slide>
+			</div>
+		)
+	};
 
 	const handleClose = () => {
 		setOpen(false);
@@ -58,12 +97,34 @@ export default function SimpleModal() {
 		}
 		return null;
 	};
+
 	const renderRating = () => {
-		if (selected && selected.location != currentLocation && currentLocation) {
-			const distance = calculateDistance(selected.location, currentLocation);
-			return <p>{distance.toFixed(2)} m away from you</p>;
+		var total = 0;
+		for (var i in selected.rating) {
+			total += selected.rating[i];
 		}
-		return null;
+		return (total / selected.rating.length);
+
+	};
+
+	const renderRatingStar = () => {
+		var total = 0;
+		var output = "";
+		for (var i in selected.rating) {
+			total += selected.rating[i];
+		}
+		if (Math.floor((total / selected.rating.length)) === (total / selected.rating.length)) {
+			output += '★'.repeat(total / selected.rating.length);
+			output += '☆'.repeat(5 - (total / selected.rating.length));
+			return output;
+
+		}
+		else {
+			output += '★'.repeat(Math.floor((total / selected.rating.length)));
+			output += '☆'.repeat(5 - Math.floor((total / selected.rating.length)));
+			return output;
+		}
+
 	};
 	const renderDialog = () => {
 		if (selected) {
@@ -74,22 +135,23 @@ export default function SimpleModal() {
 					aria-labelledby="simple-modal-title"
 					aria-describedby="simple-modal-description"
 				>
-					<PopUpHeader>
-						<PopUpTitle>{selected.name}</PopUpTitle>
-						<PopUpCloseButton onClick={handleClose}>&times;</PopUpCloseButton>
-					</PopUpHeader>
+					<PopUpTitle>{selected.name}</PopUpTitle>
+
+					<SlideWrapper>
+						{Slideshow()}
+					</SlideWrapper>
 					<PopUpBody>
-						<p>{selected.locationDetails}</p>
-						{renderDistance()}
-						<p>{selected.rating}</p>
+						<PopUpRating>{renderRatingStar()} <span style={{ fontSize: "1.7rem", color: "grey" }}>{renderRating()}/5</span></PopUpRating>
+
+						<VanDescription>
+							<p style={{ fontWeight: "bold" }}>Description:</p>
+							<p>{selected.locationDetails}</p>
+							<p>{renderDistance()}</p>
+						</VanDescription>
+						<Link to={{ pathname: `/customer/menu/` }}>
+							<OrderButton onClick={() => { localStorage.setItem(JSON.stringify(selected)) }}>Make an order</OrderButton>
+						</Link>
 					</PopUpBody>
-
-					<Link
-						to={{ pathname: `/customer/menu/` }}
-
-					><OrderButton onClick={() => { localStorage.setItem("vendor", JSON.stringify(selected)) }}>Make an order</OrderButton>
-
-					</Link>
 
 				</Dialog>
 			);
