@@ -6,7 +6,6 @@ import {
 	Edit,
 	ButDiv,
 	BackDiv,
-	Line,
 	Division,
 } from "../pages/MyAccount.style";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -18,7 +17,6 @@ export default function ChangePassword({ changePassword }) {
 	const [currPass, setCurrPass] = useState("");
 	const [newPass, setNewPass] = useState("");
 	const [confirmPass, setConfirmPass] = useState("");
-	const [same, setSame] = useState(false);
 
 	// open state for materialUI snackbar
 	const [open, setOpen] = useState(false);
@@ -90,9 +88,6 @@ export default function ChangePassword({ changePassword }) {
 		}
 	};
 
-	function differentPassword() {
-		setSame(true);
-	}
 
 	return (
 		<Division>
@@ -150,11 +145,6 @@ export default function ChangePassword({ changePassword }) {
 				</Grid>
 			</Grid>
 
-			{same ? (
-				<Line>Password is Same</Line>
-			) : (
-				<Line>Passwords are different</Line>
-			)}
 			<ButDiv>
 				<BackDiv>
 					<ArrowBackIosIcon onClick={() => changePassword()}></ArrowBackIosIcon>
@@ -163,9 +153,13 @@ export default function ChangePassword({ changePassword }) {
 					<Button
 						variant="contained"
 						color="primary"
+						disabled={
+							newPass.length === 0 ||
+							confirmPass!==newPass ||
+							passwordHelper.length !== 0
+						}
 						onClick={() => {
 							if (confirmPass === newPass) {
-								differentPassword();
 								updatePassword(
 									`{"newPassword":"${newPass}","password":"${currPass}"}`
 								);
