@@ -5,10 +5,10 @@ import React, {
 	useCallback,
 	useRef,
 } from "react";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker, useLoadScript, InfoWindow } from "@react-google-maps/api";
 import mapStyle from "../../utilities/Mapstyle";
 import useCurrentLocation from "./useCurrentLocation";
-// import { calculateDistance } from "../../utilities/Utils";
+import currentLocationMarker from "../../images/currentLocat.png";
 
 export default function Map(props) {
 	// used to center map, default center is Melbourne
@@ -20,6 +20,7 @@ export default function Map(props) {
 	const currentLocation = useCurrentLocation();
 
 	const [data, setData] = useState(null);
+
 
 	// from @react-google-maps/api
 	const { isLoaded, loadError } = useLoadScript({
@@ -42,30 +43,13 @@ export default function Map(props) {
 		// width: "100%",
 	};
 
+
+
 	const mapRef = useRef();
 	const selected = props.selected;
 	const setSelected = props.setSelected;
 	const setOpen = props.setOpen;
 
-	// const getCurrentLocation = useCallback(() => {
-	// 	if ("geolocation" in navigator) {
-	// 		navigator.geolocation.getCurrentPosition(
-	// 			(position) => {
-	// 				const location = {
-	// 					lat: position.coords.latitude,
-	// 					lng: position.coords.longitude,
-	// 				};
-	// 				setCurrentLocation(location);
-	// 			},
-	// 			(error) => {
-	// 				console.warn(`Error(${error.code}): ${error.message}`);
-	// 			},
-	// 			{ enableHighAccuracy: true, timeout: 5000 }
-	// 		);
-	// 	} else {
-	// 		console.log("Geolocation is not available");
-	// 	}
-	// }, []);
 
 	useEffect(() => {
 		let mounted = true;
@@ -74,7 +58,7 @@ export default function Map(props) {
 			setData(props.data);
 			// console.log(data);
 		}
-		return () => {};
+		return () => { };
 	}, [props.data, data]);
 
 	useEffect(() => {
@@ -83,7 +67,7 @@ export default function Map(props) {
 		} else {
 			setCenter({ lat: -37.8136, lng: 144.9631 });
 		}
-		return () => {};
+		return () => { };
 	}, [currentLocation]);
 
 	// when the map loads, create a ref to the map to avoid re-renders
@@ -91,19 +75,17 @@ export default function Map(props) {
 		mapRef.current = map;
 	}, []);
 
+
+
+
+
 	const displayCurrentLocation = () => {
 		if (currentLocation) {
 			return (
 				<Marker
-					title={"Current location"}
+					title={"You are here!"}
 					position={currentLocation}
-					onClick={() => {
-						setSelected({
-							location: currentLocation,
-							name: "current location",
-							locationDetails: "",
-						});
-					}}
+					icon={{ url: currentLocationMarker, scaledSize: new window.google.maps.Size(30, 40) }}
 				/>
 			);
 		}
@@ -140,20 +122,20 @@ export default function Map(props) {
 				{displayData()}
 				{selected
 					? // <InfoWindow
-					  // 	position={{
-					  // 		lat: selected.location.lat,
-					  // 		lng: selected.location.lng,
-					  // 	}}
-					  // 	onCloseClick={() => {
-					  // 		setSelected(null);
-					  // 	}}
-					  // >
-					  // 	<div>
-					  // 		<div><h2>{selected.name}</h2>
-					  // 			<p>{selected.locationDetails}</p></div>
-					  // 	</div>
-					  // </InfoWindow>
-					  ""
+					// 	position={{
+					// 		lat: selected.location.lat,
+					// 		lng: selected.location.lng,
+					// 	}}
+					// 	onCloseClick={() => {
+					// 		setSelected(null);
+					// 	}}
+					// >
+					// 	<div>
+					// 		<div><h2>{selected.name}</h2>
+					// 			<p>{selected.locationDetails}</p></div>
+					// 	</div>
+					// </InfoWindow>
+					""
 					: null}
 				{displayCurrentLocation()}
 			</GoogleMap>
