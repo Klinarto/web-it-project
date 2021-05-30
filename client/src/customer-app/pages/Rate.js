@@ -30,6 +30,8 @@ export function Rate(props) {
 					style={{
 						color: "black",
 						transform: "scale(1.5)",
+						display: "flex",
+						justifyContent: "center",
 					}}
 					onChange={(event, newValue) => {
 						setValue(newValue);
